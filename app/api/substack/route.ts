@@ -9,8 +9,8 @@ export async function GET() {
       headers: {
         "User-Agent": "CappaWork-Website/1.0",
       },
-      // Cache for 1 hour
-      next: { revalidate: 3600 },
+      // Add cache control headers
+      cache: 'force-cache',
     })
 
     if (!response.ok) {
@@ -22,7 +22,11 @@ export async function GET() {
     // Parse XML to extract post data
     const posts = parseRSSFeed(xmlText)
 
-    return NextResponse.json(posts)
+    return NextResponse.json(posts, {
+      headers: {
+        'Cache-Control': 'public, max-age=86400', // Cache for 24 hours
+      },
+    })
   } catch (error) {
     console.error("Error fetching Substack RSS:", error)
     return NextResponse.json({ error: "Failed to fetch posts" }, { status: 500 })
@@ -30,16 +34,18 @@ export async function GET() {
 }
 
 function parseRSSFeed(xmlText: string) {
-  // Simple XML parsing - in production, you might want to use a proper XML parser
-  const items = xmlText.match(/<item>(.*?)<\/item>/gs) || []
+  // Simple XML parsing - using compatible regex flags
+  const itemMatches = xmlText.match(/<item>[\s\S]*?<\/item>/g) || []
 
-  return items.slice(0, 3).map((item, index) => {
+  return itemMatches.slice(0, 3).map((item, index) => {
     const title =
-      item.match(/<title><!\[CDATA\[(.*?)\]\]><\/title>/)?.[1] || item.match(/<title>(.*?)<\/title>/)?.[1] || "Untitled"
+      item.match(/<title><!\[CDATA\[(.*?)\]\]><\/title>/)?.[1] || 
+      item.match(/<title>(.*?)<\/title>/)?.[1] || 
+      "Untitled"
 
     const description =
-      item.match(/<description><!\[CDATA\[(.*?)\]\]><\/description>/)?.[1] ||
-      item.match(/<description>(.*?)<\/description>/)?.[1] ||
+      item.match(/<description><!\[CDATA\[([\s\S]*?)\]\]><\/description>/)?.[1] ||
+      item.match(/<description>([\s\S]*?)<\/description>/)?.[1] ||
       ""
 
     const link = item.match(/<link>(.*?)<\/link>/)?.[1] || ""
@@ -62,3 +68,6 @@ function parseRSSFeed(xmlText: string) {
     }
   })
 }
+
+// Add revalidation for Next.js App Router
+export const revalidate = 86400 // 24 hours

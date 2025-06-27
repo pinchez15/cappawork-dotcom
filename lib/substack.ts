@@ -1,3 +1,8 @@
+/**
+ * Substack RSS feed integration
+ * Handles fetching and parsing of blog posts from Substack RSS feed
+ */
+
 export interface SubstackPost {
   title: string
   excerpt: string
@@ -8,37 +13,80 @@ export interface SubstackPost {
 
 export async function getSubstackPosts(): Promise<SubstackPost[]> {
   try {
-    // Substack RSS feed URL
-    const rssUrl = "https://natepinches.substack.com/feed"
-
-    // Use a CORS proxy or RSS-to-JSON service for client-side requests
-    // For production, you'd want to use this in a server component or API route
-    const response = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`)
+    // Use our secure server-side API route instead of third-party service
+    // This works in Server Components (which blog.tsx is)
+    const baseUrl = process.env.VERCEL_URL 
+      ? `https://${process.env.VERCEL_URL}` 
+      : process.env.NODE_ENV === 'development' 
+        ? 'http://localhost:3000' 
+        : 'https://cappawork.com'
+        
+    const response = await fetch(`${baseUrl}/api/substack`, {
+      // Use Next.js 13+ fetch options for server components
+      cache: 'force-cache',
+      next: { 
+        revalidate: 86400 // 24 hours - this is valid in server components
+      }
+    })
 
     if (!response.ok) {
-      throw new Error("Failed to fetch RSS feed")
+      console.warn('Failed to fetch posts from API route, using fallback')
+      return getFallbackPosts()
     }
 
-    const data = await response.json()
+    const posts = await response.json()
+    
+    // Validate the response structure
+    if (!Array.isArray(posts)) {
+      console.warn('Invalid response format, using fallback')
+      return getFallbackPosts()
+    }
 
-    return data.items.slice(0, 3).map((item: any) => ({
-      title: item.title,
-      excerpt: stripHtml(item.description).substring(0, 200) + "...",
-      publishedDate: item.pubDate,
-      url: item.link,
-      guid: item.guid,
+    return posts.slice(0, 3).map((item: any) => ({
+      title: sanitizeString(item.title || 'Untitled'),
+      excerpt: sanitizeString(item.excerpt || 'No excerpt available'),
+      publishedDate: item.publishedDate || new Date().toISOString(),
+      url: sanitizeUrl(item.url || ''),
+      guid: item.guid || `fallback-${Date.now()}`,
     }))
   } catch (error) {
-    console.error("Error fetching Substack posts:", error)
-    // Return fallback data if RSS fetch fails
+    console.error('Error fetching Substack posts:', error)
+    // Return secure fallback data if API fails
     return getFallbackPosts()
   }
 }
 
-function stripHtml(html: string): string {
-  return html.replace(/<[^>]*>/g, "").trim()
+/**
+ * Sanitize string input to prevent XSS
+ */
+function sanitizeString(input: string): string {
+  return input
+    .replace(/[<>]/g, '') // Remove potential HTML tags
+    .trim()
+    .substring(0, 500) // Limit length
 }
 
+/**
+ * Sanitize URL to ensure it's a valid HTTPS URL
+ */
+function sanitizeUrl(url: string): string {
+  try {
+    const parsedUrl = new URL(url)
+    // Only allow HTTPS URLs from trusted domains
+    if (parsedUrl.protocol === 'https:' && 
+        (parsedUrl.hostname === 'natepinches.substack.com' || 
+         parsedUrl.hostname === 'substack.com')) {
+      return parsedUrl.toString()
+    }
+  } catch {
+    // Invalid URL
+  }
+  return 'https://natepinches.substack.com'
+}
+
+/**
+ * Secure fallback posts with static content
+ */
 function getFallbackPosts(): SubstackPost[] {
   return [
     {
