@@ -10,7 +10,7 @@ export default function CTASection() {
         </p>
 
         <a
-                      href="https://calendly.com/simplestrategies/discovery_call"
+          href="https://calendly.com/cappawork/discovery_call"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-3 bg-stone-900 text-stone-50 px-8 py-4 rounded-sm font-medium hover:bg-stone-800 transition-all duration-200 group"
