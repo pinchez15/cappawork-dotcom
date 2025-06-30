@@ -13,15 +13,21 @@ export interface SubstackPost {
 
 export async function getSubstackPosts(): Promise<SubstackPost[]> {
   try {
-    // Use our secure server-side API route instead of third-party service
-    // This works in Server Components (which blog.tsx is)
-    const baseUrl = process.env.VERCEL_URL 
-      ? `https://${process.env.VERCEL_URL}` 
-      : process.env.NODE_ENV === 'development' 
-        ? 'http://localhost:3000' 
-        : 'https://cappawork.com'
+    // Try multiple approaches to get the correct URL
+    let apiUrl: string
+    
+    if (process.env.NODE_ENV === 'development') {
+      apiUrl = 'http://localhost:3000/api/substack'
+    } else {
+      // In production, try different approaches
+      const vercelUrl = process.env.VERCEL_URL
+      const baseUrl = vercelUrl ? `https://${vercelUrl}` : 'https://cappawork-dotcom.vercel.app'
+      apiUrl = `${baseUrl}/api/substack`
+    }
         
-    const response = await fetch(`${baseUrl}/api/substack`, {
+    console.log('Fetching RSS from:', apiUrl) // Debug log
+        
+    const response = await fetch(apiUrl, {
       // Use Next.js 13+ fetch options for server components
       cache: 'force-cache',
       next: { 

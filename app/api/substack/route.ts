@@ -3,24 +3,31 @@ import { NextResponse } from "next/server"
 export async function GET() {
   try {
     const rssUrl = "https://natepinches.substack.com/feed"
+    
+    console.log('API Route: Fetching RSS from:', rssUrl) // Debug log
 
     // Fetch the RSS feed directly from the server
     const response = await fetch(rssUrl, {
       headers: {
         "User-Agent": "CappaWork-Website/1.0",
       },
-      // Add cache control headers
-      cache: 'force-cache',
+      // Remove cache for debugging
+      // cache: 'force-cache',
     })
 
+    console.log('RSS Response status:', response.status) // Debug log
+
     if (!response.ok) {
-      throw new Error("Failed to fetch RSS feed")
+      console.error('RSS fetch failed with status:', response.status)
+      throw new Error(`Failed to fetch RSS feed: ${response.status}`)
     }
 
     const xmlText = await response.text()
+    console.log('RSS XML length:', xmlText.length) // Debug log
 
     // Parse XML to extract post data
     const posts = parseRSSFeed(xmlText)
+    console.log('Parsed posts count:', posts.length) // Debug log
 
     return NextResponse.json(posts, {
       headers: {
@@ -29,7 +36,10 @@ export async function GET() {
     })
   } catch (error) {
     console.error("Error fetching Substack RSS:", error)
-    return NextResponse.json({ error: "Failed to fetch posts" }, { status: 500 })
+    return NextResponse.json({ 
+      error: "Failed to fetch posts", 
+      details: error instanceof Error ? error.message : 'Unknown error'
+    }, { status: 500 })
   }
 }
 
