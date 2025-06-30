@@ -11,6 +11,7 @@ interface PortfolioItem {
   status: "retired" | "active" | "WIP"
   cardDescription: string
   fullDescription: string
+  modalTitle?: string
   icon: any
   color: string
   link?: string
@@ -26,47 +27,50 @@ export default function Portfolio() {
     {
       name: "CappaWork Planner",
       status: "retired",
-      cardDescription: "A digital planner that integrated monastic hours with modern task management.",
+      cardDescription: "A 90-Day Goal Planner for Ambitious Christians",
+      modalTitle: "A 90-Day Goal Planner for Ambitious Christians",
       fullDescription:
-        "CappaWork Planner was our first attempt at building tools that honor both productivity and contemplation. This digital planner integrated traditional monastic hours with modern task management, helping users establish sustainable rhythms of work and rest. While retired, it taught us valuable lessons about the intersection of technology and spiritual practice that inform all our current work.",
+        "The CappaWork Planner was created for Christians who wanted structure in their work, clarity in their calling, and growth in their spiritual life. It helped users set one clear 90-day goal and take daily steps toward it—combining proven productivity habits with timeless Christian practices.\n\nEach day started with Scripture and planning. Each evening ended with a brief examen. The goal wasn't just efficiency—it was alignment with God's purpose.\n\nEvery detail was crafted with care: from the bleed-proof paper to the vegan leather cover. It was designed to be used, carried, and returned to day after day.\n\nThough it's been sunset due to unit economics, the Planner remains a core expression of CappaWork's mission: to build useful, beautiful tools that help people flourish in faith and work.",
       icon: Clock,
       color: "text-amber-600",
       images: [
-        "/placeholder.svg?height=300&width=400&text=Planner+Dashboard",
-        "/placeholder.svg?height=300&width=400&text=Daily+Schedule",
-        "/placeholder.svg?height=300&width=400&text=Prayer+Times",
-        "/placeholder.svg?height=300&width=400&text=Task+Management",
+        "/CW_homepage.png",
+        "/CW_Productphotos.png", 
+        "/CW_buypage.png",
+        "/CW_reviews.png",
       ],
     },
     {
       name: "WorkPortfolio",
       status: "active",
       cardDescription: "Simple, beautiful portfolios for generalists and independent workers.",
+      modalTitle: "Simple, beautiful portfolios for generalists and independent workers.",
       fullDescription:
-        "WorkPortfolio addresses the unique challenge faced by generalists and independent workers: how to showcase diverse skills and projects in a cohesive, professional manner. Built with simplicity and flexibility in mind, it allows users to create beautiful, responsive portfolios without the complexity of traditional website builders. The platform emphasizes storytelling over flashy design, helping users communicate their value clearly and authentically.",
+        "WorkPortfolio addresses the unique challenge faced by generalists and independent workers: how to showcase diverse skills and projects in a cohesive, professional manner. \n\nBuilt with simplicity and flexibility in mind, it allows users to create beautiful, responsive portfolios without the complexity of traditional website builders. \n\nThe platform emphasizes storytelling over flashy design, helping users show their value clearly and authentically.",
       icon: Users,
       color: "text-blue-600",
       link: "https://workportfolio.com",
       images: [
-        "/placeholder.svg?height=300&width=400&text=Portfolio+Builder",
-        "/placeholder.svg?height=300&width=400&text=Template+Gallery",
-        "/placeholder.svg?height=300&width=400&text=Project+Showcase",
-        "/placeholder.svg?height=300&width=400&text=Mobile+View",
+        "/WP1.png",
+        "/WP2.png",
+        "/WP3.png",
+        "/WP4.png",
       ],
     },
     {
       name: "Chef",
       status: "WIP",
-      cardDescription: "AI-powered meal planning that brings families together around real food.",
+      cardDescription: "Cook Better Meals. Build Stronger Families.",
+      modalTitle: "Cook Better Meals. Build Stronger Families.",
       fullDescription:
-        "Chef is our exploration into how AI can support family life and real food preparation. Rather than promoting convenience at all costs, Chef helps families plan meals that bring people together around the table. It considers seasonal ingredients, dietary restrictions, cooking skill levels, and time constraints to suggest recipes that nourish both body and relationships. Currently in development, it represents our vision for technology that serves human flourishing rather than efficiency alone.",
+        "Chef is a quiet, thoughtful recipe app designed to help you feed the people you love—without the noise, ads, or endless scrolling. It helps you remember what works for your family, so you can make healthy, simple meals again and again—with confidence.\n\nWith Chef, anyone can learn to cook well. You don't need to be a pro. You just need something that listens. Chef adapts to dietary needs, picky eaters, and the real rhythms of family life. It remembers your edits—\"less salt,\" \"no dairy,\" \"more garlic\"—and becomes your personal cookbook.\n\nYou spend less time searching for recipes, and more time cooking them together.\n\nChef helps restore peace to the kitchen, one meal at a time. \n\n Coming soon",
       icon: Utensils,
       color: "text-green-600",
       images: [
-        "/placeholder.svg?height=300&width=400&text=Recipe+Assistant",
-        "/placeholder.svg?height=300&width=400&text=Meal+Planning",
-        "/placeholder.svg?height=300&width=400&text=Family+Preferences",
-        "/placeholder.svg?height=300&width=400&text=Shopping+Lists",
+        "/Chef1.png",
+        "/Chef2.png",
+        "/Chef3.png",
+        "/Chef4.png",
       ],
     },
   ]
@@ -159,7 +163,7 @@ export default function Portfolio() {
                       alt={`${product.name} preview ${currentCardImageIndex + 1}`}
                       width={400}
                       height={300}
-                      className="w-full h-full object-cover"
+                      className={`w-full h-full ${product.name === 'Chef' ? 'object-contain bg-stone-50' : 'object-cover'}`}
                     />
 
                     {/* Image Navigation */}
@@ -271,7 +275,7 @@ export default function Portfolio() {
                     alt={`${selectedProject.name} screenshot ${currentImageIndex + 1}`}
                     width={600}
                     height={400}
-                    className="w-full h-full object-cover"
+                    className={`w-full h-full ${selectedProject.name === 'Chef' ? 'object-contain bg-stone-50' : 'object-cover'}`}
                   />
                 </div>
 
@@ -311,8 +315,22 @@ export default function Portfolio() {
               </div>
 
               {/* Description */}
-              <div className="prose prose-stone max-w-none mb-6">
-                <p className="text-stone-700 leading-relaxed text-lg">{selectedProject.fullDescription}</p>
+              <div className="mb-6">
+                {/* Modal Title */}
+                {selectedProject.modalTitle && (
+                  <h3 className="text-xl font-bold text-stone-900 mb-4 leading-tight">
+                    {selectedProject.modalTitle}
+                  </h3>
+                )}
+                
+                {/* Format description with proper paragraphs */}
+                <div className="prose prose-stone max-w-none">
+                  {selectedProject.fullDescription.split('\n\n').map((paragraph, index) => (
+                    <p key={index} className="text-stone-700 leading-relaxed text-lg mb-4 last:mb-0">
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
               </div>
 
               {/* Link */}

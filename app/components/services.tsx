@@ -73,7 +73,8 @@ export default function Services() {
         </div>
 
         <div className="text-center">
-          <p className="text-stone-600 italic">Built with tools like V0, Supabase, OpenAI, Tailwind, and Next.js.</p>
+          <p className="text-stone-600 italic">We use Cursor, v0, Supabase, Vercel, OpenAI and Claude.</p>
+          <p className="text-stone-600 italic">We work in Next.js, Tailwind, and ShadCN.</p>
         </div>
       </div>
     </section>
