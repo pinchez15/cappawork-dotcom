@@ -13,38 +13,34 @@ export interface SubstackPost {
 
 export async function getSubstackPosts(): Promise<SubstackPost[]> {
   try {
-    // Try multiple approaches to get the correct URL
-    let apiUrl: string
+    const rssUrl = "https://natepinches.substack.com/feed"
     
-    if (process.env.NODE_ENV === 'development') {
-      apiUrl = 'http://localhost:3000/api/substack'
-    } else {
-      // In production, try different approaches
-      const vercelUrl = process.env.VERCEL_URL
-      const baseUrl = vercelUrl ? `https://${vercelUrl}` : 'https://cappawork-dotcom.vercel.app'
-      apiUrl = `${baseUrl}/api/substack`
-    }
-        
-    console.log('Fetching RSS from:', apiUrl) // Debug log
-        
-    const response = await fetch(apiUrl, {
-      // Use Next.js 13+ fetch options for server components
-      cache: 'force-cache',
-      next: { 
-        revalidate: 86400 // 24 hours - this is valid in server components
-      }
+    console.log('Fetching RSS directly from:', rssUrl)
+
+    // Fetch RSS feed directly from Substack
+    const response = await fetch(rssUrl, {
+      headers: {
+        "User-Agent": "CappaWork-Website/1.0",
+        "Accept": "application/rss+xml, application/xml, text/xml",
+      },
+      // Cache for 1 hour to avoid hitting Substack too frequently
+      next: { revalidate: 3600 }
     })
 
     if (!response.ok) {
-      console.warn('Failed to fetch posts from API route, using fallback')
+      console.warn(`RSS fetch failed with status: ${response.status}`)
       return getFallbackPosts()
     }
 
-    const posts = await response.json()
-    
-    // Validate the response structure
-    if (!Array.isArray(posts)) {
-      console.warn('Invalid response format, using fallback')
+    const xmlText = await response.text()
+    console.log('RSS XML fetched successfully, length:', xmlText.length)
+
+    // Parse the RSS feed
+    const posts = parseRSSFeed(xmlText)
+    console.log('Parsed posts count:', posts.length)
+
+    if (posts.length === 0) {
+      console.warn('No posts found in RSS feed, using fallback')
       return getFallbackPosts()
     }
 
@@ -57,8 +53,51 @@ export async function getSubstackPosts(): Promise<SubstackPost[]> {
     }))
   } catch (error) {
     console.error('Error fetching Substack posts:', error)
-    // Return secure fallback data if API fails
     return getFallbackPosts()
+  }
+}
+
+/**
+ * Parse RSS XML feed and extract post data
+ */
+function parseRSSFeed(xmlText: string) {
+  try {
+    // Extract items from RSS feed
+    const itemMatches = xmlText.match(/<item>[\s\S]*?<\/item>/g) || []
+
+    return itemMatches.map((item, index) => {
+      const title =
+        item.match(/<title><!\[CDATA\[(.*?)\]\]><\/title>/)?.[1] || 
+        item.match(/<title>(.*?)<\/title>/)?.[1] || 
+        "Untitled"
+
+      const description =
+        item.match(/<description><!\[CDATA\[([\s\S]*?)\]\]><\/description>/)?.[1] ||
+        item.match(/<description>([\s\S]*?)<\/description>/)?.[1] ||
+        ""
+
+      const link = item.match(/<link>(.*?)<\/link>/)?.[1] || ""
+      const pubDate = item.match(/<pubDate>(.*?)<\/pubDate>/)?.[1] || new Date().toISOString()
+      const guid = item.match(/<guid.*?>(.*?)<\/guid>/)?.[1] || `post-${index}`
+
+      // Strip HTML tags and create excerpt
+      const excerpt = description
+        .replace(/<[^>]*>/g, "")
+        .replace(/&[^;]+;/g, "") // Remove HTML entities
+        .trim()
+        .substring(0, 200)
+
+      return {
+        title: title.trim(),
+        excerpt: excerpt + (excerpt.length >= 200 ? "..." : ""),
+        publishedDate: pubDate,
+        url: link.trim(),
+        guid,
+      }
+    })
+  } catch (error) {
+    console.error('Error parsing RSS feed:', error)
+    return []
   }
 }
 
