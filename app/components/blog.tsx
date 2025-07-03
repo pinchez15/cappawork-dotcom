@@ -3,7 +3,7 @@ import { getSubstackPosts } from "@/lib/substack"
 
 export default async function Blog() {
   // Add error handling for the async data fetching
-  let blogPosts
+  let blogPosts: Array<any>
   try {
     blogPosts = await getSubstackPosts()
   } catch (error) {

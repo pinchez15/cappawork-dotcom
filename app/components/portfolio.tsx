@@ -8,7 +8,7 @@ import Image from "next/image"
 
 interface PortfolioItem {
   name: string
-  status: "retired" | "active" | "WIP"
+  status: "retired" | "active" | "WIP" | "coming soon"
   cardDescription: string
   fullDescription: string
   modalTitle?: string
@@ -42,7 +42,7 @@ export default function Portfolio() {
     },
     {
       name: "WorkPortfolio",
-      status: "active",
+      status: "coming soon",
       cardDescription: "Simple, beautiful portfolios for generalists and independent workers.",
       modalTitle: "Simple, beautiful portfolios for generalists and independent workers.",
       fullDescription:
@@ -206,10 +206,12 @@ export default function Portfolio() {
                             ? "bg-green-100 text-green-700"
                             : product.status === "WIP"
                               ? "bg-yellow-100 text-yellow-700"
-                              : "bg-stone-200 text-stone-600"
+                              : product.status === "coming soon"
+                                ? "bg-yellow-100 text-yellow-700"
+                                : "bg-stone-200 text-stone-600"
                         }`}
                       >
-                        {product.status}
+                        {product.status === "coming soon" ? "Coming Soon" : product.status}
                       </span>
                     </div>
 
@@ -249,10 +251,12 @@ export default function Portfolio() {
                         ? "bg-green-100 text-green-700"
                         : selectedProject.status === "WIP"
                           ? "bg-yellow-100 text-yellow-700"
-                          : "bg-stone-200 text-stone-600"
+                          : selectedProject.status === "coming soon"
+                            ? "bg-yellow-100 text-yellow-700"
+                            : "bg-stone-200 text-stone-600"
                     }`}
                   >
-                    {selectedProject.status}
+                    {selectedProject.status === "coming soon" ? "Coming Soon" : selectedProject.status}
                   </span>
                 </div>
               </div>

@@ -43,13 +43,12 @@ export default function Hero() {
       <section id="hero" className="min-h-screen flex items-center justify-center pt-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-light text-stone-900 mb-6 leading-tight">
-            We Build Products That Help
-            <br />
-            <span className="font-medium">People Flourish</span>
+            Build the Product That's Been on Your Mind
           </h1>
 
           <p className="text-lg sm:text-xl text-stone-600 mb-12 max-w-2xl mx-auto leading-relaxed">
-            CappaWork is a Catholic product development agency. We build our own tools—and yours too.
+            You bring the vision. We help you make it real.<br /><br />
+            CappaWork is a Catholic product development agency. We help founders and businesses turn good ideas into working products—quickly, clearly, and without compromise.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
@@ -57,7 +56,7 @@ export default function Hero() {
               onClick={openContactForm}
               className="group bg-stone-900 text-stone-50 px-8 py-4 rounded-sm font-medium hover:bg-stone-800 transition-all duration-200 flex items-center gap-2"
             >
-              Let's Build Yours
+              Start Your Build
               <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
             </button>
 
@@ -65,17 +64,17 @@ export default function Hero() {
               onClick={scrollToPortfolio}
               className="text-stone-700 px-8 py-4 font-medium hover:text-stone-900 transition-colors border border-stone-300 rounded-sm hover:border-stone-400"
             >
-              Explore Our Work
+              See What We've Built
             </button>
           </div>
 
-          <button
-            onClick={scrollToPortfolio}
-            className="text-stone-400 hover:text-stone-600 transition-colors animate-bounce"
-            aria-label="Scroll to portfolio"
-          >
-            <ChevronDown size={32} />
-          </button>
+          <h2 className="text-2xl sm:text-3xl font-serif font-light text-stone-900 mb-4">A Product Development Partner That Moves Like a Founder</h2>
+          <p className="text-lg text-stone-600 max-w-2xl mx-auto mb-8">
+            You don't need another dev shop.<br />
+            You need someone who thinks like a builder and acts like an owner.<br /><br />
+            We work with purpose-driven businesses and non-profits to design and launch products that serve others, and do it well. From early prototypes to full product launches, we bring the momentum, clarity, and technical ability you need to move forward.<br /><br />
+            Whether you're shaping a new internal tool, testing a product idea, or building something that's been sitting in your notebook for months, we'll help you ship it.
+          </p>
         </div>
       </section>
 
