@@ -70,9 +70,11 @@ export default function Services() {
         <div className="text-center mb-8">
           <p className="text-stone-600 text-lg mb-2">Tools we use: v0, Supabase, Next.js, OpenAI, Tailwind, Vercel.</p>
           <p className="text-stone-600 text-lg mb-6">Approach we take: thoughtful, fast, deeply human.</p>
-          <button className="group bg-stone-900 text-stone-50 px-8 py-4 rounded-sm font-medium hover:bg-stone-800 transition-all duration-200 flex items-center gap-2">
-            Book a Discovery Call
-          </button>
+          <div className="flex justify-center w-full">
+            <button className="group bg-stone-900 text-stone-50 px-8 py-4 rounded-sm font-medium hover:bg-stone-800 transition-all duration-200 flex items-center gap-2">
+              Book a Discovery Call
+            </button>
+          </div>
         </div>
       </div>
     </section>
