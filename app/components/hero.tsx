@@ -43,7 +43,7 @@ export default function Hero() {
       <section id="hero" className="min-h-screen flex items-center justify-center pt-16 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-light text-stone-900 mb-6 leading-tight">
-            Build the Product. Ship the App. We can help.
+            Build the Product. Ship the App.<br />We can help.
           </h1>
           <p className="text-lg sm:text-xl text-stone-600 mb-12 max-w-2xl mx-auto leading-relaxed">
             You bring the vision. We help you make it real.<br /><br />
