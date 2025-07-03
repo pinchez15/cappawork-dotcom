@@ -1,11 +1,4 @@
-# Bonsai
 
-*Automatically synced with your [v0.dev](https://v0.dev) deployments*
-
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/nate-cappaworkcos-projects/v0-bonsai)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.dev-black?style=for-the-badge)](https://v0.dev/chat/projects/zW5qow9Rwn4)
-
-## Overview
 
 This repository will stay in sync with your deployed chats on [v0.dev](https://v0.dev).
 Any changes you make to your deployed app will be automatically pushed to this repository from [v0.dev](https://v0.dev).
@@ -36,18 +29,18 @@ Continue building your app on:
 ## 🚀 Final Launch Steps
 
 ### Content Updates (Complete Before Deployment)
-- [ ] **Update Calendly link** - Replace with correct booking URL
-- [ ] **Update work portfolio screenshots** - Replace placeholder images with actual live screenshots
-- [ ] **Update work portfolio link** - Change to live version URL
-- [ ] **Final content review** - Proofread all copy and links
+- [x] **Update Calendly link** - Replace with correct booking URL
+- [x] **Update work portfolio screenshots** - Replace placeholder images with actual live screenshots
+- [x] **Update work portfolio link** - Change to live version URL
+- [x] **Final content review** - Proofread all copy and links
 
 ### Deployment to Vercel
-- [ ] Connect GitHub repository to Vercel
-- [ ] Deploy initial version
-- [ ] Test all functionality on Vercel staging URL
-- [ ] Add `cappawork.com` as custom domain in Vercel dashboard
-- [ ] **Record Vercel DNS requirements** (save the IP and CNAME values provided)
-- [ ] Test contact form works on Vercel staging URL
+- [x] Connect GitHub repository to Vercel
+- [x] Deploy initial version
+- [x] Test all functionality on Vercel staging URL
+- [x] Add `cappawork.com` as custom domain in Vercel dashboard
+- [x] **Record Vercel DNS requirements** (save the IP and CNAME values provided)
+- [x] Test contact form works on Vercel staging URL
 
 ### Pre-Launch Testing
 - [ ] Test website on desktop, tablet, and mobile

@@ -7,7 +7,7 @@ export default function About() {
           <p className="text-lg leading-relaxed text-stone-700 text-left">
             We believe work is good.<br />
             Not just productive—but good in the deepest sense. Done rightly, work orders our lives, serves our neighbors, and brings us closer to God.<br /><br />
-            CappaWork exists to support that kind of work. We're not here to chase hype. We're here to build clear, useful tools that make people's lives better.
+            CappaWork exists to support that kind of work. Some of that work is obviously Catholic, some more quietly so.We're not here to chase hype. We're here to build clear, useful tools that make people's lives better.
           </p>
           <ul className="text-left mt-6 mb-0">
             <li>Founder-level thinking, not just code</li>

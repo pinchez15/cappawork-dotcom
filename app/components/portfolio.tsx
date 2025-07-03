@@ -46,10 +46,10 @@ export default function Portfolio() {
       cardDescription: "Simple, beautiful portfolios for generalists and independent workers.",
       modalTitle: "Simple, beautiful portfolios for generalists and independent workers.",
       fullDescription:
-        "WorkPortfolio addresses the unique challenge faced by generalists and independent workers: how to showcase diverse skills and projects in a cohesive, professional manner. \n\nBuilt with simplicity and flexibility in mind, it allows users to create beautiful, responsive portfolios without the complexity of traditional website builders. \n\nThe platform emphasizes storytelling over flashy design, helping users show their value clearly and authentically.",
+        "WorkPortfolio addresses the unique challenge faced by generalists and independent workers: how to showcase diverse skills and projects in a cohesive, professional manner. \n\nBuilt with simplicity and flexibility in mind, it allows users to create beautiful, responsive portfolios without the complexity of traditional website builders. \n\nThe platform emphasizes storytelling over flashy design, helping users show their value clearly and authentically.\n\n Launching July 2025",
       icon: Users,
       color: "text-blue-600",
-      link: "https://workportfolio.com",
+      link: "https://workportfolio.io",
       images: [
         "/WP1.png",
         "/WP2.png",
@@ -142,7 +142,7 @@ export default function Portfolio() {
           <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-serif font-light text-stone-900 mb-4">Portfolio Snapshot</h2>
             <p className="text-lg text-stone-600 max-w-2xl mx-auto">
-              Showcase of our own products—proof of execution, clarity, and care.
+              Some of our own products—proof of execution, clarity, and care.
             </p>
           </div>
 
