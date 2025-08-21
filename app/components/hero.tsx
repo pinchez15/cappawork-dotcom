@@ -47,7 +47,7 @@ export default function Hero() {
           </h1>
           <p className="text-lg sm:text-xl text-stone-600 mb-12 max-w-2xl mx-auto leading-relaxed">
             You bring the vision. We help you make it real.<br /><br />
-            CappaWork is a Catholic product development agency. We help founders and businesses turn good ideas into working products—quickly, clearly, and without compromise.
+            CappaWork is a web development agency. We help founders and businesses turn good ideas into working products—quickly, clearly, and without compromise.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
             <button

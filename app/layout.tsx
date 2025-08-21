@@ -17,10 +17,10 @@ const crimsonText = Crimson_Text({
 })
 
 export const metadata: Metadata = {
-  title: "CappaWork - Catholic Product Development Agency",
+  title: "CappaWork - Web Development Agency",
   description:
-    "Build products that help people flourish. CappaWork is a Catholic product development agency crafting tools with clarity, utility, and restraint.",
-  keywords: "product development, Catholic agency, MVP development, prototyping, Next.js, AI integration",
+    "Build products that help people flourish. CappaWork is a web development agency crafting tools with clarity, utility, and restraint.",
+  keywords: "product development, web development agency, MVP development, prototyping, Next.js, AI integration",
   authors: [{ name: "CappaWork" }],
   creator: "CappaWork",
   publisher: "CappaWork",
@@ -30,13 +30,13 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://cappawork.com",
     title: "CappaWork - Build Products That Help People Flourish",
-    description: "Catholic product development agency crafting tools with clarity, utility, and restraint.",
+    description: "Web development agency crafting tools with clarity, utility, and restraint.",
     siteName: "CappaWork",
   },
   twitter: {
     card: "summary_large_image",
     title: "CappaWork - Build Products That Help People Flourish",
-    description: "Catholic product development agency crafting tools with clarity, utility, and restraint.",
+    description: "Web development agency crafting tools with clarity, utility, and restraint.",
   },
     generator: 'v0.dev'
 }
