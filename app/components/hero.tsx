@@ -43,7 +43,7 @@ export default function Hero() {
       <section id="hero" className="min-h-screen flex items-center justify-center pt-16 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-light text-stone-900 mb-6 leading-tight">
-            Build the Product. Ship the App.<br />We can help.
+            Build the Website. Launch the App.<br />We can help.
           </h1>
           <p className="text-lg sm:text-xl text-stone-600 mb-12 max-w-2xl mx-auto leading-relaxed">
             You bring the vision. We help you make it real.<br /><br />
@@ -72,7 +72,7 @@ export default function Hero() {
             {/* Left column: Headline */}
             <div className="md:w-1/2 w-full mb-4 md:mb-0">
               <h2 className="text-4xl sm:text-5xl lg:text-7xl font-serif font-light text-stone-900 text-left leading-tight">
-                A Product Development Partner That Moves Like a Founder
+                A Product Development Partner That Acts Like a Founder
               </h2>
             </div>
             {/* Right column: Supporting text */}
@@ -80,7 +80,7 @@ export default function Hero() {
               <p className="text-lg text-stone-600 max-w-2xl text-left">
                 You don't need another dev shop.<br />
                 You need someone who thinks like a builder and acts like a founder.<br /><br />
-                We work with purpose-driven businesses and non-profits to design and launch products that encourage good in the world.From early prototypes to full product launches, we bring the momentum, clarity, and technical ability you need to move forward.<br /><br />
+                We work with purpose-driven businesses and non-profits to design and launch products that encourage good in the world. From early prototypes to full product launches, we bring the momentum, clarity, and technical ability you need to move forward.<br /><br />
                 Whether you're shaping a new internal tool, testing a product idea, or building something that's been sitting in your notebook for months, we'll help you ship it.
               </p>
             </div>

@@ -42,7 +42,7 @@ export default function Portfolio() {
     },
     {
       name: "WorkPortfolio",
-      status: "coming soon",
+      status: "active",
       cardDescription: "Simple, beautiful portfolios for generalists and independent workers.",
       modalTitle: "Simple, beautiful portfolios for generalists and independent workers.",
       fullDescription:
@@ -54,12 +54,11 @@ export default function Portfolio() {
         "/WP1.png",
         "/WP2.png",
         "/WP3.png",
-        "/WP4.png",
       ],
     },
     {
       name: "Chef",
-      status: "WIP",
+      status: "coming soon",
       cardDescription: "Cook Better Meals. Build Stronger Families.",
       modalTitle: "Cook Better Meals. Build Stronger Families.",
       fullDescription:
