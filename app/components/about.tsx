@@ -1,22 +1,32 @@
 export default function About() {
   return (
-    <section id="about" className="py-24 bg-white">
+    <section id="about" className="py-24 bg-stone-50">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl sm:text-4xl font-serif font-light text-stone-900 mb-8 text-center">Why CappaWork?</h2>
-        <div className="prose prose-lg prose-stone mx-auto text-left">
-          <p className="text-lg leading-relaxed text-stone-700 text-left">
-            We believe work is good.<br />
-            Not just productive—but good in the deepest sense. Done rightly, work orders our lives, serves our neighbors, and brings us closer to God.<br /><br />
-            CappaWork exists to support that kind of work. Some of that work is obviously Catholic, some more quietly so.We're not here to chase hype. We're here to build clear, useful tools that make people's lives better.
+        <h2 className="text-3xl sm:text-4xl font-serif font-light text-stone-900 mb-8 text-center">
+          The Difference Is Simple
+        </h2>
+        <div className="prose prose-lg prose-stone mx-auto text-left space-y-6">
+          <p className="text-lg leading-relaxed text-stone-700">
+            Most dev shops deliver software.
           </p>
-          <ul className="text-left mt-6 mb-0">
-            <li>Founder-level thinking, not just code</li>
-            <li>Fast, principled execution</li>
-            <li>Clarity at every step</li>
-            <li>A product you're proud to ship</li>
-          </ul>
+          <p className="text-lg font-medium text-stone-900">
+            CappaWork delivers adoption, clarity, efficiency, and long-term value.
+          </p>
+          <p className="text-lg leading-relaxed text-stone-700">
+            Because your software isn't just a project.
+          </p>
+          <p className="text-lg font-medium text-stone-900">
+            It's a lever.
+          </p>
+          <p className="text-lg leading-relaxed text-stone-700">
+            And when it's built by someone who understands business, operations, and product?
+          </p>
+          <p className="text-lg font-medium text-stone-900">
+            It becomes a competitive advantage.
+          </p>
         </div>
       </div>
     </section>
   )
 }
+

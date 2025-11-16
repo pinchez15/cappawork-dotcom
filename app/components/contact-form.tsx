@@ -6,9 +6,10 @@ import { X, Send, User, Lightbulb, Mail } from "lucide-react"
 interface ContactFormProps {
   isOpen: boolean
   onClose: () => void
+  selectedTier?: string
 }
 
-export default function ContactForm({ isOpen, onClose }: ContactFormProps) {
+export default function ContactForm({ isOpen, onClose, selectedTier }: ContactFormProps) {
   const [formData, setFormData] = useState({
     name: "",
     project: "",
@@ -32,7 +33,6 @@ export default function ContactForm({ isOpen, onClose }: ContactFormProps) {
     setError("")
 
     try {
-      // Using Formspree - you'll need to sign up and replace YOUR_FORM_ID
       const response = await fetch("https://formspree.io/f/xjkrlgre", {
         method: "POST",
         headers: {
@@ -42,13 +42,15 @@ export default function ContactForm({ isOpen, onClose }: ContactFormProps) {
           name: formData.name,
           project: formData.project,
           contact: formData.contact,
-          _subject: "New Contact Form Submission - CappaWork",
+          selectedTier: selectedTier || "",
+          _subject: selectedTier 
+            ? `New Contact Form Submission - ${selectedTier} - CappaWork`
+            : "New Contact Form Submission - CappaWork",
         }),
       })
 
       if (response.ok) {
         setIsSubmitted(true)
-        // Reset form after 3 seconds and close
         setTimeout(() => {
           setFormData({ name: "", project: "", contact: "" })
           setIsSubmitted(false)
@@ -104,6 +106,12 @@ export default function ContactForm({ isOpen, onClose }: ContactFormProps) {
             </div>
           ) : (
             <>
+              {selectedTier && (
+                <div className="mb-4 p-3 bg-stone-50 border border-stone-200 rounded-sm">
+                  <p className="text-sm font-medium text-stone-900">Interested in:</p>
+                  <p className="text-sm text-stone-700">{selectedTier}</p>
+                </div>
+              )}
               <p className="text-stone-600 mb-6 leading-relaxed">
                 Tell us about your project and we'll reach out to discuss how we can help you build something great.
               </p>
@@ -200,4 +208,4 @@ export default function ContactForm({ isOpen, onClose }: ContactFormProps) {
       </div>
     </div>
   )
-} 
+}

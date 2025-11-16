@@ -1,20 +1,22 @@
 import type { Metadata } from "next"
 import Hero from "./components/hero"
-import Portfolio from "./components/portfolio"
-import Services from "./components/services"
+import WhyWorks from "./components/why-works"
+import WhatYouGet from "./components/what-you-get"
+import WhoWeServe from "./components/who-we-serve"
+import Pricing from "./components/pricing"
 import About from "./components/about"
-import Navigation from "./components/navigation"
 import CTASection from "./components/cta-section"
+import Navigation from "./components/navigation"
 import Blog from "./components/blog"
 
 export const metadata: Metadata = {
-  title: "CappaWork - Web Development Agency",
+  title: "CappaWork - End-to-End Product Development for Owner-Led Businesses",
   description:
-    "Build products that help people flourish. CappaWork is a web development agency crafting tools with clarity, utility, and restraint.",
-  keywords: "product development, web development agency, MVP development, prototyping, Next.js, AI integration",
+    "We build internal tools and MVPs that your team actually uses—and your market can eventually buy. Better tools for businesses doing good work.",
+  keywords: "product development, internal tools, MVP development, owner-led businesses, Next.js, full-stack development",
   openGraph: {
-    title: "CappaWork - Build Products That Help People Flourish",
-    description: "Web development agency crafting tools with clarity, utility, and restraint.",
+    title: "CappaWork - End-to-End Product Development for Owner-Led Businesses",
+    description: "We build internal tools and MVPs that your team actually uses—and your market can eventually buy.",
     type: "website",
     url: "https://cappawork.com",
     siteName: "CappaWork",
@@ -30,8 +32,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "CappaWork - Build Products That Help People Flourish",
-    description: "Web development agency crafting tools with clarity, utility, and restraint.",
+    title: "CappaWork - End-to-End Product Development for Owner-Led Businesses",
+    description: "We build internal tools and MVPs that your team actually uses—and your market can eventually buy.",
     images: ["/WP1.png"],
   },
 }
@@ -41,10 +43,12 @@ export default function HomePage() {
     <main className="min-h-screen bg-stone-50">
       <Navigation />
       <Hero />
-      <Portfolio />
-      <Services />
-      <CTASection />
+      <WhyWorks />
+      <WhatYouGet />
+      <WhoWeServe />
+      <Pricing />
       <About />
+      <CTASection />
       <Blog />
     </main>
   )
