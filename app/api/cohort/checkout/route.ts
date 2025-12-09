@@ -3,9 +3,15 @@ import Stripe from "stripe"
 
 export const runtime = "nodejs"
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
-  apiVersion: "2024-11-20.acacia",
-})
+function getStripe(): Stripe {
+  const secretKey = process.env.STRIPE_SECRET_KEY
+  if (!secretKey) {
+    throw new Error("STRIPE_SECRET_KEY is not configured")
+  }
+  return new Stripe(secretKey, {
+    apiVersion: "2024-11-20.acacia",
+  })
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -18,6 +24,8 @@ export async function POST(req: NextRequest) {
     if (!process.env.STRIPE_SECRET_KEY) {
       return NextResponse.json({ error: "Stripe not configured" }, { status: 500 })
     }
+
+    const stripe = getStripe()
 
     // Determine price based on early bird status
     // You'll need to create these Price IDs in your Stripe dashboard
