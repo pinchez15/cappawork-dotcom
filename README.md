@@ -101,6 +101,45 @@ Continue building your app on:
 
 ## 🔧 Technical Details
 
+### Environment Variables
+
+The following environment variables need to be set in Vercel (or your `.env.local` for development):
+
+#### Required for Stripe Checkout (Cohort)
+```
+STRIPE_SECRET_KEY=sk_test_... (or sk_live_... for production)
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_... (or pk_live_... for production)
+STRIPE_COHORT_PRICE_ID=price_... (Stripe Price ID for regular cohort pricing)
+STRIPE_COHORT_EARLY_BIRD_PRICE_ID=price_... (Stripe Price ID for early bird pricing)
+```
+
+#### Cohort Configuration
+```
+NEXT_PUBLIC_COHORT_SPOTS_REMAINING=30 (Number of spots left)
+NEXT_PUBLIC_COHORT_START_DATE=January 15, 2025 (Next cohort start date)
+NEXT_PUBLIC_COHORT_EARLY_BIRD=true (Set to "true" to enable early bird pricing)
+```
+
+#### Calendly Link (for Full Build Bookings)
+```
+NEXT_PUBLIC_CALENDLY_LINK=https://calendly.com/your-link
+```
+
+#### Site URL
+```
+NEXT_PUBLIC_SITE_URL=https://cappawork.com (or http://localhost:3000 for local dev)
+```
+
+### Setting Up Stripe
+
+1. Create a Stripe account at https://stripe.com
+2. Go to Products → Create Product
+3. Create two products:
+   - "CappaWork Builder Cohort" (Regular) - $990
+   - "CappaWork Builder Cohort" (Early Bird) - $490
+4. Copy the Price IDs from each product
+5. Add the Price IDs to your environment variables
+
 ### Current DNS (Shopify)
 ```
 A Record: @ → 23.227.38.73

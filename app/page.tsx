@@ -10,13 +10,13 @@ import Navigation from "./components/navigation"
 import Blog from "./components/blog"
 
 export const metadata: Metadata = {
-  title: "CappaWork - End-to-End Product Development for Owner-Led Businesses",
+  title: "CappaWork - Product Development Services for Owner-Led Businesses",
   description:
-    "We build internal tools and MVPs that your team actually uses—and your market can eventually buy. Better tools for businesses doing good work.",
-  keywords: "product development, internal tools, MVP development, owner-led businesses, Next.js, full-stack development",
+    "CappaWork builds modern, scalable internal tools and early-stage products for owner-led businesses who want startup-level velocity without hiring a full tech team.",
+  keywords: "product development, internal tools, MVP development, owner-led businesses, Next.js, full-stack development, cohort program",
   openGraph: {
-    title: "CappaWork - End-to-End Product Development for Owner-Led Businesses",
-    description: "We build internal tools and MVPs that your team actually uses—and your market can eventually buy.",
+    title: "CappaWork - Product Development Services for Owner-Led Businesses",
+    description: "CappaWork builds modern, scalable internal tools and early-stage products for owner-led businesses.",
     type: "website",
     url: "https://cappawork.com",
     siteName: "CappaWork",
@@ -32,8 +32,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "CappaWork - End-to-End Product Development for Owner-Led Businesses",
-    description: "We build internal tools and MVPs that your team actually uses—and your market can eventually buy.",
+    title: "CappaWork - Product Development Services for Owner-Led Businesses",
+    description: "CappaWork builds modern, scalable internal tools and early-stage products for owner-led businesses.",
     images: ["/WP1.png"],
   },
 }
