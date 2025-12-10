@@ -40,7 +40,7 @@ export default async function Blog() {
       <section id="blog" className="py-24 bg-stone-50">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-serif font-light text-stone-900 mb-4">Thoughts on Building Well</h2>
+            <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-stone-900 mb-4">Thoughts on Building Well</h2>
             <p className="text-lg text-stone-600 max-w-2xl mx-auto mb-6">
               Reflections on product development, technology, and human flourishing.
             </p>
@@ -60,7 +60,7 @@ export default async function Blog() {
               href="https://natepinches.substack.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-stone-900 text-stone-50 px-6 py-3 rounded-sm font-medium hover:bg-stone-800 transition-all duration-200"
+              className="inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-full font-medium hover:bg-blue-700 transition-all duration-200"
             >
               Visit Substack
               <ExternalLink size={16} />
@@ -75,7 +75,7 @@ export default async function Blog() {
     <section id="blog" className="py-24 bg-stone-50">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-serif font-light text-stone-900 mb-4">Thoughts on Building Well</h2>
+          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-stone-900 mb-4">Thoughts on Building Well</h2>
           <p className="text-lg text-stone-600 max-w-2xl mx-auto mb-6">
             Reflections on product development, technology, and human flourishing.
           </p>
@@ -103,7 +103,7 @@ export default async function Blog() {
                 <span>{estimateReadTime(post.excerpt)}</span>
               </div>
 
-              <h3 className="text-xl font-serif font-medium text-stone-900 mb-3 group-hover:text-stone-700 transition-colors">
+              <h3 className="text-xl font-semibold tracking-tight text-stone-900 mb-3 group-hover:text-stone-700 transition-colors">
                 {post.title || 'Untitled Post'}
               </h3>
 
@@ -125,12 +125,12 @@ export default async function Blog() {
         </div>
 
         <div className="text-center mt-12">
-          <a
-            href="https://natepinches.substack.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-stone-900 text-stone-50 px-6 py-3 rounded-sm font-medium hover:bg-stone-800 transition-all duration-200"
-          >
+            <a
+              href="https://natepinches.substack.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-full font-medium hover:bg-blue-700 transition-all duration-200"
+            >
             Subscribe to the Newsletter
             <ExternalLink size={16} />
           </a>

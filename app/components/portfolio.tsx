@@ -34,7 +34,7 @@ export default function Portfolio() {
     <section id="portfolio" className="py-24 bg-stone-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-5xl font-serif font-medium text-stone-900 mb-6">
+          <h2 className="text-3xl sm:text-5xl font-semibold tracking-tight text-stone-900 mb-6">
              Meet the products working more efficiently.
           </h2>
         </div>
@@ -58,7 +58,7 @@ export default function Portfolio() {
                  <p className="text-sm font-medium text-white/80 uppercase tracking-wide mb-2">
                    {project.category}
                  </p>
-                 <h3 className="text-3xl font-serif font-medium mb-2">
+                 <h3 className="text-3xl font-semibold tracking-tight mb-2">
                    {project.name}
                  </h3>
                  <p className="text-white/90 text-lg max-w-md opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">

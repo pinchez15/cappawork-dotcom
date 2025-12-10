@@ -35,7 +35,7 @@ export default function NarrativeSection({
                 {subtitle}
               </span>
             )}
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-medium text-stone-900 leading-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-stone-900 leading-tight">
               {title}
             </h2>
             <div className="text-lg text-stone-600 leading-relaxed space-y-6">

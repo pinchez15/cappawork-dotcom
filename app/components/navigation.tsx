@@ -50,7 +50,7 @@ export default function Navigation() {
         <div className="flex justify-between items-center h-16">
           <button
             onClick={() => scrollToSection("hero")}
-            className="text-xl font-serif font-semibold text-stone-900 hover:text-stone-700 transition-colors"
+            className="text-xl font-semibold tracking-tight text-stone-900 hover:text-stone-700 transition-colors"
           >
             CappaWork
           </button>

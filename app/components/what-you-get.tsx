@@ -6,7 +6,7 @@ export default function WhatYouGet() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="text-center max-w-3xl mx-auto mb-20">
-           <h2 className="text-3xl sm:text-5xl font-serif font-medium text-stone-900 mb-6">
+           <h2 className="text-3xl sm:text-5xl font-semibold tracking-tight text-stone-900 mb-6">
             Built for businesses that are ready to evolve.
            </h2>
            <p className="text-xl text-stone-600">

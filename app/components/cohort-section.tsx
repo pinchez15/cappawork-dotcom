@@ -16,7 +16,7 @@ export default function CohortSection() {
               Next Cohort Open
             </div>
             
-            <h2 className="text-3xl sm:text-4xl font-serif font-light text-stone-900 mb-6">
+            <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-stone-900 mb-6">
               The CappaWork Builder Cohort
             </h2>
             
@@ -71,7 +71,7 @@ export default function CohortSection() {
 
           {/* Right: Feature Box */}
           <div className="bg-stone-50 p-8 sm:p-12 rounded-2xl border border-stone-200">
-            <h3 className="text-2xl font-serif font-light text-stone-900 mb-6">
+            <h3 className="text-2xl font-semibold tracking-tight text-stone-900 mb-6">
               Outcomes
             </h3>
             <ul className="space-y-4">

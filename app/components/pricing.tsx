@@ -58,7 +58,7 @@ export default function Services() {
     <section id="pricing" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-5xl font-serif font-medium text-stone-900 mb-6">
+          <h2 className="text-3xl sm:text-5xl font-semibold tracking-tight text-stone-900 mb-6">
             Need help? We can build your app for you.
           </h2>
           <p className="text-xl text-stone-600 max-w-3xl mx-auto">
@@ -76,7 +76,7 @@ export default function Services() {
                  <div className="text-sm font-semibold text-stone-500 mb-2 uppercase tracking-wide">
                    {service.name}
                  </div>
-                 <div className="text-4xl font-serif font-medium text-stone-900 mb-4">
+                 <div className="text-4xl font-semibold tracking-tight text-stone-900 mb-4">
                    {service.price}
                  </div>
                  <p className="text-lg font-medium text-stone-900 mb-2">
@@ -102,7 +102,7 @@ export default function Services() {
 
               <button
                 onClick={() => handleBookCall(service.name)}
-                className="w-full bg-white border border-stone-200 text-stone-900 py-3 rounded-lg font-medium hover:bg-stone-900 hover:text-white transition-all duration-200 flex items-center justify-center gap-2 group-hover:border-stone-900"
+                className="w-full bg-blue-600 text-white py-3 rounded-full font-medium hover:bg-blue-700 transition-all duration-200 flex items-center justify-center gap-2"
               >
                 {service.cta}
                 <ArrowRight size={16} />
