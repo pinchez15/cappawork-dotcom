@@ -1,71 +1,104 @@
 "use client"
 
-import Navigation from "../../components/navigation"
-import { ArrowRight } from "lucide-react"
+import { Check, ShieldCheck, Lock } from "lucide-react"
 
 export default function CohortCheckoutPage() {
-  const spotsRemaining = process.env.NEXT_PUBLIC_COHORT_SPOTS_REMAINING || "30"
-  const startDate = process.env.NEXT_PUBLIC_COHORT_START_DATE || "TBD"
-  const isEarlyBird = process.env.NEXT_PUBLIC_COHORT_EARLY_BIRD === "true"
-  const price = isEarlyBird ? "$490" : "$990"
-  const stripeCheckoutUrl = process.env.NEXT_PUBLIC_STRIPE_CHECKOUT_URL || "https://buy.stripe.com/your-link"
-
-  const handleCheckout = () => {
-    window.open(stripeCheckoutUrl, "_blank", "noopener,noreferrer")
-  }
+  // Hardcoded for now based on user request/env vars
+  const isEarlyBird = true
+  const price = "$500"
+  const fullPrice = "$1,000"
+  const nextCohortDate = "January 2025"
 
   return (
-    <main className="min-h-screen bg-stone-50">
-      <Navigation />
-      <div className="pt-24 pb-16">
-        <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white p-8 rounded-sm border border-stone-200">
-            <div className="mb-8">
-              <h1 className="text-3xl sm:text-4xl font-serif font-light text-stone-900 mb-4">
-                Reserve Your Spot
-              </h1>
-              <p className="text-stone-600 mb-6">
-                Complete your registration for The CappaWork Builder Cohort
-              </p>
+    <div className="min-h-screen bg-stone-50">
+      
+      {/* Simple Header */}
+      <header className="bg-white border-b border-stone-200 py-6">
+         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <a href="/" className="text-xl font-semibold tracking-tight text-stone-900">
+               CappaWork
+            </a>
+         </div>
+      </header>
 
-              {/* Pricing Info */}
-              <div className="bg-stone-50 p-6 rounded-sm border border-stone-200 mb-6">
-                <div className="flex justify-between items-center mb-2">
-                  <span className="text-stone-700">Cohort Program</span>
-                  <span className="text-2xl font-serif font-light text-stone-900">{price}</span>
-                </div>
-                {isEarlyBird && (
-                  <p className="text-sm text-stone-600 mt-2">
-                    Early Bird Pricing (Regular price: $990)
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
+         <div className="grid lg:grid-cols-12 gap-12 lg:gap-24">
+            
+            {/* Left Column: Summary */}
+            <div className="lg:col-span-5 space-y-8">
+               <div>
+                  <h1 className="text-3xl font-semibold tracking-tight text-stone-900 mb-2">
+                     Secure Your Spot
+                  </h1>
+                  <p className="text-stone-600 text-lg">
+                     Join the CappaWork Builder Cohort
                   </p>
-                )}
-                <p className="text-sm text-stone-500 mt-2">
-                  {spotsRemaining} spots remaining • Starts {startDate}
-                </p>
-              </div>
+               </div>
+
+               <div className="bg-white p-6 rounded-xl border border-stone-200 shadow-sm">
+                  <div className="flex justify-between items-start mb-6 pb-6 border-b border-stone-100">
+                     <div>
+                        <h3 className="font-semibold text-stone-900">January 2025 Cohort</h3>
+                        <p className="text-sm text-stone-500">4-Week Live Program</p>
+                     </div>
+                     <div className="text-right">
+                        <div className="text-xl font-semibold text-stone-900">{price}</div>
+                        <div className="text-sm text-stone-400 line-through">{fullPrice}</div>
+                     </div>
+                  </div>
+
+                  <div className="space-y-4">
+                     <h4 className="font-medium text-stone-900 text-sm">What's Included:</h4>
+                     <ul className="space-y-3">
+                        <li className="flex items-start gap-3 text-sm text-stone-600">
+                           <Check size={16} className="text-blue-600 mt-0.5 flex-shrink-0" />
+                           <span>3 Live Weekly Calls</span>
+                        </li>
+                        <li className="flex items-start gap-3 text-sm text-stone-600">
+                           <Check size={16} className="text-blue-600 mt-0.5 flex-shrink-0" />
+                           <span>Private Community Access</span>
+                        </li>
+                        <li className="flex items-start gap-3 text-sm text-stone-600">
+                           <Check size={16} className="text-blue-600 mt-0.5 flex-shrink-0" />
+                           <span>Lifetime Curriculum Access</span>
+                        </li>
+                        <li className="flex items-start gap-3 text-sm text-stone-600">
+                           <Check size={16} className="text-blue-600 mt-0.5 flex-shrink-0" />
+                           <span>Direct access to instructors</span>
+                        </li>
+                     </ul>
+                  </div>
+                  
+                  <div className="mt-6 pt-6 border-t border-stone-100 flex items-center gap-2 text-green-600 text-sm font-medium bg-green-50 p-3 rounded-lg">
+                     <ShieldCheck size={16} />
+                     100% Money-Back Guarantee
+                  </div>
+               </div>
+               
+               <div className="flex items-center gap-2 text-stone-400 text-sm justify-center lg:justify-start">
+                  <Lock size={14} />
+                  Secure SSL Encryption
+               </div>
             </div>
 
-            <div className="space-y-6">
-              <p className="text-stone-600 leading-relaxed">
-                Click the button below to complete your payment and reserve your spot in The CappaWork Builder Cohort.
-              </p>
-
-              <button
-                onClick={handleCheckout}
-                className="w-full group bg-stone-900 text-stone-50 px-8 py-4 rounded-sm font-medium hover:bg-stone-800 transition-all duration-200 flex items-center justify-center gap-2"
-              >
-                Continue to Payment
-                <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-              </button>
-
-              <p className="text-xs text-stone-500 text-center">
-                You'll be redirected to Stripe to complete your payment securely.
-              </p>
+            {/* Right Column: Checkout Form Placeholder */}
+            <div className="lg:col-span-7">
+               <div className="bg-white rounded-2xl shadow-xl border border-stone-200 overflow-hidden min-h-[600px] flex flex-col items-center justify-center text-center p-12">
+                  <div className="w-16 h-16 bg-stone-100 rounded-full flex items-center justify-center mb-6">
+                     <span className="font-bold text-stone-400 text-2xl">S</span>
+                  </div>
+                  <h3 className="text-xl font-semibold text-stone-900 mb-2">Stripe Checkout</h3>
+                  <p className="text-stone-500 max-w-sm">
+                     This is where the Stripe Embedded Checkout Element will be rendered.
+                  </p>
+                  <div className="mt-8 p-4 bg-stone-50 border border-stone-200 rounded text-xs text-stone-400 font-mono">
+                     {`<EmbeddedCheckoutProvider stripe={stripePromise} options={options} />`}
+                  </div>
+               </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </main>
+
+         </div>
+      </main>
+    </div>
   )
 }
-
