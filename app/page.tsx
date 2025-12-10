@@ -4,7 +4,9 @@ import WhyWorks from "./components/why-works"
 import WhatYouGet from "./components/what-you-get"
 import WhoWeServe from "./components/who-we-serve"
 import Pricing from "./components/pricing"
+import CohortSection from "./components/cohort-section"
 import About from "./components/about"
+
 import CTASection from "./components/cta-section"
 import Navigation from "./components/navigation"
 import Blog from "./components/blog"
@@ -47,6 +49,7 @@ export default function HomePage() {
       <WhatYouGet />
       <WhoWeServe />
       <Pricing />
+      <CohortSection />
       <About />
       <CTASection />
       <Blog />
