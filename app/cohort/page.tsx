@@ -38,11 +38,11 @@ export default function CohortPage() {
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 md:pt-48 md:pb-32 bg-stone-900 text-white relative overflow-hidden">
-         {/* Background Image */}
-         <div className="absolute inset-0 z-0">
+      <section className="pt-32 pb-20 md:pt-48 md:pb-32 bg-stone-900 text-white relative overflow-hidden w-full">
+         {/* Background Image - Full Width */}
+         <div className="absolute inset-0 z-0 w-screen left-1/2 -translate-x-1/2">
             <Image
-              src="/CW_Productphotos.png"
+              src="/cohort_background.png"
               alt="Builder Workspace"
               fill
               className="object-cover opacity-40"

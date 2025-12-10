@@ -40,6 +40,25 @@ body {
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+
+  @keyframes logo-scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-logo-scroll {
+    animation: logo-scroll 30s linear infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-logo-scroll {
+      animation: none;
+    }
+  }
 }
 
 @layer base {

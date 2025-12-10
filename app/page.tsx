@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import Hero from "./components/hero"
+import LogoBanner from "./components/logo-banner"
 import WhatYouGet from "./components/what-you-get"
 import Pricing from "./components/pricing"
 import CohortSection from "./components/cohort-section"
@@ -43,6 +44,7 @@ export default function HomePage() {
     <main className="min-h-screen bg-stone-50">
       <Navigation />
       <Hero />
+      <LogoBanner />
       <WhatYouGet />
       
       {/* Deep Dive 1: Owner-Led Velocity */}
