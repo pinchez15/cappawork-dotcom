@@ -1,15 +1,13 @@
 import type { Metadata } from "next"
 import Hero from "./components/hero"
-import WhyWorks from "./components/why-works"
 import WhatYouGet from "./components/what-you-get"
-import WhoWeServe from "./components/who-we-serve"
 import Pricing from "./components/pricing"
 import CohortSection from "./components/cohort-section"
-import About from "./components/about"
-
+import Portfolio from "./components/portfolio"
 import CTASection from "./components/cta-section"
 import Navigation from "./components/navigation"
 import Blog from "./components/blog"
+import NarrativeSection from "./components/narrative-section"
 
 export const metadata: Metadata = {
   title: "CappaWork - Product Development Services for Owner-Led Businesses",
@@ -45,12 +43,99 @@ export default function HomePage() {
     <main className="min-h-screen bg-stone-50">
       <Navigation />
       <Hero />
-      <WhyWorks />
       <WhatYouGet />
-      <WhoWeServe />
+      
+      {/* Deep Dive 1: Owner-Led Velocity */}
+      <NarrativeSection
+        title="Owner-led velocity, without the overhead."
+        subtitle="For the Operators"
+        description={
+          <>
+            <p>
+              You don't need a bloated agency or a generic dev shop. You need a partner who thinks like an owner.
+            </p>
+            <p>
+              We work with owner-operators doing $500K–$5M who run on messy internal systems, have niche knowledge but no tech team, and want to eliminate inefficiency forever.
+            </p>
+            <ul className="space-y-3 mt-4">
+              <li className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
+                <span>No "why is this so complicated?" moments</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
+                <span>No wasted features</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
+                <span>Just clean tools that people actually use</span>
+              </li>
+            </ul>
+          </>
+        }
+        imageSrc="/CW_reviews.png"
+        imageAlt="Operational Efficiency Dashboard"
+        imagePosition="right"
+        backgroundColor="stone"
+      />
+
+      {/* Deep Dive 2: Startup-Grade Architecture */}
+      <NarrativeSection
+        title="Internal strength becomes external opportunity."
+        subtitle="The Architecture"
+        description={
+          <>
+            <p>
+              The best products start as internal tools. We build your system on the same stack that powers billion-dollar startups (Next.js, Supabase, Vercel).
+            </p>
+            <p>
+              This isn't a "script" or a "hack." It's a scalable software asset. When you're ready to monetize your expertise, the foundation is already there.
+            </p>
+            <p className="font-medium text-stone-900">
+              We build systems that earn trust inside your business first—then let you take them to market.
+            </p>
+          </>
+        }
+        imageSrc="/WP1.png"
+        imageAlt="Modern Software Architecture"
+        imagePosition="left"
+        backgroundColor="white"
+      />
+
+      {/* Deep Dive 3: The Path */}
+      <NarrativeSection
+        title="Discovery to Deploy. The Product Path."
+        subtitle="The Process"
+        description={
+          <>
+            <p>
+              Every project follows a proven, gated track designed to reduce risk and increase speed.
+            </p>
+            <div className="space-y-4 font-medium text-stone-800">
+              <div className="flex items-center gap-3 p-3 bg-white rounded-lg border border-stone-100 shadow-sm">
+                <span className="text-stone-400">01</span> Discovery & Problem Definition
+              </div>
+              <div className="flex items-center gap-3 p-3 bg-white rounded-lg border border-stone-100 shadow-sm">
+                <span className="text-stone-400">02</span> Architecture & UX Design
+              </div>
+              <div className="flex items-center gap-3 p-3 bg-white rounded-lg border border-stone-100 shadow-sm">
+                <span className="text-stone-400">03</span> Build & AI Integration
+              </div>
+              <div className="flex items-center gap-3 p-3 bg-white rounded-lg border border-stone-100 shadow-sm">
+                <span className="text-stone-400">04</span> Deploy & Hand-off
+              </div>
+            </div>
+          </>
+        }
+        imageSrc="/CW_buypage.png"
+        imageAlt="Product Development Timeline"
+        imagePosition="right"
+        backgroundColor="stone"
+      />
+
       <Pricing />
       <CohortSection />
-      <About />
+      <Portfolio />
       <CTASection />
       <Blog />
     </main>
