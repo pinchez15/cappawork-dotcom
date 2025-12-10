@@ -26,13 +26,18 @@ export default function EnrollmentCard({ className = "" }: { className?: string 
           For the first 30 spots only.
         </p>
 
-        <Link
-          href="/cohort/checkout"
+        <button
+          onClick={() => {
+            const element = document.getElementById("checkout")
+            if (element) {
+              element.scrollIntoView({ behavior: "smooth" })
+            }
+          }}
           className="w-full bg-blue-600 text-white py-4 rounded-full font-medium hover:bg-blue-700 transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-blue-500/20 mb-4"
         >
           Apply Now
           <ArrowRight size={18} />
-        </Link>
+        </button>
 
         <p className="text-xs text-stone-500">
           Next Cohort: <span className="font-medium text-stone-900">{nextCohortDate}</span>

@@ -30,7 +30,7 @@ export default function Navigation() {
 
   const navItems = [
     { id: "hero", label: "Home", href: "/" },
-    { id: "cohort", label: "Bootcamp", href: "/cohort" },
+    { id: "cohort", label: "Cohorts", href: "/cohort" },
     { id: "pricing", label: "Services", href: "/#pricing" },
     { id: "portfolio", label: "Work", href: "/#portfolio" },
     { id: "blog", label: "Blog", href: "/#blog" },

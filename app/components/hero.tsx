@@ -57,7 +57,7 @@ export default function Hero() {
           {/* Heading */}
           <h1 className="text-5xl md:text-7xl font-semibold tracking-tight text-stone-900 mb-6 leading-[1.1] animate-in fade-in slide-in-from-bottom-6 duration-700 delay-100">
             From Idea to Product. <br className="hidden md:block" />
-            In 1 Month.
+            <span className="italic">In 1 Month.</span>
           </h1>
 
           {/* Subheading */}
