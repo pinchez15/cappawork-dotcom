@@ -49,7 +49,7 @@ export default function CohortPage() {
               priority
             />
             <div className="absolute inset-0 bg-stone-900/60 mix-blend-multiply"></div>
-            <div className="absolute inset-0 bg-gradient-to-b from-stone-900/80 via-transparent to-stone-900"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-stone-900/70 via-transparent to-stone-900"></div>
          </div>
 
          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -131,11 +131,37 @@ export default function CohortPage() {
          </div>
       </section>
 
+      {/* Meet Your Teacher */}
+      <section className="py-24 bg-white">
+         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-stone-900 mb-12 text-center">
+               Meet your teacher
+            </h2>
+            <div className="flex flex-col md:flex-row gap-8 items-start">
+               <div className="flex-shrink-0">
+                  <div className="relative w-48 h-48 md:w-64 md:h-64 rounded-2xl overflow-hidden border border-stone-200 shadow-lg">
+                     <Image
+                        src="/nate profile photo.jpeg"
+                        alt="Nate - CappaWork Instructor"
+                        fill
+                        className="object-cover"
+                     />
+                  </div>
+               </div>
+               <div className="flex-1">
+                  <p className="text-lg text-stone-700 leading-relaxed space-y-4">
+                     <span className="font-semibold text-stone-900">I'm Nate.</span> I learned to build software in the cracks of a busy life—seven kids, a full family schedule, and product ideas that wouldn't leave me alone. I've worked for years in strategy and product development, but always relied on a developer to turn my ideas into products. Once I understood how to ship real products with modern AI tools, everything opened up: I could work when it fit my day, charge what my skills were worth, and create apps that earned money while I was with my family. But this story isn't about me, it's about you. I've just walked this path and can show you how to build something that gives you back control of your time, your income, and your future. This skill isn't easy, but it can change your life. Ready to get started??? Lets go!
+                  </p>
+               </div>
+            </div>
+         </div>
+      </section>
+
       {/* Curriculum Section */}
       <section className="py-24 bg-stone-50">
          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-stone-900 mb-12 text-center">
-               The 4-Week Sprint
+               The 3-Week Sprint
             </h2>
             <div className="space-y-4">
                {/* Accordion Items - Keeping existing content */}
@@ -174,7 +200,6 @@ export default function CohortPage() {
                            <li className="flex gap-2"><Check size={16} className="text-blue-500 mt-1" /> Building UI with Tailwind + shadcn/ui</li>
                            <li className="flex gap-2"><Check size={16} className="text-blue-500 mt-1" /> Connecting Frontend to Backend</li>
                            <li className="flex gap-2"><Check size={16} className="text-blue-500 mt-1" /> Implementing core feature logic</li>
-                           <li className="flex gap-2"><Check size={16} className="text-blue-500 mt-1" /> Using AI to generate components</li>
                         </ul>
                      </AccordionContent>
                   </AccordionItem>
@@ -184,26 +209,7 @@ export default function CohortPage() {
                            <div className="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 font-bold shrink-0">03</div>
                            <div>
                               <div className="text-sm font-medium text-stone-500 mb-1">Week 3</div>
-                              <div className="text-lg font-semibold text-stone-900">AI Integration & Polish</div>
-                           </div>
-                        </div>
-                     </AccordionTrigger>
-                     <AccordionContent className="pl-[4.5rem] pb-6 text-stone-600 text-base leading-relaxed">
-                        <ul className="space-y-2">
-                           <li className="flex gap-2"><Check size={16} className="text-blue-500 mt-1" /> Integrating OpenAI/Gemini APIs</li>
-                           <li className="flex gap-2"><Check size={16} className="text-blue-500 mt-1" /> Handling edge cases and error states</li>
-                           <li className="flex gap-2"><Check size={16} className="text-blue-500 mt-1" /> Performance optimization</li>
-                           <li className="flex gap-2"><Check size={16} className="text-blue-500 mt-1" /> User dashboard and settings</li>
-                        </ul>
-                     </AccordionContent>
-                  </AccordionItem>
-                  <AccordionItem value="week-4" className="bg-white border border-stone-200 rounded-lg px-6">
-                     <AccordionTrigger className="hover:no-underline py-6">
-                        <div className="flex items-center gap-4 text-left">
-                           <div className="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 font-bold shrink-0">04</div>
-                           <div>
-                              <div className="text-sm font-medium text-stone-500 mb-1">Week 4</div>
-                              <div className="text-lg font-semibold text-stone-900">Launch & Deploy</div>
+                              <div className="text-lg font-semibold text-stone-900">Bug Squashing and Launch</div>
                            </div>
                         </div>
                      </AccordionTrigger>
@@ -212,6 +218,7 @@ export default function CohortPage() {
                            <li className="flex gap-2"><Check size={16} className="text-blue-500 mt-1" /> Payments integration (Stripe)</li>
                            <li className="flex gap-2"><Check size={16} className="text-blue-500 mt-1" /> Deploying to Vercel Production</li>
                            <li className="flex gap-2"><Check size={16} className="text-blue-500 mt-1" /> Setting up custom domains</li>
+                           <li className="flex gap-2"><Check size={16} className="text-blue-500 mt-1" /> Bug fixing and final polish</li>
                            <li className="flex gap-2"><Check size={16} className="text-blue-500 mt-1" /> Launch day checklist</li>
                         </ul>
                      </AccordionContent>
@@ -252,7 +259,16 @@ export default function CohortPage() {
          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-stone-900 mb-12 text-center">Frequently Asked Questions</h2>
             <div className="space-y-4">
-               {[{ q: "Do I need to know how to code?", a: "Some basic familiarity with HTML/CSS helps, but you do not need to be a developer. The AI tools we use (Cursor, V0) lower the barrier significantly." }, { q: "What is the time commitment?", a: "Expect to spend about 5-8 hours per week. This includes the live call (1 hour) and build time." }, { q: "What if I miss a live call?", a: "All calls are recorded and posted to the community immediately after." }, { q: "Do I really build a full product?", a: "Yes. This isn't a theory course. The goal is to have a deployed URL by the end of Week 4." }].map((item, i) => (
+               {[
+                  { 
+                     q: "Do I need to know how to code?", 
+                     a: "No! The only prerequisite for this course is having built something - anything - in a vibe-coding tool. If you're familiar with Javascript and HTML that's a plus, but not needed." 
+                  }, 
+                  { 
+                     q: "What if I need to drop out?", 
+                     a: "If life happens and you need to cancel after your purchase, we get it. You can roll your registration into a future cohort for no fee." 
+                  }
+               ].map((item, i) => (
                   <div key={i} className="bg-white border border-stone-200 rounded-lg p-6">
                      <h3 className="font-semibold text-stone-900 mb-2">{item.q}</h3>
                      <p className="text-stone-600">{item.a}</p>
@@ -281,7 +297,7 @@ export default function CohortPage() {
                      <div className="flex justify-between items-start mb-6 pb-6 border-b border-stone-200">
                         <div>
                            <h3 className="font-semibold text-stone-900">January 2025 Cohort</h3>
-                           <p className="text-sm text-stone-500">4-Week Live Program</p>
+                           <p className="text-sm text-stone-500">3-Week Live Program</p>
                         </div>
                         <div className="text-right">
                            <div className="text-xl font-semibold text-stone-900">{price}</div>
