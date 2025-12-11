@@ -1,8 +1,8 @@
 import type { Metadata } from "next"
 import Image from "next/image"
 import Script from "next/script"
-import { Check, Calendar, Code, Database, Globe, ArrowRight, Layers, Users, Zap, ShieldCheck, Lock } from "lucide-react"
-import EnrollmentCard from "./enrollment-card"
+import Link from "next/link"
+import { Check, Calendar, Code, Database, Globe, ArrowRight, Layers, Users, Zap, ShieldCheck, Lock, Play } from "lucide-react"
 import {
   Accordion,
   AccordionContent,
@@ -29,455 +29,371 @@ const techLogos = [
 ]
 
 export default function CohortPage() {
-  const isEarlyBird = true
   const price = "$500"
   const fullPrice = "$1,000"
   const duplicatedTechLogos = [...techLogos, ...techLogos]
 
   return (
-    <main className="min-h-screen bg-stone-50">
+    <main className="min-h-screen bg-white">
       
-      {/* Simple Header for Standalone Page */}
-      <nav className="absolute top-0 left-0 right-0 z-50 py-6">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <a href="/" className="text-xl font-semibold tracking-tight text-white/90 hover:text-white transition-colors">
+      {/* 1. Header (Minimal) */}
+      <nav className="fixed top-0 left-0 right-0 z-50 py-4 bg-white/80 backdrop-blur-md border-b border-stone-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+          <a href="/" className="text-xl font-semibold tracking-tight text-stone-900 font-serif">
             CappaWork
           </a>
+          <Link href="#checkout" className="text-sm font-medium text-stone-600 hover:text-stone-900">
+            Apply for January
+          </Link>
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section className="pt-32 pb-20 md:pt-48 md:pb-32 bg-stone-900 text-white relative overflow-hidden w-full">
-         {/* Background Image - Full Width */}
-         <div className="absolute inset-0 z-0 w-screen left-1/2 -translate-x-1/2">
-            <Image
-              src="/cohort_background.png"
-              alt="Builder Workspace"
-              fill
-              className="object-cover opacity-40"
-              priority
-            />
-            <div className="absolute inset-0 bg-stone-900/40 mix-blend-multiply"></div>
-            <div className="absolute inset-0 bg-gradient-to-b from-stone-900/50 via-transparent to-stone-900"></div>
-         </div>
-
-         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-               <div>
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-sm font-medium mb-6 shadow-lg">
+      {/* 2. Asymmetric Hero Section */}
+      <section className="pt-32 pb-20 md:pt-40 md:pb-24 overflow-hidden">
+         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+               {/* Left: Copy & Value */}
+               <div className="flex flex-col items-start z-10">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-stone-100 border border-stone-200 text-stone-600 text-xs font-medium mb-8 uppercase tracking-wide">
                      <span className="relative flex h-2 w-2">
-                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                       <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                       <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
                      </span>
                      Enrolling for January
                   </div>
                   
-                  {/* Glass Card for Text Pop */}
-                  <div className="bg-stone-900/40 backdrop-blur-md p-8 rounded-2xl border border-white/10 shadow-2xl">
-                    <h1 className="text-5xl sm:text-6xl font-semibold tracking-tight leading-[1.1] mb-6 drop-shadow-lg">
-                       0 <span className="text-blue-400">→</span> 1 in 1 Month.
-                    </h1>
-                    <p className="text-xl text-stone-100 leading-relaxed mb-8 max-w-lg drop-shadow-md">
-                       Stop watching tutorials. Join a cohort of builders learning to ship on the modern AI software development stack.
-                    </p>
-                    <div className="flex flex-wrap gap-4 text-sm text-stone-200 font-medium">
-                       <div className="flex items-center gap-2">
-                          <Code size={16} className="text-blue-400" /> Cursor AI
-                       </div>
-                       <div className="flex items-center gap-2">
-                          <Layers size={16} className="text-white" /> Next.js 14
-                       </div>
-                       <div className="flex items-center gap-2">
-                          <Database size={16} className="text-green-400" /> Supabase
-                       </div>
-                    </div>
-                  </div>
-               </div>
-
-               <div className="relative hidden lg:block">
-                  <EnrollmentCard className="absolute top-0 right-0 z-20 w-full max-w-md" />
-               </div>
-            </div>
-         </div>
-      </section>
-
-      {/* Mobile Enrollment Card */}
-      <div className="lg:hidden px-4 -mt-12 relative z-20 mb-16">
-         <EnrollmentCard />
-      </div>
-
-      {/* Tech Stack Authority Strip */}
-      <section className="py-12 bg-stone-50 border-b border-stone-200">
-         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <p className="text-center text-sm font-semibold text-stone-500 uppercase tracking-wider mb-8">
-               Built on the modern standard
-            </p>
-            <div className="relative overflow-hidden">
-               <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-stone-50 to-transparent" />
-               <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-stone-50 to-transparent" />
-               <div className="flex items-center gap-12 md:gap-16 animate-logo-scroll">
-                  {duplicatedTechLogos.map((logo, index) => (
-                     <div
-                       key={`${logo.alt}-${index}`}
-                       className="flex-shrink-0 flex items-center justify-center h-10 md:h-12 opacity-70 hover:opacity-100 transition-opacity duration-300"
-                     >
-                        <Image
-                          src={logo.src}
-                          alt={logo.alt}
-                          width={120}
-                          height={40}
-                          className="h-6 md:h-8 w-auto object-contain"
-                        />
-                     </div>
-                  ))}
-               </div>
-            </div>
-         </div>
-      </section>
-
-      {/* Project Showcase: The Tangible Outcome */}
-      <section className="py-24 bg-white overflow-hidden">
-         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid lg:grid-cols-2 gap-16 items-center">
-               <div className="order-2 lg:order-1">
-                  <div className="relative">
-                     {/* Browser Frame */}
-                     <div className="bg-stone-900 rounded-xl shadow-2xl overflow-hidden border border-stone-800 transform rotate-1 hover:rotate-0 transition-transform duration-700">
-                        <div className="bg-stone-800 px-4 py-3 flex items-center gap-2 border-b border-stone-700">
-                           <div className="w-3 h-3 rounded-full bg-red-500" />
-                           <div className="w-3 h-3 rounded-full bg-yellow-500" />
-                           <div className="w-3 h-3 rounded-full bg-green-500" />
-                           <div className="ml-4 flex-1 bg-stone-900 rounded-md py-1 px-3 text-xs text-stone-500 font-mono text-center">
-                              your-startup.vercel.app
-                           </div>
-                        </div>
-                        <div className="relative aspect-[4/3] bg-stone-900">
-                           {/* Placeholder for App Screenshot - Using code/abstract visual for now */}
-                           <div className="absolute inset-0 flex flex-col">
-                              {/* Fake Navbar */}
-                              <div className="h-16 border-b border-stone-800 flex items-center justify-between px-6">
-                                 <div className="w-24 h-6 bg-stone-800 rounded animate-pulse" />
-                                 <div className="flex gap-4">
-                                    <div className="w-8 h-8 rounded-full bg-stone-800" />
-                                 </div>
-                              </div>
-                              {/* Fake Content */}
-                              <div className="p-8 space-y-6">
-                                 <div className="flex gap-4">
-                                    <div className="w-1/3 h-32 bg-stone-800/50 rounded-lg border border-stone-800" />
-                                    <div className="w-1/3 h-32 bg-stone-800/50 rounded-lg border border-stone-800" />
-                                    <div className="w-1/3 h-32 bg-stone-800/50 rounded-lg border border-stone-800" />
-                                 </div>
-                                 <div className="h-48 bg-stone-800/30 rounded-lg border border-stone-800" />
-                              </div>
-                              
-                              {/* Feature Callouts Overlay */}
-                              <div className="absolute inset-0 flex items-center justify-center">
-                                 <div className="grid grid-cols-2 gap-4">
-                                    <div className="bg-blue-500/10 backdrop-blur-md border border-blue-500/30 px-4 py-2 rounded-lg text-blue-400 text-sm font-medium flex items-center gap-2">
-                                       <Lock size={14} /> Secure Authentication
-                                    </div>
-                                    <div className="bg-green-500/10 backdrop-blur-md border border-green-500/30 px-4 py-2 rounded-lg text-green-400 text-sm font-medium flex items-center gap-2">
-                                       <Database size={14} /> Real-time Database
-                                    </div>
-                                    <div className="bg-purple-500/10 backdrop-blur-md border border-purple-500/30 px-4 py-2 rounded-lg text-purple-400 text-sm font-medium flex items-center gap-2">
-                                       <Zap size={14} /> AI Integration
-                                    </div>
-                                    <div className="bg-orange-500/10 backdrop-blur-md border border-orange-500/30 px-4 py-2 rounded-lg text-orange-400 text-sm font-medium flex items-center gap-2">
-                                       <Globe size={14} /> Global CDN
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     
-                     {/* Decorative Elements */}
-                     <div className="absolute -bottom-6 -right-6 -z-10 w-full h-full bg-stone-100 rounded-xl" />
-                  </div>
-               </div>
-
-               <div className="order-1 lg:order-2">
-                  <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-stone-900 mb-6">
-                     You walk away with a <span className="text-blue-600">deployed asset</span>.
-                  </h2>
-                  <p className="text-lg text-stone-600 mb-8 leading-relaxed">
-                     This isn't a theory course. By Day 21, you will have a live URL you can send to customers, investors, or friends. 
+                  <h1 className="text-5xl sm:text-7xl font-serif font-medium tracking-tight leading-[1.05] mb-8 text-stone-900">
+                     0 <span className="text-stone-300">→</span> 1 in<br />one month.
+                  </h1>
+                  
+                  <p className="text-xl text-stone-600 leading-relaxed mb-10 max-w-lg">
+                     Stop watching tutorials. Join a cohort of builders learning to ship on the modern AI software development stack.
                   </p>
                   
-                  <div className="space-y-6">
-                     <div className="flex gap-4">
-                        <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0 text-blue-600">
-                           <ShieldCheck size={20} />
-                        </div>
-                        <div>
-                           <h3 className="font-semibold text-stone-900">Production-Ready Auth</h3>
-                           <p className="text-stone-600 text-sm">Secure sign-up, login, and protected routes using Clerk.</p>
-                        </div>
+                  <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+                     <Link 
+                       href="#checkout"
+                       className="inline-flex items-center justify-center bg-stone-900 text-white px-8 py-4 rounded-full font-medium hover:bg-stone-800 transition-all duration-200 group"
+                     >
+                       Reserve your spot
+                       <ArrowRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
+                     </Link>
+                     <div className="flex items-center justify-center px-6 py-4 text-sm font-medium text-stone-500">
+                        Only 30 seats available
                      </div>
-                     <div className="flex gap-4">
-                        <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0 text-green-600">
-                           <Database size={20} />
-                        </div>
-                        <div>
-                           <h3 className="font-semibold text-stone-900">Scalable Database</h3>
-                           <p className="text-stone-600 text-sm">A real Postgres database hosted on Supabase, ready for scale.</p>
-                        </div>
+                  </div>
+
+                  {/* Trust / Stack Strip */}
+                  <div className="mt-16 pt-8 border-t border-stone-100 w-full">
+                     <p className="text-xs font-semibold text-stone-400 uppercase tracking-wider mb-4">
+                        Master the modern stack
+                     </p>
+                     <div className="flex gap-8 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+                        {techLogos.map((logo, i) => (
+                           <div key={i} className="relative h-6 w-24">
+                              <Image src={logo.src} alt={logo.alt} fill className="object-contain object-left" />
+                           </div>
+                        ))}
                      </div>
-                     <div className="flex gap-4">
-                        <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center flex-shrink-0 text-purple-600">
-                           <Zap size={20} />
-                        </div>
-                        <div>
-                           <h3 className="font-semibold text-stone-900">Payments Integrated</h3>
-                           <p className="text-stone-600 text-sm">Accept credit cards from day one with Stripe.</p>
-                        </div>
-                     </div>
+                  </div>
+               </div>
+
+               {/* Right: Visual (Bleed) */}
+               <div className="relative lg:h-[800px] w-full lg:w-[120%] lg:-mr-[20%]">
+                  <div className="relative h-full w-full rounded-tl-3xl overflow-hidden shadow-2xl border border-stone-100 bg-stone-900">
+                     <Image
+                       src="/cohort_background.png"
+                       alt="Cursor IDE Interface"
+                       fill
+                       className="object-cover object-left-top"
+                       priority
+                     />
+                     {/* Overlay Gradient for depth */}
+                     <div className="absolute inset-0 bg-gradient-to-t from-stone-900/40 to-transparent pointer-events-none" />
                   </div>
                </div>
             </div>
          </div>
       </section>
 
-      {/* The Stack (Updated to be Philosophy) */}
-      <section className="py-24 bg-stone-50">
+      {/* 3. Instructor Authority (Floating Card Style) */}
+      <section className="py-32 bg-stone-50">
          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-3xl mx-auto mb-16">
-               <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-stone-900 mb-6">
-                  Don't learn to code.<br />Learn to build.
+            <div className="grid lg:grid-cols-12 gap-12 items-center">
+               <div className="lg:col-span-7">
+                  <h2 className="text-4xl sm:text-5xl font-serif font-medium text-stone-900 mb-8 leading-tight">
+                     "I learned to build in the cracks of a busy life."
+                  </h2>
+                  <p className="text-lg text-stone-600 leading-relaxed mb-8 max-w-2xl">
+                     Seven kids. A full-time career in product strategy. And a notebook full of ideas that wouldn't leave me alone.
+                  </p>
+                  <p className="text-lg text-stone-600 leading-relaxed max-w-2xl">
+                     I'm Nate. I didn't go to bootcamp. I didn't get a CS degree. I learned to leverage AI tools like Cursor and V0 to bypass the syntax struggle and ship real products. Now, I build apps that generate revenue while I spend time with my family. I want to show you exactly how I do it.
+                  </p>
+               </div>
+               
+               {/* Instructor Card */}
+               <div className="lg:col-span-5 relative">
+                  <div className="bg-white p-8 rounded-2xl shadow-xl border border-stone-100 relative z-10 rotate-2 hover:rotate-0 transition-transform duration-500">
+                     <div className="flex items-center gap-6 mb-6">
+                        <div className="relative w-20 h-20 rounded-full overflow-hidden border-2 border-stone-100">
+                           <Image
+                              src="/nate profile photo.jpeg"
+                              alt="Nate"
+                              fill
+                              className="object-cover"
+                           />
+                        </div>
+                        <div>
+                           <div className="font-serif text-2xl text-stone-900">Nate Pinches</div>
+                           <div className="text-sm text-stone-500 font-medium uppercase tracking-wide">Instructor & Builder</div>
+                        </div>
+                     </div>
+                     <div className="space-y-4">
+                        <div className="flex items-center justify-between p-3 bg-stone-50 rounded-lg">
+                           <span className="text-stone-600 text-sm">Background</span>
+                           <span className="font-medium text-stone-900 text-sm">Product Strategy</span>
+                        </div>
+                        <div className="flex items-center justify-between p-3 bg-stone-50 rounded-lg">
+                           <span className="text-stone-600 text-sm">Stack</span>
+                           <span className="font-medium text-stone-900 text-sm">Next.js, Supabase, AI</span>
+                        </div>
+                        <div className="flex items-center justify-between p-3 bg-stone-50 rounded-lg">
+                           <span className="text-stone-600 text-sm">Recent Build</span>
+                           <span className="font-medium text-stone-900 text-sm">CappaWork Agency</span>
+                        </div>
+                     </div>
+                  </div>
+                  {/* Decorative backdrop */}
+                  <div className="absolute inset-0 bg-stone-200 rounded-2xl rotate-6 translate-y-2 translate-x-2 z-0"></div>
+               </div>
+            </div>
+         </div>
+      </section>
+
+      {/* 4. The Curriculum (Linear, Clean) */}
+      <section className="py-32 bg-white">
+         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-20">
+               <h2 className="text-3xl sm:text-5xl font-serif font-medium text-stone-900 mb-6">
+                  The 3-Week Sprint
                </h2>
                <p className="text-lg text-stone-600">
-                  Most bootcamps teach you syntax. We teach you how to ship. You will build a real SaaS application with authentication, database, and payments.
+                  A structured path from blank text file to deployed production application.
                </p>
             </div>
 
-            <div className="relative rounded-2xl overflow-hidden border border-stone-200 shadow-2xl bg-stone-900 aspect-video">
-               <div className="absolute inset-0 flex items-center justify-center">
-                  <Image 
-                     src="/CW_homepage.png" 
-                     alt="Builder Workflow" 
-                     fill 
-                     className="object-cover opacity-90"
-                  />
-                  <div className="absolute inset-0 bg-stone-900/60 flex items-center justify-center">
-                     <div className="text-center text-white p-8">
-                        <Code size={48} className="mx-auto mb-4 text-blue-400" />
-                        <h3 className="text-2xl font-semibold mb-2">The Modern Workflow</h3>
-                        <p className="text-stone-300 max-w-md mx-auto">
-                           You'll master Cursor (AI Editor), V0 (Generative UI), and Supabase to build 10x faster than traditional coding.
-                        </p>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </section>
+            <div className="space-y-16 relative">
+               {/* Vertical Line */}
+               <div className="absolute left-4 sm:left-8 top-8 bottom-8 w-px bg-stone-200"></div>
 
-      {/* Meet Your Teacher */}
-      <section className="py-24 bg-white">
-         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-stone-900 mb-12 text-center">
-               Meet your teacher
-            </h2>
-            <div className="flex flex-col md:flex-row gap-8 items-start">
-               <div className="flex-shrink-0">
-                  <div className="relative w-48 h-48 md:w-64 md:h-64 rounded-2xl overflow-hidden border border-stone-200 shadow-lg">
-                     <Image
-                        src="/nate profile photo.jpeg"
-                        alt="Nate - CappaWork Instructor"
-                        fill
-                        className="object-cover"
-                     />
-                  </div>
-               </div>
-               <div className="flex-1">
-                  <p className="text-lg text-stone-700 leading-relaxed space-y-4">
-                     <span className="font-semibold text-stone-900">I'm Nate.</span> I learned to build software in the cracks of a busy life—seven kids, a full family schedule, and product ideas that wouldn't leave me alone. I've worked for years in strategy and product development, but always relied on a developer to turn my ideas into products. Once I understood how to ship real products with modern AI tools, everything opened up: I could work when it fit my day, charge what my skills were worth, and create apps that earned money while I was with my family. But this story isn't about me, it's about you. I've just walked this path and can show you how to build something that gives you back control of your time, your income, and your future. This skill isn't easy, but it can change your life. Ready to get started??? Lets go!
-                  </p>
-               </div>
-            </div>
-         </div>
-      </section>
-
-      {/* Curriculum Section */}
-      <section className="py-24 bg-stone-50">
-         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-stone-900 mb-12 text-center">
-               The 3-Week Sprint
-            </h2>
-            <div className="space-y-8 relative before:absolute before:inset-0 before:ml-6 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-stone-300 before:to-transparent">
-               
                {/* Week 1 */}
-               <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-                  <div className="flex items-center justify-center w-12 h-12 rounded-full border-2 border-stone-200 bg-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 text-stone-500 font-bold">
-                     01
+               <div className="relative pl-16 sm:pl-24">
+                  <div className="absolute left-0 sm:left-4 top-0 w-8 h-8 sm:w-9 sm:h-9 bg-stone-900 text-white rounded-full flex items-center justify-center font-bold text-sm shadow-lg ring-4 ring-white">
+                     1
                   </div>
-                  <div className="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] bg-white p-6 rounded-xl border border-stone-200 shadow-sm">
-                     <div className="text-sm font-medium text-blue-600 mb-1">Week 1</div>
-                     <h3 className="text-xl font-bold text-stone-900 mb-4">Foundation & Architecture</h3>
-                     <ul className="space-y-3">
-                        <li className="flex items-start gap-3 text-stone-600">
-                           <Check size={18} className="text-blue-500 mt-0.5 flex-shrink-0" />
-                           <span>Idea validation and scope definition</span>
-                        </li>
-                        <li className="flex items-start gap-3 text-stone-600">
-                           <Check size={18} className="text-blue-500 mt-0.5 flex-shrink-0" />
-                           <span>Setting up the Next.js 14 environment</span>
-                        </li>
-                        <li className="flex items-start gap-3 text-stone-600">
-                           <Check size={18} className="text-blue-500 mt-0.5 flex-shrink-0" />
-                           <span>Designing the Database Schema (Supabase)</span>
-                        </li>
-                        <li className="flex items-start gap-3 text-stone-600">
-                           <Check size={18} className="text-blue-500 mt-0.5 flex-shrink-0" />
-                           <span>Implementing Authentication (Clerk)</span>
-                        </li>
-                     </ul>
-                  </div>
+                  <h3 className="text-2xl font-serif text-stone-900 mb-2">Foundation & Architecture</h3>
+                  <p className="text-stone-500 mb-6">Days 1-7</p>
+                  <ul className="space-y-4">
+                     <li className="flex items-start gap-3 text-stone-700">
+                        <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></div>
+                        <span>Setup Cursor, V0, and Next.js 14 environment</span>
+                     </li>
+                     <li className="flex items-start gap-3 text-stone-700">
+                        <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></div>
+                        <span>Design the Database Schema in Supabase</span>
+                     </li>
+                     <li className="flex items-start gap-3 text-stone-700">
+                        <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></div>
+                        <span>Implement Authentication with Clerk</span>
+                     </li>
+                  </ul>
                </div>
 
                {/* Week 2 */}
-               <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-                  <div className="flex items-center justify-center w-12 h-12 rounded-full border-2 border-stone-200 bg-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 text-stone-500 font-bold">
-                     02
+               <div className="relative pl-16 sm:pl-24">
+                  <div className="absolute left-0 sm:left-4 top-0 w-8 h-8 sm:w-9 sm:h-9 bg-stone-900 text-white rounded-full flex items-center justify-center font-bold text-sm shadow-lg ring-4 ring-white">
+                     2
                   </div>
-                  <div className="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] bg-white p-6 rounded-xl border border-stone-200 shadow-sm">
-                     <div className="text-sm font-medium text-blue-600 mb-1">Week 2</div>
-                     <h3 className="text-xl font-bold text-stone-900 mb-4">The Core Build</h3>
-                     <ul className="space-y-3">
-                        <li className="flex items-start gap-3 text-stone-600">
-                           <Check size={18} className="text-blue-500 mt-0.5 flex-shrink-0" />
-                           <span>Building UI with Tailwind + shadcn/ui</span>
-                        </li>
-                        <li className="flex items-start gap-3 text-stone-600">
-                           <Check size={18} className="text-blue-500 mt-0.5 flex-shrink-0" />
-                           <span>Connecting Frontend to Backend</span>
-                        </li>
-                        <li className="flex items-start gap-3 text-stone-600">
-                           <Check size={18} className="text-blue-500 mt-0.5 flex-shrink-0" />
-                           <span>Implementing core feature logic</span>
-                        </li>
-                     </ul>
-                  </div>
+                  <h3 className="text-2xl font-serif text-stone-900 mb-2">The Core Build</h3>
+                  <p className="text-stone-500 mb-6">Days 8-14</p>
+                  <ul className="space-y-4">
+                     <li className="flex items-start gap-3 text-stone-700">
+                        <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></div>
+                        <span>Building UI with Tailwind + shadcn/ui</span>
+                     </li>
+                     <li className="flex items-start gap-3 text-stone-700">
+                        <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></div>
+                        <span>Connecting Client Components to Server Actions</span>
+                     </li>
+                     <li className="flex items-start gap-3 text-stone-700">
+                        <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></div>
+                        <span>Implementing core feature logic (CRUD)</span>
+                     </li>
+                  </ul>
                </div>
 
                {/* Week 3 */}
-               <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-                  <div className="flex items-center justify-center w-12 h-12 rounded-full border-2 border-stone-200 bg-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 text-stone-500 font-bold">
-                     03
+               <div className="relative pl-16 sm:pl-24">
+                  <div className="absolute left-0 sm:left-4 top-0 w-8 h-8 sm:w-9 sm:h-9 bg-stone-900 text-white rounded-full flex items-center justify-center font-bold text-sm shadow-lg ring-4 ring-white">
+                     3
                   </div>
-                  <div className="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] bg-white p-6 rounded-xl border border-stone-200 shadow-sm">
-                     <div className="text-sm font-medium text-blue-600 mb-1">Week 3</div>
-                     <h3 className="text-xl font-bold text-stone-900 mb-4">Bug Squashing and Launch</h3>
-                     <ul className="space-y-3">
-                        <li className="flex items-start gap-3 text-stone-600">
-                           <Check size={18} className="text-blue-500 mt-0.5 flex-shrink-0" />
-                           <span>Payments integration (Stripe)</span>
-                        </li>
-                        <li className="flex items-start gap-3 text-stone-600">
-                           <Check size={18} className="text-blue-500 mt-0.5 flex-shrink-0" />
-                           <span>Deploying to Vercel Production</span>
-                        </li>
-                        <li className="flex items-start gap-3 text-stone-600">
-                           <Check size={18} className="text-blue-500 mt-0.5 flex-shrink-0" />
-                           <span>Setting up custom domains</span>
-                        </li>
-                        <li className="flex items-start gap-3 text-stone-600">
-                           <Check size={18} className="text-blue-500 mt-0.5 flex-shrink-0" />
-                           <span>Launch day checklist</span>
-                        </li>
-                     </ul>
-                  </div>
+                  <h3 className="text-2xl font-serif text-stone-900 mb-2">Launch & Monetize</h3>
+                  <p className="text-stone-500 mb-6">Days 15-21</p>
+                  <ul className="space-y-4">
+                     <li className="flex items-start gap-3 text-stone-700">
+                        <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></div>
+                        <span>Stripe Payment Integration</span>
+                     </li>
+                     <li className="flex items-start gap-3 text-stone-700">
+                        <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></div>
+                        <span>Production Deployment to Vercel</span>
+                     </li>
+                     <li className="flex items-start gap-3 text-stone-700">
+                        <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></div>
+                        <span>Launch Day checklist</span>
+                     </li>
+                  </ul>
                </div>
-
             </div>
          </div>
       </section>
 
-      {/* Target Audience / Community */}
-      <section className="py-24 bg-white">
+      {/* 5. Portfolio / Outcome Section (Replacing "Target Audience") */}
+      <section className="py-32 bg-stone-900 text-white">
          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-3xl mx-auto mb-16">
-               <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-stone-900 mb-6">
-                  Join the Builder Class
+            <div className="text-center mb-20">
+               <h2 className="text-3xl sm:text-5xl font-serif font-medium mb-6">
+                  Build production-grade apps.
                </h2>
-               <p className="text-lg text-stone-600">
-                  This cohort is curated for operators, not observers. You'll build alongside founders, product leaders, and designers who are tired of waiting for permission to ship.
+               <p className="text-xl text-stone-400 max-w-2xl mx-auto">
+                  We don't build "Hello World" apps. We build commercial products. These are the types of projects I build for clients starting at $15k.
                </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8">
-               <div className="p-8 bg-stone-50 rounded-2xl border border-stone-100 hover:border-blue-200 transition-colors duration-300">
-                  <div className="w-12 h-12 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center mb-6"><Zap size={24} /></div>
-                  <h3 className="text-xl font-semibold text-stone-900 mb-3">Non-Technical Founders</h3>
-                  <p className="text-stone-600 leading-relaxed">
-                     Stop trading equity for dev work. Build your MVP yourself this month, and own 100% of your product.
-                  </p>
+            <div className="grid md:grid-cols-2 gap-8">
+               {/* Project 1 */}
+               <div className="group relative rounded-2xl overflow-hidden bg-stone-800 border border-stone-700 hover:border-stone-500 transition-colors">
+                  <div className="aspect-video relative bg-stone-950">
+                     <Image 
+                        src="/CW_homepage.png" 
+                        alt="Agency Site" 
+                        fill 
+                        className="object-cover opacity-80 group-hover:opacity-100 transition-opacity" 
+                     />
+                  </div>
+                  <div className="p-8">
+                     <h3 className="text-2xl font-serif mb-2">Modern Agency Site</h3>
+                     <p className="text-stone-400 text-sm mb-4">Complete CMS, Blog, and Lead Capture</p>
+                     <div className="flex gap-2">
+                        <span className="px-3 py-1 bg-stone-900 rounded-full text-xs border border-stone-700">Next.js</span>
+                        <span className="px-3 py-1 bg-stone-900 rounded-full text-xs border border-stone-700">Tailwind</span>
+                     </div>
+                  </div>
                </div>
-               <div className="p-8 bg-stone-50 rounded-2xl border border-stone-100 hover:border-blue-200 transition-colors duration-300">
-                  <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mb-6"><Layers size={24} /></div>
-                  <h3 className="text-xl font-semibold text-stone-900 mb-3">Product Managers</h3>
-                  <p className="text-stone-600 leading-relaxed">
-                     The best PMs can build. Stop writing Jira tickets and start shipping prototypes that actually work.
-                  </p>
-               </div>
-               <div className="p-8 bg-stone-50 rounded-2xl border border-stone-100 hover:border-blue-200 transition-colors duration-300">
-                  <div className="w-12 h-12 bg-green-100 text-green-600 rounded-xl flex items-center justify-center mb-6"><Code size={24} /></div>
-                  <h3 className="text-xl font-semibold text-stone-900 mb-3">Designers</h3>
-                  <p className="text-stone-600 leading-relaxed">
-                     You already know how it should look. Now make it real. Close the gap between Figma and Production.
-                  </p>
+
+               {/* Project 2 (Placeholder using other asset) */}
+               <div className="group relative rounded-2xl overflow-hidden bg-stone-800 border border-stone-700 hover:border-stone-500 transition-colors">
+                  <div className="aspect-video relative bg-stone-950">
+                      <Image 
+                        src="/CW_reviews.png" 
+                        alt="SaaS Dashboard" 
+                        fill 
+                        className="object-cover opacity-80 group-hover:opacity-100 transition-opacity" 
+                     />
+                  </div>
+                  <div className="p-8">
+                     <h3 className="text-2xl font-serif mb-2">SaaS Dashboard</h3>
+                     <p className="text-stone-400 text-sm mb-4">Auth, Payments, and Database</p>
+                     <div className="flex gap-2">
+                        <span className="px-3 py-1 bg-stone-900 rounded-full text-xs border border-stone-700">Supabase</span>
+                        <span className="px-3 py-1 bg-stone-900 rounded-full text-xs border border-stone-700">Stripe</span>
+                     </div>
+                  </div>
                </div>
             </div>
+         </div>
+      </section>
 
-            {/* Social Proof Placeholder - "Community" Vibe */}
-            <div className="mt-16 pt-16 border-t border-stone-100 text-center">
-               <p className="text-stone-500 font-medium mb-6">Join a small, high-signal cohort</p>
-               <div className="inline-flex items-center justify-center p-1 rounded-full border border-stone-200 bg-white shadow-sm">
-                  <div className="flex -space-x-4 px-4">
-                     {[1,2,3,4,5].map((i) => (
-                        <div key={i} className="w-10 h-10 rounded-full border-2 border-white bg-stone-200 flex items-center justify-center text-xs font-bold text-stone-400">
-                           {/* Placeholder avatars */}
-                        </div>
-                     ))}
+      {/* 6. Pricing & Checkout (Refined) */}
+      <section id="checkout" className="py-32 bg-stone-50">
+         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-stone-100">
+               <div className="p-12 text-center">
+                  <div className="text-sm font-medium text-stone-500 uppercase tracking-widest mb-4">
+                     January 2025 Cohort
                   </div>
-                  <div className="px-6 py-2 text-sm font-semibold text-stone-900">
-                     Only 30 Spots Available
+                  <h2 className="text-5xl sm:text-7xl font-serif font-medium text-stone-900 mb-6">
+                     {price}
+                  </h2>
+                  <p className="text-stone-500 mb-10 text-lg">
+                     One-time payment. Lifetime access to materials.
+                  </p>
+                  
+                  <div className="flex flex-col gap-4 items-center justify-center mb-12">
+                     <div className="flex items-center gap-2 text-stone-700">
+                        <Check size={20} className="text-green-500" />
+                        <span>3 Live Weekly Calls (Recorded)</span>
+                     </div>
+                     <div className="flex items-center gap-2 text-stone-700">
+                        <Check size={20} className="text-green-500" />
+                        <span>Private Community Access</span>
+                     </div>
+                     <div className="flex items-center gap-2 text-stone-700">
+                        <Check size={20} className="text-green-500" />
+                        <span>Direct Instructor Feedback</span>
+                     </div>
                   </div>
+
+                  {/* Stripe Button Container */}
+                  <div className="w-full max-w-sm mx-auto relative z-10">
+                     <Script async src="https://js.stripe.com/v3/buy-button.js" />
+                     {/* @ts-ignore */}
+                     <stripe-buy-button
+                       buy-button-id="buy_btn_1Sd4g1GhYKujbeksgGCYzAbX"
+                       publishable-key="pk_live_51QwIWXGhYKujbeksrBQUhPqTZ5Qej4iU0YZprwB8Q8rFkorG8xTBt6i1Z3dhocHYjJKkBIvuB30wQul8XFcaeRbv00qkalslmt"
+                     >
+                     {/* @ts-ignore */}
+                     </stripe-buy-button>
+                  </div>
+                  
+                  <div className="mt-8 text-xs text-stone-400 flex items-center justify-center gap-2">
+                     <Lock size={12} /> Secure checkout via Stripe
+                  </div>
+               </div>
+               
+               <div className="bg-stone-50 p-6 border-t border-stone-100 text-center text-sm text-stone-500">
+                  100% Money-back guarantee. If you don't ship, I'll refund you.
                </div>
             </div>
          </div>
       </section>
 
       {/* FAQ */}
-      <section className="py-24 bg-stone-50">
+      <section className="py-24 bg-white">
          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-stone-900 mb-12 text-center">Frequently Asked Questions</h2>
+            <h2 className="text-3xl font-serif font-medium text-stone-900 mb-12 text-center">Common Questions</h2>
             <Accordion type="single" collapsible className="w-full space-y-4">
                {[
                   { 
                      q: "Do I need to know how to code?", 
-                     a: "No! The only prerequisite for this course is having built something - anything - in a vibe-coding tool. If you're familiar with Javascript and HTML that's a plus, but not needed." 
+                     a: "No. The premise of this cohort is that modern AI tools allow us to bypass syntax. If you are logic-minded and willing to learn, you can build." 
                   },
                   { 
                      q: "What is the time commitment?", 
                      a: "Expect to spend about 5-8 hours per week. This includes the live call (1 hour) and build time." 
                   },
                   { 
-                     q: "What if I miss a live call?", 
-                     a: "All calls are recorded and posted to the community immediately after." 
+                     q: "What happens if I miss a live session?", 
+                     a: "Everything is recorded and posted to our private community immediately." 
                   },
                   { 
-                     q: "Do I really build a full product?", 
-                     a: "Yes. This isn't a theory course. The goal is to have a deployed URL by the end of Week 3." 
-                  },
-                  { 
-                     q: "What if I need to drop out?", 
-                     a: "If life happens and you need to cancel after your purchase, we get it. You can roll your registration into a future cohort for no fee." 
+                     q: "Is there a refund policy?", 
+                     a: "Yes. If you participate and feel it wasn't worth it, I'll refund your money. No questions asked." 
                   }
                ].map((item, i) => (
-                  <AccordionItem key={i} value={`item-${i}`} className="bg-white border border-stone-200 rounded-lg px-6">
-                     <AccordionTrigger className="hover:no-underline py-6 text-left font-semibold text-stone-900">
+                  <AccordionItem key={i} value={`item-${i}`} className="bg-stone-50 border border-stone-100 rounded-lg px-6">
+                     <AccordionTrigger className="hover:no-underline py-6 text-left font-medium text-stone-900">
                         {item.q}
                      </AccordionTrigger>
                      <AccordionContent className="pb-6 text-stone-600 text-base leading-relaxed">
@@ -488,101 +404,6 @@ export default function CohortPage() {
             </Accordion>
          </div>
       </section>
-
-      {/* Checkout Section (Embedded) */}
-      <section id="checkout" className="py-24 bg-white border-t border-stone-200">
-         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-               <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-stone-900 mb-6">
-                  Reserve Your Spot
-               </h2>
-               <p className="text-xl text-stone-600 max-w-2xl mx-auto">
-                  30 days from now, you could have an idea in a notebook—or a product in the world.
-               </p>
-            </div>
-
-            <div className="grid lg:grid-cols-12 gap-12 lg:gap-24 items-start">
-               {/* Left: Summary */}
-               <div className="lg:col-span-5 space-y-8">
-                  <div className="bg-stone-50 p-6 rounded-xl border border-stone-200">
-                     <div className="flex justify-between items-start mb-6 pb-6 border-b border-stone-200">
-                        <div>
-                           <h3 className="font-semibold text-stone-900">January 2025 Cohort</h3>
-                           <p className="text-sm text-stone-500">3-Week Live Program</p>
-                        </div>
-                        <div className="text-right">
-                           <div className="text-xl font-semibold text-stone-900">{price}</div>
-                           <div className="text-sm text-stone-400 line-through">{fullPrice}</div>
-                        </div>
-                     </div>
-                     <div className="space-y-4">
-                        <h4 className="font-medium text-stone-900 text-sm">What's Included:</h4>
-                        <ul className="space-y-3">
-                           <li className="flex items-start gap-3 text-sm text-stone-600"><Check size={16} className="text-blue-600 mt-0.5" /> <span>3 Live Weekly Calls</span></li>
-                           <li className="flex items-start gap-3 text-sm text-stone-600"><Check size={16} className="text-blue-600 mt-0.5" /> <span>Private Community Access</span></li>
-                           <li className="flex items-start gap-3 text-sm text-stone-600"><Check size={16} className="text-blue-600 mt-0.5" /> <span>Lifetime Curriculum Access</span></li>
-                           <li className="flex items-start gap-3 text-sm text-stone-600"><Check size={16} className="text-blue-600 mt-0.5" /> <span>Direct access to instructors</span></li>
-                        </ul>
-                     </div>
-                     <div className="mt-6 pt-6 border-t border-stone-200 flex items-center gap-2 text-green-600 text-sm font-medium">
-                        <ShieldCheck size={16} /> 100% Money-Back Guarantee
-                     </div>
-                  </div>
-                  <div className="flex items-center gap-2 text-stone-400 text-sm justify-center lg:justify-start">
-                     <Lock size={14} /> Secure SSL Encryption
-                  </div>
-               </div>
-
-               {/* Right: Stripe Buy Button */}
-               <div className="lg:col-span-7">
-                  <div className="bg-white rounded-2xl shadow-xl border border-stone-200 overflow-hidden flex flex-col items-center justify-center text-center p-12 relative">
-                     <h3 className="text-xl font-semibold text-stone-900 mb-4">Stripe Checkout</h3>
-                     <p className="text-stone-500 max-w-sm mb-6">
-                        Reserve your seat securely with Stripe. You’ll get an instant confirmation after payment.
-                     </p>
-                     <Script async src="https://js.stripe.com/v3/buy-button.js" />
-                     <stripe-buy-button
-                       buy-button-id="buy_btn_1Sd4g1GhYKujbeksgGCYzAbX"
-                       publishable-key="pk_live_51QwIWXGhYKujbeksrBQUhPqTZ5Qej4iU0YZprwB8Q8rFkorG8xTBt6i1Z3dhocHYjJKkBIvuB30wQul8XFcaeRbv00qkalslmt"
-                     />
-                  </div>
-               </div>
-            </div>
-         </div>
-      </section>
-
-      {/* Sticky Checkout CTA (desktop) */}
-      <div className="hidden lg:block fixed bottom-8 right-8 z-40">
-         <div className="w-80 bg-white border border-stone-200 shadow-2xl rounded-2xl p-5 space-y-4">
-            <div className="text-xs font-semibold text-blue-600 uppercase tracking-wide">
-               January 2025 Cohort
-            </div>
-            <div className="flex items-baseline gap-2">
-               <span className="text-3xl font-semibold text-stone-900">{price}</span>
-               <span className="text-sm text-stone-400 line-through">{fullPrice}</span>
-            </div>
-            <ul className="space-y-1 text-sm text-stone-600">
-               <li className="flex items-center gap-2">
-                  <Check size={14} className="text-blue-600" />
-                  <span>Deployed 0→1 product in 3 weeks</span>
-               </li>
-               <li className="flex items-center gap-2">
-                  <Check size={14} className="text-blue-600" />
-                  <span>Three live calls + async support</span>
-               </li>
-               <li className="flex items-center gap-2">
-                  <Check size={14} className="text-blue-600" />
-                  <span>Only 30 seats available</span>
-               </li>
-            </ul>
-            <a
-              href="#checkout"
-              className="block w-full text-center bg-blue-600 text-white py-3 rounded-full font-medium hover:bg-blue-700 transition-colors duration-200"
-            >
-               Reserve your seat
-            </a>
-         </div>
-      </div>
 
     </main>
   )
