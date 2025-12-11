@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import Image from "next/image"
+import Script from "next/script"
 import { Check, Calendar, Code, Database, Globe, ArrowRight, Layers, Users, Zap, ShieldCheck, Lock } from "lucide-react"
 import EnrollmentCard from "./enrollment-card"
 import {
@@ -532,19 +533,18 @@ export default function CohortPage() {
                   </div>
                </div>
 
-               {/* Right: Checkout Form Placeholder */}
+               {/* Right: Stripe Buy Button */}
                <div className="lg:col-span-7">
-                  <div className="bg-white rounded-2xl shadow-xl border border-stone-200 overflow-hidden min-h-[500px] flex flex-col items-center justify-center text-center p-12 relative">
-                     <div className="w-16 h-16 bg-stone-100 rounded-full flex items-center justify-center mb-6">
-                        <span className="font-bold text-stone-400 text-2xl">S</span>
-                     </div>
-                     <h3 className="text-xl font-semibold text-stone-900 mb-2">Stripe Checkout</h3>
-                     <p className="text-stone-500 max-w-sm">
-                        This is where the Stripe Embedded Checkout Element will be rendered.
+                  <div className="bg-white rounded-2xl shadow-xl border border-stone-200 overflow-hidden flex flex-col items-center justify-center text-center p-12 relative">
+                     <h3 className="text-xl font-semibold text-stone-900 mb-4">Stripe Checkout</h3>
+                     <p className="text-stone-500 max-w-sm mb-6">
+                        Reserve your seat securely with Stripe. You’ll get an instant confirmation after payment.
                      </p>
-                     <div className="mt-8 p-4 bg-stone-50 border border-stone-200 rounded text-xs text-stone-400 font-mono">
-                        {`<EmbeddedCheckoutProvider stripe={stripePromise} options={options} />`}
-                     </div>
+                     <Script async src="https://js.stripe.com/v3/buy-button.js" />
+                     <stripe-buy-button
+                       buy-button-id="buy_btn_1Sd4g1GhYKujbeksgGCYzAbX"
+                       publishable-key="pk_live_51QwIWXGhYKujbeksrBQUhPqTZ5Qej4iU0YZprwB8Q8rFkorG8xTBt6i1Z3dhocHYjJKkBIvuB30wQul8XFcaeRbv00qkalslmt"
+                     />
                   </div>
                </div>
             </div>
