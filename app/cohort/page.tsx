@@ -137,8 +137,8 @@ export default function CohortPage() {
       {/* Project Showcase: The Tangible Outcome */}
       <section className="py-24 bg-white overflow-hidden">
          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid lg:grid-cols-2 gap-16 items-center">
-               <div className="order-2 lg:order-1">
+            <div className="grid lg:grid-cols-3 gap-12 items-start">
+               <div className="lg:col-span-2 order-2 lg:order-1">
                   <div className="relative">
                      {/* Browser Frame */}
                      <div className="bg-stone-900 rounded-xl shadow-2xl overflow-hidden border border-stone-800 transform rotate-1 hover:rotate-0 transition-transform duration-700">
@@ -196,41 +196,45 @@ export default function CohortPage() {
                   </div>
                </div>
 
-               <div className="order-1 lg:order-2">
-                  <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-stone-900 mb-6">
-                     You walk away with a <span className="text-blue-600">deployed asset</span>.
-                  </h2>
-                  <p className="text-lg text-stone-600 mb-8 leading-relaxed">
-                     This isn't a theory course. By Day 21, you will have a live URL you can send to customers, investors, or friends. 
-                  </p>
-                  
+               <div className="order-1 lg:order-2 lg:sticky lg:top-24">
                   <div className="space-y-6">
-                     <div className="flex gap-4">
-                        <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0 text-blue-600">
-                           <ShieldCheck size={20} />
-                        </div>
-                        <div>
-                           <h3 className="font-semibold text-stone-900">Production-Ready Auth</h3>
-                           <p className="text-stone-600 text-sm">Secure sign-up, login, and protected routes using Clerk.</p>
-                        </div>
+                     <div>
+                        <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-stone-900 mb-4">
+                           You walk away with a <span className="text-blue-600">deployed asset</span>.
+                        </h2>
+                        <p className="text-lg text-stone-600 leading-relaxed">
+                           This isn't a theory course. By Day 21, you will have a live URL you can send to customers, investors, or friends. 
+                        </p>
                      </div>
-                     <div className="flex gap-4">
-                        <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0 text-green-600">
-                           <Database size={20} />
+                     
+                     <div className="bg-white border border-stone-200 rounded-2xl shadow-xl p-6 space-y-4">
+                        <div className="text-xs font-semibold text-blue-600 uppercase tracking-wide">
+                           January 2025 Cohort
                         </div>
-                        <div>
-                           <h3 className="font-semibold text-stone-900">Scalable Database</h3>
-                           <p className="text-stone-600 text-sm">A real Postgres database hosted on Supabase, ready for scale.</p>
+                        <div className="flex items-baseline gap-2">
+                           <span className="text-3xl font-semibold text-stone-900">{price}</span>
+                           <span className="text-sm text-stone-400 line-through">{fullPrice}</span>
                         </div>
-                     </div>
-                     <div className="flex gap-4">
-                        <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center flex-shrink-0 text-purple-600">
-                           <Zap size={20} />
-                        </div>
-                        <div>
-                           <h3 className="font-semibold text-stone-900">Payments Integrated</h3>
-                           <p className="text-stone-600 text-sm">Accept credit cards from day one with Stripe.</p>
-                        </div>
+                        <ul className="space-y-2 text-sm text-stone-600">
+                           <li className="flex items-center gap-2">
+                              <Check size={14} className="text-blue-600" />
+                              <span>Deployed 0→1 product in 3 weeks</span>
+                           </li>
+                           <li className="flex items-center gap-2">
+                              <Check size={14} className="text-blue-600" />
+                              <span>Three live calls + async support</span>
+                           </li>
+                           <li className="flex items-center gap-2">
+                              <Check size={14} className="text-blue-600" />
+                              <span>Only 30 seats available</span>
+                           </li>
+                        </ul>
+                        <a
+                          href="#checkout"
+                          className="block w-full text-center bg-blue-600 text-white py-3 rounded-full font-medium hover:bg-blue-700 transition-colors duration-200"
+                        >
+                           Reserve your seat
+                        </a>
                      </div>
                   </div>
                </div>
@@ -267,32 +271,6 @@ export default function CohortPage() {
                         </p>
                      </div>
                   </div>
-               </div>
-            </div>
-         </div>
-      </section>
-
-      {/* Meet Your Teacher */}
-      <section className="py-24 bg-white">
-         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-stone-900 mb-12 text-center">
-               Meet your teacher
-            </h2>
-            <div className="flex flex-col md:flex-row gap-8 items-start">
-               <div className="flex-shrink-0">
-                  <div className="relative w-48 h-48 md:w-64 md:h-64 rounded-2xl overflow-hidden border border-stone-200 shadow-lg">
-                     <Image
-                        src="/nate profile photo.jpeg"
-                        alt="Nate - CappaWork Instructor"
-                        fill
-                        className="object-cover"
-                     />
-                  </div>
-               </div>
-               <div className="flex-1">
-                  <p className="text-lg text-stone-700 leading-relaxed space-y-4">
-                     <span className="font-semibold text-stone-900">I'm Nate.</span> I learned to build software in the cracks of a busy life—seven kids, a full family schedule, and product ideas that wouldn't leave me alone. I've worked for years in strategy and product development, but always relied on a developer to turn my ideas into products. Once I understood how to ship real products with modern AI tools, everything opened up: I could work when it fit my day, charge what my skills were worth, and create apps that earned money while I was with my family. But this story isn't about me, it's about you. I've just walked this path and can show you how to build something that gives you back control of your time, your income, and your future. This skill isn't easy, but it can change your life. Ready to get started??? Lets go!
-                  </p>
                </div>
             </div>
          </div>
@@ -393,55 +371,80 @@ export default function CohortPage() {
          </div>
       </section>
 
-      {/* Target Audience / Community */}
+      {/* Community + Teacher Side-by-Side */}
       <section className="py-24 bg-white">
          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-3xl mx-auto mb-16">
-               <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-stone-900 mb-6">
-                  Join the Builder Class
-               </h2>
-               <p className="text-lg text-stone-600">
-                  This cohort is curated for operators, not observers. You'll build alongside founders, product leaders, and designers who are tired of waiting for permission to ship.
-               </p>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-8">
-               <div className="p-8 bg-stone-50 rounded-2xl border border-stone-100 hover:border-blue-200 transition-colors duration-300">
-                  <div className="w-12 h-12 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center mb-6"><Zap size={24} /></div>
-                  <h3 className="text-xl font-semibold text-stone-900 mb-3">Non-Technical Founders</h3>
-                  <p className="text-stone-600 leading-relaxed">
-                     Stop trading equity for dev work. Build your MVP yourself this month, and own 100% of your product.
+            <div className="grid lg:grid-cols-2 gap-16 items-start">
+               {/* Join the Builder Class */}
+               <div>
+                  <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-stone-900 mb-6">
+                     Join the Builder Class
+                  </h2>
+                  <p className="text-lg text-stone-600 mb-10">
+                     This cohort is curated for operators, not observers. You'll build alongside founders, product leaders, and designers who are tired of waiting for permission to ship.
                   </p>
-               </div>
-               <div className="p-8 bg-stone-50 rounded-2xl border border-stone-100 hover:border-blue-200 transition-colors duration-300">
-                  <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mb-6"><Layers size={24} /></div>
-                  <h3 className="text-xl font-semibold text-stone-900 mb-3">Product Managers</h3>
-                  <p className="text-stone-600 leading-relaxed">
-                     The best PMs can build. Stop writing Jira tickets and start shipping prototypes that actually work.
-                  </p>
-               </div>
-               <div className="p-8 bg-stone-50 rounded-2xl border border-stone-100 hover:border-blue-200 transition-colors duration-300">
-                  <div className="w-12 h-12 bg-green-100 text-green-600 rounded-xl flex items-center justify-center mb-6"><Code size={24} /></div>
-                  <h3 className="text-xl font-semibold text-stone-900 mb-3">Designers</h3>
-                  <p className="text-stone-600 leading-relaxed">
-                     You already know how it should look. Now make it real. Close the gap between Figma and Production.
-                  </p>
-               </div>
-            </div>
-
-            {/* Social Proof Placeholder - "Community" Vibe */}
-            <div className="mt-16 pt-16 border-t border-stone-100 text-center">
-               <p className="text-stone-500 font-medium mb-6">Join a small, high-signal cohort</p>
-               <div className="inline-flex items-center justify-center p-1 rounded-full border border-stone-200 bg-white shadow-sm">
-                  <div className="flex -space-x-4 px-4">
-                     {[1,2,3,4,5].map((i) => (
-                        <div key={i} className="w-10 h-10 rounded-full border-2 border-white bg-stone-200 flex items-center justify-center text-xs font-bold text-stone-400">
-                           {/* Placeholder avatars */}
-                        </div>
-                     ))}
+                  <div className="space-y-6">
+                     <div className="p-6 bg-stone-50 rounded-2xl border border-stone-100 hover:border-blue-200 transition-colors duration-300">
+                        <div className="w-12 h-12 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center mb-4"><Zap size={24} /></div>
+                        <h3 className="text-xl font-semibold text-stone-900 mb-2">Non-Technical Founders</h3>
+                        <p className="text-stone-600 leading-relaxed">
+                           Stop trading equity for dev work. Build your MVP yourself this month, and own 100% of your product.
+                        </p>
+                     </div>
+                     <div className="p-6 bg-stone-50 rounded-2xl border border-stone-100 hover:border-blue-200 transition-colors duration-300">
+                        <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mb-4"><Layers size={24} /></div>
+                        <h3 className="text-xl font-semibold text-stone-900 mb-2">Product Managers</h3>
+                        <p className="text-stone-600 leading-relaxed">
+                           The best PMs can build. Stop writing Jira tickets and start shipping prototypes that actually work.
+                        </p>
+                     </div>
+                     <div className="p-6 bg-stone-50 rounded-2xl border border-stone-100 hover:border-blue-200 transition-colors duration-300">
+                        <div className="w-12 h-12 bg-green-100 text-green-600 rounded-xl flex items-center justify-center mb-4"><Code size={24} /></div>
+                        <h3 className="text-xl font-semibold text-stone-900 mb-2">Designers</h3>
+                        <p className="text-stone-600 leading-relaxed">
+                           You already know how it should look. Now make it real. Close the gap between Figma and Production.
+                        </p>
+                     </div>
                   </div>
-                  <div className="px-6 py-2 text-sm font-semibold text-stone-900">
-                     Only 30 Spots Available
+                  <div className="mt-10 pt-10 border-t border-stone-100">
+                     <p className="text-stone-500 font-medium mb-4">Join a small, high-signal cohort</p>
+                     <div className="inline-flex items-center justify-center p-1 rounded-full border border-stone-200 bg-white shadow-sm">
+                        <div className="flex -space-x-4 px-4">
+                           {[1,2,3,4,5].map((i) => (
+                              <div key={i} className="w-10 h-10 rounded-full border-2 border-white bg-stone-200 flex items-center justify-center text-xs font-bold text-stone-400">
+                                 {/* Placeholder avatars */}
+                              </div>
+                           ))}
+                        </div>
+                        <div className="px-6 py-2 text-sm font-semibold text-stone-900">
+                           Only 30 Spots Available
+                        </div>
+                     </div>
+                  </div>
+               </div>
+
+               {/* Meet Your Teacher */}
+               <div>
+                  <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-stone-900 mb-6">
+                     Meet your teacher
+                  </h2>
+                  <div className="grid md:grid-cols-[auto,1fr] gap-6 items-start">
+                     <div className="relative w-32 h-32 md:w-48 md:h-48 rounded-2xl overflow-hidden border border-stone-200 shadow-lg">
+                        <Image
+                           src="/nate profile photo.jpeg"
+                           alt="Nate - CappaWork Instructor"
+                           fill
+                           className="object-cover"
+                        />
+                     </div>
+                     <div>
+                        <p className="text-lg text-stone-700 leading-relaxed space-y-4">
+                           <span className="font-semibold text-stone-900">I'm Nate.</span> I learned to build software in the cracks of a busy life—seven kids, a full family schedule, and product ideas that wouldn't leave me alone. I've worked for years in strategy and product development, but always relied on a developer to turn my ideas into products.
+                        </p>
+                        <p className="text-lg text-stone-700 leading-relaxed mt-4">
+                           Once I understood how to ship real products with modern AI tools, everything opened up: I could work when it fit my day, charge what my skills were worth, and create apps that earned money while I was with my family. This skill isn't easy, but it can change your life. Ready to get started? Let's go!
+                        </p>
+                     </div>
                   </div>
                </div>
             </div>
@@ -550,39 +553,6 @@ export default function CohortPage() {
             </div>
          </div>
       </section>
-
-      {/* Sticky Checkout CTA (desktop) */}
-      <div className="hidden lg:block fixed bottom-8 right-8 z-40">
-         <div className="w-80 bg-white border border-stone-200 shadow-2xl rounded-2xl p-5 space-y-4">
-            <div className="text-xs font-semibold text-blue-600 uppercase tracking-wide">
-               January 2025 Cohort
-            </div>
-            <div className="flex items-baseline gap-2">
-               <span className="text-3xl font-semibold text-stone-900">{price}</span>
-               <span className="text-sm text-stone-400 line-through">{fullPrice}</span>
-            </div>
-            <ul className="space-y-1 text-sm text-stone-600">
-               <li className="flex items-center gap-2">
-                  <Check size={14} className="text-blue-600" />
-                  <span>Deployed 0→1 product in 3 weeks</span>
-               </li>
-               <li className="flex items-center gap-2">
-                  <Check size={14} className="text-blue-600" />
-                  <span>Three live calls + async support</span>
-               </li>
-               <li className="flex items-center gap-2">
-                  <Check size={14} className="text-blue-600" />
-                  <span>Only 30 seats available</span>
-               </li>
-            </ul>
-            <a
-              href="#checkout"
-              className="block w-full text-center bg-blue-600 text-white py-3 rounded-full font-medium hover:bg-blue-700 transition-colors duration-200"
-            >
-               Reserve your seat
-            </a>
-         </div>
-      </div>
 
     </main>
   )
