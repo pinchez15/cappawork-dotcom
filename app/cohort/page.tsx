@@ -20,10 +20,18 @@ export const metadata: Metadata = {
   },
 }
 
+const techLogos = [
+  { src: "/logos/cursor.jpg", alt: "Cursor" },
+  { src: "/logos/vercel-logotype-dark.png", alt: "Vercel" },
+  { src: "/logos/supabase-logo_brandlogos.net_wahxg-scaled.png", alt: "Supabase" },
+  { src: "/logos/clerk.jpeg", alt: "Clerk" },
+]
+
 export default function CohortPage() {
   const isEarlyBird = true
   const price = "$500"
   const fullPrice = "$1,000"
+  const duplicatedTechLogos = [...techLogos, ...techLogos]
 
   return (
     <main className="min-h-screen bg-stone-50">
@@ -48,8 +56,8 @@ export default function CohortPage() {
               className="object-cover opacity-40"
               priority
             />
-            <div className="absolute inset-0 bg-stone-900/60 mix-blend-multiply"></div>
-            <div className="absolute inset-0 bg-gradient-to-b from-stone-900/70 via-transparent to-stone-900"></div>
+            <div className="absolute inset-0 bg-stone-900/40 mix-blend-multiply"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-stone-900/50 via-transparent to-stone-900"></div>
          </div>
 
          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -103,21 +111,24 @@ export default function CohortPage() {
             <p className="text-center text-sm font-semibold text-stone-500 uppercase tracking-wider mb-8">
                Built on the modern standard
             </p>
-            <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
-               <div className="flex items-center gap-2">
-                  <Image src="/logos/cursor.jpg" alt="Cursor" width={32} height={32} className="rounded-md" />
-                  <span className="font-semibold text-stone-700">Cursor</span>
-               </div>
-               <div className="flex items-center gap-2">
-                  <Image src="/logos/vercel-logotype-dark.png" alt="Vercel" width={100} height={24} className="h-6 w-auto object-contain" />
-               </div>
-               <div className="flex items-center gap-2">
-                  <Image src="/logos/supabase-logo_brandlogos.net_wahxg-scaled.png" alt="Supabase" width={32} height={32} className="h-8 w-auto object-contain" />
-                  <span className="font-semibold text-stone-700">Supabase</span>
-               </div>
-               <div className="flex items-center gap-2">
-                  <Image src="/logos/clerk.jpeg" alt="Clerk" width={32} height={32} className="rounded-md" />
-                  <span className="font-semibold text-stone-700">Clerk</span>
+            <div className="relative overflow-hidden">
+               <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-stone-50 to-transparent" />
+               <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-stone-50 to-transparent" />
+               <div className="flex items-center gap-12 md:gap-16 animate-logo-scroll">
+                  {duplicatedTechLogos.map((logo, index) => (
+                     <div
+                       key={`${logo.alt}-${index}`}
+                       className="flex-shrink-0 flex items-center justify-center h-10 md:h-12 opacity-70 hover:opacity-100 transition-opacity duration-300"
+                     >
+                        <Image
+                          src={logo.src}
+                          alt={logo.alt}
+                          width={120}
+                          height={40}
+                          className="h-6 md:h-8 w-auto object-contain"
+                        />
+                     </div>
+                  ))}
                </div>
             </div>
          </div>
@@ -539,6 +550,39 @@ export default function CohortPage() {
             </div>
          </div>
       </section>
+
+      {/* Sticky Checkout CTA (desktop) */}
+      <div className="hidden lg:block fixed bottom-8 right-8 z-40">
+         <div className="w-80 bg-white border border-stone-200 shadow-2xl rounded-2xl p-5 space-y-4">
+            <div className="text-xs font-semibold text-blue-600 uppercase tracking-wide">
+               January 2025 Cohort
+            </div>
+            <div className="flex items-baseline gap-2">
+               <span className="text-3xl font-semibold text-stone-900">{price}</span>
+               <span className="text-sm text-stone-400 line-through">{fullPrice}</span>
+            </div>
+            <ul className="space-y-1 text-sm text-stone-600">
+               <li className="flex items-center gap-2">
+                  <Check size={14} className="text-blue-600" />
+                  <span>Deployed 0→1 product in 3 weeks</span>
+               </li>
+               <li className="flex items-center gap-2">
+                  <Check size={14} className="text-blue-600" />
+                  <span>Three live calls + async support</span>
+               </li>
+               <li className="flex items-center gap-2">
+                  <Check size={14} className="text-blue-600" />
+                  <span>Only 30 seats available</span>
+               </li>
+            </ul>
+            <a
+              href="#checkout"
+              className="block w-full text-center bg-blue-600 text-white py-3 rounded-full font-medium hover:bg-blue-700 transition-colors duration-200"
+            >
+               Reserve your seat
+            </a>
+         </div>
+      </div>
 
     </main>
   )
