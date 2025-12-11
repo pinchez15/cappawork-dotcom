@@ -9,6 +9,7 @@ import CTASection from "./components/cta-section"
 import Navigation from "./components/navigation"
 import Blog from "./components/blog"
 import NarrativeSection from "./components/narrative-section"
+import ProcessSection from "./components/process-section"
 
 export const metadata: Metadata = {
   title: "CappaWork - Product Development for Owner-Led Businesses",
@@ -105,35 +106,7 @@ export default function HomePage() {
       />
 
       {/* Deep Dive 3: The Path */}
-      <NarrativeSection
-        title="Discovery to Deploy. The Product Path."
-        subtitle="The Process"
-        description={
-          <>
-            <p>
-              Every project follows a proven, gated track designed to reduce risk and increase speed.
-            </p>
-            <div className="space-y-4 font-medium text-stone-800">
-              <div className="flex items-center gap-3 p-3 bg-white rounded-lg border border-stone-100 shadow-sm">
-                <span className="text-stone-400">01</span> Discovery & Problem Definition
-              </div>
-              <div className="flex items-center gap-3 p-3 bg-white rounded-lg border border-stone-100 shadow-sm">
-                <span className="text-stone-400">02</span> Architecture & UX Design
-              </div>
-              <div className="flex items-center gap-3 p-3 bg-white rounded-lg border border-stone-100 shadow-sm">
-                <span className="text-stone-400">03</span> Build & AI Integration
-              </div>
-              <div className="flex items-center gap-3 p-3 bg-white rounded-lg border border-stone-100 shadow-sm">
-                <span className="text-stone-400">04</span> Deploy & Hand-off
-              </div>
-            </div>
-          </>
-        }
-        imageSrc="/CW_buypage.png"
-        imageAlt="Product Development Timeline"
-        imagePosition="right"
-        backgroundColor="stone"
-      />
+      <ProcessSection />
 
       <Pricing />
       <CohortSection />

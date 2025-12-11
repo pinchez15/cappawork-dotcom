@@ -21,6 +21,9 @@ export default function LogoBanner() {
 
   return (
     <section className="py-12 md:py-16 bg-white border-y border-stone-100 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+        <h2 className="text-center text-2xl font-semibold text-stone-900">Tools we use</h2>
+      </div>
       <div className="relative">
         {/* Gradient fade on left */}
         <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />

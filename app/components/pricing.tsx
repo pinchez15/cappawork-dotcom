@@ -76,6 +76,7 @@ export default function Services() {
                  <div className="text-sm font-semibold text-stone-500 mb-2 uppercase tracking-wide">
                    {service.name}
                  </div>
+                 <div className="text-xs text-stone-500 mb-1">Starting at</div>
                  <div className="text-4xl font-semibold tracking-tight text-stone-900 mb-4">
                    {service.price}
                  </div>
