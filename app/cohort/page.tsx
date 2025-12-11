@@ -97,8 +97,138 @@ export default function CohortPage() {
          <EnrollmentCard />
       </div>
 
-      {/* The Stack */}
-      <section className="py-24 bg-white">
+      {/* Tech Stack Authority Strip */}
+      <section className="py-12 bg-stone-50 border-b border-stone-200">
+         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <p className="text-center text-sm font-semibold text-stone-500 uppercase tracking-wider mb-8">
+               Built on the modern standard
+            </p>
+            <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
+               <div className="flex items-center gap-2">
+                  <Image src="/logos/cursor.jpg" alt="Cursor" width={32} height={32} className="rounded-md" />
+                  <span className="font-semibold text-stone-700">Cursor</span>
+               </div>
+               <div className="flex items-center gap-2">
+                  <Image src="/logos/vercel-logotype-dark.png" alt="Vercel" width={100} height={24} className="h-6 w-auto object-contain" />
+               </div>
+               <div className="flex items-center gap-2">
+                  <Image src="/logos/supabase-logo_brandlogos.net_wahxg-scaled.png" alt="Supabase" width={32} height={32} className="h-8 w-auto object-contain" />
+                  <span className="font-semibold text-stone-700">Supabase</span>
+               </div>
+               <div className="flex items-center gap-2">
+                  <Image src="/logos/clerk.jpeg" alt="Clerk" width={32} height={32} className="rounded-md" />
+                  <span className="font-semibold text-stone-700">Clerk</span>
+               </div>
+            </div>
+         </div>
+      </section>
+
+      {/* Project Showcase: The Tangible Outcome */}
+      <section className="py-24 bg-white overflow-hidden">
+         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
+               <div className="order-2 lg:order-1">
+                  <div className="relative">
+                     {/* Browser Frame */}
+                     <div className="bg-stone-900 rounded-xl shadow-2xl overflow-hidden border border-stone-800 transform rotate-1 hover:rotate-0 transition-transform duration-700">
+                        <div className="bg-stone-800 px-4 py-3 flex items-center gap-2 border-b border-stone-700">
+                           <div className="w-3 h-3 rounded-full bg-red-500" />
+                           <div className="w-3 h-3 rounded-full bg-yellow-500" />
+                           <div className="w-3 h-3 rounded-full bg-green-500" />
+                           <div className="ml-4 flex-1 bg-stone-900 rounded-md py-1 px-3 text-xs text-stone-500 font-mono text-center">
+                              your-startup.vercel.app
+                           </div>
+                        </div>
+                        <div className="relative aspect-[4/3] bg-stone-900">
+                           {/* Placeholder for App Screenshot - Using code/abstract visual for now */}
+                           <div className="absolute inset-0 flex flex-col">
+                              {/* Fake Navbar */}
+                              <div className="h-16 border-b border-stone-800 flex items-center justify-between px-6">
+                                 <div className="w-24 h-6 bg-stone-800 rounded animate-pulse" />
+                                 <div className="flex gap-4">
+                                    <div className="w-8 h-8 rounded-full bg-stone-800" />
+                                 </div>
+                              </div>
+                              {/* Fake Content */}
+                              <div className="p-8 space-y-6">
+                                 <div className="flex gap-4">
+                                    <div className="w-1/3 h-32 bg-stone-800/50 rounded-lg border border-stone-800" />
+                                    <div className="w-1/3 h-32 bg-stone-800/50 rounded-lg border border-stone-800" />
+                                    <div className="w-1/3 h-32 bg-stone-800/50 rounded-lg border border-stone-800" />
+                                 </div>
+                                 <div className="h-48 bg-stone-800/30 rounded-lg border border-stone-800" />
+                              </div>
+                              
+                              {/* Feature Callouts Overlay */}
+                              <div className="absolute inset-0 flex items-center justify-center">
+                                 <div className="grid grid-cols-2 gap-4">
+                                    <div className="bg-blue-500/10 backdrop-blur-md border border-blue-500/30 px-4 py-2 rounded-lg text-blue-400 text-sm font-medium flex items-center gap-2">
+                                       <Lock size={14} /> Secure Authentication
+                                    </div>
+                                    <div className="bg-green-500/10 backdrop-blur-md border border-green-500/30 px-4 py-2 rounded-lg text-green-400 text-sm font-medium flex items-center gap-2">
+                                       <Database size={14} /> Real-time Database
+                                    </div>
+                                    <div className="bg-purple-500/10 backdrop-blur-md border border-purple-500/30 px-4 py-2 rounded-lg text-purple-400 text-sm font-medium flex items-center gap-2">
+                                       <Zap size={14} /> AI Integration
+                                    </div>
+                                    <div className="bg-orange-500/10 backdrop-blur-md border border-orange-500/30 px-4 py-2 rounded-lg text-orange-400 text-sm font-medium flex items-center gap-2">
+                                       <Globe size={14} /> Global CDN
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     
+                     {/* Decorative Elements */}
+                     <div className="absolute -bottom-6 -right-6 -z-10 w-full h-full bg-stone-100 rounded-xl" />
+                  </div>
+               </div>
+
+               <div className="order-1 lg:order-2">
+                  <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-stone-900 mb-6">
+                     You walk away with a <span className="text-blue-600">deployed asset</span>.
+                  </h2>
+                  <p className="text-lg text-stone-600 mb-8 leading-relaxed">
+                     This isn't a theory course. By Day 21, you will have a live URL you can send to customers, investors, or friends. 
+                  </p>
+                  
+                  <div className="space-y-6">
+                     <div className="flex gap-4">
+                        <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0 text-blue-600">
+                           <ShieldCheck size={20} />
+                        </div>
+                        <div>
+                           <h3 className="font-semibold text-stone-900">Production-Ready Auth</h3>
+                           <p className="text-stone-600 text-sm">Secure sign-up, login, and protected routes using Clerk.</p>
+                        </div>
+                     </div>
+                     <div className="flex gap-4">
+                        <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0 text-green-600">
+                           <Database size={20} />
+                        </div>
+                        <div>
+                           <h3 className="font-semibold text-stone-900">Scalable Database</h3>
+                           <p className="text-stone-600 text-sm">A real Postgres database hosted on Supabase, ready for scale.</p>
+                        </div>
+                     </div>
+                     <div className="flex gap-4">
+                        <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center flex-shrink-0 text-purple-600">
+                           <Zap size={20} />
+                        </div>
+                        <div>
+                           <h3 className="font-semibold text-stone-900">Payments Integrated</h3>
+                           <p className="text-stone-600 text-sm">Accept credit cards from day one with Stripe.</p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+
+      {/* The Stack (Updated to be Philosophy) */}
+      <section className="py-24 bg-stone-50">
          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto mb-16">
                <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-stone-900 mb-6">
@@ -163,92 +293,145 @@ export default function CohortPage() {
             <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-stone-900 mb-12 text-center">
                The 3-Week Sprint
             </h2>
-            <div className="space-y-4">
-               {/* Accordion Items - Keeping existing content */}
-               <Accordion type="single" collapsible className="w-full space-y-4">
-                  <AccordionItem value="week-1" className="bg-white border border-stone-200 rounded-lg px-6">
-                     <AccordionTrigger className="hover:no-underline py-6">
-                        <div className="flex items-center gap-4 text-left">
-                           <div className="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 font-bold shrink-0">01</div>
-                           <div>
-                              <div className="text-sm font-medium text-stone-500 mb-1">Week 1</div>
-                              <div className="text-lg font-semibold text-stone-900">Foundation & Architecture</div>
-                           </div>
-                        </div>
-                     </AccordionTrigger>
-                     <AccordionContent className="pl-[4.5rem] pb-6 text-stone-600 text-base leading-relaxed">
-                        <ul className="space-y-2">
-                           <li className="flex gap-2"><Check size={16} className="text-blue-500 mt-1" /> Idea validation and scope definition</li>
-                           <li className="flex gap-2"><Check size={16} className="text-blue-500 mt-1" /> Setting up the Next.js 14 environment</li>
-                           <li className="flex gap-2"><Check size={16} className="text-blue-500 mt-1" /> Designing the Database Schema (Supabase)</li>
-                           <li className="flex gap-2"><Check size={16} className="text-blue-500 mt-1" /> implementing Authentication (Clerk)</li>
-                        </ul>
-                     </AccordionContent>
-                  </AccordionItem>
-                  <AccordionItem value="week-2" className="bg-white border border-stone-200 rounded-lg px-6">
-                     <AccordionTrigger className="hover:no-underline py-6">
-                        <div className="flex items-center gap-4 text-left">
-                           <div className="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 font-bold shrink-0">02</div>
-                           <div>
-                              <div className="text-sm font-medium text-stone-500 mb-1">Week 2</div>
-                              <div className="text-lg font-semibold text-stone-900">The Core Build</div>
-                           </div>
-                        </div>
-                     </AccordionTrigger>
-                     <AccordionContent className="pl-[4.5rem] pb-6 text-stone-600 text-base leading-relaxed">
-                        <ul className="space-y-2">
-                           <li className="flex gap-2"><Check size={16} className="text-blue-500 mt-1" /> Building UI with Tailwind + shadcn/ui</li>
-                           <li className="flex gap-2"><Check size={16} className="text-blue-500 mt-1" /> Connecting Frontend to Backend</li>
-                           <li className="flex gap-2"><Check size={16} className="text-blue-500 mt-1" /> Implementing core feature logic</li>
-                        </ul>
-                     </AccordionContent>
-                  </AccordionItem>
-                  <AccordionItem value="week-3" className="bg-white border border-stone-200 rounded-lg px-6">
-                     <AccordionTrigger className="hover:no-underline py-6">
-                        <div className="flex items-center gap-4 text-left">
-                           <div className="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 font-bold shrink-0">03</div>
-                           <div>
-                              <div className="text-sm font-medium text-stone-500 mb-1">Week 3</div>
-                              <div className="text-lg font-semibold text-stone-900">Bug Squashing and Launch</div>
-                           </div>
-                        </div>
-                     </AccordionTrigger>
-                     <AccordionContent className="pl-[4.5rem] pb-6 text-stone-600 text-base leading-relaxed">
-                        <ul className="space-y-2">
-                           <li className="flex gap-2"><Check size={16} className="text-blue-500 mt-1" /> Payments integration (Stripe)</li>
-                           <li className="flex gap-2"><Check size={16} className="text-blue-500 mt-1" /> Deploying to Vercel Production</li>
-                           <li className="flex gap-2"><Check size={16} className="text-blue-500 mt-1" /> Setting up custom domains</li>
-                           <li className="flex gap-2"><Check size={16} className="text-blue-500 mt-1" /> Bug fixing and final polish</li>
-                           <li className="flex gap-2"><Check size={16} className="text-blue-500 mt-1" /> Launch day checklist</li>
-                        </ul>
-                     </AccordionContent>
-                  </AccordionItem>
-               </Accordion>
+            <div className="space-y-8 relative before:absolute before:inset-0 before:ml-6 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-stone-300 before:to-transparent">
+               
+               {/* Week 1 */}
+               <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                  <div className="flex items-center justify-center w-12 h-12 rounded-full border-2 border-stone-200 bg-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 text-stone-500 font-bold">
+                     01
+                  </div>
+                  <div className="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] bg-white p-6 rounded-xl border border-stone-200 shadow-sm">
+                     <div className="text-sm font-medium text-blue-600 mb-1">Week 1</div>
+                     <h3 className="text-xl font-bold text-stone-900 mb-4">Foundation & Architecture</h3>
+                     <ul className="space-y-3">
+                        <li className="flex items-start gap-3 text-stone-600">
+                           <Check size={18} className="text-blue-500 mt-0.5 flex-shrink-0" />
+                           <span>Idea validation and scope definition</span>
+                        </li>
+                        <li className="flex items-start gap-3 text-stone-600">
+                           <Check size={18} className="text-blue-500 mt-0.5 flex-shrink-0" />
+                           <span>Setting up the Next.js 14 environment</span>
+                        </li>
+                        <li className="flex items-start gap-3 text-stone-600">
+                           <Check size={18} className="text-blue-500 mt-0.5 flex-shrink-0" />
+                           <span>Designing the Database Schema (Supabase)</span>
+                        </li>
+                        <li className="flex items-start gap-3 text-stone-600">
+                           <Check size={18} className="text-blue-500 mt-0.5 flex-shrink-0" />
+                           <span>Implementing Authentication (Clerk)</span>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+
+               {/* Week 2 */}
+               <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                  <div className="flex items-center justify-center w-12 h-12 rounded-full border-2 border-stone-200 bg-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 text-stone-500 font-bold">
+                     02
+                  </div>
+                  <div className="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] bg-white p-6 rounded-xl border border-stone-200 shadow-sm">
+                     <div className="text-sm font-medium text-blue-600 mb-1">Week 2</div>
+                     <h3 className="text-xl font-bold text-stone-900 mb-4">The Core Build</h3>
+                     <ul className="space-y-3">
+                        <li className="flex items-start gap-3 text-stone-600">
+                           <Check size={18} className="text-blue-500 mt-0.5 flex-shrink-0" />
+                           <span>Building UI with Tailwind + shadcn/ui</span>
+                        </li>
+                        <li className="flex items-start gap-3 text-stone-600">
+                           <Check size={18} className="text-blue-500 mt-0.5 flex-shrink-0" />
+                           <span>Connecting Frontend to Backend</span>
+                        </li>
+                        <li className="flex items-start gap-3 text-stone-600">
+                           <Check size={18} className="text-blue-500 mt-0.5 flex-shrink-0" />
+                           <span>Implementing core feature logic</span>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+
+               {/* Week 3 */}
+               <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                  <div className="flex items-center justify-center w-12 h-12 rounded-full border-2 border-stone-200 bg-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 text-stone-500 font-bold">
+                     03
+                  </div>
+                  <div className="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] bg-white p-6 rounded-xl border border-stone-200 shadow-sm">
+                     <div className="text-sm font-medium text-blue-600 mb-1">Week 3</div>
+                     <h3 className="text-xl font-bold text-stone-900 mb-4">Bug Squashing and Launch</h3>
+                     <ul className="space-y-3">
+                        <li className="flex items-start gap-3 text-stone-600">
+                           <Check size={18} className="text-blue-500 mt-0.5 flex-shrink-0" />
+                           <span>Payments integration (Stripe)</span>
+                        </li>
+                        <li className="flex items-start gap-3 text-stone-600">
+                           <Check size={18} className="text-blue-500 mt-0.5 flex-shrink-0" />
+                           <span>Deploying to Vercel Production</span>
+                        </li>
+                        <li className="flex items-start gap-3 text-stone-600">
+                           <Check size={18} className="text-blue-500 mt-0.5 flex-shrink-0" />
+                           <span>Setting up custom domains</span>
+                        </li>
+                        <li className="flex items-start gap-3 text-stone-600">
+                           <Check size={18} className="text-blue-500 mt-0.5 flex-shrink-0" />
+                           <span>Launch day checklist</span>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+
             </div>
          </div>
       </section>
 
-      {/* Target Audience */}
+      {/* Target Audience / Community */}
       <section className="py-24 bg-white">
          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-stone-900 mb-12 text-center">
-               Who is this for?
-            </h2>
+            <div className="text-center max-w-3xl mx-auto mb-16">
+               <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-stone-900 mb-6">
+                  Join the Builder Class
+               </h2>
+               <p className="text-lg text-stone-600">
+                  This cohort is curated for operators, not observers. You'll build alongside founders, product leaders, and designers who are tired of waiting for permission to ship.
+               </p>
+            </div>
+
             <div className="grid md:grid-cols-3 gap-8">
-               <div className="p-8 bg-stone-50 rounded-2xl border border-stone-100">
-                  <div className="w-10 h-10 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center mb-4"><Zap size={20} /></div>
-                  <h3 className="text-xl font-semibold text-stone-900 mb-2">Non-Technical Founders</h3>
-                  <p className="text-stone-600">You have an idea but are tired of waiting for a technical co-founder. You want to build the MVP yourself.</p>
+               <div className="p-8 bg-stone-50 rounded-2xl border border-stone-100 hover:border-blue-200 transition-colors duration-300">
+                  <div className="w-12 h-12 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center mb-6"><Zap size={24} /></div>
+                  <h3 className="text-xl font-semibold text-stone-900 mb-3">Non-Technical Founders</h3>
+                  <p className="text-stone-600 leading-relaxed">
+                     Stop trading equity for dev work. Build your MVP yourself this month, and own 100% of your product.
+                  </p>
                </div>
-               <div className="p-8 bg-stone-50 rounded-2xl border border-stone-100">
-                  <div className="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-4"><Layers size={20} /></div>
-                  <h3 className="text-xl font-semibold text-stone-900 mb-2">Product Managers</h3>
-                  <p className="text-stone-600">You want to stop writing tickets and start shipping. You want to understand the full stack to be a better PM.</p>
+               <div className="p-8 bg-stone-50 rounded-2xl border border-stone-100 hover:border-blue-200 transition-colors duration-300">
+                  <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mb-6"><Layers size={24} /></div>
+                  <h3 className="text-xl font-semibold text-stone-900 mb-3">Product Managers</h3>
+                  <p className="text-stone-600 leading-relaxed">
+                     The best PMs can build. Stop writing Jira tickets and start shipping prototypes that actually work.
+                  </p>
                </div>
-               <div className="p-8 bg-stone-50 rounded-2xl border border-stone-100">
-                  <div className="w-10 h-10 bg-green-100 text-green-600 rounded-full flex items-center justify-center mb-4"><Code size={20} /></div>
-                  <h3 className="text-xl font-semibold text-stone-900 mb-2">Designers</h3>
-                  <p className="text-stone-600">You can design the perfect interface, but you want to bring it to life without relying on a dev team.</p>
+               <div className="p-8 bg-stone-50 rounded-2xl border border-stone-100 hover:border-blue-200 transition-colors duration-300">
+                  <div className="w-12 h-12 bg-green-100 text-green-600 rounded-xl flex items-center justify-center mb-6"><Code size={24} /></div>
+                  <h3 className="text-xl font-semibold text-stone-900 mb-3">Designers</h3>
+                  <p className="text-stone-600 leading-relaxed">
+                     You already know how it should look. Now make it real. Close the gap between Figma and Production.
+                  </p>
+               </div>
+            </div>
+
+            {/* Social Proof Placeholder - "Community" Vibe */}
+            <div className="mt-16 pt-16 border-t border-stone-100 text-center">
+               <p className="text-stone-500 font-medium mb-6">Join a small, high-signal cohort</p>
+               <div className="inline-flex items-center justify-center p-1 rounded-full border border-stone-200 bg-white shadow-sm">
+                  <div className="flex -space-x-4 px-4">
+                     {[1,2,3,4,5].map((i) => (
+                        <div key={i} className="w-10 h-10 rounded-full border-2 border-white bg-stone-200 flex items-center justify-center text-xs font-bold text-stone-400">
+                           {/* Placeholder avatars */}
+                        </div>
+                     ))}
+                  </div>
+                  <div className="px-6 py-2 text-sm font-semibold text-stone-900">
+                     Only 30 Spots Available
+                  </div>
                </div>
             </div>
          </div>
@@ -258,23 +441,39 @@ export default function CohortPage() {
       <section className="py-24 bg-stone-50">
          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-stone-900 mb-12 text-center">Frequently Asked Questions</h2>
-            <div className="space-y-4">
+            <Accordion type="single" collapsible className="w-full space-y-4">
                {[
                   { 
                      q: "Do I need to know how to code?", 
                      a: "No! The only prerequisite for this course is having built something - anything - in a vibe-coding tool. If you're familiar with Javascript and HTML that's a plus, but not needed." 
-                  }, 
+                  },
+                  { 
+                     q: "What is the time commitment?", 
+                     a: "Expect to spend about 5-8 hours per week. This includes the live call (1 hour) and build time." 
+                  },
+                  { 
+                     q: "What if I miss a live call?", 
+                     a: "All calls are recorded and posted to the community immediately after." 
+                  },
+                  { 
+                     q: "Do I really build a full product?", 
+                     a: "Yes. This isn't a theory course. The goal is to have a deployed URL by the end of Week 3." 
+                  },
                   { 
                      q: "What if I need to drop out?", 
                      a: "If life happens and you need to cancel after your purchase, we get it. You can roll your registration into a future cohort for no fee." 
                   }
                ].map((item, i) => (
-                  <div key={i} className="bg-white border border-stone-200 rounded-lg p-6">
-                     <h3 className="font-semibold text-stone-900 mb-2">{item.q}</h3>
-                     <p className="text-stone-600">{item.a}</p>
-                  </div>
+                  <AccordionItem key={i} value={`item-${i}`} className="bg-white border border-stone-200 rounded-lg px-6">
+                     <AccordionTrigger className="hover:no-underline py-6 text-left font-semibold text-stone-900">
+                        {item.q}
+                     </AccordionTrigger>
+                     <AccordionContent className="pb-6 text-stone-600 text-base leading-relaxed">
+                        {item.a}
+                     </AccordionContent>
+                  </AccordionItem>
                ))}
-            </div>
+            </Accordion>
          </div>
       </section>
 
