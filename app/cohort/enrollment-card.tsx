@@ -55,11 +55,11 @@ export default function EnrollmentCard({ className = "" }: { className?: string 
         </div>
         <div className="flex items-start gap-3 text-sm text-stone-600">
           <Check size={16} className="text-blue-600 mt-0.5 flex-shrink-0" />
-          <span>Lifetime Curriculum Access</span>
+          <span>Direct access to instructors</span>
         </div>
         <div className="flex items-start gap-3 text-sm text-stone-600">
            <Check size={16} className="text-blue-600 mt-0.5 flex-shrink-0" />
-           <span>100% Money-Back Guarantee</span>
+           <span>If you need to cancel, join any future cohort for free.</span>
         </div>
       </div>
     </div>

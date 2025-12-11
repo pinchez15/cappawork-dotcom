@@ -88,10 +88,10 @@ export default function HomePage() {
         description={
           <>
             <p>
-              The best products start as internal tools. We build your system on the same stack that powers billion-dollar startups (Next.js, Supabase, Vercel).
+              The best products start as internal tools. AWS started as an internal server. Slack was team tool, that turned into a product. We build your system on the same stack that powers billion-dollar startups (Next.js, Supabase, Vercel, Clerk, Stripe).
             </p>
             <p>
-              This isn't a "script" or a "hack." It's a scalable software asset. When you're ready to monetize your expertise, the foundation is already there.
+              This isn't a "no-code tool" or a "vibed out hack." It's a scalable software asset. When you're ready to monetize your expertise, the foundation is already there.
             </p>
             <p className="font-medium text-stone-900">
               We build systems that earn trust inside your business first—then let you take them to market.

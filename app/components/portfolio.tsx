@@ -5,9 +5,9 @@ import Image from "next/image"
 export default function Portfolio() {
   const projects = [
     {
-      name: "Chef",
-      category: "Consumer Mobile App",
-      description: "Cook better meals. Build stronger families.",
+      name: "ArborKey",
+      category: "B2B SaaS",
+      description: "Win more HOA contracts through better reporting.",
       image: "/Chef1.png",
       span: "md:col-span-2 md:row-span-2",
       height: "h-96"
@@ -15,15 +15,15 @@ export default function Portfolio() {
     {
       name: "WorkPortfolio",
       category: "SaaS Platform",
-      description: "Simple portfolios for generalists.",
+      description: "Project portfolios for Indie Hackers.",
       image: "/WP1.png",
       span: "md:col-span-1 md:row-span-1",
       height: "h-48"
     },
     {
-      name: "CappaWork Planner",
-      category: "E-Commerce",
-      description: "A 90-day goal planner system.",
+      name: "Super Resume",
+      category: "Consumer App",
+      description: "Turn your resume into an arcade game.",
       image: "/CW_buypage.png",
       span: "md:col-span-1 md:row-span-1",
       height: "h-48"
@@ -35,7 +35,7 @@ export default function Portfolio() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-5xl font-semibold tracking-tight text-stone-900 mb-6">
-             Meet the products working more efficiently.
+             See some of our work.
           </h2>
         </div>
 

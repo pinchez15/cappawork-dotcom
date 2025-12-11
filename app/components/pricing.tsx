@@ -3,7 +3,7 @@
 import { Check, ArrowRight } from "lucide-react"
 
 export default function Services() {
-  const calendlyLink = process.env.NEXT_PUBLIC_CALENDLY_LINK || "https://calendly.com/your-link"
+  const calendlyLink = process.env.NEXT_PUBLIC_CALENDLY_LINK || "https://calendly.com/cappawork/discovery_call"
 
   const handleBookCall = (tierName: string) => {
     window.open(calendlyLink, "_blank", "noopener,noreferrer")
@@ -32,8 +32,8 @@ export default function Services() {
       features: [
         "Everything in Internal Tool",
         "Scalable DB Schema",
-        "Background Jobs / Queues",
-        "45 Days Iteration"
+        "PostHog product analytics",
+        "45 Days of support & maintenance"
       ],
       cta: "Book Call",
       color: "indigo"
@@ -46,7 +46,7 @@ export default function Services() {
       features: [
         "Everything in Scale-Ready",
         "Stripe Billing Integration",
-        "Multi-tenant Architecture",
+        "AI Workflow Integration",
         "Public Landing Page"
       ],
       cta: "Book Call",
