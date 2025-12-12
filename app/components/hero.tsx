@@ -85,8 +85,8 @@ export default function Hero() {
           <div className="relative mx-auto w-full max-w-5xl lg:max-w-6xl animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-500" style={{ perspective: "2000px" }}>
              <div className="relative rounded-2xl border border-stone-200 bg-stone-100/50 p-2 shadow-2xl lg:rounded-3xl lg:p-4 transition-all duration-500 hover:scale-[1.01]" style={{ transform: "rotateX(2deg)" }}>
                 <Image
-                  src="/CW_homepage.png"
-                  alt="CappaWork Platform Interface"
+                  src="/coworking.png"
+                  alt="CappaWork Coworking Space"
                   width={2400}
                   height={1600}
                   className="rounded-xl lg:rounded-2xl shadow-sm block w-full h-auto"

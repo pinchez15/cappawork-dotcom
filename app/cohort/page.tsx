@@ -278,15 +278,15 @@ export default function CohortPage() {
                <div className="group relative rounded-2xl overflow-hidden bg-stone-800 border border-stone-700 hover:border-stone-500 transition-colors">
                   <div className="aspect-video relative bg-stone-950">
                      <Image 
-                        src="/CW_homepage.png" 
-                        alt="Agency Site" 
+                        src="/supernate.png" 
+                        alt="SuperNate Game" 
                         fill 
                         className="object-cover opacity-80 group-hover:opacity-100 transition-opacity" 
                      />
                   </div>
                   <div className="p-8">
-                     <h3 className="text-2xl font-semibold tracking-tight mb-2">Modern Agency Site</h3>
-                     <p className="text-stone-400 text-sm mb-4">Complete CMS, Blog, and Lead Capture</p>
+                     <h3 className="text-2xl font-semibold tracking-tight mb-2">SuperNate</h3>
+                     <p className="text-stone-400 text-sm mb-4">Turn your resume into an arcade game.</p>
                      <div className="flex gap-2">
                         <span className="px-3 py-1 bg-stone-900 rounded-full text-xs border border-stone-700">Next.js</span>
                         <span className="px-3 py-1 bg-stone-900 rounded-full text-xs border border-stone-700">Tailwind</span>
@@ -294,12 +294,12 @@ export default function CohortPage() {
                   </div>
                </div>
 
-               {/* Project 2 (Placeholder using other asset) */}
+               {/* Project 2 */}
                <div className="group relative rounded-2xl overflow-hidden bg-stone-800 border border-stone-700 hover:border-stone-500 transition-colors">
                   <div className="aspect-video relative bg-stone-950">
                       <Image 
-                        src="/CW_reviews.png" 
-                        alt="SaaS Dashboard" 
+                        src="/arborkey2.png" 
+                        alt="ArborKey Dashboard" 
                         fill 
                         className="object-cover opacity-80 group-hover:opacity-100 transition-opacity" 
                      />
