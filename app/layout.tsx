@@ -32,11 +32,20 @@ export const metadata: Metadata = {
     title: "CappaWork - Build Products That Help People Flourish",
     description: "Web development agency crafting tools with clarity, utility, and restraint.",
     siteName: "CappaWork",
+    images: [
+      {
+        url: "https://cappawork.com/CW_homepage.png",
+        width: 2400,
+        height: 1600,
+        alt: "CappaWork Platform Interface - From Idea to Product in 1 Month",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "CappaWork - Build Products That Help People Flourish",
     description: "Web development agency crafting tools with clarity, utility, and restraint.",
+    images: ["https://cappawork.com/CW_homepage.png"],
   },
     generator: 'v0.dev'
 }

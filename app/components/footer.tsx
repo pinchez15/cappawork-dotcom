@@ -11,7 +11,7 @@ export default function Footer() {
               CappaWork
             </Link>
             <p className="text-stone-400 text-sm max-w-md">
-              Building modern, scalable software for owner-led businesses who want startup-level velocity without the overhead.
+              Building modern, scalable software for owner-led businesses who want speed without the overhead.
             </p>
           </div>
 
@@ -49,8 +49,9 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-stone-800 text-center text-sm text-stone-500">
+        <div className="mt-12 pt-8 border-t border-stone-800 text-center text-sm text-stone-500 space-y-2">
           <p>&copy; {new Date().getFullYear()} CappaWork. All rights reserved.</p>
+          <p>Built by CappaWork.</p>
         </div>
       </div>
     </footer>

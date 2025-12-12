@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
 import { Check, Calendar, Code, Database, Globe, ArrowRight, Layers, Users, Zap, ShieldCheck, Lock, Play } from "lucide-react"
+import Footer from "../components/footer"
 import {
   Accordion,
   AccordionContent,
@@ -420,6 +421,7 @@ export default function CohortPage() {
          </div>
       </section>
 
+      <Footer />
     </main>
   )
 }
