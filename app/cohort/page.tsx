@@ -269,7 +269,7 @@ export default function CohortPage() {
                   Build production-grade apps.
                </h2>
                <p className="text-xl text-stone-400 max-w-2xl mx-auto">
-                  We don't build "Hello World" apps. We build commercial products. These are the types of projects I build for clients starting at $15k.
+                  We don't build "Hello World" apps. The webapp you make in this cohort could be your next revenue stream. Or it could be a fun way to learn by doing!
                </p>
             </div>
 
