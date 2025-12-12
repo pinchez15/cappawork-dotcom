@@ -1,90 +1,72 @@
 "use client"
 
-import { Check } from "lucide-react"
+import Image from "next/image"
 
 export default function Portfolio() {
   const projects = [
     {
-      industry: "Property Management",
-      benefit: "Reduced contract processing time by 60% through automated reporting workflows",
-      link: "#"
+      name: "ArborKey",
+      category: "B2B SaaS",
+      description: "Win more HOA contracts through better reporting.",
+      image: "/CW_Productphotos.png",
+      span: "md:col-span-2 md:row-span-2",
+      height: "h-96 md:min-h-[500px]"
     },
     {
-      industry: "Professional Services",
-      benefit: "Eliminated manual data entry, saving 15 hours per week for the operations team",
-      link: "#"
+      name: "WorkPortfolio",
+      category: "SaaS Platform",
+      description: "Project portfolios for Indie Hackers.",
+      image: "/WP1.png",
+      span: "md:col-span-1 md:row-span-1",
+      height: "h-48 md:min-h-[250px]"
     },
     {
-      industry: "Healthcare Administration",
-      benefit: "Streamlined patient intake, reducing wait times by 40% and improving satisfaction scores",
-      link: "#"
-    },
-    {
-      industry: "Manufacturing",
-      benefit: "Real-time inventory tracking reduced stockouts by 35% and improved order fulfillment accuracy",
-      link: "#"
+      name: "Super Resume",
+      category: "Consumer App",
+      description: "Turn your resume into an arcade game.",
+      image: "/CW_buypage.png",
+      span: "md:col-span-1 md:row-span-1",
+      height: "h-48 md:min-h-[250px]"
     }
   ]
 
   return (
-    <section id="portfolio" className="py-24 bg-stone-50 overflow-hidden">
+    <section id="portfolio" className="py-24 bg-stone-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-5xl font-semibold tracking-tight text-stone-900 mb-6">
-            See some of our work.
+             See some of our work.
           </h2>
         </div>
 
-        {/* Carousel Container */}
-        <div className="relative">
-          {/* Gradient Overlays */}
-          <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-stone-50 to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-stone-50 to-transparent z-10 pointer-events-none" />
+        <div className="grid md:grid-cols-3 md:grid-rows-2 gap-6 auto-rows-fr">
+           {projects.map((project, idx) => (
+             <div key={idx} className={`relative group rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-stone-200 ${project.span} ${project.height}`}>
+               {/* Background Image */}
+               <div className="absolute inset-0">
+                 <Image
+                   src={project.image}
+                   alt={project.name}
+                   fill
+                   className="object-cover transition-transform duration-700 group-hover:scale-105"
+                 />
+                 <div className="absolute inset-0 bg-stone-900/40 group-hover:bg-stone-900/30 transition-colors" />
+               </div>
 
-          {/* Scrolling Cards */}
-          <div className="flex gap-6 animate-portfolio-scroll">
-            {/* First set of cards */}
-            {projects.map((project, idx) => (
-              <a
-                key={`first-${idx}`}
-                href={project.link}
-                className="flex-shrink-0 w-80 bg-white rounded-2xl border border-stone-200 shadow-sm hover:shadow-xl transition-all duration-300 p-8 hover:border-blue-300 group cursor-pointer"
-              >
-                <div className="mb-4">
-                  <span className="inline-block px-3 py-1 bg-stone-100 text-stone-700 text-xs font-semibold uppercase tracking-wide rounded-full">
-                    {project.industry}
-                  </span>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Check size={20} className="text-blue-600 mt-0.5 flex-shrink-0 group-hover:scale-110 transition-transform" />
-                  <p className="text-stone-700 leading-relaxed group-hover:text-stone-900 transition-colors">
-                    {project.benefit}
-                  </p>
-                </div>
-              </a>
-            ))}
-
-            {/* Duplicate set for seamless loop */}
-            {projects.map((project, idx) => (
-              <a
-                key={`second-${idx}`}
-                href={project.link}
-                className="flex-shrink-0 w-80 bg-white rounded-2xl border border-stone-200 shadow-sm hover:shadow-xl transition-all duration-300 p-8 hover:border-blue-300 group cursor-pointer"
-              >
-                <div className="mb-4">
-                  <span className="inline-block px-3 py-1 bg-stone-100 text-stone-700 text-xs font-semibold uppercase tracking-wide rounded-full">
-                    {project.industry}
-                  </span>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Check size={20} className="text-blue-600 mt-0.5 flex-shrink-0 group-hover:scale-110 transition-transform" />
-                  <p className="text-stone-700 leading-relaxed group-hover:text-stone-900 transition-colors">
-                    {project.benefit}
-                  </p>
-                </div>
-              </a>
-            ))}
-          </div>
+               {/* Content Overlay */}
+               <div className="absolute inset-0 p-8 flex flex-col justify-end text-white">
+                 <p className="text-sm font-medium text-white/80 uppercase tracking-wide mb-2">
+                   {project.category}
+                 </p>
+                 <h3 className="text-3xl font-semibold tracking-tight mb-2">
+                   {project.name}
+                 </h3>
+                 <p className="text-white/90 text-lg max-w-md opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
+                   {project.description}
+                 </p>
+               </div>
+             </div>
+           ))}
         </div>
       </div>
     </section>
