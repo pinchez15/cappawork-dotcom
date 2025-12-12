@@ -39,7 +39,7 @@ export default function CohortPage() {
       {/* 1. Header (Minimal) */}
       <nav className="fixed top-0 left-0 right-0 z-50 py-4 bg-white/80 backdrop-blur-md border-b border-stone-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-          <a href="/" className="text-xl font-semibold tracking-tight text-stone-900 font-serif">
+          <a href="/" className="text-xl font-semibold tracking-tight text-stone-900">
             CappaWork
           </a>
           <Link href="#checkout" className="text-sm font-medium text-stone-600 hover:text-stone-900">
@@ -62,8 +62,9 @@ export default function CohortPage() {
                      Enrolling for January
                   </div>
                   
-                  <h1 className="text-5xl sm:text-7xl font-serif font-medium tracking-tight leading-[1.05] mb-8 text-stone-900">
-                     0 <span className="text-stone-300">→</span> 1 in<br />one month.
+                  <h1 className="text-5xl sm:text-7xl font-semibold tracking-tight leading-[1.05] mb-8 text-stone-900">
+                     0 <span className="text-stone-300">→</span> 1 in<br />
+                     <span className="italic">one month.</span>
                   </h1>
                   
                   <p className="text-xl text-stone-600 leading-relaxed mb-10 max-w-lg">
@@ -121,7 +122,7 @@ export default function CohortPage() {
          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-12 gap-12 items-center">
                <div className="lg:col-span-7">
-                  <h2 className="text-4xl sm:text-5xl font-serif font-medium text-stone-900 mb-8 leading-tight">
+                  <h2 className="text-4xl sm:text-5xl font-semibold tracking-tight text-stone-900 mb-8 leading-tight">
                      "I learned to build in the cracks of a busy life."
                   </h2>
                   <p className="text-lg text-stone-600 leading-relaxed mb-8 max-w-2xl">
@@ -145,7 +146,7 @@ export default function CohortPage() {
                            />
                         </div>
                         <div>
-                           <div className="font-serif text-2xl text-stone-900">Nate Pinches</div>
+                           <div className="text-2xl font-semibold tracking-tight text-stone-900">Nate Pinches</div>
                            <div className="text-sm text-stone-500 font-medium uppercase tracking-wide">Instructor & Builder</div>
                         </div>
                      </div>
@@ -175,7 +176,7 @@ export default function CohortPage() {
       <section className="py-32 bg-white">
          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-20">
-               <h2 className="text-3xl sm:text-5xl font-serif font-medium text-stone-900 mb-6">
+               <h2 className="text-3xl sm:text-5xl font-semibold tracking-tight text-stone-900 mb-6">
                   The 3-Week Sprint
                </h2>
                <p className="text-lg text-stone-600">
@@ -192,7 +193,7 @@ export default function CohortPage() {
                   <div className="absolute left-0 sm:left-4 top-0 w-8 h-8 sm:w-9 sm:h-9 bg-stone-900 text-white rounded-full flex items-center justify-center font-bold text-sm shadow-lg ring-4 ring-white">
                      1
                   </div>
-                  <h3 className="text-2xl font-serif text-stone-900 mb-2">Foundation & Architecture</h3>
+                  <h3 className="text-2xl font-semibold tracking-tight text-stone-900 mb-2">Foundation & Architecture</h3>
                   <p className="text-stone-500 mb-6">Days 1-7</p>
                   <ul className="space-y-4">
                      <li className="flex items-start gap-3 text-stone-700">
@@ -215,7 +216,7 @@ export default function CohortPage() {
                   <div className="absolute left-0 sm:left-4 top-0 w-8 h-8 sm:w-9 sm:h-9 bg-stone-900 text-white rounded-full flex items-center justify-center font-bold text-sm shadow-lg ring-4 ring-white">
                      2
                   </div>
-                  <h3 className="text-2xl font-serif text-stone-900 mb-2">The Core Build</h3>
+                  <h3 className="text-2xl font-semibold tracking-tight text-stone-900 mb-2">The Core Build</h3>
                   <p className="text-stone-500 mb-6">Days 8-14</p>
                   <ul className="space-y-4">
                      <li className="flex items-start gap-3 text-stone-700">
@@ -238,7 +239,7 @@ export default function CohortPage() {
                   <div className="absolute left-0 sm:left-4 top-0 w-8 h-8 sm:w-9 sm:h-9 bg-stone-900 text-white rounded-full flex items-center justify-center font-bold text-sm shadow-lg ring-4 ring-white">
                      3
                   </div>
-                  <h3 className="text-2xl font-serif text-stone-900 mb-2">Launch & Monetize</h3>
+                  <h3 className="text-2xl font-semibold tracking-tight text-stone-900 mb-2">Launch & Monetize</h3>
                   <p className="text-stone-500 mb-6">Days 15-21</p>
                   <ul className="space-y-4">
                      <li className="flex items-start gap-3 text-stone-700">
@@ -263,7 +264,7 @@ export default function CohortPage() {
       <section className="py-32 bg-stone-900 text-white">
          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-20">
-               <h2 className="text-3xl sm:text-5xl font-serif font-medium mb-6">
+               <h2 className="text-3xl sm:text-5xl font-semibold tracking-tight mb-6">
                   Build production-grade apps.
                </h2>
                <p className="text-xl text-stone-400 max-w-2xl mx-auto">
@@ -283,7 +284,7 @@ export default function CohortPage() {
                      />
                   </div>
                   <div className="p-8">
-                     <h3 className="text-2xl font-serif mb-2">Modern Agency Site</h3>
+                     <h3 className="text-2xl font-semibold tracking-tight mb-2">Modern Agency Site</h3>
                      <p className="text-stone-400 text-sm mb-4">Complete CMS, Blog, and Lead Capture</p>
                      <div className="flex gap-2">
                         <span className="px-3 py-1 bg-stone-900 rounded-full text-xs border border-stone-700">Next.js</span>
@@ -303,7 +304,7 @@ export default function CohortPage() {
                      />
                   </div>
                   <div className="p-8">
-                     <h3 className="text-2xl font-serif mb-2">SaaS Dashboard</h3>
+                     <h3 className="text-2xl font-semibold tracking-tight mb-2">SaaS Dashboard</h3>
                      <p className="text-stone-400 text-sm mb-4">Auth, Payments, and Database</p>
                      <div className="flex gap-2">
                         <span className="px-3 py-1 bg-stone-900 rounded-full text-xs border border-stone-700">Supabase</span>
@@ -323,7 +324,7 @@ export default function CohortPage() {
                   <div className="text-sm font-medium text-stone-500 uppercase tracking-widest mb-4">
                      January 2025 Cohort
                   </div>
-                  <h2 className="text-5xl sm:text-7xl font-serif font-medium text-stone-900 mb-6">
+                  <h2 className="text-5xl sm:text-7xl font-semibold tracking-tight text-stone-900 mb-6">
                      {price}
                   </h2>
                   <p className="text-stone-500 mb-10 text-lg">
@@ -372,7 +373,7 @@ export default function CohortPage() {
       {/* FAQ */}
       <section className="py-24 bg-white">
          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-serif font-medium text-stone-900 mb-12 text-center">Common Questions</h2>
+            <h2 className="text-3xl font-semibold tracking-tight text-stone-900 mb-12 text-center">Common Questions</h2>
             <Accordion type="single" collapsible className="w-full space-y-4">
                {[
                   { 
