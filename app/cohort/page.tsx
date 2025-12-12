@@ -1,6 +1,5 @@
 import type { Metadata } from "next"
 import Image from "next/image"
-import Script from "next/script"
 import Link from "next/link"
 import { Check, Calendar, Code, Database, Globe, ArrowRight, Layers, Users, Zap, ShieldCheck, Lock, Play } from "lucide-react"
 import {
@@ -32,6 +31,7 @@ export default function CohortPage() {
   const price = "$500"
   const fullPrice = "$1,000"
   const duplicatedTechLogos = [...techLogos, ...techLogos]
+  const stripePaymentLink = process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK
 
   return (
     <main className="min-h-screen bg-white">
@@ -346,16 +346,26 @@ export default function CohortPage() {
                      </div>
                   </div>
 
-                  {/* Stripe Button Container */}
+                  {/* Stripe Payment Link CTA */}
                   <div className="w-full max-w-sm mx-auto relative z-10">
-                     <Script async src="https://js.stripe.com/v3/buy-button.js" />
-                     {/* @ts-ignore */}
-                     <stripe-buy-button
-                       buy-button-id="buy_btn_1Sd4g1GhYKujbeksgGCYzAbX"
-                       publishable-key="pk_live_51QwIWXGhYKujbeksrBQUhPqTZ5Qej4iU0YZprwB8Q8rFkorG8xTBt6i1Z3dhocHYjJKkBIvuB30wQul8XFcaeRbv00qkalslmt"
-                     >
-                     {/* @ts-ignore */}
-                     </stripe-buy-button>
+                     {stripePaymentLink ? (
+                        <a
+                          href={stripePaymentLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex w-full items-center justify-center bg-blue-600 text-white px-8 py-4 rounded-full font-medium hover:bg-blue-700 transition-all duration-200 shadow-lg shadow-blue-500/20 hover:scale-[1.02] transform"
+                        >
+                          Checkout with Stripe
+                          <ArrowRight size={18} className="ml-2" />
+                        </a>
+                     ) : (
+                        <div className="w-full rounded-2xl border border-stone-200 bg-stone-50 px-6 py-5 text-left">
+                          <div className="text-sm font-medium text-stone-900 mb-1">Checkout is not configured</div>
+                          <div className="text-sm text-stone-600">
+                            Set <code className="font-mono text-xs bg-white px-1.5 py-0.5 rounded border">NEXT_PUBLIC_STRIPE_PAYMENT_LINK</code> in Vercel.
+                          </div>
+                        </div>
+                     )}
                   </div>
                   
                   <div className="mt-8 text-xs text-stone-400 flex items-center justify-center gap-2">
