@@ -17,7 +17,24 @@ export const metadata: Metadata = {
   openGraph: {
     title: "CappaWork Builder Cohort",
     description: "One month. One idea. One deployed product.",
-    images: ["/CW_homepage.png"],
+    type: "website",
+    url: "https://cappawork.com/cohort",
+    siteName: "CappaWork",
+    images: [
+      {
+        url: "https://cappawork.com/cohort_background.png",
+        width: 1200,
+        height: 630,
+        alt: "CappaWork Builder Cohort - 0→1 in 1 Month",
+      },
+    ],
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "CappaWork Builder Cohort",
+    description: "One month. One idea. One deployed product.",
+    images: ["https://cappawork.com/cohort_background.png"],
   },
 }
 
