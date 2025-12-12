@@ -104,7 +104,7 @@ export default function ProcessSection() {
           <div className="flex-1 w-full">
             <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-stone-100 bg-stone-100 aspect-square sm:aspect-[4/3] rotate-1 transition-transform duration-500 hover:rotate-0">
               <Image
-                src="/CW_buypage.png"
+                src="/timeline.png"
                 alt="Product Development Timeline"
                 fill
                 className="object-cover"

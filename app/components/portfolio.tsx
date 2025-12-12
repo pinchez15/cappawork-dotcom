@@ -8,7 +8,7 @@ export default function Portfolio() {
       name: "ArborKey",
       category: "B2B SaaS",
       description: "Win more HOA contracts through better reporting.",
-      image: "/CW_Productphotos.png",
+      image: "/Arborkey.png",
       span: "md:col-span-2 md:row-span-2",
       height: "h-96 md:min-h-[500px]"
     },
@@ -21,10 +21,10 @@ export default function Portfolio() {
       height: "h-48 md:min-h-[250px]"
     },
     {
-      name: "Super Resume",
+      name: "SuperNate",
       category: "Consumer App",
       description: "Turn your resume into an arcade game.",
-      image: "/CW_buypage.png",
+      image: "/supernate.png",
       span: "md:col-span-1 md:row-span-1",
       height: "h-48 md:min-h-[250px]"
     }

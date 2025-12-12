@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import Image from "next/image"
 import Hero from "./components/hero"
 import LogoBanner from "./components/logo-banner"
 import WhatYouGet from "./components/what-you-get"
@@ -46,6 +47,23 @@ export default function HomePage() {
     <main className="min-h-screen bg-stone-50">
       <Navigation />
       <Hero />
+      
+      {/* Coworking Image Section */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative w-full rounded-2xl overflow-hidden shadow-lg">
+            <Image
+              src="/coworking.png"
+              alt="CappaWork Coworking Space"
+              width={2400}
+              height={1600}
+              className="w-full h-auto object-cover"
+              priority
+            />
+          </div>
+        </div>
+      </section>
+      
       <LogoBanner />
       <WhatYouGet />
       
@@ -77,7 +95,7 @@ export default function HomePage() {
             </ul>
           </>
         }
-        imageSrc="/CW_reviews.png"
+        imageSrc="/arborkey2.png"
         imageAlt="Operational Efficiency Dashboard"
         imagePosition="right"
         backgroundColor="stone"
