@@ -28,8 +28,8 @@ const techLogos = [
 ]
 
 export default function CohortPage() {
-  const price = "$500"
-  const fullPrice = "$1,000"
+  const price = "$490"
+  const fullPrice = "$990"
   const duplicatedTechLogos = [...techLogos, ...techLogos]
   const stripePaymentLink = process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK
 
@@ -324,9 +324,13 @@ export default function CohortPage() {
                   <div className="text-sm font-medium text-stone-500 uppercase tracking-widest mb-4">
                      January 2025 Cohort
                   </div>
-                  <h2 className="text-5xl sm:text-7xl font-semibold tracking-tight text-stone-900 mb-6">
-                     {price}
-                  </h2>
+                  <div className="mb-6">
+                     <h2 className="text-5xl sm:text-7xl font-semibold tracking-tight text-stone-900 mb-2">
+                        {price}
+                     </h2>
+                     <p className="text-lg text-stone-400 line-through">{fullPrice}</p>
+                     <p className="text-sm text-stone-500 mt-2">Limited time offer for the first 30 spots</p>
+                  </div>
                   <p className="text-stone-500 mb-10 text-lg">
                      One-time payment. Lifetime access to materials.
                   </p>
@@ -374,7 +378,7 @@ export default function CohortPage() {
                </div>
                
                <div className="bg-stone-50 p-6 border-t border-stone-100 text-center text-sm text-stone-500">
-                  100% Money-back guarantee. If you don't ship, I'll refund you.
+                  Non-refundable because you are holding a spot. If you need to cancel you can join any other cohort for no additional charge.
                </div>
             </div>
          </div>
@@ -400,7 +404,7 @@ export default function CohortPage() {
                   },
                   { 
                      q: "Is there a refund policy?", 
-                     a: "Yes. If you participate and feel it wasn't worth it, I'll refund your money. No questions asked." 
+                     a: "Non-refundable because you are holding a spot. If you need to cancel you can join any other cohort for no additional charge." 
                   }
                ].map((item, i) => (
                   <AccordionItem key={i} value={`item-${i}`} className="bg-stone-50 border border-stone-100 rounded-lg px-6">

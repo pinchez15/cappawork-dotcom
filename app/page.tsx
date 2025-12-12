@@ -7,6 +7,7 @@ import CohortSection from "./components/cohort-section"
 import Portfolio from "./components/portfolio"
 import CTASection from "./components/cta-section"
 import Navigation from "./components/navigation"
+import Footer from "./components/footer"
 import Blog from "./components/blog"
 import NarrativeSection from "./components/narrative-section"
 import ProcessSection from "./components/process-section"
@@ -113,6 +114,7 @@ export default function HomePage() {
       <Portfolio />
       <CTASection />
       <Blog />
+      <Footer />
     </main>
   )
 }

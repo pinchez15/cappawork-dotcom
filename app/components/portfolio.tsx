@@ -8,7 +8,7 @@ export default function Portfolio() {
       name: "ArborKey",
       category: "B2B SaaS",
       description: "Win more HOA contracts through better reporting.",
-      image: "/Chef1.png",
+      image: "/CW_Productphotos.png",
       span: "md:col-span-2 md:row-span-2",
       height: "h-96"
     },
