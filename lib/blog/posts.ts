@@ -20,7 +20,7 @@ export const blogPosts: BlogPost[] = [
     title: "Your First App in an Afternoon: A Claude Code Guide for Non-Developers",
     description:
       "For project managers and designers who want to build, not just spec. Learn how to build a real, working web application using Claude Code—no coding experience required.",
-    date: "2024-01-25T00:00:00Z",
+    date: "2026-01-07T00:00:00Z",
     readTime: "15 min read",
     tags: ["Claude Code", "Tutorial", "No-Code", "Product Management"],
     content: `<h2>Let's Talk About That Fear</h2>
