@@ -39,7 +39,6 @@ export const metadata: Metadata = {
 export default function BlogPage() {
   const blogPosts = getPublishedPosts()
 
-export default function BlogPage() {
   const formatDate = (dateString: string) => {
     try {
       return new Date(dateString).toLocaleDateString("en-US", {
