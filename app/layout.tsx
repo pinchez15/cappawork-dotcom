@@ -34,10 +34,10 @@ export const metadata: Metadata = {
     siteName: "CappaWork",
     images: [
       {
-        url: "https://cappawork.com/CW_homepage.png",
-        width: 2400,
-        height: 1600,
-        alt: "CappaWork Platform Interface - From Idea to Product in 1 Month",
+        url: "https://cappawork.com/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "CappaWork - Product Development for Owner-Led Businesses",
       },
     ],
   },
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "CappaWork - Build Products That Help People Flourish",
     description: "Web development agency crafting tools with clarity, utility, and restraint.",
-    images: ["https://cappawork.com/CW_homepage.png"],
+    images: ["https://cappawork.com/og-image.png"],
   },
     generator: 'v0.dev'
 }

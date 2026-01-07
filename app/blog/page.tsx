@@ -19,9 +19,9 @@ export const metadata: Metadata = {
     siteName: "CappaWork",
     images: [
       {
-        url: "https://cappawork.com/CW_homepage.png",
-        width: 2400,
-        height: 1600,
+        url: "https://cappawork.com/og-image.png",
+        width: 1200,
+        height: 630,
         alt: "CappaWork Blog - Helper Articles for Builders",
       },
     ],
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     title: "Blog - Helper Articles for Builders | CappaWork",
     description:
       "Practical guides for PMs and Designers who are building their own products. From discovery to launch, these articles help you move faster and avoid common pitfalls.",
-    images: ["https://cappawork.com/CW_homepage.png"],
+    images: ["https://cappawork.com/og-image.png"],
   },
 }
 

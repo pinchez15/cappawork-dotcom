@@ -43,9 +43,9 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
       siteName: "CappaWork",
       images: [
         {
-          url: "https://cappawork.com/CW_homepage.png",
-          width: 2400,
-          height: 1600,
+          url: "https://cappawork.com/og-image.png",
+          width: 1200,
+          height: 630,
           alt: post.title,
         },
       ],
@@ -55,7 +55,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
       card: "summary_large_image",
       title: post.title,
       description: post.description,
-      images: ["https://cappawork.com/CW_homepage.png"],
+      images: ["https://cappawork.com/og-image.png"],
     },
   }
 }

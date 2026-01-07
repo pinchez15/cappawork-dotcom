@@ -25,10 +25,10 @@ export const metadata: Metadata = {
     siteName: "CappaWork",
     images: [
       {
-        url: "https://cappawork.com/CW_homepage.png",
-        width: 2400,
-        height: 1600,
-        alt: "CappaWork Platform Interface - From Idea to Product in 1 Month",
+        url: "https://cappawork.com/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "CappaWork - Product Development for Owner-Led Businesses",
       },
     ],
     locale: "en_US",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "CappaWork - Product Development Services for Owner-Led Businesses",
     description: "CappaWork builds modern, scalable internal tools and early-stage products for owner-led businesses.",
-    images: ["https://cappawork.com/CW_homepage.png"],
+    images: ["https://cappawork.com/og-image.png"],
   },
 }
 
