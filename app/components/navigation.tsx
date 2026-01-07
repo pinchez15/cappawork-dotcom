@@ -8,24 +8,33 @@ export default function Navigation() {
   const [activeSection, setActiveSection] = useState("hero")
 
   useEffect(() => {
-    const handleScroll = () => {
-      const sections = ["hero", "portfolio", "services", "about", "blog"]
-      const scrollPosition = window.scrollY + 100
+    // Set active section based on current route
+    const currentPath = window.location.pathname
+    if (currentPath === "/blog") {
+      setActiveSection("blog")
+    } else if (currentPath === "/cohort") {
+      setActiveSection("cohort")
+    } else if (currentPath === "/") {
+      // Only handle scroll detection on homepage
+      const handleScroll = () => {
+        const sections = ["hero", "portfolio", "services", "about", "blog"]
+        const scrollPosition = window.scrollY + 100
 
-      for (const section of sections) {
-        const element = document.getElementById(section)
-        if (element) {
-          const { offsetTop, offsetHeight } = element
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(section)
-            break
+        for (const section of sections) {
+          const element = document.getElementById(section)
+          if (element) {
+            const { offsetTop, offsetHeight } = element
+            if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+              setActiveSection(section)
+              break
+            }
           }
         }
       }
-    }
 
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
+      window.addEventListener("scroll", handleScroll)
+      return () => window.removeEventListener("scroll", handleScroll)
+    }
   }, [])
 
   const navItems = [
@@ -33,7 +42,7 @@ export default function Navigation() {
     { id: "cohort", label: "Cohorts", href: "/cohort" },
     { id: "pricing", label: "Services", href: "/#pricing" },
     { id: "portfolio", label: "Work", href: "/#portfolio" },
-    { id: "blog", label: "Blog", href: "/#blog" },
+    { id: "blog", label: "Blog", href: "/blog" },
   ]
 
   const handleNavClick = (href: string, id: string) => {
