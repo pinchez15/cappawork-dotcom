@@ -4,6 +4,7 @@ import Navigation from "../../components/navigation"
 import Footer from "../../components/footer"
 import Link from "next/link"
 import { getPostBySlug, getAllPostSlugs } from "@/lib/blog/posts"
+import CodeBlockWithCopy from "../../components/code-block-with-copy"
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -144,10 +145,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
             {/* Content */}
             <div className="prose prose-stone prose-lg max-w-none">
-              <div
-                className="blog-content text-stone-700 leading-relaxed"
-                dangerouslySetInnerHTML={{ __html: post.content }}
-              />
+              <CodeBlockWithCopy html={post.content} />
             </div>
 
             {/* Footer */}
