@@ -342,63 +342,57 @@ export default function CohortPage() {
                   Alumni Spotlight
                </h2>
                <p className="text-xl text-stone-600 max-w-2xl mx-auto">
-                  See what our graduates are building. Hover to see their projects.
+                  See what our graduates are building.
                </p>
             </div>
 
-            <div className="flex justify-center">
-               {/* Flip Card */}
-               <div className="group" style={{ perspective: '1000px' }}>
-                  <div
-                     className="relative w-80 h-96 transition-transform duration-700"
-                     style={{ transformStyle: 'preserve-3d' }}
-                  >
-                     {/* Front of Card */}
-                     <div
-                        className="absolute inset-0 transition-transform duration-700 group-hover:[transform:rotateY(180deg)]"
-                        style={{ backfaceVisibility: 'hidden' }}
-                     >
-                        <div className="h-full bg-white rounded-2xl shadow-xl border border-stone-200 overflow-hidden">
-                           <div className="h-64 relative bg-stone-100">
-                              <Image
-                                 src="/JordanR.png"
-                                 alt="Jordan Raycroft"
-                                 fill
-                                 className="object-cover"
-                              />
-                           </div>
-                           <div className="p-6 text-center">
-                              <h3 className="text-xl font-semibold text-stone-900 mb-1">Jordan Raycroft</h3>
-                              <p className="text-stone-500 text-sm">Cohort Graduate</p>
-                              <p className="text-stone-400 text-xs mt-2">Hover to see project</p>
-                           </div>
-                        </div>
-                     </div>
+            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto items-center">
+               {/* Alumni Card */}
+               <div className="bg-white rounded-2xl shadow-xl border border-stone-200 overflow-hidden">
+                  <div className="h-64 relative bg-stone-100">
+                     <Image
+                        src="/JordanR.png"
+                        alt="Jordan Raycroft"
+                        fill
+                        className="object-cover"
+                     />
+                  </div>
+                  <div className="p-6 text-center">
+                     <h3 className="text-xl font-semibold text-stone-900 mb-1">Jordan Raycroft</h3>
+                     <p className="text-stone-600 text-sm font-medium">Product Manager</p>
+                     <p className="text-stone-400 text-xs mt-1">Cohort Graduate</p>
+                  </div>
+               </div>
 
-                     {/* Back of Card */}
-                     <div
-                        className="absolute inset-0 transition-transform duration-700 group-hover:[transform:rotateY(360deg)]"
-                        style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
-                     >
-                        <div className="h-full bg-gradient-to-br from-blue-600 to-blue-800 rounded-2xl shadow-xl overflow-hidden flex flex-col items-center justify-center p-8 text-center">
-                           <div className="bg-white/10 backdrop-blur-sm rounded-full p-4 mb-6">
-                              <Globe className="w-8 h-8 text-white" />
+               {/* Project Screenshot */}
+               <a
+                  href="https://oursbudget.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group block"
+               >
+                  <div className="bg-white rounded-2xl shadow-xl border border-stone-200 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:border-blue-300">
+                     <div className="aspect-[4/3] relative bg-stone-100">
+                        <Image
+                           src="/ours_homepage.png"
+                           alt="OursBudget - A budgeting app for couples"
+                           fill
+                           className="object-cover object-top"
+                        />
+                     </div>
+                     <div className="p-6">
+                        <div className="flex items-center justify-between">
+                           <div>
+                              <h3 className="text-xl font-semibold text-stone-900 mb-1">OursBudget</h3>
+                              <p className="text-stone-500 text-sm">A budgeting app for couples</p>
                            </div>
-                           <h3 className="text-2xl font-semibold text-white mb-2">OursBudget</h3>
-                           <p className="text-blue-100 mb-6">A budgeting app designed for couples to manage their finances together.</p>
-                           <a
-                              href="https://oursbudget.com/"
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center gap-2 bg-white text-blue-600 px-6 py-3 rounded-full font-medium hover:bg-blue-50 transition-colors"
-                           >
-                              Visit Site
-                              <ArrowRight size={16} />
-                           </a>
+                           <div className="bg-blue-600 text-white p-2 rounded-full group-hover:bg-blue-700 transition-colors">
+                              <ArrowRight size={20} />
+                           </div>
                         </div>
                      </div>
                   </div>
-               </div>
+               </a>
             </div>
          </div>
       </section>
