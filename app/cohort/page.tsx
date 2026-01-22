@@ -346,25 +346,8 @@ export default function CohortPage() {
                </p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto items-center">
-               {/* Alumni Card */}
-               <div className="bg-white rounded-2xl shadow-xl border border-stone-200 overflow-hidden">
-                  <div className="h-64 relative bg-stone-100">
-                     <Image
-                        src="/JordanR.png"
-                        alt="Jordan Raycroft"
-                        fill
-                        className="object-cover"
-                     />
-                  </div>
-                  <div className="p-6 text-center">
-                     <h3 className="text-xl font-semibold text-stone-900 mb-1">Jordan Raycroft</h3>
-                     <p className="text-stone-600 text-sm font-medium">Product Manager</p>
-                     <p className="text-stone-400 text-xs mt-1">Cohort Graduate</p>
-                  </div>
-               </div>
-
-               {/* Project Screenshot */}
+            <div className="max-w-2xl mx-auto">
+               {/* Project Card with Builder */}
                <a
                   href="https://oursbudget.com/"
                   target="_blank"
@@ -372,7 +355,7 @@ export default function CohortPage() {
                   className="group block"
                >
                   <div className="bg-white rounded-2xl shadow-xl border border-stone-200 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:border-blue-300">
-                     <div className="aspect-[4/3] relative bg-stone-100">
+                     <div className="aspect-[16/10] relative bg-stone-100">
                         <Image
                            src="/ours_homepage.png"
                            alt="OursBudget - A budgeting app for couples"
@@ -382,12 +365,29 @@ export default function CohortPage() {
                      </div>
                      <div className="p-6">
                         <div className="flex items-center justify-between">
-                           <div>
+                           <div className="flex-1">
                               <h3 className="text-xl font-semibold text-stone-900 mb-1">OursBudget</h3>
                               <p className="text-stone-500 text-sm">A budgeting app for couples</p>
                            </div>
-                           <div className="bg-blue-600 text-white p-2 rounded-full group-hover:bg-blue-700 transition-colors">
-                              <ArrowRight size={20} />
+                           <div className="flex items-center gap-3">
+                              {/* Builder headshot */}
+                              <div className="flex items-center gap-3">
+                                 <div className="text-right hidden sm:block">
+                                    <p className="text-sm font-medium text-stone-900">Jordan Raycroft</p>
+                                    <p className="text-xs text-stone-500">Product Manager</p>
+                                 </div>
+                                 <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-stone-200 shrink-0">
+                                    <Image
+                                       src="/JordanR.png"
+                                       alt="Jordan Raycroft"
+                                       fill
+                                       className="object-cover"
+                                    />
+                                 </div>
+                              </div>
+                              <div className="bg-blue-600 text-white p-2 rounded-full group-hover:bg-blue-700 transition-colors">
+                                 <ArrowRight size={20} />
+                              </div>
                            </div>
                         </div>
                      </div>
