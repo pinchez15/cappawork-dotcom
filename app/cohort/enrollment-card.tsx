@@ -10,7 +10,7 @@ export default function EnrollmentCard({ className = "" }: { className?: string 
   const price = "$500"
   const fullPrice = "$1,000"
   const spotsRemaining = "24" // Example number
-  const nextCohortDate = "January 2025"
+  const nextCohortDate = "February 2026"
 
   return (
     <div className={`bg-white rounded-2xl shadow-xl border border-stone-200 p-8 ${className}`}>

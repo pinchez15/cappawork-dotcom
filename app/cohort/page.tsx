@@ -61,7 +61,7 @@ export default function CohortPage() {
             CappaWork
           </a>
           <Link href="#checkout" className="text-sm font-medium text-stone-600 hover:text-stone-900">
-            Apply for January
+            Apply for February
           </Link>
         </div>
       </nav>
@@ -77,7 +77,7 @@ export default function CohortPage() {
                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                        <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
                      </span>
-                     Enrolling for January
+                     Enrolling for February
                   </div>
                   
                   <h1 className="text-5xl sm:text-7xl font-semibold tracking-tight leading-[1.05] mb-8 text-stone-900">
@@ -334,13 +334,82 @@ export default function CohortPage() {
          </div>
       </section>
 
+      {/* Alumni Spotlight Section */}
+      <section className="py-32 bg-white">
+         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+               <h2 className="text-3xl sm:text-5xl font-semibold tracking-tight text-stone-900 mb-6">
+                  Alumni Spotlight
+               </h2>
+               <p className="text-xl text-stone-600 max-w-2xl mx-auto">
+                  See what our graduates are building. Hover to see their projects.
+               </p>
+            </div>
+
+            <div className="flex justify-center">
+               {/* Flip Card */}
+               <div className="group" style={{ perspective: '1000px' }}>
+                  <div
+                     className="relative w-80 h-96 transition-transform duration-700"
+                     style={{ transformStyle: 'preserve-3d' }}
+                  >
+                     {/* Front of Card */}
+                     <div
+                        className="absolute inset-0 transition-transform duration-700 group-hover:[transform:rotateY(180deg)]"
+                        style={{ backfaceVisibility: 'hidden' }}
+                     >
+                        <div className="h-full bg-white rounded-2xl shadow-xl border border-stone-200 overflow-hidden">
+                           <div className="h-64 relative bg-stone-100">
+                              <Image
+                                 src="/JordanR.png"
+                                 alt="Jordan Raycroft"
+                                 fill
+                                 className="object-cover"
+                              />
+                           </div>
+                           <div className="p-6 text-center">
+                              <h3 className="text-xl font-semibold text-stone-900 mb-1">Jordan Raycroft</h3>
+                              <p className="text-stone-500 text-sm">Cohort Graduate</p>
+                              <p className="text-stone-400 text-xs mt-2">Hover to see project</p>
+                           </div>
+                        </div>
+                     </div>
+
+                     {/* Back of Card */}
+                     <div
+                        className="absolute inset-0 transition-transform duration-700 group-hover:[transform:rotateY(360deg)]"
+                        style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
+                     >
+                        <div className="h-full bg-gradient-to-br from-blue-600 to-blue-800 rounded-2xl shadow-xl overflow-hidden flex flex-col items-center justify-center p-8 text-center">
+                           <div className="bg-white/10 backdrop-blur-sm rounded-full p-4 mb-6">
+                              <Globe className="w-8 h-8 text-white" />
+                           </div>
+                           <h3 className="text-2xl font-semibold text-white mb-2">OursBudget</h3>
+                           <p className="text-blue-100 mb-6">A budgeting app designed for couples to manage their finances together.</p>
+                           <a
+                              href="https://oursbudget.com/"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-2 bg-white text-blue-600 px-6 py-3 rounded-full font-medium hover:bg-blue-50 transition-colors"
+                           >
+                              Visit Site
+                              <ArrowRight size={16} />
+                           </a>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+
       {/* 6. Pricing & Checkout (Refined) */}
       <section id="checkout" className="py-32 bg-stone-50">
          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-stone-100">
                <div className="p-12 text-center">
                   <div className="text-sm font-medium text-stone-500 uppercase tracking-widest mb-4">
-                     January 2025 Cohort
+                     February 2026 Cohort
                   </div>
                   <div className="mb-6">
                      <h2 className="text-5xl sm:text-7xl font-semibold tracking-tight text-stone-900 mb-2">
@@ -353,6 +422,15 @@ export default function CohortPage() {
                      One-time payment. Lifetime access to materials.
                   </p>
                   
+                  <div className="bg-stone-50 rounded-xl p-4 mb-8 border border-stone-100">
+                     <p className="text-sm font-medium text-stone-700 mb-2">Live Call Schedule (8PM EST)</p>
+                     <div className="flex flex-wrap justify-center gap-3 text-sm text-stone-600">
+                        <span className="bg-white px-3 py-1 rounded-full border border-stone-200">Feb 2</span>
+                        <span className="bg-white px-3 py-1 rounded-full border border-stone-200">Feb 9</span>
+                        <span className="bg-white px-3 py-1 rounded-full border border-stone-200">Feb 16</span>
+                     </div>
+                  </div>
+
                   <div className="flex flex-col gap-4 items-center justify-center mb-12">
                      <div className="flex items-center gap-2 text-stone-700">
                         <Check size={20} className="text-green-500" />
