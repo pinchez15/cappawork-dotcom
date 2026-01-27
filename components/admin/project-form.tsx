@@ -6,6 +6,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -16,11 +24,36 @@ function SubmitButton() {
   );
 }
 
+const SERVICE_TIERS = [
+  {
+    value: "internal_tool",
+    label: "Internal Tool",
+    price: "$9,900",
+    description: "Core rebuild with clean architecture",
+    color: "bg-tier-internal text-white",
+  },
+  {
+    value: "scale_ready",
+    label: "Scale-Ready",
+    price: "$14,900",
+    description: "Scalability, RBAC, and analytics",
+    color: "bg-tier-scale text-white",
+  },
+  {
+    value: "commercial_product",
+    label: "Commercial Product",
+    price: "$24,900",
+    description: "Full product with billing and integrations",
+    color: "bg-tier-commercial text-white",
+  },
+];
+
 interface ProjectFormProps {
   action: (formData: FormData) => Promise<void>;
   initialData?: {
     name?: string;
     description?: string;
+    service_tier?: string;
   };
 }
 
@@ -52,6 +85,35 @@ export function ProjectForm({ action, initialData }: ProjectFormProps) {
           </div>
 
           <div className="space-y-2">
+            <Label htmlFor="service_tier">Service Tier *</Label>
+            <Select name="service_tier" required defaultValue={initialData?.service_tier}>
+              <SelectTrigger id="service_tier" className="w-full">
+                <SelectValue placeholder="Select a service tier" />
+              </SelectTrigger>
+              <SelectContent>
+                {SERVICE_TIERS.map((tier) => (
+                  <SelectItem key={tier.value} value={tier.value}>
+                    <div className="flex items-center gap-3">
+                      <Badge className={tier.color} variant="secondary">
+                        {tier.price}
+                      </Badge>
+                      <div>
+                        <span className="font-medium">{tier.label}</span>
+                        <span className="text-muted-foreground ml-2 text-sm">
+                          {tier.description}
+                        </span>
+                      </div>
+                    </div>
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <p className="text-sm text-muted-foreground">
+              This determines the project phases and task template
+            </p>
+          </div>
+
+          <div className="space-y-2">
             <Label htmlFor="description">Description</Label>
             <Textarea
               id="description"
@@ -79,4 +141,3 @@ export function ProjectForm({ action, initialData }: ProjectFormProps) {
     </Card>
   );
 }
-

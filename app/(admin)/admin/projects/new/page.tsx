@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { createProject } from "@/server/repos/projects";
+import { createProject, ServiceTier } from "@/server/repos/projects";
 import { initializeKanbanForProject } from "@/server/services/kanban-templates";
 import { ProjectForm } from "@/components/admin/project-form";
 
@@ -10,18 +10,24 @@ export default function NewProjectPage() {
     "use server";
     const name = formData.get("name") as string;
     const description = formData.get("description") as string;
+    const serviceTier = formData.get("service_tier") as ServiceTier;
 
     if (!name) {
       throw new Error("Project name is required");
     }
 
+    if (!serviceTier) {
+      throw new Error("Service tier is required");
+    }
+
     const project = await createProject({
       name,
       description: description || undefined,
+      service_tier: serviceTier,
     });
 
-    // Initialize kanban board with template
-    await initializeKanbanForProject(project.id);
+    // Initialize kanban board with tier-specific template
+    await initializeKanbanForProject(project.id, serviceTier);
 
     redirect(`/admin/projects/${project.id}`);
   }
@@ -35,4 +41,3 @@ export default function NewProjectPage() {
     </div>
   );
 }
-

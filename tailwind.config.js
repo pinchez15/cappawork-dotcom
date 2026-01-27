@@ -61,14 +61,49 @@ module.exports = {
           800: "#292524",
           900: "#1c1917",
         },
-        borderRadius: {
-          lg: "var(--radius)",
-          md: "calc(var(--radius) - 2px)",
-          sm: "calc(var(--radius) - 4px)",
+        // Service tier colors
+        tier: {
+          internal: { DEFAULT: "#3B82F6", light: "#EFF6FF" },    // blue
+          scale: { DEFAULT: "#6366F1", light: "#EEF2FF" },       // indigo
+          commercial: { DEFAULT: "#8B5CF6", light: "#F5F3FF" },  // purple
         },
+        // Phase status colors
+        phase: {
+          pending: "#94A3B8",
+          active: "#3B82F6",
+          completed: "#22C55E",
+        },
+        // Brand colors
+        brand: {
+          DEFAULT: "#3B82F6",
+          hover: "#2563EB",
+        },
+      },
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
       },
       animation: {
         bounce: "bounce 2s infinite",
+        "progress-fill": "progress-fill 0.5s ease-out forwards",
+        "task-complete": "task-complete 0.3s ease-out forwards",
+        "pulse-subtle": "pulse-subtle 2s ease-in-out infinite",
+      },
+      keyframes: {
+        "progress-fill": {
+          "0%": { width: "0%" },
+          "100%": { width: "var(--progress-value)" },
+        },
+        "task-complete": {
+          "0%": { transform: "scale(0.8)", opacity: "0" },
+          "50%": { transform: "scale(1.1)" },
+          "100%": { transform: "scale(1)", opacity: "1" },
+        },
+        "pulse-subtle": {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0.7" },
+        },
       },
     },
   },

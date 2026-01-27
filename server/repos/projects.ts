@@ -1,10 +1,13 @@
 import { supabaseAdmin } from "@/lib/db/client";
 
+export type ServiceTier = "internal_tool" | "scale_ready" | "commercial_product";
+
 export interface Project {
   id: string;
   name: string;
   description: string | null;
   status: "active" | "completed" | "on_hold";
+  service_tier: ServiceTier | null;
   prd_content: any;
   organization_id: string | null;
   created_at: string;
@@ -15,6 +18,7 @@ export async function createProject(data: {
   name: string;
   description?: string;
   status?: "active" | "completed" | "on_hold";
+  service_tier?: ServiceTier;
 }) {
   const { data: project, error } = await supabaseAdmin
     .from("projects")
@@ -22,6 +26,7 @@ export async function createProject(data: {
       name: data.name,
       description: data.description || null,
       status: data.status || "active",
+      service_tier: data.service_tier || null,
     })
     .select()
     .single();

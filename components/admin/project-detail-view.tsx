@@ -10,6 +10,7 @@ import { DesignSpec } from "./design-spec";
 import { FileAttachments } from "./file-attachments";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { getTierInfo } from "@/lib/animations";
 
 interface ProjectDetailViewProps {
   project: any;
@@ -30,6 +31,8 @@ export function ProjectDetailView({
   design,
   attachments,
 }: ProjectDetailViewProps) {
+  const tierInfo = getTierInfo(project.service_tier);
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="mb-8">
@@ -48,6 +51,11 @@ export function ProjectDetailView({
           >
             {project.status}
           </Badge>
+          {project.service_tier && (
+            <Badge className={`${tierInfo.colors.bg} text-white`}>
+              {tierInfo.label}
+            </Badge>
+          )}
         </div>
         {project.description && (
           <p className="text-stone-600 mt-2">{project.description}</p>
