@@ -3,6 +3,11 @@ import { NextResponse } from "next/server";
 import { Webhook } from "svix";
 import { upsertProfile } from "@/server/repos/profiles";
 import { upsertOrganization } from "@/server/repos/organizations";
+import {
+  upsertOrganizationMember,
+  deleteOrganizationMember,
+} from "@/server/repos/organization-members";
+import { updateInviteStatusByClerkId } from "@/server/repos/organization-invites";
 
 export const runtime = "nodejs";
 
@@ -80,6 +85,32 @@ export async function POST(req: Request) {
           slug,
           image_url,
         });
+        break;
+      }
+      case "organizationMembership.created":
+      case "organizationMembership.updated": {
+        const { id, organization, public_user_data, role } = evt.data;
+        await upsertOrganizationMember({
+          clerkMembershipId: id,
+          clerkOrgId: organization.id,
+          clerkUserId: public_user_data.user_id,
+          role: role,
+        });
+        break;
+      }
+      case "organizationMembership.deleted": {
+        const { id } = evt.data;
+        await deleteOrganizationMember(id);
+        break;
+      }
+      case "organizationInvitation.accepted": {
+        const { id } = evt.data;
+        await updateInviteStatusByClerkId(id, "accepted");
+        break;
+      }
+      case "organizationInvitation.revoked": {
+        const { id } = evt.data;
+        await updateInviteStatusByClerkId(id, "revoked");
         break;
       }
       default:

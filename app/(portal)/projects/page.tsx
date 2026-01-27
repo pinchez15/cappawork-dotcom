@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { auth } from "@clerk/nextjs/server";
 import { getProjectsForProfile, getAllProjects } from "@/server/repos/projects";
 import { getProfileByClerkId } from "@/server/repos/profiles";
+import { supabaseAdmin } from "@/lib/db/client";
 import Link from "next/link";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -36,10 +37,49 @@ export default async function ProjectsPage() {
     );
   }
 
-  // Admins see all projects, clients see only their assigned projects
-  const projects = profile.is_admin 
-    ? await getAllProjects()
-    : await getProjectsForProfile(profile.id);
+  // Admins see all projects, clients see their assigned projects
+  // Clients can access projects via:
+  // 1. Direct project_members entry
+  // 2. Organization membership via organization_members → projects.organization_id
+  let projects: any[] = [];
+
+  if (profile.is_admin) {
+    projects = await getAllProjects();
+  } else {
+    // Get projects via direct membership
+    const directProjects = await getProjectsForProfile(profile.id);
+
+    // Get projects via organization membership
+    const { data: orgMemberships } = await supabaseAdmin
+      .from("organization_members")
+      .select("organization_id")
+      .eq("profile_id", profile.id);
+
+    let orgProjects: any[] = [];
+    if (orgMemberships && orgMemberships.length > 0) {
+      const orgIds = orgMemberships.map((m) => m.organization_id);
+      const { data: orgProjectsData } = await supabaseAdmin
+        .from("projects")
+        .select("*")
+        .in("organization_id", orgIds)
+        .order("created_at", { ascending: false });
+
+      orgProjects = orgProjectsData || [];
+    }
+
+    // Merge and dedupe projects
+    const projectMap = new Map<string, any>();
+    [...directProjects, ...orgProjects].forEach((p) => {
+      if (!projectMap.has(p.id)) {
+        projectMap.set(p.id, p);
+      }
+    });
+
+    projects = Array.from(projectMap.values()).sort(
+      (a, b) =>
+        new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+    );
+  }
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

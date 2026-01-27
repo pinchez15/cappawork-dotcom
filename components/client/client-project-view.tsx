@@ -5,6 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ClientKanbanView } from "./client-kanban-view";
 import { ClientURLs } from "./client-urls";
 import { ClientDesignSpec } from "./client-design-spec";
+import { ClientAttachments } from "./client-attachments";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
@@ -17,6 +18,7 @@ interface ClientProjectViewProps {
   tasks: any[];
   urls: any[];
   design: any;
+  attachments: any[];
 }
 
 export function ClientProjectView({
@@ -25,6 +27,7 @@ export function ClientProjectView({
   tasks,
   urls,
   design,
+  attachments,
 }: ClientProjectViewProps) {
   const handoffPhase = phases.find((p) => p.name === "Handoff");
   const isHandoffReady = handoffPhase && tasks.some(
@@ -81,12 +84,17 @@ export function ClientProjectView({
       <Tabs defaultValue="progress" className="space-y-6">
         <TabsList>
           <TabsTrigger value="progress">Progress</TabsTrigger>
+          <TabsTrigger value="files">Files</TabsTrigger>
           <TabsTrigger value="urls">URLs</TabsTrigger>
           <TabsTrigger value="design">Design</TabsTrigger>
         </TabsList>
 
         <TabsContent value="progress">
           <ClientKanbanView phases={phases} tasks={tasks} />
+        </TabsContent>
+
+        <TabsContent value="files">
+          <ClientAttachments attachments={attachments} />
         </TabsContent>
 
         <TabsContent value="urls">

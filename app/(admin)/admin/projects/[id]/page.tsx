@@ -4,6 +4,7 @@ import { getPhasesForProject, getTasksForProject } from "@/server/repos/kanban";
 import { getSecretsForProject } from "@/server/repos/secrets";
 import { getUrlsForProject } from "@/server/repos/urls";
 import { getDesignForProject } from "@/server/repos/design";
+import { getAttachmentsForProject } from "@/server/repos/attachments";
 import { ProjectDetailView } from "@/components/admin/project-detail-view";
 
 export const runtime = "nodejs";
@@ -17,13 +18,14 @@ export default async function ProjectDetailPage({
 }) {
   const { id } = await params;
 
-  const [project, phases, tasks, secrets, urls, design] = await Promise.all([
+  const [project, phases, tasks, secrets, urls, design, attachments] = await Promise.all([
     getProjectById(id),
     getPhasesForProject(id),
     getTasksForProject(id),
     getSecretsForProject(id),
     getUrlsForProject(id),
     getDesignForProject(id),
+    getAttachmentsForProject(id),
   ]);
 
   if (!project) {
@@ -38,6 +40,7 @@ export default async function ProjectDetailPage({
       secrets={secrets}
       urls={urls}
       design={design}
+      attachments={attachments}
     />
   );
 }

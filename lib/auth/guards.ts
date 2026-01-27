@@ -70,33 +70,60 @@ export async function getCurrentUser(): Promise<AuthenticatedUser | null> {
 
 /**
  * Checks if a user has access to a specific project
+ * Access is granted via:
+ * 1. Direct project_members entry (legacy/fallback)
+ * 2. Organization membership via organization_members → projects.organization_id
  */
 export async function requireProjectAccess(projectId: string): Promise<AuthenticatedUser> {
   const user = await requireUser();
-  
+
   // Admins have access to all projects
   if (user.isAdmin) {
     return user;
   }
-  
+
   // Check if user is a member of this project
   if (!user.profileId) {
     throw new Error("FORBIDDEN: No profile found");
   }
-  
+
   const { supabaseAdmin } = await import("@/lib/db/client");
-  
-  const { data: membership } = await supabaseAdmin
+
+  // Check direct project membership first
+  const { data: directMembership } = await supabaseAdmin
     .from("project_members")
     .select("id")
     .eq("project_id", projectId)
     .eq("profile_id", user.profileId)
     .single();
-  
-  if (!membership) {
-    throw new Error("FORBIDDEN: No access to this project");
+
+  if (directMembership) {
+    return user;
   }
-  
-  return user;
+
+  // Check organization membership
+  // First get the project's organization_id
+  const { data: project } = await supabaseAdmin
+    .from("projects")
+    .select("organization_id")
+    .eq("id", projectId)
+    .single();
+
+  if (project?.organization_id) {
+    // Check if user is a member of the project's organization
+    const { data: orgMembership } = await supabaseAdmin
+      .from("organization_members")
+      .select("id")
+      .eq("organization_id", project.organization_id)
+      .eq("profile_id", user.profileId)
+      .single();
+
+    if (orgMembership) {
+      return user;
+    }
+  }
+
+  throw new Error("FORBIDDEN: No access to this project");
 }
+
 

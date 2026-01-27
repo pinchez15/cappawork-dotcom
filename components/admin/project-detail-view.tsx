@@ -7,6 +7,7 @@ import { PRDEditor } from "./prd-editor";
 import { SecretsVault } from "./secrets-vault";
 import { URLsSection } from "./urls-section";
 import { DesignSpec } from "./design-spec";
+import { FileAttachments } from "./file-attachments";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
@@ -17,6 +18,7 @@ interface ProjectDetailViewProps {
   secrets: any[];
   urls: any[];
   design: any;
+  attachments: any[];
 }
 
 export function ProjectDetailView({
@@ -26,6 +28,7 @@ export function ProjectDetailView({
   secrets,
   urls,
   design,
+  attachments,
 }: ProjectDetailViewProps) {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -55,6 +58,7 @@ export function ProjectDetailView({
         <TabsList>
           <TabsTrigger value="kanban">Kanban</TabsTrigger>
           <TabsTrigger value="prd">PRD</TabsTrigger>
+          <TabsTrigger value="files">Files</TabsTrigger>
           <TabsTrigger value="secrets">Secrets</TabsTrigger>
           <TabsTrigger value="urls">URLs</TabsTrigger>
           <TabsTrigger value="design">Design</TabsTrigger>
@@ -70,6 +74,10 @@ export function ProjectDetailView({
 
         <TabsContent value="prd">
           <PRDEditor projectId={project.id} initialContent={project.prd_content} />
+        </TabsContent>
+
+        <TabsContent value="files">
+          <FileAttachments projectId={project.id} attachments={attachments} />
         </TabsContent>
 
         <TabsContent value="secrets">

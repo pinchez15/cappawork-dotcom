@@ -6,6 +6,7 @@ export interface Project {
   description: string | null;
   status: "active" | "completed" | "on_hold";
   prd_content: any;
+  organization_id: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -90,5 +91,61 @@ export async function getProjectsForProfile(profileId: string) {
 
   if (error) throw error;
   return (data || []).map((item: any) => item.project);
+}
+
+export async function getProjectsForOrganization(organizationId: string) {
+  const { data, error } = await supabaseAdmin
+    .from("projects")
+    .select("*")
+    .eq("organization_id", organizationId)
+    .order("created_at", { ascending: false });
+
+  if (error) throw error;
+  return data || [];
+}
+
+export async function assignProjectToOrganization(
+  projectId: string,
+  organizationId: string | null
+) {
+  const { data, error } = await supabaseAdmin
+    .from("projects")
+    .update({
+      organization_id: organizationId,
+      updated_at: new Date().toISOString(),
+    })
+    .eq("id", projectId)
+    .select()
+    .single();
+
+  if (error) throw error;
+  return data as Project;
+}
+
+export async function getProjectsGroupedByOrganization() {
+  // Get all projects with their organization info
+  const { data, error } = await supabaseAdmin
+    .from("projects")
+    .select(
+      `
+      *,
+      organization:organizations(id, name, slug)
+    `
+    )
+    .order("created_at", { ascending: false });
+
+  if (error) throw error;
+  return data || [];
+}
+
+export async function getUnassignedProjects() {
+  const { data, error } = await supabaseAdmin
+    .from("projects")
+    .select("*")
+    .is("organization_id", null)
+    .order("created_at", { ascending: false });
+
+  if (error) throw error;
+  return data || [];
 }
 
