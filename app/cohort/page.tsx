@@ -38,6 +38,8 @@ export const metadata: Metadata = {
   },
 }
 
+export const dynamic = "force-dynamic";
+
 const techLogos = [
   { src: "/logos/cursor.jpg", alt: "Cursor" },
   { src: "/logos/vercel-logotype-dark.png", alt: "Vercel" },

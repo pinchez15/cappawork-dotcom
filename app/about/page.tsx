@@ -8,6 +8,8 @@ export const metadata: Metadata = {
   description: "Learn about CappaWork and our mission to build modern software for owner-led businesses.",
 }
 
+export const dynamic = "force-dynamic";
+
 export default function AboutPage() {
   return (
     <main className="min-h-screen bg-stone-50">

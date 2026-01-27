@@ -7,6 +7,8 @@ export const metadata: Metadata = {
   description: "CappaWork Terms of Service",
 }
 
+export const dynamic = "force-dynamic";
+
 export default function TermsPage() {
   return (
     <main className="min-h-screen bg-stone-50">
@@ -94,5 +96,6 @@ export default function TermsPage() {
     </main>
   )
 }
+
 
 

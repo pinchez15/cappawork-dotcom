@@ -37,6 +37,7 @@ export const metadata: Metadata = {
 };
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 export default async function BlogPage() {
   const blogPosts = await getAllBlogPosts(true);

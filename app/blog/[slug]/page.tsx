@@ -14,6 +14,7 @@ interface BlogPostPageProps {
 }
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,
