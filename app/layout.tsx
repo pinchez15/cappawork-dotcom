@@ -58,7 +58,16 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <ClerkProvider>
+    <ClerkProvider
+      signInFallbackRedirectUrl="/dashboard"
+      signUpFallbackRedirectUrl="/dashboard"
+      appearance={{
+        elements: {
+          // Hide signup link on sign-in page (invite-only model)
+          footerAction: { display: "none" },
+        },
+      }}
+    >
       <html lang="en" className={`${inter.variable} ${crimsonText.variable}`}>
         <body className="font-sans bg-stone-50">
           {children}

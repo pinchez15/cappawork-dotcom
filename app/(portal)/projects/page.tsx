@@ -1,5 +1,7 @@
 import { redirect } from "next/navigation";
-import { getAllProjects } from "@/server/repos/projects";
+import { auth } from "@clerk/nextjs/server";
+import { getProjectsForProfile, getAllProjects } from "@/server/repos/projects";
+import { getProfileByClerkId } from "@/server/repos/profiles";
 import Link from "next/link";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -7,11 +9,37 @@ import { Badge } from "@/components/ui/badge";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-// TODO: Re-add Clerk auth protection after reinstall
-// Currently showing all projects - will need to filter by user after auth is back
 export default async function ProjectsPage() {
-  // TODO: Get profile from Clerk auth and filter projects
-  const projects = await getAllProjects();
+  const { userId } = await auth();
+
+  if (!userId) {
+    redirect("/sign-in");
+  }
+
+  // Get user's profile
+  const profile = await getProfileByClerkId(userId);
+
+  if (!profile) {
+    // Profile not synced yet - should not happen, but handle gracefully
+    return (
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <Card>
+          <CardContent className="pt-6">
+            <div className="text-center py-12">
+              <p className="text-stone-600 mb-4">
+                Your account is being set up. Please try again in a moment.
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  // Admins see all projects, clients see only their assigned projects
+  const projects = profile.is_admin 
+    ? await getAllProjects()
+    : await getProjectsForProfile(profile.id);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

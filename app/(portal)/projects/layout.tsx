@@ -1,12 +1,22 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
+import { auth } from "@clerk/nextjs/server";
+import { UserButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 
-// TODO: Re-add Clerk auth protection after reinstall
-export default function PortalLayout({
+export const runtime = "nodejs";
+
+export default async function PortalLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const { userId } = await auth();
+
+  if (!userId) {
+    redirect("/sign-in");
+  }
+
   return (
     <div className="min-h-screen bg-stone-50">
       <nav className="border-b border-stone-200 bg-white">
@@ -21,7 +31,7 @@ export default function PortalLayout({
                   View Site
                 </Button>
               </Link>
-              {/* TODO: Re-add UserButton after Clerk reinstall */}
+              <UserButton afterSignOutUrl="/" />
             </div>
           </div>
         </div>

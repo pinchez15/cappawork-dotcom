@@ -2,11 +2,13 @@
 
 import { useState, useEffect } from "react"
 import { Menu, X } from "lucide-react"
-import { SignInButton, SignUpButton, UserButton, SignedIn, SignedOut } from "@clerk/nextjs"
+import { SignInButton, UserButton, SignedIn, SignedOut, useUser } from "@clerk/nextjs"
+import Link from "next/link"
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const [activeSection, setActiveSection] = useState("hero")
+  const { user } = useUser()
 
   useEffect(() => {
     // Set active section based on current route
@@ -94,13 +96,14 @@ export default function Navigation() {
                     Sign In
                   </button>
                 </SignInButton>
-                <SignUpButton mode="modal">
-                  <button className="text-sm font-medium text-stone-600 hover:text-stone-900 transition-colors">
-                    Sign Up
-                  </button>
-                </SignUpButton>
               </SignedOut>
               <SignedIn>
+                <Link
+                  href="/dashboard"
+                  className="text-sm font-medium text-stone-600 hover:text-stone-900 transition-colors"
+                >
+                  Dashboard
+                </Link>
                 <UserButton />
               </SignedIn>
             </div>
@@ -137,13 +140,14 @@ export default function Navigation() {
                     Sign In
                   </button>
                 </SignInButton>
-                <SignUpButton mode="modal">
-                  <button className="block w-full text-left py-2 text-stone-600 hover:text-stone-900 transition-colors">
-                    Sign Up
-                  </button>
-                </SignUpButton>
               </SignedOut>
               <SignedIn>
+                <Link
+                  href="/dashboard"
+                  className="block w-full text-left py-2 text-stone-600 hover:text-stone-900 transition-colors"
+                >
+                  Dashboard
+                </Link>
                 <div className="flex items-center justify-between py-2">
                   <span className="text-stone-600">Account</span>
                   <UserButton />

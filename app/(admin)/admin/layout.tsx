@@ -1,12 +1,31 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
+import { auth } from "@clerk/nextjs/server";
+import { UserButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
+import { getProfileByClerkId } from "@/server/repos/profiles";
 
-// TODO: Re-add Clerk auth protection after reinstall
-export default function AdminLayout({
+export const runtime = "nodejs";
+
+export default async function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const { userId } = await auth();
+
+  if (!userId) {
+    redirect("/sign-in");
+  }
+
+  // Check if user is admin
+  const profile = await getProfileByClerkId(userId);
+  
+  if (!profile?.is_admin) {
+    // Non-admins get redirected to the client portal
+    redirect("/projects");
+  }
+
   return (
     <div className="min-h-screen bg-stone-50">
       <nav className="border-b border-stone-200 bg-white">
@@ -31,7 +50,7 @@ export default function AdminLayout({
                   View Site
                 </Button>
               </Link>
-              {/* TODO: Re-add UserButton after Clerk reinstall */}
+              <UserButton afterSignOutUrl="/" />
             </div>
           </div>
         </div>
