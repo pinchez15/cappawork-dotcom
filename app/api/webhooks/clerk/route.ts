@@ -98,6 +98,11 @@ export async function POST(req: Request) {
           clerkUserId: public_user_data.user_id,
           role: role,
         });
+        // If user has org:admin role, set them as site admin
+        if (role === "org:admin") {
+          const { setAdminStatus } = await import("@/server/repos/profiles");
+          await setAdminStatus(public_user_data.user_id, true);
+        }
         break;
       }
       case "organizationMembership.deleted": {
