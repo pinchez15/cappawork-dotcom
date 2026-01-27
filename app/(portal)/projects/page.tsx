@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 export default async function ProjectsPage() {
   await requireUser();

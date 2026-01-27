@@ -6,6 +6,7 @@ import { getAllThemes } from "@/server/repos/design";
 import { DesignWizard } from "@/components/client/design-wizard";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 export default async function OnboardingPage({
   params,

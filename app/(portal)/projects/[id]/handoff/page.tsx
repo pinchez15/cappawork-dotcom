@@ -6,6 +6,7 @@ import { getUrlsForProject } from "@/server/repos/urls";
 import { HandoffView } from "@/components/client/handoff-view";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 export default async function HandoffPage({
   params,

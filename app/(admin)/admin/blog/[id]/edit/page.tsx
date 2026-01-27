@@ -4,6 +4,7 @@ import { getBlogPostById } from "@/server/repos/blog";
 import { BlogPostEditor } from "@/components/admin/blog-post-editor";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 export default async function EditBlogPostPage({
   params,

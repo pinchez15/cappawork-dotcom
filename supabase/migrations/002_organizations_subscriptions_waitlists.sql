@@ -103,21 +103,22 @@ alter table public.waitlist_entries enable row level security;
 alter table public.roles enable row level security;
 
 -- RLS Policies (service role access)
-create policy "Service role full access" on public.organizations
+-- Note: Policy names must be unique across the entire schema
+create policy "Service role full access organizations" on public.organizations
   for all using (true) with check (true);
 
-create policy "Service role full access" on public.organization_members
+create policy "Service role full access organization_members" on public.organization_members
   for all using (true) with check (true);
 
-create policy "Service role full access" on public.subscriptions
+create policy "Service role full access subscriptions" on public.subscriptions
   for all using (true) with check (true);
 
-create policy "Service role full access" on public.payment_attempts
+create policy "Service role full access payment_attempts" on public.payment_attempts
   for all using (true) with check (true);
 
-create policy "Service role full access" on public.waitlist_entries
+create policy "Service role full access waitlist_entries" on public.waitlist_entries
   for all using (true) with check (true);
 
-create policy "Service role full access" on public.roles
+create policy "Service role full access roles" on public.roles
   for all using (true) with check (true);
 

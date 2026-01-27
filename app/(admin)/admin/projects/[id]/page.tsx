@@ -8,6 +8,7 @@ import { getDesignForProject } from "@/server/repos/design";
 import { ProjectDetailView } from "@/components/admin/project-detail-view";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 export default async function ProjectDetailPage({
   params,
