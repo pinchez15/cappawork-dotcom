@@ -1,22 +1,12 @@
-import { redirect } from "next/navigation";
-import { requireAdmin } from "@/lib/auth/guards";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { UserButton } from "@clerk/nextjs";
 
-export const dynamic = "force-dynamic";
-
-export default async function AdminLayout({
+// TODO: Re-add Clerk auth protection after reinstall
+export default function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  try {
-    await requireAdmin();
-  } catch {
-    redirect("/");
-  }
-
   return (
     <div className="min-h-screen bg-stone-50">
       <nav className="border-b border-stone-200 bg-white">
@@ -41,7 +31,7 @@ export default async function AdminLayout({
                   View Site
                 </Button>
               </Link>
-              <UserButton />
+              {/* TODO: Re-add UserButton after Clerk reinstall */}
             </div>
           </div>
         </div>
@@ -50,4 +40,3 @@ export default async function AdminLayout({
     </div>
   );
 }
-

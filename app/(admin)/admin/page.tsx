@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Plus } from "lucide-react";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 function getStatusColor(status: string) {
   switch (status) {

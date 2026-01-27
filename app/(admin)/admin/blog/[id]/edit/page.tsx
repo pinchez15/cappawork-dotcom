@@ -1,17 +1,16 @@
 import { redirect } from "next/navigation";
-import { requireAdmin } from "@/lib/auth/guards";
 import { getBlogPostById } from "@/server/repos/blog";
 import { BlogPostEditor } from "@/components/admin/blog-post-editor";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
+// TODO: Re-add Clerk auth protection after reinstall
 export default async function EditBlogPostPage({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
-  await requireAdmin();
   const { id } = await params;
 
   const post = await getBlogPostById(id);
@@ -22,4 +21,3 @@ export default async function EditBlogPostPage({
 
   return <BlogPostEditor post={post} />;
 }
-

@@ -1,6 +1,5 @@
 import { redirect } from "next/navigation";
-import { requireUser, getCurrentProfile } from "@/lib/auth/guards";
-import { getProjectsForProfile } from "@/server/repos/projects";
+import { getAllProjects } from "@/server/repos/projects";
 import Link from "next/link";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -8,15 +7,11 @@ import { Badge } from "@/components/ui/badge";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
+// TODO: Re-add Clerk auth protection after reinstall
+// Currently showing all projects - will need to filter by user after auth is back
 export default async function ProjectsPage() {
-  await requireUser();
-  const profile = await getCurrentProfile();
-
-  if (!profile) {
-    redirect("/");
-  }
-
-  const projects = await getProjectsForProfile(profile.id);
+  // TODO: Get profile from Clerk auth and filter projects
+  const projects = await getAllProjects();
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -77,4 +72,3 @@ export default async function ProjectsPage() {
     </div>
   );
 }
-

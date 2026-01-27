@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Plus } from "lucide-react";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 export default async function BlogAdminPage() {
   const posts = await getAllBlogPosts(false);

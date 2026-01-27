@@ -1,7 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
 import { Inter, Crimson_Text } from "next/font/google"
-import { ClerkProvider } from "@clerk/nextjs"
 import { Toaster } from "@/components/ui/sonner"
 import "./globals.css"
 
@@ -58,13 +57,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <ClerkProvider>
-      <html lang="en" className={`${inter.variable} ${crimsonText.variable}`}>
-        <body className="font-sans bg-stone-50">
-          {children}
-          <Toaster />
-        </body>
-      </html>
-    </ClerkProvider>
+    <html lang="en" className={`${inter.variable} ${crimsonText.variable}`}>
+      <body className="font-sans bg-stone-50">
+        {children}
+        <Toaster />
+      </body>
+    </html>
   )
 }
