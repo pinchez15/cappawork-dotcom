@@ -31,11 +31,8 @@ const nextConfig = {
           {
             key: 'X-XSS-Protection',
             value: '1; mode=block'
-          },
-          {
-            key: 'Content-Security-Policy',
-            value: "default-src 'self' https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https:; font-src 'self' https: data:; img-src 'self' https: data:; connect-src 'self' https:; frame-src 'self' https:; worker-src 'self' blob: https:; frame-ancestors 'none';"
           }
+          // CSP removed - Clerk handles security; re-add later if needed
         ]
       }
     ]
