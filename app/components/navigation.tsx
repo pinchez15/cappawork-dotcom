@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { Menu, X } from "lucide-react"
+import { SignInButton, SignUpButton, UserButton, SignedIn, SignedOut } from "@clerk/nextjs"
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
@@ -72,7 +73,7 @@ export default function Navigation() {
           </a>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex space-x-8">
+          <div className="hidden md:flex items-center space-x-6">
             {navItems.map((item) => (
               <button
                 key={item.id}
@@ -86,6 +87,23 @@ export default function Navigation() {
                 {item.label}
               </button>
             ))}
+            <div className="flex items-center space-x-3">
+              <SignedOut>
+                <SignInButton mode="modal">
+                  <button className="text-sm font-medium text-stone-600 hover:text-stone-900 transition-colors">
+                    Sign In
+                  </button>
+                </SignInButton>
+                <SignUpButton mode="modal">
+                  <button className="text-sm font-medium text-stone-600 hover:text-stone-900 transition-colors">
+                    Sign Up
+                  </button>
+                </SignUpButton>
+              </SignedOut>
+              <SignedIn>
+                <UserButton />
+              </SignedIn>
+            </div>
             <a 
               href="/cohort"
               className="text-sm font-medium bg-stone-900 text-white px-4 py-2 rounded-full hover:bg-stone-800 transition-colors"
@@ -112,6 +130,26 @@ export default function Navigation() {
                 {item.label}
               </button>
             ))}
+            <div className="flex flex-col space-y-2 mt-4">
+              <SignedOut>
+                <SignInButton mode="modal">
+                  <button className="block w-full text-left py-2 text-stone-600 hover:text-stone-900 transition-colors">
+                    Sign In
+                  </button>
+                </SignInButton>
+                <SignUpButton mode="modal">
+                  <button className="block w-full text-left py-2 text-stone-600 hover:text-stone-900 transition-colors">
+                    Sign Up
+                  </button>
+                </SignUpButton>
+              </SignedOut>
+              <SignedIn>
+                <div className="flex items-center justify-between py-2">
+                  <span className="text-stone-600">Account</span>
+                  <UserButton />
+                </div>
+              </SignedIn>
+            </div>
              <a 
               href="/cohort"
               className="block w-full text-center mt-4 font-medium bg-stone-900 text-white px-4 py-3 rounded-md hover:bg-stone-800 transition-colors"
