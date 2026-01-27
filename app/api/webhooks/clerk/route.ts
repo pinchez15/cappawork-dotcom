@@ -67,12 +67,14 @@ export async function POST(req: Request) {
     switch (eventType) {
       case "user.created":
       case "user.updated": {
-        const { id, email_addresses, first_name, last_name } = evt.data;
+        const { id, email_addresses, first_name, last_name, public_metadata, private_metadata } = evt.data;
         await upsertProfile({
           id,
           email_addresses,
           first_name,
           last_name,
+          public_metadata,
+          private_metadata,
         });
         break;
       }
