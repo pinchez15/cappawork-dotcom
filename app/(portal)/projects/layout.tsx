@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { auth } from "@clerk/nextjs/server";
 import { UserButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
+import { getProfileByClerkId } from "@/server/repos/profiles";
 
 export const runtime = "nodejs";
 
@@ -15,6 +16,12 @@ export default async function PortalLayout({
 
   if (!userId) {
     redirect("/sign-in");
+  }
+
+  // Redirect admins to admin dashboard
+  const profile = await getProfileByClerkId(userId);
+  if (profile?.is_admin) {
+    redirect("/admin");
   }
 
   return (
