@@ -378,6 +378,254 @@ Where should we start?</code></pre>
     <p><em>Found this helpful? Share it with another PM or designer who's been curious about building.</em></p>`,
     published: true,
   },
+  {
+    slug: "build-chrome-extension-claude-code",
+    title: "Build Your First Chrome Extension with Claude Code: A Step-by-Step Guide",
+    description:
+      "Learn how to build a real Chrome extension from scratch using Claude Code. We'll create a read time estimator that works on any webpage—no prior coding experience needed.",
+    date: "2026-01-15T00:00:00Z",
+    readTime: "20 min read",
+    tags: ["Claude Code", "Chrome Extension", "Tutorial", "JavaScript"],
+    content: `<h2>Why Build a Chrome Extension?</h2>
+    <p>Chrome extensions are powerful tools that can enhance your browsing experience. They can add features to websites, automate tasks, or provide helpful utilities. And with Claude Code, you can build one in an afternoon—even if you've never written a line of JavaScript.</p>
+    <p>In this guide, we're going to build <strong>ReadTime</strong>, a Chrome extension that estimates how long it takes to read any webpage. It will:</p>
+    <ul>
+      <li>Analyze the text content on any page</li>
+      <li>Calculate reading time based on your reading speed</li>
+      <li>Skip ads and navigation elements</li>
+      <li>Display the estimate in a clean popup</li>
+    </ul>
+    <p>By the end, you'll have a working extension you can use, share, or even publish to the Chrome Web Store.</p>
+    
+    <hr>
+    
+    <h2>What You'll Need</h2>
+    <p>Before we start, make sure you have:</p>
+    <ul>
+      <li><strong>Claude Code</strong> installed (if you haven't, check out our <a href="/blog/your-first-app-in-an-afternoon">first app guide</a>)</li>
+      <li><strong>Google Chrome</strong> browser</li>
+      <li>A basic understanding of what you want the extension to do (we've got that covered!)</li>
+    </ul>
+    <p>That's it. No Node.js, no build tools, no complex setup. Just Claude Code and Chrome.</p>
+    
+    <hr>
+    
+    <h2>Step 1: Start Your Project</h2>
+    <p>Open Claude Code and create a new project folder. In your terminal, type:</p>
+    <pre><code>mkdir readtime-extension
+cd readtime-extension
+claude</code></pre>
+    <p>Once Claude Code is running, you'll see the welcome screen. This is where you'll communicate with Claude to build your extension.</p>
+    <p><img src="/screenshots/claude-code-welcome.png" alt="Claude Code welcome screen showing the project setup" style="max-width: 100%; height: auto; margin: 2rem 0; border-radius: 0.5rem; border: 1px solid #e7e5e4;" /></p>
+    <p>Tell Claude what you want to build:</p>
+    <pre><code>This is a new project. We're making a Google Chrome extension that estimates read time for a page and displays the time in the pinned extension. I want to be able to adjust my reading speed and let it skip ads and stuff I won't actually read, just the text of the article or webpage. Create a simple PRD as an md file to start this project.</code></pre>
+    <p>Claude will create a Product Requirements Document (PRD) that outlines what we're building. This helps clarify the scope and features before we start coding.</p>
+    
+    <h2>Step 2: Create the Extension Structure</h2>
+    <p>Chrome extensions have a specific structure. They need:</p>
+    <ul>
+      <li>A <code>manifest.json</code> file (tells Chrome what your extension does)</li>
+      <li>HTML files for the popup UI</li>
+      <li>JavaScript files for the logic</li>
+      <li>CSS files for styling (optional, but makes it look good)</li>
+    </ul>
+    <p>Ask Claude to create the basic structure:</p>
+    <pre><code>Create the basic Chrome extension structure:
+1. manifest.json with version 3
+2. A popup.html file for the extension UI
+3. A popup.js file for the main logic
+4. A content.js file to analyze page content
+5. Basic styling in popup.css
+
+Make it a read time estimator that works on any webpage.</code></pre>
+    <p>Claude will create all the necessary files. Let's look at what each one does:</p>
+    
+    <h3>manifest.json</h3>
+    <p>This is the configuration file that tells Chrome about your extension:</p>
+    <pre><code>{
+  "manifest_version": 3,
+  "name": "ReadTime",
+  "version": "1.0.0",
+  "description": "Estimate reading time for any webpage",
+  "permissions": ["activeTab"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "icon.png"
+  },
+  "content_scripts": [{
+    "matches": ["&lt;all_urls&gt;"],
+    "js": ["content.js"]
+  }]
+}</code></pre>
+    
+    <h3>popup.html</h3>
+    <p>This is what users see when they click your extension icon. It should show the reading time and allow adjusting reading speed.</p>
+    
+    <h3>content.js</h3>
+    <p>This script runs on every webpage and extracts the actual article text, filtering out ads, navigation, and other non-content elements.</p>
+    
+    <h3>popup.js</h3>
+    <p>This handles the popup logic: calculating reading time, storing user preferences, and displaying results.</p>
+    
+    <h2>Step 3: Build the Content Analyzer</h2>
+    <p>The hardest part of a read time extension is extracting just the article text from a page. Websites have navigation, ads, sidebars, footers—we need to ignore all of that.</p>
+    <p>Ask Claude to create a smart content extractor:</p>
+    <pre><code>Create a content script that:
+1. Finds the main article content on a page
+2. Skips common non-content elements (nav, ads, footer, etc.)
+3. Counts words in the actual article text
+4. Sends the word count to the popup
+
+Use semantic HTML5 elements like &lt;article&gt;, &lt;main&gt;, and common class names to identify content.</code></pre>
+    <p>Here's what a basic content extractor looks like:</p>
+    <pre><code>// content.js
+function extractArticleText() {
+  // Try to find the main article element
+  const article = document.querySelector('article') || 
+                  document.querySelector('[role="article"]') ||
+                  document.querySelector('main');
+  
+  if (!article) {
+    // Fallback: find the largest text container
+    const paragraphs = document.querySelectorAll('p');
+    let text = '';
+    paragraphs.forEach(p => {
+      text += p.textContent + ' ';
+    });
+    return text.trim();
+  }
+  
+  // Remove unwanted elements
+  const unwanted = article.querySelectorAll('nav, aside, footer, .ad, .advertisement, .sidebar');
+  unwanted.forEach(el => el.remove());
+  
+  return article.textContent.trim();
+}
+
+// Count words
+function countWords(text) {
+  return text.split(/\\s+/).filter(word => word.length > 0).length;
+}
+
+// Send to popup
+const articleText = extractArticleText();
+const wordCount = countWords(articleText);
+chrome.runtime.sendMessage({ wordCount, text: articleText });</code></pre>
+    
+    <h2>Step 4: Create the Popup Interface</h2>
+    <p>Now let's build the UI that users see. Ask Claude:</p>
+    <pre><code>Create a clean popup interface with:
+1. Display area for read time (e.g., "5 min read")
+2. Word count display
+3. Reading speed slider (Slow: 200 WPM, Average: 300 WPM, Fast: 400 WPM)
+4. Save the reading speed preference
+5. Make it look modern and clean with Tailwind-like styling</code></pre>
+    <p>The popup should look something like this when it's working:</p>
+    <p><img src="/screenshots/readtime-extension-popup.png" alt="ReadTime extension popup showing reading time and word count" style="max-width: 100%; height: auto; margin: 2rem 0; border-radius: 0.5rem; border: 1px solid #e7e5e4;" /></p>
+    
+    <h2>Step 5: Calculate Reading Time</h2>
+    <p>The math is simple: divide word count by words per minute. Ask Claude to implement this:</p>
+    <pre><code>In popup.js, create a function that:
+1. Gets the word count from the content script
+2. Gets the user's reading speed preference (default: 300 WPM)
+3. Calculates: readingTime = wordCount / readingSpeed
+4. Formats it nicely (e.g., "5 min read" or "1.5 min read")
+5. Updates the display when the page changes or speed changes</code></pre>
+    
+    <h2>Step 6: Load the Extension in Chrome</h2>
+    <p>Now for the exciting part—seeing your extension work! Here's how to load it:</p>
+    <ol>
+      <li>Open Chrome and go to <code>chrome://extensions</code></li>
+      <li>Enable "Developer mode" (toggle in the top right)</li>
+      <li>Click "Load unpacked"</li>
+      <li>Select your <code>readtime-extension</code> folder</li>
+    </ol>
+    <p><img src="/screenshots/chrome-extensions-page.png" alt="Chrome Extensions management page showing Load unpacked button" style="max-width: 100%; height: auto; margin: 2rem 0; border-radius: 0.5rem; border: 1px solid #e7e5e4;" /></p>
+    <p>Your extension should now appear in the extensions list! Pin it to your toolbar by clicking the puzzle piece icon and then the pin icon next to ReadTime.</p>
+    
+    <h2>Step 7: Test It Out</h2>
+    <p>Navigate to any article or blog post (like this one!). Click your ReadTime extension icon. You should see:</p>
+    <ul>
+      <li>The estimated reading time</li>
+      <li>The word count</li>
+      <li>A slider to adjust your reading speed</li>
+    </ul>
+    <p><img src="/screenshots/readtime-in-action.png" alt="ReadTime extension showing reading time on a blog post" style="max-width: 100%; height: auto; margin: 2rem 0; border-radius: 0.5rem; border: 1px solid #e7e5e4;" /></p>
+    <p>Try adjusting the reading speed slider—the time should update immediately. The extension remembers your preference for next time.</p>
+    
+    <h2>Step 8: Handle Edge Cases</h2>
+    <p>Not every webpage will work perfectly. Some pages don't have clear article content, or the extension might not load. Ask Claude to add error handling:</p>
+    <pre><code>Add error handling for:
+1. Pages where we can't find article content (show a helpful message)
+2. Pages that haven't loaded yet (wait for page load)
+3. Invalid word counts (show "Unable to analyze")
+4. Make the UI show loading states</code></pre>
+    
+    <h2>Step 9: Polish and Improve</h2>
+    <p>Now that the basic functionality works, let's make it better. Ask Claude to:</p>
+    <ul>
+      <li>Add an icon for the extension (create a simple SVG or PNG)</li>
+      <li>Improve the content extraction to handle more website layouts</li>
+      <li>Add keyboard shortcuts (optional)</li>
+      <li>Style it to match your brand or make it more visually appealing</li>
+    </ul>
+    
+    <h2>What You've Built</h2>
+    <p>Congratulations! You've just built a real Chrome extension that:</p>
+    <ul>
+      <li>✅ Works on any webpage</li>
+      <li>✅ Extracts article content intelligently</li>
+      <li>✅ Calculates reading time accurately</li>
+      <li>✅ Lets users customize their reading speed</li>
+      <li>✅ Saves user preferences</li>
+      <li>✅ Has a clean, functional UI</li>
+    </ul>
+    <p>This isn't a toy project—it's a real extension you can use every day. And you built it in an afternoon using Claude Code.</p>
+    
+    <h2>Next Steps</h2>
+    <p>Want to take it further? Here are some ideas:</p>
+    <ul>
+      <li><strong>Publish to Chrome Web Store:</strong> Share your extension with others</li>
+      <li><strong>Add more features:</strong> Track reading progress, estimate time for multiple articles, export reading lists</li>
+      <li><strong>Improve accuracy:</strong> Better content detection, handle different languages, account for images</li>
+      <li><strong>Add analytics:</strong> See which sites you read most, track your reading habits</li>
+    </ul>
+    
+    <h2>The Bigger Picture</h2>
+    <p>What you just did would have taken weeks to learn traditionally. You'd need to:</p>
+    <ul>
+      <li>Learn JavaScript</li>
+      <li>Understand Chrome Extension APIs</li>
+      <li>Figure out DOM manipulation</li>
+      <li>Learn about message passing between scripts</li>
+      <li>Understand browser storage APIs</li>
+    </ul>
+    <p>With Claude Code, you described what you wanted, reviewed the code Claude wrote, and iterated until it worked. <strong>You're still the product manager—you're just not writing every line of code yourself.</strong></p>
+    
+    <h2>Common Questions</h2>
+    
+    <h3>"What if Claude makes a mistake?"</h3>
+    <p>Tell it! Say something like: "The extension isn't calculating reading time correctly on blog posts. Debug the content.js file and fix the word counting logic." Claude will find the issue and fix it.</p>
+    
+    <h3>"Can I customize it more?"</h3>
+    <p>Absolutely. Ask Claude to add any feature you want. Want it to work differently? Describe the change and Claude will update the code.</p>
+    
+    <h3>"How do I share this with friends?"</h3>
+    <p>You can zip the extension folder and send it to them. They can load it the same way you did. Or, publish it to the Chrome Web Store (there's a process, but Claude can help you with that too).</p>
+    
+    <hr>
+    
+    <p><strong>Ready to build your own extension?</strong></p>
+    <p>Open Claude Code, create a new project, and describe what you want to build. Claude will guide you through the process, just like it did here.</p>
+    <p>Remember: You're not learning to code. You're learning to <em>build</em>. And that's a completely different skill.</p>
+    
+    <hr>
+    
+    <p><strong>Nate Pinches</strong><br>
+    <em>Built ReadTime extension in 2 hours using Claude Code</em><br>
+    <em>Still can't write a for-loop from memory</em></p>`,
+    published: true,
+  },
 ]
 
 /**

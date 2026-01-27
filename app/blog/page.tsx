@@ -1,8 +1,8 @@
-import type { Metadata } from "next"
-import Navigation from "../components/navigation"
-import Footer from "../components/footer"
-import Link from "next/link"
-import { getPublishedPosts } from "@/lib/blog/posts"
+import type { Metadata } from "next";
+import Navigation from "../components/navigation";
+import Footer from "../components/footer";
+import Link from "next/link";
+import { getAllBlogPosts } from "@/server/repos/blog";
 
 export const metadata: Metadata = {
   title: "Blog - Helper Articles for Builders | CappaWork",
@@ -34,22 +34,25 @@ export const metadata: Metadata = {
       "Practical guides for PMs and Designers who are building their own products. From discovery to launch, these articles help you move faster and avoid common pitfalls.",
     images: ["https://cappawork.com/og-image.png"],
   },
-}
+};
 
-export default function BlogPage() {
-  const blogPosts = getPublishedPosts()
+export const runtime = "nodejs";
 
-  const formatDate = (dateString: string) => {
+export default async function BlogPage() {
+  const blogPosts = await getAllBlogPosts(true);
+
+  const formatDate = (dateString: string | null) => {
+    if (!dateString) return "No date";
     try {
       return new Date(dateString).toLocaleDateString("en-US", {
         year: "numeric",
         month: "long",
         day: "numeric",
-      })
+      });
     } catch (error) {
-      return "Invalid Date"
+      return "Invalid Date";
     }
-  }
+  };
 
   // JSON-LD schema for Blog
   const blogSchema = {
@@ -64,7 +67,7 @@ export default function BlogPage() {
       name: "CappaWork",
       url: "https://cappawork.com",
     },
-  }
+  };
 
   return (
     <>
@@ -107,32 +110,27 @@ export default function BlogPage() {
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {blogPosts.map((post) => (
                   <article
-                    key={post.slug}
+                    key={post.id}
                     className="bg-white p-6 rounded-sm border border-stone-200 hover:border-stone-300 transition-all duration-200 hover:shadow-sm group"
                   >
                     <div className="flex items-center gap-2 text-sm text-stone-500 mb-3">
-                      <time dateTime={post.date}>{formatDate(post.date)}</time>
-                      <span>•</span>
-                      <span>{post.readTime}</span>
+                      {post.published_at && (
+                        <>
+                          <time dateTime={post.published_at}>
+                            {formatDate(post.published_at)}
+                          </time>
+                        </>
+                      )}
                     </div>
 
                     <h2 className="text-xl font-semibold tracking-tight text-stone-900 mb-3 group-hover:text-stone-700 transition-colors">
                       <Link href={`/blog/${post.slug}`}>{post.title}</Link>
                     </h2>
 
-                    <p className="text-stone-600 leading-relaxed mb-4">{post.description}</p>
-
-                    {post.tags.length > 0 && (
-                      <div className="flex flex-wrap gap-2 mb-4">
-                        {post.tags.map((tag) => (
-                          <span
-                            key={tag}
-                            className="text-xs px-2 py-1 bg-stone-100 text-stone-700 rounded-sm"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
+                    {post.description && (
+                      <p className="text-stone-600 leading-relaxed mb-4">
+                        {post.description}
+                      </p>
                     )}
 
                     <Link
@@ -150,6 +148,5 @@ export default function BlogPage() {
         <Footer />
       </main>
     </>
-  )
+  );
 }
-

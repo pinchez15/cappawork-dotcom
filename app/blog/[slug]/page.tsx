@@ -1,84 +1,94 @@
-import type { Metadata } from "next"
-import { notFound } from "next/navigation"
-import Navigation from "../../components/navigation"
-import Footer from "../../components/footer"
-import Link from "next/link"
-import { getPostBySlug, getAllPostSlugs } from "@/lib/blog/posts"
-import CodeBlockWithCopy from "../../components/code-block-with-copy"
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import Navigation from "../../components/navigation";
+import Footer from "../../components/footer";
+import Link from "next/link";
+import { getBlogPostBySlug } from "@/server/repos/blog";
+import { renderTipTapContent } from "@/lib/blog/tiptap-renderer";
+import CodeBlockWithCopy from "../../components/code-block-with-copy";
 
 interface BlogPostPageProps {
   params: Promise<{
-    slug: string
-  }>
+    slug: string;
+  }>;
 }
 
-export async function generateStaticParams() {
-  const slugs = getAllPostSlugs()
-  return slugs.map((slug) => ({
-    slug,
-  }))
-}
+export const runtime = "nodejs";
 
-export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
-  const { slug } = await params
-  const post = getPostBySlug(slug)
+export async function generateMetadata({
+  params,
+}: BlogPostPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const post = await getBlogPostBySlug(slug, true);
 
   if (!post) {
     return {
       title: "Post Not Found | CappaWork",
-    }
+    };
   }
 
   return {
     title: `${post.title} | CappaWork Blog`,
-    description: post.description,
-    keywords: post.tags.join(", "),
+    description: post.description || undefined,
     openGraph: {
       title: post.title,
-      description: post.description,
+      description: post.description || undefined,
       type: "article",
       url: `https://cappawork.com/blog/${post.slug}`,
-      publishedTime: post.date,
-      tags: post.tags,
+      publishedTime: post.published_at || undefined,
       siteName: "CappaWork",
-      images: [
-        {
-          url: "https://cappawork.com/og-image.png",
-          width: 1200,
-          height: 630,
-          alt: post.title,
-        },
-      ],
+      images: post.featured_image_url
+        ? [
+            {
+              url: post.featured_image_url,
+              width: 1200,
+              height: 630,
+              alt: post.title,
+            },
+          ]
+        : [
+            {
+              url: "https://cappawork.com/og-image.png",
+              width: 1200,
+              height: 630,
+              alt: post.title,
+            },
+          ],
       locale: "en_US",
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
-      description: post.description,
-      images: ["https://cappawork.com/og-image.png"],
+      description: post.description || undefined,
+      images: post.featured_image_url
+        ? [post.featured_image_url]
+        : ["https://cappawork.com/og-image.png"],
     },
-  }
+  };
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
-  const { slug } = await params
-  const post = getPostBySlug(slug)
+  const { slug } = await params;
+  const post = await getBlogPostBySlug(slug, true);
 
   if (!post) {
-    notFound()
+    notFound();
   }
 
-  const formatDate = (dateString: string) => {
+  const formatDate = (dateString: string | null) => {
+    if (!dateString) return "No date";
     try {
       return new Date(dateString).toLocaleDateString("en-US", {
         year: "numeric",
         month: "long",
         day: "numeric",
-      })
+      });
     } catch (error) {
-      return "Invalid Date"
+      return "Invalid Date";
     }
-  }
+  };
+
+  const htmlContent = renderTipTapContent(post.content);
 
   // JSON-LD schema for BlogPosting
   const blogPostSchema = {
@@ -86,7 +96,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     "@type": "BlogPosting",
     headline: post.title,
     description: post.description,
-    datePublished: post.date,
+    datePublished: post.published_at,
     author: {
       "@type": "Person",
       name: "Nate Pinches",
@@ -97,7 +107,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       url: "https://cappawork.com",
     },
     url: `https://cappawork.com/blog/${post.slug}`,
-  }
+  };
 
   return (
     <>
@@ -119,33 +129,26 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
             {/* Header */}
             <header className="mb-8">
-              <div className="flex items-center gap-2 text-sm text-stone-500 mb-4">
-                <time dateTime={post.date}>{formatDate(post.date)}</time>
-                <span>•</span>
-                <span>{post.readTime}</span>
-              </div>
+              {post.published_at && (
+                <div className="flex items-center gap-2 text-sm text-stone-500 mb-4">
+                  <time dateTime={post.published_at}>
+                    {formatDate(post.published_at)}
+                  </time>
+                </div>
+              )}
 
               <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight text-stone-900 mb-4">
                 {post.title}
               </h1>
 
-              {post.tags.length > 0 && (
-                <div className="flex flex-wrap gap-2">
-                  {post.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="text-xs px-2 py-1 bg-stone-100 text-stone-700 rounded-sm"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
+              {post.description && (
+                <p className="text-lg text-stone-600">{post.description}</p>
               )}
             </header>
 
             {/* Content */}
             <div className="prose prose-stone prose-lg max-w-none">
-              <CodeBlockWithCopy html={post.content} />
+              <CodeBlockWithCopy html={htmlContent} />
             </div>
 
             {/* Footer */}
@@ -162,6 +165,5 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <Footer />
       </main>
     </>
-  )
+  );
 }
-
