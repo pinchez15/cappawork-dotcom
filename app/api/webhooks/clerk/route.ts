@@ -92,6 +92,13 @@ export async function POST(req: Request) {
       case "organizationMembership.created":
       case "organizationMembership.updated": {
         const { id, organization, public_user_data, role } = evt.data;
+        // Ensure organization exists before adding membership
+        await upsertOrganization({
+          id: organization.id,
+          name: organization.name,
+          slug: organization.slug,
+          image_url: organization.image_url,
+        });
         await upsertOrganizationMember({
           clerkMembershipId: id,
           clerkOrgId: organization.id,
