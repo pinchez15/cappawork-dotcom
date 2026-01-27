@@ -1,11 +1,20 @@
 "use client";
 
-import { useFormState } from "react-dom";
+import { useFormState, useFormStatus } from "react-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+function SubmitButton() {
+  const { pending } = useFormStatus();
+  return (
+    <Button type="submit" disabled={pending}>
+      {pending ? "Creating..." : "Create Project"}
+    </Button>
+  );
+}
 
 interface ProjectFormProps {
   action: (formData: FormData) => Promise<void>;
@@ -60,7 +69,7 @@ export function ProjectForm({ action, initialData }: ProjectFormProps) {
           )}
 
           <div className="flex gap-4">
-            <Button type="submit">Create Project</Button>
+            <SubmitButton />
             <Button type="button" variant="outline" asChild>
               <a href="/admin">Cancel</a>
             </Button>
