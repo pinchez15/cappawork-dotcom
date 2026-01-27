@@ -1,6 +1,4 @@
-"use server";
-
-import { auth, currentUser } from "@clerk/nextjs/server";
+import { auth } from "@clerk/nextjs/server";
 import { supabaseAdmin } from "@/lib/db/client";
 
 export async function requireUser() {
