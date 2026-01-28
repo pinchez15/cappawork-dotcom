@@ -28,12 +28,12 @@ export default function Services() {
         </div>
 
         {/* Pricing Grid - Cards with their dropdowns grouped */}
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-8 items-start">
 
           {/* Column 1: Strategic Blueprint */}
           <div className="flex flex-col">
             {/* Card */}
-            <div className="flex flex-col p-8 rounded-2xl border border-stone-200 bg-stone-50 hover:bg-white hover:shadow-xl transition-all duration-300 flex-grow">
+            <div className="flex flex-col p-8 rounded-2xl border border-stone-200 bg-stone-50 hover:bg-white hover:shadow-xl transition-all duration-300">
               <div className="text-sm font-semibold text-stone-500 mb-2 uppercase tracking-wide">
                 Strategic Blueprint
               </div>
@@ -43,7 +43,7 @@ export default function Services() {
               <p className="text-lg font-medium text-stone-900 mb-3">
                 Find out if your idea is worth $500K — before you spend $50K building the wrong thing.
               </p>
-              <p className="text-stone-600 text-sm mb-4 flex-grow">
+              <p className="text-stone-600 text-sm mb-4">
                 Not a PDF. A live web app you can share with investors, partners, and advisors.
               </p>
               <div className="text-sm text-stone-500 mb-4">
@@ -124,7 +124,7 @@ export default function Services() {
           {/* Column 2: Full Product Build */}
           <div className="flex flex-col">
             {/* Card */}
-            <div className="flex flex-col p-8 rounded-2xl border-2 border-blue-500 bg-white shadow-xl transition-all duration-300 relative flex-grow">
+            <div className="flex flex-col p-8 rounded-2xl border-2 border-blue-500 bg-white shadow-xl transition-all duration-300 relative">
               <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-xs font-semibold px-4 py-1 rounded-full uppercase tracking-wide">
                 Most Popular
               </div>
@@ -138,7 +138,7 @@ export default function Services() {
               <p className="text-lg font-medium text-stone-900 mb-3">
                 From idea to paying customers in 8 weeks.
               </p>
-              <p className="text-stone-600 text-sm mb-4 flex-grow">
+              <p className="text-stone-600 text-sm mb-4">
                 Everything in the Blueprint, plus a production-ready product your customers can pay for.
               </p>
               <div className="text-sm text-stone-500 mb-4">
@@ -232,7 +232,7 @@ export default function Services() {
           {/* Column 3: Legacy Rebuild */}
           <div className="flex flex-col">
             {/* Card */}
-            <div className="flex flex-col p-8 rounded-2xl border border-stone-200 bg-stone-50 hover:bg-white hover:shadow-xl transition-all duration-300 flex-grow">
+            <div className="flex flex-col p-8 rounded-2xl border border-stone-200 bg-stone-50 hover:bg-white hover:shadow-xl transition-all duration-300">
               <div className="text-sm font-semibold text-stone-500 mb-2 uppercase tracking-wide">
                 Legacy Rebuild
               </div>
@@ -242,7 +242,7 @@ export default function Services() {
               <p className="text-lg font-medium text-stone-900 mb-3">
                 Modernize your existing product without losing a single customer.
               </p>
-              <p className="text-stone-600 text-sm mb-4 flex-grow">
+              <p className="text-stone-600 text-sm mb-4">
                 Already have a product running on outdated tech? I'll rebuild it on modern infrastructure with zero-downtime migration.
               </p>
               <div className="text-sm text-stone-500 mb-4">
