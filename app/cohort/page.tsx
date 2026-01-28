@@ -11,12 +11,12 @@ import {
 } from "@/components/ui/accordion"
 
 export const metadata: Metadata = {
-  title: "CappaWork Builder Cohort | 0→1 in 1 Month",
+  title: "PM → Builder in 30 Days | CappaWork Builder Cohort",
   description:
-    "A one-month, zero-to-one bootcamp where you build and deploy a real software product using Next.js, Cursor, and Supabase.",
+    "Stop writing specs. Start shipping products. A 4-week intensive for Product Managers, Product Designers, and Designers who want to build and deploy real software.",
   openGraph: {
-    title: "CappaWork Builder Cohort",
-    description: "One month. One idea. One deployed product.",
+    title: "PM → Builder in 30 Days | CappaWork Builder Cohort",
+    description: "Stop writing specs. Start shipping products. A 4-week intensive for Product Managers, Product Designers, and Designers who want to build and deploy real software.",
     type: "website",
     url: "https://cappawork.com/cohort",
     siteName: "CappaWork",
@@ -25,15 +25,15 @@ export const metadata: Metadata = {
         url: "https://cappawork.com/cohort_background.png",
         width: 1200,
         height: 630,
-        alt: "CappaWork Builder Cohort - 0→1 in 1 Month",
+        alt: "PM → Builder in 30 Days | CappaWork Builder Cohort",
       },
     ],
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "CappaWork Builder Cohort",
-    description: "One month. One idea. One deployed product.",
+    title: "PM → Builder in 30 Days | CappaWork Builder Cohort",
+    description: "Stop writing specs. Start shipping products. A 4-week intensive for Product Managers, Product Designers, and Designers who want to build and deploy real software.",
     images: ["https://cappawork.com/cohort_background.png"],
   },
 }
@@ -48,8 +48,7 @@ const techLogos = [
 ]
 
 export default function CohortPage() {
-  const price = "$490"
-  const fullPrice = "$990"
+  const price = "$1,500"
   const duplicatedTechLogos = [...techLogos, ...techLogos]
   const stripePaymentLink = process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK
 
@@ -83,12 +82,15 @@ export default function CohortPage() {
                   </div>
                   
                   <h1 className="text-5xl sm:text-7xl font-semibold tracking-tight leading-[1.05] mb-8 text-stone-900">
-                     0 <span className="text-stone-300">→</span> 1 in<br />
-                     <span className="italic">one month.</span>
+                     PM <span className="text-stone-300">→</span> Builder<br />
+                     <span className="italic">in 30 Days.</span>
                   </h1>
-                  
-                  <p className="text-xl text-stone-600 leading-relaxed mb-10 max-w-lg">
-                     Stop watching tutorials. Join a cohort of builders learning to ship on the modern AI software development stack.
+
+                  <p className="text-xl text-stone-600 leading-relaxed mb-4 max-w-lg">
+                     Stop writing specs. Start shipping products.
+                  </p>
+                  <p className="text-base text-stone-500 leading-relaxed mb-10 max-w-lg">
+                     Built for Product Managers, Product Designers, and Designers.
                   </p>
                   
                   <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
@@ -100,7 +102,7 @@ export default function CohortPage() {
                        <ArrowRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
                      </Link>
                      <div className="flex items-center justify-center px-6 py-4 text-sm font-medium text-stone-500">
-                        Only 30 seats available
+                        Only 10 seats available
                      </div>
                   </div>
 
@@ -197,7 +199,7 @@ export default function CohortPage() {
          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-20">
                <h2 className="text-3xl sm:text-5xl font-semibold tracking-tight text-stone-900 mb-6">
-                  The 3-Week Sprint
+                  The 4-Week Sprint
                </h2>
                <p className="text-lg text-stone-600">
                   A structured path from blank text file to deployed production application.
@@ -273,6 +275,33 @@ export default function CohortPage() {
                      <li className="flex items-start gap-3 text-stone-700">
                         <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></div>
                         <span>Launch Day checklist</span>
+                     </li>
+                  </ul>
+               </div>
+
+               {/* Week 4 */}
+               <div className="relative pl-16 sm:pl-24">
+                  <div className="absolute left-0 sm:left-4 top-0 w-8 h-8 sm:w-9 sm:h-9 bg-stone-900 text-white rounded-full flex items-center justify-center font-bold text-sm shadow-lg ring-4 ring-white">
+                     4
+                  </div>
+                  <h3 className="text-2xl font-semibold tracking-tight text-stone-900 mb-2">Polish & Ship</h3>
+                  <p className="text-stone-500 mb-6">Days 22-30</p>
+                  <ul className="space-y-4">
+                     <li className="flex items-start gap-3 text-stone-700">
+                        <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></div>
+                        <span>Code review and refinement</span>
+                     </li>
+                     <li className="flex items-start gap-3 text-stone-700">
+                        <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></div>
+                        <span>Performance optimization</span>
+                     </li>
+                     <li className="flex items-start gap-3 text-stone-700">
+                        <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></div>
+                        <span>Final deployment and go-live</span>
+                     </li>
+                     <li className="flex items-start gap-3 text-stone-700">
+                        <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></div>
+                        <span>Post-launch checklist</span>
                      </li>
                   </ul>
                </div>
@@ -411,34 +440,42 @@ export default function CohortPage() {
                      <h2 className="text-5xl sm:text-7xl font-semibold tracking-tight text-stone-900 mb-2">
                         {price}
                      </h2>
-                     <p className="text-lg text-stone-400 line-through">{fullPrice}</p>
-                     <p className="text-sm text-stone-500 mt-2">Limited time offer for the first 30 spots</p>
+                     <p className="text-sm text-stone-500 mt-2">Limited to 10 committed builders</p>
                   </div>
                   <p className="text-stone-500 mb-10 text-lg">
                      One-time payment. Lifetime access to materials.
                   </p>
-                  
+
                   <div className="bg-stone-50 rounded-xl p-4 mb-8 border border-stone-100">
                      <p className="text-sm font-medium text-stone-700 mb-2">Live Call Schedule (8PM EST)</p>
                      <div className="flex flex-wrap justify-center gap-3 text-sm text-stone-600">
                         <span className="bg-white px-3 py-1 rounded-full border border-stone-200">Feb 2</span>
                         <span className="bg-white px-3 py-1 rounded-full border border-stone-200">Feb 9</span>
                         <span className="bg-white px-3 py-1 rounded-full border border-stone-200">Feb 16</span>
+                        <span className="bg-white px-3 py-1 rounded-full border border-stone-200">Feb 23</span>
                      </div>
                   </div>
 
                   <div className="flex flex-col gap-4 items-center justify-center mb-12">
                      <div className="flex items-center gap-2 text-stone-700">
                         <Check size={20} className="text-green-500" />
-                        <span>3 Live Weekly Calls (Recorded)</span>
+                        <span>4 weekly live build sessions (90 min each)</span>
                      </div>
                      <div className="flex items-center gap-2 text-stone-700">
                         <Check size={20} className="text-green-500" />
-                        <span>Private Community Access</span>
+                        <span>Async Slack access for 30 days</span>
                      </div>
                      <div className="flex items-center gap-2 text-stone-700">
                         <Check size={20} className="text-green-500" />
-                        <span>Direct Instructor Feedback</span>
+                        <span>Production-ready starter template</span>
+                     </div>
+                     <div className="flex items-center gap-2 text-stone-700">
+                        <Check size={20} className="text-green-500" />
+                        <span>Deployment walkthrough</span>
+                     </div>
+                     <div className="flex items-center gap-2 text-stone-700">
+                        <Check size={20} className="text-green-500" />
+                        <span>Code review on your final project</span>
                      </div>
                   </div>
 
@@ -469,8 +506,8 @@ export default function CohortPage() {
                   </div>
                </div>
                
-               <div className="bg-stone-50 p-6 border-t border-stone-100 text-center text-sm text-stone-500">
-                  Non-refundable because you are holding a spot. If you need to cancel you can join any other cohort for no additional charge.
+               <div className="bg-stone-50 p-6 border-t border-stone-100 text-center text-sm text-stone-600">
+                  <span className="font-medium text-stone-900">Show Up, Do the Work, Ship — Or Your Money Back.</span> If you attend all 4 sessions, complete the weekly assignments, and still don't have a deployed product by Day 30 — full refund. If you skip calls or don't do the work — no refund.
                </div>
             </div>
          </div>
@@ -482,21 +519,25 @@ export default function CohortPage() {
             <h2 className="text-3xl font-semibold tracking-tight text-stone-900 mb-12 text-center">Common Questions</h2>
             <Accordion type="single" collapsible className="w-full space-y-4">
                {[
-                  { 
-                     q: "Do I need to know how to code?", 
-                     a: "No. The premise of this cohort is that modern AI tools allow us to bypass syntax. If you are logic-minded and willing to learn, you can build." 
+                  {
+                     q: "Who is this for?",
+                     a: "Product Managers, Product Designers, and Designers who want to stop being bottlenecked by engineering and start shipping their own ideas."
                   },
-                  { 
-                     q: "What is the time commitment?", 
-                     a: "Expect to spend about 5-8 hours per week. This includes the live call (1 hour) and build time." 
+                  {
+                     q: "Do I need to know how to code?",
+                     a: "No. The premise of this cohort is that modern AI tools allow us to bypass syntax. If you are logic-minded and willing to learn, you can build."
                   },
-                  { 
-                     q: "What happens if I miss a live session?", 
-                     a: "Everything is recorded and posted to our private community immediately." 
+                  {
+                     q: "What is the time commitment?",
+                     a: "Expect to spend about 5-8 hours per week. This includes the live call (90 min) and build time."
                   },
-                  { 
-                     q: "Is there a refund policy?", 
-                     a: "Non-refundable because you are holding a spot. If you need to cancel you can join any other cohort for no additional charge." 
+                  {
+                     q: "What happens if I miss a live session?",
+                     a: "Everything is recorded and posted to our private community immediately."
+                  },
+                  {
+                     q: "Is there a refund policy?",
+                     a: "Show Up, Do the Work, Ship — Or Your Money Back. If you attend all 4 sessions, complete the weekly assignments, and still don't have a deployed product by Day 30 — full refund. If you skip calls or don't do the work — no refund."
                   }
                ].map((item, i) => (
                   <AccordionItem key={i} value={`item-${i}`} className="bg-stone-50 border border-stone-100 rounded-lg px-6">
