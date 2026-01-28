@@ -66,7 +66,7 @@ export default function ProcessSection() {
             </h2>
             <div className="text-lg text-stone-600 leading-relaxed">
               <p>
-                Every project follows a proven, gated track designed to reduce risk and increase speed.
+                Every project follows a proven, gated track designed to reduce risk and increase speed. Timeline varies by scope: 2 weeks for Blueprint, 8 weeks for Full Build.
               </p>
             </div>
             

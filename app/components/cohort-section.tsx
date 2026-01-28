@@ -22,11 +22,11 @@ export default function CohortSection() {
             </h2>
             
             <p className="text-xl text-stone-300 mb-8 leading-relaxed">
-              The next step after vibe-coding: launch a truly working, scalable tool.
+              Stop writing specs. Start shipping products.
             </p>
-            
+
             <p className="text-lg text-stone-400 mb-8 leading-relaxed">
-              You've experimented with AI coding tools and built prototypes. Now take it to the next level. A one-month, zero-to-one cohort where you turn an idea or prototype into a real, scalable solution. You leave with a deployed product, built on proper architecture.
+              Built for Product Managers, Product Designers, and Designers who want to stop being bottlenecked by engineering. A 4-week intensive where you build and deploy a real software product using modern AI tools. You leave with a deployed product — and the skills to build your next one.
             </p>
 
             <div className="space-y-6 mb-10">
@@ -35,8 +35,8 @@ export default function CohortSection() {
                   <Calendar className="w-5 h-5 text-stone-300" />
                 </div>
                 <div>
-                  <h3 className="font-medium text-white">1 Month Duration</h3>
-                  <p className="text-stone-400 text-sm">Focused sprint to get from zero to shipped.</p>
+                  <h3 className="font-medium text-white">30 Days</h3>
+                  <p className="text-stone-400 text-sm">4 weekly live sessions + async Slack support.</p>
                 </div>
               </div>
               
@@ -102,13 +102,13 @@ export default function CohortSection() {
                 </li>
                 <li className="flex items-start gap-3">
                   <Check className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
-                  <span className="text-stone-300">30 spots per cohort (strict cap)</span>
+                  <span className="text-stone-300">10 spots per cohort (strict cap)</span>
                 </li>
               </ul>
-              
+
               <div className="pt-8 border-t border-stone-700">
                  <p className="text-white text-xl font-semibold leading-relaxed">
-                   "You will leave with a real, deployed, scalable 0→1 product."
+                   "Show up, do the work, ship — or your money back."
                  </p>
               </div>
             </div>

@@ -36,14 +36,14 @@ export default function LogoBanner() {
           {duplicatedLogos.map((logo, index) => (
             <div
               key={`${logo.name}-${index}`}
-              className="flex-shrink-0 flex items-center justify-center h-12 md:h-16 w-auto opacity-60 hover:opacity-100 transition-opacity duration-300 grayscale hover:grayscale-0"
+              className="flex-shrink-0 flex items-center justify-center h-8 w-24 md:w-28 opacity-60 hover:opacity-100 transition-opacity duration-300 grayscale hover:grayscale-0"
             >
               <Image
                 src={logo.src}
                 alt={logo.alt}
-                width={120}
-                height={48}
-                className="h-8 md:h-12 w-auto object-contain"
+                width={112}
+                height={32}
+                className="h-6 md:h-8 max-w-full object-contain"
                 unoptimized
               />
             </div>
