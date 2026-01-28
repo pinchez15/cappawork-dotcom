@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import {
   Sidebar,
   SidebarContent,
@@ -26,8 +26,6 @@ import {
   Palette,
   Key,
   MessageCircle,
-  HelpCircle,
-  ExternalLink,
 } from "lucide-react";
 
 interface ClientSidebarProps {
@@ -46,37 +44,46 @@ export function ClientSidebar({
   isHandoffReady = false,
 }: ClientSidebarProps) {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const tierInfo = getTierInfo(project.service_tier);
+
+  // Get current tab from URL
+  const currentTab = searchParams.get("tab") || "dashboard";
 
   const navItems = [
     {
       title: "Dashboard",
       icon: LayoutDashboard,
       href: `/projects/${project.id}`,
+      tab: "dashboard",
       badge: null,
     },
     {
       title: "Progress",
       icon: Kanban,
       href: `/projects/${project.id}?tab=progress`,
+      tab: "progress",
       badge: null,
     },
     {
       title: "Files",
       icon: FileText,
       href: `/projects/${project.id}?tab=files`,
+      tab: "files",
       badge: attachmentsCount > 0 ? attachmentsCount : null,
     },
     {
       title: "Links",
       icon: Link2,
       href: `/projects/${project.id}?tab=urls`,
+      tab: "urls",
       badge: urlsCount > 0 ? urlsCount : null,
     },
     {
       title: "Design",
       icon: Palette,
       href: `/projects/${project.id}?tab=design`,
+      tab: "design",
       badge: null,
     },
   ];
@@ -87,6 +94,7 @@ export function ClientSidebar({
       title: "Handoff",
       icon: Key,
       href: `/projects/${project.id}/handoff`,
+      tab: "handoff",
       badge: null,
     });
   }
@@ -151,11 +159,12 @@ export function ClientSidebar({
           <SidebarGroupContent>
             <SidebarMenu>
               {navItems.map((item) => {
-                const isActive =
-                  pathname === item.href ||
-                  (item.href.includes("?tab=") &&
-                    pathname === `/projects/${project.id}` &&
-                    item.href.includes(pathname));
+                // Check if this item is active based on current tab or handoff path
+                const isProjectPage = pathname === `/projects/${project.id}`;
+                const isHandoffPage = pathname === `/projects/${project.id}/handoff`;
+                const isActive = item.tab === "handoff"
+                  ? isHandoffPage
+                  : (isProjectPage && item.tab === currentTab);
 
                 return (
                   <SidebarMenuItem key={item.title}>
@@ -195,20 +204,6 @@ export function ClientSidebar({
                   >
                     <MessageCircle className="h-4 w-4" />
                     <span>Contact Support</span>
-                  </a>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-              <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                  <a
-                    href="https://cappawork.com/faq"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center"
-                  >
-                    <HelpCircle className="h-4 w-4" />
-                    <span>FAQ</span>
-                    <ExternalLink className="h-3 w-3 ml-auto opacity-50" />
                   </a>
                 </SidebarMenuButton>
               </SidebarMenuItem>
