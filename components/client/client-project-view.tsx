@@ -108,7 +108,7 @@ export function ClientProjectView({
         </TabsContent>
 
         <TabsContent value="design" className="mt-0">
-          <ClientDesignSpec design={design} />
+          <ClientDesignSpec design={design} projectId={project.id} />
         </TabsContent>
       </Tabs>
     </div>

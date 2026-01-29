@@ -3,8 +3,7 @@ import { notFound } from "next/navigation";
 import Navigation from "../../components/navigation";
 import Footer from "../../components/footer";
 import Link from "next/link";
-import { getBlogPostBySlug } from "@/server/repos/blog";
-import { renderTipTapContent } from "@/lib/blog/tiptap-renderer";
+import { getPostBySlug, getAllPostSlugs } from "@/lib/blog/posts";
 import CodeBlockWithCopy from "../../components/code-block-with-copy";
 
 interface BlogPostPageProps {
@@ -13,14 +12,16 @@ interface BlogPostPageProps {
   }>;
 }
 
-export const runtime = "nodejs";
-export const dynamic = "force-dynamic";
+export async function generateStaticParams() {
+  const slugs = getAllPostSlugs();
+  return slugs.map((slug) => ({ slug }));
+}
 
 export async function generateMetadata({
   params,
 }: BlogPostPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const post = await getBlogPostBySlug(slug, true);
+  const post = getPostBySlug(slug);
 
   if (!post) {
     return {
@@ -36,48 +37,36 @@ export async function generateMetadata({
       description: post.description || undefined,
       type: "article",
       url: `https://cappawork.com/blog/${post.slug}`,
-      publishedTime: post.published_at || undefined,
+      publishedTime: post.date,
       siteName: "CappaWork",
-      images: post.featured_image_url
-        ? [
-            {
-              url: post.featured_image_url,
-              width: 1200,
-              height: 630,
-              alt: post.title,
-            },
-          ]
-        : [
-            {
-              url: "https://cappawork.com/og-image.png",
-              width: 1200,
-              height: 630,
-              alt: post.title,
-            },
-          ],
+      images: [
+        {
+          url: "https://cappawork.com/og-image.png",
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
       locale: "en_US",
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.description || undefined,
-      images: post.featured_image_url
-        ? [post.featured_image_url]
-        : ["https://cappawork.com/og-image.png"],
+      images: ["https://cappawork.com/og-image.png"],
     },
   };
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params;
-  const post = await getBlogPostBySlug(slug, true);
+  const post = getPostBySlug(slug);
 
   if (!post) {
     notFound();
   }
 
-  const formatDate = (dateString: string | null) => {
-    if (!dateString) return "No date";
+  const formatDate = (dateString: string) => {
     try {
       return new Date(dateString).toLocaleDateString("en-US", {
         year: "numeric",
@@ -89,15 +78,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     }
   };
 
-  const htmlContent = renderTipTapContent(post.content);
-
   // JSON-LD schema for BlogPosting
   const blogPostSchema = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: post.title,
     description: post.description,
-    datePublished: post.published_at,
+    datePublished: post.date,
     author: {
       "@type": "Person",
       name: "Nate Pinches",
@@ -130,13 +117,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
             {/* Header */}
             <header className="mb-8">
-              {post.published_at && (
-                <div className="flex items-center gap-2 text-sm text-stone-500 mb-4">
-                  <time dateTime={post.published_at}>
-                    {formatDate(post.published_at)}
-                  </time>
-                </div>
-              )}
+              <div className="flex items-center gap-2 text-sm text-stone-500 mb-4">
+                <time dateTime={post.date}>
+                  {formatDate(post.date)}
+                </time>
+                <span>·</span>
+                <span>{post.readTime}</span>
+              </div>
 
               <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight text-stone-900 mb-4">
                 {post.title}
@@ -149,7 +136,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
             {/* Content */}
             <div className="prose prose-stone prose-lg max-w-none">
-              <CodeBlockWithCopy html={htmlContent} />
+              <CodeBlockWithCopy html={post.content} />
             </div>
 
             {/* Footer */}

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Navigation from "../components/navigation";
 import Footer from "../components/footer";
 import Link from "next/link";
-import { getAllBlogPosts } from "@/server/repos/blog";
+import { getPublishedPosts } from "@/lib/blog/posts";
 
 export const metadata: Metadata = {
   title: "Blog - Helper Articles for Builders | CappaWork",
@@ -36,14 +36,10 @@ export const metadata: Metadata = {
   },
 };
 
-export const runtime = "nodejs";
-export const dynamic = "force-dynamic";
+export default function BlogPage() {
+  const blogPosts = getPublishedPosts();
 
-export default async function BlogPage() {
-  const blogPosts = await getAllBlogPosts(true);
-
-  const formatDate = (dateString: string | null) => {
-    if (!dateString) return "No date";
+  const formatDate = (dateString: string) => {
     try {
       return new Date(dateString).toLocaleDateString("en-US", {
         year: "numeric",
@@ -111,17 +107,15 @@ export default async function BlogPage() {
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {blogPosts.map((post) => (
                   <article
-                    key={post.id}
+                    key={post.slug}
                     className="bg-white p-6 rounded-sm border border-stone-200 hover:border-stone-300 transition-all duration-200 hover:shadow-sm group"
                   >
                     <div className="flex items-center gap-2 text-sm text-stone-500 mb-3">
-                      {post.published_at && (
-                        <>
-                          <time dateTime={post.published_at}>
-                            {formatDate(post.published_at)}
-                          </time>
-                        </>
-                      )}
+                      <time dateTime={post.date}>
+                        {formatDate(post.date)}
+                      </time>
+                      <span>·</span>
+                      <span>{post.readTime}</span>
                     </div>
 
                     <h2 className="text-xl font-semibold tracking-tight text-stone-900 mb-3 group-hover:text-stone-700 transition-colors">
