@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 import { Check } from "lucide-react";
+import gsap from "gsap";
 
 // Design system definitions
 export interface DesignSystem {
@@ -201,9 +202,33 @@ export function DesignSystemPicker({
   const [activeSystem, setActiveSystem] = useState<DesignSystem>(
     DESIGN_SYSTEMS.find((s) => s.id === selectedId) || DESIGN_SYSTEMS[0]
   );
+  const previewRef = useRef<HTMLDivElement>(null);
+  const cardRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
+
+  // Animate preview when system changes
+  useEffect(() => {
+    if (previewRef.current) {
+      gsap.fromTo(
+        previewRef.current,
+        { opacity: 0.6, y: 10 },
+        { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }
+      );
+    }
+  }, [activeSystem]);
 
   const handleSelect = (system: DesignSystem) => {
     if (readOnly) return;
+
+    // Animate the selected card
+    const cardEl = cardRefs.current.get(system.id);
+    if (cardEl) {
+      gsap.fromTo(
+        cardEl,
+        { scale: 1 },
+        { scale: 1.03, duration: 0.15, yoyo: true, repeat: 1, ease: "power2.inOut" }
+      );
+    }
+
     setActiveSystem(system);
     onSelect?.(system);
   };
@@ -218,10 +243,13 @@ export function DesignSystemPicker({
             {DESIGN_SYSTEMS.map((system) => (
               <button
                 key={system.id}
+                ref={(el) => {
+                  if (el) cardRefs.current.set(system.id, el);
+                }}
                 onClick={() => handleSelect(system)}
                 disabled={readOnly}
                 className={cn(
-                  "relative text-left rounded-lg border-2 p-3 transition-all",
+                  "relative text-left rounded-lg border-2 p-3 transition-all design-system-card",
                   activeSystem.id === system.id
                     ? "border-primary bg-primary/5 ring-2 ring-primary/20"
                     : "border-stone-200 hover:border-stone-300 bg-white",
@@ -253,7 +281,7 @@ export function DesignSystemPicker({
       {/* Right Panel - Live Preview */}
       <div className="flex-1 min-w-0">
         <h3 className="text-sm font-medium text-stone-500 mb-3">Live Preview</h3>
-        <div className="rounded-xl border border-stone-200 overflow-hidden bg-stone-100">
+        <div ref={previewRef} className="rounded-xl border border-stone-200 overflow-hidden bg-stone-100">
           <DashboardPreview system={activeSystem} />
         </div>
       </div>

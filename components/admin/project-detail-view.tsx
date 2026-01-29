@@ -1,16 +1,12 @@
 "use client";
 
-import { useState } from "react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useSearchParams } from "next/navigation";
 import { KanbanBoard } from "./kanban-board";
 import { PRDEditor } from "./prd-editor";
 import { SecretsVault } from "./secrets-vault";
 import { URLsSection } from "./urls-section";
 import { DesignSpec } from "./design-spec";
 import { FileAttachments } from "./file-attachments";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { getTierInfo } from "@/lib/animations";
 
 interface ProjectDetailViewProps {
   project: any;
@@ -31,76 +27,41 @@ export function ProjectDetailView({
   design,
   attachments,
 }: ProjectDetailViewProps) {
-  const tierInfo = getTierInfo(project.service_tier);
+  const searchParams = useSearchParams();
+
+  // Get current tab from URL
+  const tabParam = searchParams.get("tab");
+  const activeTab = tabParam || "kanban";
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="mb-8">
-        <div className="flex items-center gap-4 mb-2">
-          <h1 className="text-3xl font-semibold text-stone-900">
-            {project.name}
-          </h1>
-          <Badge
-            className={
-              project.status === "active"
-                ? "bg-blue-100 text-blue-800"
-                : project.status === "completed"
-                ? "bg-green-100 text-green-800"
-                : "bg-yellow-100 text-yellow-800"
-            }
-          >
-            {project.status}
-          </Badge>
-          {project.service_tier && (
-            <Badge className={`${tierInfo.colors.bg} text-white`}>
-              {tierInfo.label}
-            </Badge>
-          )}
-        </div>
-        {project.description && (
-          <p className="text-stone-600 mt-2">{project.description}</p>
-        )}
-      </div>
+    <div className="p-6">
+      {activeTab === "kanban" && (
+        <KanbanBoard
+          projectId={project.id}
+          initialPhases={phases}
+          initialTasks={tasks}
+        />
+      )}
 
-      <Tabs defaultValue="kanban" className="space-y-6">
-        <TabsList>
-          <TabsTrigger value="kanban">Kanban</TabsTrigger>
-          <TabsTrigger value="prd">PRD</TabsTrigger>
-          <TabsTrigger value="files">Files</TabsTrigger>
-          <TabsTrigger value="secrets">Secrets</TabsTrigger>
-          <TabsTrigger value="urls">URLs</TabsTrigger>
-          <TabsTrigger value="design">Design</TabsTrigger>
-        </TabsList>
+      {activeTab === "prd" && (
+        <PRDEditor projectId={project.id} initialContent={project.prd_content} />
+      )}
 
-        <TabsContent value="kanban">
-          <KanbanBoard
-            projectId={project.id}
-            initialPhases={phases}
-            initialTasks={tasks}
-          />
-        </TabsContent>
+      {activeTab === "files" && (
+        <FileAttachments projectId={project.id} attachments={attachments} />
+      )}
 
-        <TabsContent value="prd">
-          <PRDEditor projectId={project.id} initialContent={project.prd_content} />
-        </TabsContent>
+      {activeTab === "secrets" && (
+        <SecretsVault projectId={project.id} initialSecrets={secrets} />
+      )}
 
-        <TabsContent value="files">
-          <FileAttachments projectId={project.id} attachments={attachments} />
-        </TabsContent>
+      {activeTab === "urls" && (
+        <URLsSection projectId={project.id} initialUrls={urls} />
+      )}
 
-        <TabsContent value="secrets">
-          <SecretsVault projectId={project.id} initialSecrets={secrets} />
-        </TabsContent>
-
-        <TabsContent value="urls">
-          <URLsSection projectId={project.id} initialUrls={urls} />
-        </TabsContent>
-
-        <TabsContent value="design">
-          <DesignSpec projectId={project.id} initialDesign={design} />
-        </TabsContent>
-      </Tabs>
+      {activeTab === "design" && (
+        <DesignSpec projectId={project.id} initialDesign={design} />
+      )}
     </div>
   );
 }
-
