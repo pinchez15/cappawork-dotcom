@@ -48,9 +48,9 @@ const techLogos = [
 ]
 
 export default function CohortPage() {
-  const price = "$1,500"
+  const price = "$1,000"
   const duplicatedTechLogos = [...techLogos, ...techLogos]
-  const stripePaymentLink = process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK
+  const stripePaymentLink = "https://buy.stripe.com/00w14nbhMfvF2zid6Xd3i00"
 
   return (
     <main className="min-h-screen bg-white">
@@ -62,7 +62,7 @@ export default function CohortPage() {
             CappaWork
           </a>
           <Link href="#checkout" className="text-sm font-medium text-stone-600 hover:text-stone-900">
-            Apply for February
+            Apply for March
           </Link>
         </div>
       </nav>
@@ -78,7 +78,7 @@ export default function CohortPage() {
                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                        <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
                      </span>
-                     Enrolling for February
+                     Enrolling for March
                   </div>
                   
                   <h1 className="text-5xl sm:text-7xl font-semibold tracking-tight leading-[1.05] mb-8 text-stone-900">
@@ -220,7 +220,7 @@ export default function CohortPage() {
                   <ul className="space-y-4">
                      <li className="flex items-start gap-3 text-stone-700">
                         <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></div>
-                        <span>Setup Cursor, V0, and Next.js 14 environment</span>
+                        <span>Setup Cursor, V0, and Next.js 16 environment</span>
                      </li>
                      <li className="flex items-start gap-3 text-stone-700">
                         <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></div>
@@ -434,7 +434,7 @@ export default function CohortPage() {
             <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-stone-100">
                <div className="p-12 text-center">
                   <div className="text-sm font-medium text-stone-500 uppercase tracking-widest mb-4">
-                     February 2026 Cohort
+                     March 2026 Cohort
                   </div>
                   <div className="mb-6">
                      <h2 className="text-5xl sm:text-7xl font-semibold tracking-tight text-stone-900 mb-2">
@@ -447,27 +447,27 @@ export default function CohortPage() {
                   </p>
 
                   <div className="bg-stone-50 rounded-xl p-4 mb-8 border border-stone-100">
-                     <p className="text-sm font-medium text-stone-700 mb-2">Live Call Schedule (8PM EST)</p>
+                     <p className="text-sm font-medium text-stone-700 mb-2">Live Call Schedule (8–9PM EST)</p>
                      <div className="flex flex-wrap justify-center gap-3 text-sm text-stone-600">
-                        <span className="bg-white px-3 py-1 rounded-full border border-stone-200">Feb 2</span>
-                        <span className="bg-white px-3 py-1 rounded-full border border-stone-200">Feb 9</span>
-                        <span className="bg-white px-3 py-1 rounded-full border border-stone-200">Feb 16</span>
-                        <span className="bg-white px-3 py-1 rounded-full border border-stone-200">Feb 23</span>
+                        <span className="bg-white px-3 py-1 rounded-full border border-stone-200">Mar 4</span>
+                        <span className="bg-white px-3 py-1 rounded-full border border-stone-200">Mar 11</span>
+                        <span className="bg-white px-3 py-1 rounded-full border border-stone-200">Mar 18</span>
+                        <span className="bg-white px-3 py-1 rounded-full border border-stone-200">Mar 25</span>
                      </div>
                   </div>
 
                   <div className="flex flex-col gap-4 items-center justify-center mb-12">
                      <div className="flex items-center gap-2 text-stone-700">
                         <Check size={20} className="text-green-500" />
-                        <span>4 weekly live build sessions (90 min each)</span>
+                        <span>4 weekly live build sessions (1 hour each)</span>
                      </div>
                      <div className="flex items-center gap-2 text-stone-700">
                         <Check size={20} className="text-green-500" />
-                        <span>Async Slack access for 30 days</span>
+                        <span>LinkedIn Alumni group access</span>
                      </div>
                      <div className="flex items-center gap-2 text-stone-700">
                         <Check size={20} className="text-green-500" />
-                        <span>Production-ready starter template</span>
+                        <span>Video library (Supabase, Clerk, Vercel, GitHub, Claude, Codex, Cursor)</span>
                      </div>
                      <div className="flex items-center gap-2 text-stone-700">
                         <Check size={20} className="text-green-500" />
@@ -529,7 +529,7 @@ export default function CohortPage() {
                   },
                   {
                      q: "What is the time commitment?",
-                     a: "Expect to spend about 5-8 hours per week. This includes the live call (90 min) and build time."
+                     a: "Expect to spend about 5-8 hours per week. This includes the live call (1 hour) and build time."
                   },
                   {
                      q: "What happens if I miss a live session?",

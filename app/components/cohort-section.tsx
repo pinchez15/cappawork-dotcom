@@ -36,7 +36,7 @@ export default function CohortSection() {
                 </div>
                 <div>
                   <h3 className="font-medium text-white">30 Days</h3>
-                  <p className="text-stone-400 text-sm">4 weekly live sessions + async Slack support.</p>
+                  <p className="text-stone-400 text-sm">4 weekly live sessions + LinkedIn Alumni group.</p>
                 </div>
               </div>
               
@@ -56,7 +56,7 @@ export default function CohortSection() {
                 </div>
                 <div>
                   <h3 className="font-medium text-white">Community + Mentorship</h3>
-                  <p className="text-stone-400 text-sm">Weekly live calls & private community.</p>
+                  <p className="text-stone-400 text-sm">Weekly live calls & LinkedIn Alumni group.</p>
                 </div>
               </div>
             </div>

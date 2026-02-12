@@ -40,7 +40,7 @@ export default function CohortSuccessPage() {
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-stone-400">•</span>
-                  <span>We'll share the schedule for the 3 live calls (Tuesday nights EST)</span>
+                  <span>We'll share the schedule for the 4 live calls (Wednesday nights, 8-9PM EST)</span>
                 </li>
               </ul>
             </div>

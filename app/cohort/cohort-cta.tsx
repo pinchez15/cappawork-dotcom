@@ -9,7 +9,7 @@ export default function CohortCTA() {
   const spotsRemaining = process.env.NEXT_PUBLIC_COHORT_SPOTS_REMAINING || "30"
   const startDate = process.env.NEXT_PUBLIC_COHORT_START_DATE || "TBD"
   const isEarlyBird = process.env.NEXT_PUBLIC_COHORT_EARLY_BIRD === "true"
-  const price = isEarlyBird ? "$490" : "$990"
+  const price = "$1,000"
 
   return (
     <div className="bg-white p-8 rounded-sm border border-stone-200 max-w-md mx-auto">

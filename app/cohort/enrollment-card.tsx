@@ -5,25 +5,17 @@ import { ArrowRight, Check } from "lucide-react"
 import Link from "next/link"
 
 export default function EnrollmentCard({ className = "" }: { className?: string }) {
-  // Hardcoded for now based on user request, but could be env vars
-  const isEarlyBird = true
-  const price = "$500"
-  const fullPrice = "$1,000"
-  const spotsRemaining = "24" // Example number
-  const nextCohortDate = "February 2026"
+  const price = "$1,000"
+  const nextCohortDate = "March 2026"
 
   return (
     <div className={`bg-white rounded-2xl shadow-xl border border-stone-200 p-8 ${className}`}>
       <div className="mb-6 text-center">
-        <span className="inline-block bg-blue-100 text-blue-700 text-xs font-semibold tracking-wide uppercase px-3 py-1 rounded-full mb-4">
-          Limited Early Bird
-        </span>
         <div className="flex items-center justify-center gap-3 mb-2">
            <span className="text-4xl font-semibold tracking-tight text-stone-900">{price}</span>
-           <span className="text-xl text-stone-400 line-through decoration-stone-400 decoration-2">{fullPrice}</span>
         </div>
         <p className="text-sm text-stone-500 mb-6">
-          For the first 30 spots only.
+          Limited to 10 committed builders
         </p>
 
         <button
@@ -47,11 +39,11 @@ export default function EnrollmentCard({ className = "" }: { className?: string 
       <div className="space-y-3 pt-6 border-t border-stone-100">
         <div className="flex items-start gap-3 text-sm text-stone-600">
           <Check size={16} className="text-blue-600 mt-0.5 flex-shrink-0" />
-          <span>3 Weekly Live Calls</span>
+          <span>4 Weekly Live Calls</span>
         </div>
         <div className="flex items-start gap-3 text-sm text-stone-600">
           <Check size={16} className="text-blue-600 mt-0.5 flex-shrink-0" />
-          <span>Private Community Access</span>
+          <span>LinkedIn Alumni Group Access</span>
         </div>
         <div className="flex items-start gap-3 text-sm text-stone-600">
           <Check size={16} className="text-blue-600 mt-0.5 flex-shrink-0" />
