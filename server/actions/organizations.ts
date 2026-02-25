@@ -110,6 +110,7 @@ export async function assignProjectToOrg(
 
   revalidatePath("/admin/clients");
   revalidatePath("/admin");
+  revalidatePath(`/admin/projects/${projectId}`);
   if (organizationId) {
     revalidatePath(`/admin/clients/${organizationId}`);
   }

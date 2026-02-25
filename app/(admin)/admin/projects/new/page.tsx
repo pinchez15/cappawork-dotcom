@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { createProject, ServiceTier } from "@/server/repos/projects";
 import { initializeKanbanForProject } from "@/server/services/kanban-templates";
+import { requireAdmin } from "@/lib/auth/guards";
 import { ProjectForm } from "@/components/admin/project-form";
 
 export const runtime = "nodejs";
@@ -8,6 +9,8 @@ export const runtime = "nodejs";
 export default function NewProjectPage() {
   async function createProjectAction(formData: FormData) {
     "use server";
+    await requireAdmin();
+
     const name = formData.get("name") as string;
     const description = formData.get("description") as string;
     const serviceTier = formData.get("service_tier") as ServiceTier;

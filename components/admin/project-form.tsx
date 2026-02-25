@@ -1,6 +1,7 @@
 "use client";
 
-import { useFormState, useFormStatus } from "react-dom";
+import { useActionState } from "react";
+import { useFormStatus } from "react-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -58,7 +59,7 @@ interface ProjectFormProps {
 }
 
 export function ProjectForm({ action, initialData }: ProjectFormProps) {
-  const [state, formAction] = useFormState(async (prev: any, formData: FormData) => {
+  const [state, formAction] = useActionState(async (prev: any, formData: FormData) => {
     try {
       await action(formData);
     } catch (error: any) {

@@ -1,9 +1,9 @@
-import { getAllProjects } from "@/server/repos/projects";
+import { getProjectsGroupedByOrganization } from "@/server/repos/projects";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Plus } from "lucide-react";
+import { Plus, Building2, AlertTriangle } from "lucide-react";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -22,7 +22,11 @@ function getStatusColor(status: string) {
 }
 
 export default async function AdminDashboard() {
-  const projects = await getAllProjects();
+  const projects = await getProjectsGroupedByOrganization();
+
+  const unassignedCount = projects.filter(
+    (p: any) => !p.organization_id
+  ).length;
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -39,6 +43,21 @@ export default async function AdminDashboard() {
         </Link>
       </div>
 
+      {unassignedCount > 0 && (
+        <div className="mb-6 rounded-lg border border-amber-200 bg-amber-50 p-4">
+          <div className="flex items-center gap-3">
+            <AlertTriangle className="h-5 w-5 text-amber-600 shrink-0" />
+            <p className="text-sm text-amber-800">
+              <span className="font-medium">
+                {unassignedCount} project{unassignedCount !== 1 ? "s" : ""}
+              </span>{" "}
+              not assigned to a client. Clients won&apos;t see these in their
+              portal until assigned.
+            </p>
+          </div>
+        </div>
+      )}
+
       {projects.length === 0 ? (
         <Card>
           <CardContent className="pt-6">
@@ -52,9 +71,15 @@ export default async function AdminDashboard() {
         </Card>
       ) : (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project) => (
+          {projects.map((project: any) => (
             <Link key={project.id} href={`/admin/projects/${project.id}`}>
-              <Card className="hover:shadow-md transition-shadow cursor-pointer h-full">
+              <Card
+                className={`hover:shadow-md transition-shadow cursor-pointer h-full ${
+                  !project.organization_id
+                    ? "border-amber-200 bg-amber-50/30"
+                    : ""
+                }`}
+              >
                 <CardHeader>
                   <div className="flex justify-between items-start">
                     <CardTitle className="text-xl">{project.name}</CardTitle>
@@ -69,8 +94,26 @@ export default async function AdminDashboard() {
                   )}
                 </CardHeader>
                 <CardContent>
-                  <div className="text-sm text-stone-500">
-                    Created {new Date(project.created_at).toLocaleDateString()}
+                  <div className="flex items-center justify-between">
+                    <div className="text-sm text-stone-500">
+                      Created{" "}
+                      {new Date(project.created_at).toLocaleDateString()}
+                    </div>
+                    {project.organization ? (
+                      <div className="flex items-center gap-1.5 text-xs text-stone-600">
+                        <Building2 className="h-3.5 w-3.5" />
+                        <span className="font-medium">
+                          {project.organization.name}
+                        </span>
+                      </div>
+                    ) : (
+                      <Badge
+                        variant="outline"
+                        className="text-amber-700 border-amber-300 bg-amber-50 text-xs"
+                      >
+                        Unassigned
+                      </Badge>
+                    )}
                   </div>
                 </CardContent>
               </Card>
@@ -81,4 +124,3 @@ export default async function AdminDashboard() {
     </div>
   );
 }
-

@@ -7,9 +7,16 @@ import { SecretsVault } from "./secrets-vault";
 import { URLsSection } from "./urls-section";
 import { DesignSpec } from "./design-spec";
 import { FileAttachments } from "./file-attachments";
+import { ProjectClientAssignment } from "./project-client-assignment";
 import { Badge } from "@/components/ui/badge";
 import { getTierInfo } from "@/lib/animations";
 import { Kanban, FileText, FolderOpen, Key, Link2, Palette } from "lucide-react";
+
+interface Organization {
+  id: string;
+  name: string;
+  slug: string | null;
+}
 
 interface ProjectDetailViewProps {
   project: any;
@@ -19,6 +26,8 @@ interface ProjectDetailViewProps {
   urls: any[];
   design: any;
   attachments: any[];
+  currentOrganization?: Organization | null;
+  allOrganizations?: Organization[];
 }
 
 export function ProjectDetailView({
@@ -29,6 +38,8 @@ export function ProjectDetailView({
   urls,
   design,
   attachments,
+  currentOrganization,
+  allOrganizations,
 }: ProjectDetailViewProps) {
   const tierInfo = getTierInfo(project.service_tier);
 
@@ -61,6 +72,17 @@ export function ProjectDetailView({
           <p className="text-stone-600">{project.description}</p>
         )}
       </div>
+
+      {/* Client Assignment */}
+      {allOrganizations !== undefined && (
+        <div className="mb-8">
+          <ProjectClientAssignment
+            projectId={project.id}
+            currentOrganization={currentOrganization ?? null}
+            allOrganizations={allOrganizations}
+          />
+        </div>
+      )}
 
       {/* Tabs */}
       <Tabs defaultValue="kanban" className="space-y-6">
