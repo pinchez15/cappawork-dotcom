@@ -110,7 +110,7 @@ export default function Navigation() {
               rel="noopener noreferrer"
               className="text-sm font-medium bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition-colors"
             >
-              Book a Call
+              Book a Diagnostic Call
             </a>
           </div>
 
@@ -159,7 +159,7 @@ export default function Navigation() {
               rel="noopener noreferrer"
               className="block w-full text-center mt-4 font-medium bg-blue-600 text-white px-4 py-3 rounded-md hover:bg-blue-700 transition-colors"
             >
-              Book a Call
+              Book a Diagnostic Call
             </a>
           </div>
         )}

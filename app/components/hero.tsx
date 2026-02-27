@@ -22,14 +22,13 @@ export default function Hero() {
 
         {/* Heading */}
         <h1 className="text-5xl md:text-7xl font-semibold tracking-tight text-stone-900 mb-6 leading-[1.1] animate-in fade-in slide-in-from-bottom-6 duration-700 delay-100">
-          Your Team Is Doing the <br className="hidden md:block" />
-          Same Work Twice. <span className="italic">We Fix That.</span>
+          Your operations are the most expensive <br className="hidden md:block" />
+          thing you're not measuring.
         </h1>
 
         {/* Subheading */}
         <p className="mt-4 text-xl text-stone-600 max-w-2xl mx-auto mb-10 leading-relaxed animate-in fade-in slide-in-from-bottom-6 duration-700 delay-200">
-          Custom dashboards and automations for businesses doing $3M–$10M who've outgrown
-          spreadsheets but aren't ready for enterprise software.
+          We help founder-led businesses doing $3M–$10M find and fix the margin leaks that grow with revenue. Analytics first. Implementation second.
         </p>
 
         {/* CTA */}
@@ -38,7 +37,7 @@ export default function Hero() {
             onClick={handleBookCall}
             className="bg-blue-600 text-white px-8 py-3.5 rounded-full font-medium hover:bg-blue-700 transition-all duration-200 flex items-center gap-2 text-lg shadow-lg shadow-blue-500/20 hover:scale-105 transform"
           >
-            Book a Call
+            Book a Diagnostic Call
             <ArrowRight size={18} />
           </button>
         </div>

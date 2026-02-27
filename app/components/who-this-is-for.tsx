@@ -1,12 +1,10 @@
 import { Check } from "lucide-react"
 
 const criteria = [
-  "You're doing $3M–$10M in revenue and growing",
-  "Your team is 15–75 people",
-  "Your operations still run on spreadsheets and manual processes",
-  "You've looked at enterprise software but it's too expensive or too complex",
-  "Your best people are spending hours on work that should be automated",
-  "You need better data to make better decisions — but you don't have a data team",
+  "5+ employees",
+  "Growing revenue",
+  "Increasing operational complexity",
+  "Compressed or plateauing margins",
 ]
 
 export default function WhoThisIsFor() {
@@ -18,12 +16,11 @@ export default function WhoThisIsFor() {
             Who This Is For
           </h2>
           <p className="text-xl text-stone-600 max-w-3xl mx-auto">
-            We work with businesses that have outgrown their tools but haven't outgrown their
-            ambition.
+            Founder-led companies doing $3M–$10M annually with:
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto mb-12">
           {criteria.map((item, idx) => (
             <div
               key={idx}
@@ -33,6 +30,15 @@ export default function WhoThisIsFor() {
               <span className="text-stone-700 text-lg">{item}</span>
             </div>
           ))}
+        </div>
+
+        <div className="text-center max-w-3xl mx-auto space-y-2">
+          <p className="text-lg text-stone-600">
+            Industries matter less than pattern.
+          </p>
+          <p className="text-lg font-medium text-stone-900">
+            The pattern is: real revenue, real team, hidden inefficiency.
+          </p>
         </div>
       </div>
     </section>

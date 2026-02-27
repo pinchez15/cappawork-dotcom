@@ -1,72 +1,31 @@
-import { Search, BarChart3, Workflow, Cable } from "lucide-react"
-
-const services = [
-  {
-    icon: Search,
-    title: "Operations Analysis",
-    description:
-      "We map your workflows end-to-end, identify bottlenecks, and find where time and money are leaking.",
-    color: "blue",
-  },
-  {
-    icon: BarChart3,
-    title: "Dashboard Design",
-    description:
-      "Custom dashboards that show your team what matters — built around your data, not a generic template.",
-    color: "amber",
-  },
-  {
-    icon: Workflow,
-    title: "Workflow Automation",
-    description:
-      "We automate the repetitive tasks your team does every day, so they can focus on the work that actually grows the business.",
-    color: "green",
-  },
-  {
-    icon: Cable,
-    title: "Integration Architecture",
-    description:
-      "We connect your existing tools so data flows where it needs to go — no more copy-pasting between systems.",
-    color: "purple",
-  },
-]
-
-const colorMap: Record<string, { bg: string; text: string }> = {
-  blue: { bg: "bg-blue-100", text: "text-blue-600" },
-  amber: { bg: "bg-amber-100", text: "text-amber-600" },
-  green: { bg: "bg-green-100", text: "text-green-600" },
-  purple: { bg: "bg-purple-100", text: "text-purple-600" },
-}
-
 export default function WhatWeDo() {
   return (
     <section id="approach" className="py-24 bg-stone-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-20">
-          <h2 className="text-3xl sm:text-5xl font-semibold tracking-tight text-stone-900 mb-6">
-            What We Do
-          </h2>
-          <p className="text-xl text-stone-600">
-            We find the gaps between how your business runs and how it should run — then we build
-            the tools to close them.
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <span className="text-sm font-semibold tracking-wide uppercase text-blue-600 block mb-8">
+          Our Approach
+        </span>
+
+        <div className="text-lg text-stone-600 leading-relaxed space-y-6">
+          <p className="text-2xl font-semibold text-stone-900 leading-snug">
+            We help $3M–$10M companies increase profitability through operational analytics and targeted automation.
+          </p>
+          <p className="font-medium text-stone-900">
+            Diagnosis first. Implementation second. No guessing.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
-          {services.map((service) => {
-            const colors = colorMap[service.color]
-            return (
-              <div key={service.title} className="space-y-6">
-                <div
-                  className={`w-12 h-12 ${colors.bg} rounded-xl flex items-center justify-center ${colors.text}`}
-                >
-                  <service.icon size={24} />
-                </div>
-                <h3 className="text-2xl font-medium text-stone-900">{service.title}</h3>
-                <p className="text-lg text-stone-600 leading-relaxed">{service.description}</p>
-              </div>
-            )
-          })}
+        {/* Proof Point Callout */}
+        <div className="mt-12 bg-white border border-stone-200 rounded-2xl p-8 sm:p-10">
+          <span className="text-sm font-semibold tracking-wide uppercase text-blue-600 block mb-4">
+            Proof Point
+          </span>
+          <p className="text-lg text-stone-600 leading-relaxed mb-4">
+            One founder came to us doing $1.5M in revenue with $45K in annual profit. Twelve months later: $1.8M in revenue, $225K in profit. Same team. Same market. We identified the margin leaks, removed the operational constraints, and the business kept the money it was already earning.
+          </p>
+          <p className="text-lg font-medium text-stone-900">
+            5× profit improvement. Not from growth hacks. From operational precision.
+          </p>
         </div>
       </div>
     </section>
