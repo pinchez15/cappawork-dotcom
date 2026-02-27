@@ -24,9 +24,8 @@ export const blogPosts: BlogPost[] = [
     readTime: "6 min read",
     tags: ["Workflow Mapping", "Automation", "Operations"],
     content: `<h2>The Expensive Mistake</h2>
-    <p>A staffing firm we talked to last year spent $40K on a CRM integration that automated proposal generation. The problem? Their bottleneck was never proposals. It was the 11-step intake process that happened <em>before</em> a proposal was ever written.</p>
-    <p>They automated the fast part and left the slow part untouched.</p>
-    <p>This happens constantly. Businesses buy software, hire consultants, or build internal tools to solve a problem they haven't actually diagnosed. The instinct is understandable—something feels slow, so you try to speed it up. But "feels slow" and "is the bottleneck" are two different things.</p>
+    <p>Imagine a staffing firm that spends $40K on a CRM integration to automate proposal generation. Sounds reasonable—proposals take time. But the real bottleneck was never proposals. It was the 11-step intake process that happened <em>before</em> a proposal was ever written. They automated the fast part and left the slow part untouched.</p>
+    <p>This pattern plays out constantly in service businesses. Someone buys software, hires a consultant, or builds an internal tool to solve a problem they haven't actually diagnosed. The instinct is understandable—something feels slow, so you try to speed it up. But "feels slow" and "is the bottleneck" are two different things.</p>
 
     <hr>
 
