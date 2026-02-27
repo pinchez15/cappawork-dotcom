@@ -11,7 +11,7 @@ export default function Footer() {
               CappaWork
             </Link>
             <p className="text-stone-400 text-sm max-w-md">
-              Building modern, scalable software for owner-led businesses who want speed without the overhead.
+              Operational analytics and automation for growing businesses doing $3M–$10M.
             </p>
           </div>
 
@@ -27,6 +27,11 @@ export default function Footer() {
               <li>
                 <Link href="/contact" className="text-stone-400 hover:text-white text-sm transition-colors">
                   Contact
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog" className="text-stone-400 hover:text-white text-sm transition-colors">
+                  Blog
                 </Link>
               </li>
             </ul>

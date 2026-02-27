@@ -10,17 +10,16 @@ export default function Navigation() {
   const [activeSection, setActiveSection] = useState("hero")
   const { user } = useUser()
 
+  const calendlyLink =
+    process.env.NEXT_PUBLIC_CALENDLY_LINK || "https://calendly.com/cappawork/discovery_call"
+
   useEffect(() => {
-    // Set active section based on current route
     const currentPath = window.location.pathname
     if (currentPath === "/blog") {
       setActiveSection("blog")
-    } else if (currentPath === "/cohort") {
-      setActiveSection("cohort")
     } else if (currentPath === "/") {
-      // Only handle scroll detection on homepage
       const handleScroll = () => {
-        const sections = ["hero", "portfolio", "services", "about", "blog"]
+        const sections = ["hero", "problem", "approach", "engagement", "faq"]
         const scrollPosition = window.scrollY + 100
 
         for (const section of sections) {
@@ -41,15 +40,14 @@ export default function Navigation() {
   }, [])
 
   const navItems = [
-    { id: "hero", label: "Home", href: "/" },
-    { id: "cohort", label: "Cohorts", href: "/cohort" },
-    { id: "pricing", label: "Services", href: "/#pricing" },
-    { id: "portfolio", label: "Work", href: "/#portfolio" },
+    { id: "problem", label: "Problem", href: "/#problem" },
+    { id: "approach", label: "Approach", href: "/#approach" },
+    { id: "engagement", label: "Engagement", href: "/#engagement" },
+    { id: "faq", label: "FAQ", href: "/#faq" },
     { id: "blog", label: "Blog", href: "/blog" },
   ]
 
   const handleNavClick = (href: string, id: string) => {
-    // If we're on the home page and it's an anchor link
     if (window.location.pathname === "/" && href.startsWith("/#")) {
       const element = document.getElementById(id)
       if (element) {
@@ -57,7 +55,6 @@ export default function Navigation() {
         setActiveSection(id)
       }
     } else {
-      // Otherwise just navigate
       window.location.href = href
     }
     setIsOpen(false)
@@ -107,11 +104,13 @@ export default function Navigation() {
                 <UserButton />
               </SignedIn>
             </div>
-            <a 
-              href="/cohort"
-              className="text-sm font-medium bg-stone-900 text-white px-4 py-2 rounded-full hover:bg-stone-800 transition-colors"
+            <a
+              href={calendlyLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm font-medium bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition-colors"
             >
-              Apply to Cohort
+              Book a Call
             </a>
           </div>
 
@@ -154,11 +153,13 @@ export default function Navigation() {
                 </div>
               </SignedIn>
             </div>
-             <a 
-              href="/cohort"
-              className="block w-full text-center mt-4 font-medium bg-stone-900 text-white px-4 py-3 rounded-md hover:bg-stone-800 transition-colors"
+            <a
+              href={calendlyLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full text-center mt-4 font-medium bg-blue-600 text-white px-4 py-3 rounded-md hover:bg-blue-700 transition-colors"
             >
-              Apply to Cohort
+              Book a Call
             </a>
           </div>
         )}

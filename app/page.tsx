@@ -1,25 +1,25 @@
 import type { Metadata } from "next"
 import Hero from "./components/hero"
-import LogoBanner from "./components/logo-banner"
-import WhatYouGet from "./components/what-you-get"
-import Pricing from "./components/pricing"
-import CohortSection from "./components/cohort-section"
-import Portfolio from "./components/portfolio"
-import CTASection from "./components/cta-section"
 import Navigation from "./components/navigation"
 import Footer from "./components/footer"
 import Blog from "./components/blog"
 import NarrativeSection from "./components/narrative-section"
-import ProcessSection from "./components/process-section"
+import ScaleProblem from "./components/scale-problem"
+import WhatWeDo from "./components/what-we-do"
+import EngagementSection from "./components/engagement-section"
+import WhoThisIsFor from "./components/who-this-is-for"
+import HowWereDifferent from "./components/how-were-different"
+import WhatsAtStake from "./components/whats-at-stake"
+import FAQSection from "./components/faq-section"
 
 export const metadata: Metadata = {
-  title: "CappaWork - Product Development for Owner-Led Businesses",
+  title: "CappaWork - Operational Analytics & Automation for Growing Businesses",
   description:
-    "CappaWork builds modern, scalable internal tools and early-stage products for owner-led businesses who want startup-level velocity without hiring a full tech team.",
-  keywords: "product development, internal tools, MVP development, owner-led businesses, Next.js, full-stack development, cohort program",
+    "Custom dashboards and automations for businesses doing $3M-$10M who've outgrown spreadsheets but aren't ready for enterprise software.",
+  keywords: "operational analytics, automation, dashboards, workflow automation, growing businesses, $3M-$10M, integration architecture",
   openGraph: {
-    title: "CappaWork - Product Development for Owner-Led Businesses",
-    description: "CappaWork builds modern, scalable internal tools and early-stage products for owner-led businesses.",
+    title: "CappaWork - Operational Analytics & Automation for Growing Businesses",
+    description: "Custom dashboards and automations for businesses doing $3M-$10M who've outgrown spreadsheets but aren't ready for enterprise software.",
     type: "website",
     url: "https://cappawork.com",
     siteName: "CappaWork",
@@ -28,15 +28,15 @@ export const metadata: Metadata = {
         url: "https://cappawork.com/og-image.png",
         width: 1200,
         height: 630,
-        alt: "CappaWork - Product Development for Owner-Led Businesses",
+        alt: "CappaWork - Operational Analytics & Automation for Growing Businesses",
       },
     ],
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "CappaWork - Product Development Services for Owner-Led Businesses",
-    description: "CappaWork builds modern, scalable internal tools and early-stage products for owner-led businesses.",
+    title: "CappaWork - Operational Analytics & Automation for Growing Businesses",
+    description: "Custom dashboards and automations for businesses doing $3M-$10M who've outgrown spreadsheets but aren't ready for enterprise software.",
     images: ["https://cappawork.com/og-image.png"],
   },
 }
@@ -48,73 +48,41 @@ export default function HomePage() {
     <main className="min-h-screen bg-stone-50">
       <Navigation />
       <Hero />
-      <LogoBanner />
-      <WhatYouGet />
-      
-      {/* Deep Dive 1: Owner-Led Velocity */}
+      <ScaleProblem />
+      <WhatWeDo />
+
+      {/* Proof Point: ArborKey */}
       <NarrativeSection
-        title="Owner-led velocity, without the overhead."
-        subtitle="For the Operators"
+        title="Built for a 40-person arborist company."
+        subtitle="Proof Point"
         description={
           <>
             <p>
-              You don't need a bloated agency or a generic dev shop. You need a partner who thinks like an owner.
+              ArborKey was running estimates off spreadsheets and gut feel. They had no visibility
+              into job profitability, crew utilization, or which contracts were actually making
+              money.
             </p>
             <p>
-              We work with owner-operators doing $500K–$5M who run on messy internal systems, have niche knowledge but no tech team, and want to turn a cost center into a profit center.
+              We mapped their operations, built a live dashboard, and uncovered $180K in
+              underpriced contracts in the first three weeks. Their ops manager now saves 6 hours a
+              week on reporting alone.
             </p>
-            <ul className="space-y-3 mt-4">
-              <li className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
-                <span>No "why is this so complicated?" moments</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
-                <span>No wasted features</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
-                <span>Just clean tools that people actually use</span>
-              </li>
-            </ul>
+            <p className="font-medium text-stone-900">
+              The dashboard didn't just show them data — it changed how they run the business.
+            </p>
           </>
         }
         imageSrc="/arborkey2.png"
-        imageAlt="Operational Efficiency Dashboard"
+        imageAlt="ArborKey Operations Dashboard"
         imagePosition="right"
         backgroundColor="stone"
       />
 
-      {/* Deep Dive 2: Startup-Grade Architecture */}
-      <NarrativeSection
-        title="Internal strength becomes external opportunity."
-        subtitle="The Architecture"
-        description={
-          <>
-            <p>
-              The best products start as internal tools. AWS started as an internal server. Slack was team tool, that turned into a product. We build your system on the same stack that powers billion-dollar startups (Next.js, Supabase, Vercel, Clerk, Stripe).
-            </p>
-            <p>
-              This isn't a "no-code tool" or a "vibed out hack." It's a scalable software asset. When you're ready to monetize your expertise, the foundation is already there.
-            </p>
-            <p className="font-medium text-stone-900">
-              We build systems that earn trust inside your business first—then let you take them to market.
-            </p>
-          </>
-        }
-        imageSrc="/WP1.png"
-        imageAlt="Modern Software Architecture"
-        imagePosition="left"
-        backgroundColor="white"
-      />
-
-      {/* Deep Dive 3: The Path */}
-      <ProcessSection />
-
-      <Pricing />
-      <CohortSection />
-      <Portfolio />
-      <CTASection />
+      <EngagementSection />
+      <WhoThisIsFor />
+      <HowWereDifferent />
+      <WhatsAtStake />
+      <FAQSection />
       <Blog />
       <Footer />
     </main>

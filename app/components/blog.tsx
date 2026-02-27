@@ -21,11 +21,11 @@ export default function Blog() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-stone-900 mb-4">
-            Helper Articles for Builders
+            Insights
           </h2>
           <p className="text-lg text-stone-600 max-w-2xl mx-auto mb-8">
-            Practical guides for PMs and Designers who are building their own products. From
-            discovery to launch, these articles help you move faster and avoid common pitfalls.
+            Practical insights on operational efficiency, automation strategy, and scaling
+            your business without scaling your headcount.
           </p>
         </div>
 
