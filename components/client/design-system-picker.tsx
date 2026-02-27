@@ -5,6 +5,18 @@ import { cn } from "@/lib/utils";
 import { Check } from "lucide-react";
 import gsap from "gsap";
 
+// Load Google Fonts used by design system presets
+const GOOGLE_FONTS = [
+  "DM+Sans:wght@400;500;700",
+  "Space+Grotesk:wght@400;500;700",
+  "Lato:wght@400;700",
+  "Open+Sans:wght@400;600",
+  "Geist:wght@400;500;700",
+  "Poppins:wght@400;500;600;700",
+  "Plus+Jakarta+Sans:wght@400;500;600;700",
+];
+const GOOGLE_FONTS_URL = `https://fonts.googleapis.com/css2?${GOOGLE_FONTS.map((f) => `family=${f}`).join("&")}&display=swap`;
+
 // Design system definitions
 export interface DesignSystem {
   id: string;
@@ -57,7 +69,7 @@ export const DESIGN_SYSTEMS: DesignSystem[] = [
       borderRadius: "8px",
       borderWidth: "1px",
       shadow: "0 1px 3px rgba(0,0,0,0.08)",
-      fontHeading: "Inter",
+      fontHeading: "DM Sans",
       fontBody: "Inter",
     },
   },
@@ -82,7 +94,7 @@ export const DESIGN_SYSTEMS: DesignSystem[] = [
       borderRadius: "8px",
       borderWidth: "1px",
       shadow: "0 1px 2px rgba(0,0,0,0.05)",
-      fontHeading: "Inter",
+      fontHeading: "Space Grotesk",
       fontBody: "Inter",
     },
   },
@@ -107,8 +119,8 @@ export const DESIGN_SYSTEMS: DesignSystem[] = [
       borderRadius: "8px",
       borderWidth: "1px",
       shadow: "0 1px 3px rgba(0,0,0,0.06)",
-      fontHeading: "Inter",
-      fontBody: "Inter",
+      fontHeading: "Lato",
+      fontBody: "Open Sans",
     },
   },
   {
@@ -132,7 +144,7 @@ export const DESIGN_SYSTEMS: DesignSystem[] = [
       borderRadius: "8px",
       borderWidth: "1px",
       shadow: "0 1px 3px rgba(0,0,0,0.3)",
-      fontHeading: "Inter",
+      fontHeading: "Geist",
       fontBody: "Inter",
     },
   },
@@ -157,8 +169,8 @@ export const DESIGN_SYSTEMS: DesignSystem[] = [
       borderRadius: "8px",
       borderWidth: "1px",
       shadow: "0 1px 3px rgba(0,0,0,0.06)",
-      fontHeading: "Inter",
-      fontBody: "Inter",
+      fontHeading: "Poppins",
+      fontBody: "Lato",
     },
   },
   {
@@ -182,8 +194,8 @@ export const DESIGN_SYSTEMS: DesignSystem[] = [
       borderRadius: "8px",
       borderWidth: "1px",
       shadow: "0 1px 3px rgba(0,0,0,0.4)",
-      fontHeading: "Inter",
-      fontBody: "Inter",
+      fontHeading: "Plus Jakarta Sans",
+      fontBody: "DM Sans",
     },
   },
 ];
@@ -204,6 +216,18 @@ export function DesignSystemPicker({
   );
   const previewRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
+
+  // Load Google Fonts for previews
+  useEffect(() => {
+    const id = "design-system-fonts";
+    if (!document.getElementById(id)) {
+      const link = document.createElement("link");
+      link.id = id;
+      link.rel = "stylesheet";
+      link.href = GOOGLE_FONTS_URL;
+      document.head.appendChild(link);
+    }
+  }, []);
 
   // Animate preview when system changes
   useEffect(() => {

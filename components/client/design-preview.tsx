@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -12,6 +13,9 @@ import {
   CheckCircle2,
   Sparkles,
 } from "lucide-react";
+
+const GOOGLE_FONTS_URL =
+  "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&family=Lato:wght@400;700&family=Open+Sans:wght@400;600&family=Geist:wght@400;500;700&family=Poppins:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap";
 
 interface DesignPreviewProps {
   design: any;
@@ -76,6 +80,18 @@ const DESIGN_SYSTEM_PRESETS: Record<string, {
 };
 
 export function DesignPreview({ design }: DesignPreviewProps) {
+  // Load Google Fonts for preview rendering
+  useEffect(() => {
+    const id = "design-preview-fonts";
+    if (!document.getElementById(id)) {
+      const link = document.createElement("link");
+      link.id = id;
+      link.rel = "stylesheet";
+      link.href = GOOGLE_FONTS_URL;
+      document.head.appendChild(link);
+    }
+  }, []);
+
   const isConfigured = design && (design.theme_id || design.primary_color);
   const isFinalzied = design?.onboarding_completed;
 
