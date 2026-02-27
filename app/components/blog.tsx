@@ -1,8 +1,19 @@
 import Link from "next/link"
-import { getPublishedPosts } from "@/lib/blog/posts"
+import { getAllBlogPosts } from "@/server/repos/blog"
 
-export default function Blog() {
-  const blogPosts = getPublishedPosts().slice(0, 3) // Show 3 most recent posts
+function estimateReadTime(content: any): string {
+  const text =
+    typeof content === "string"
+      ? content.replace(/<[^>]*>/g, "")
+      : JSON.stringify(content)
+  const words = text.split(/\s+/).length
+  const minutes = Math.max(1, Math.ceil(words / 250))
+  return `${minutes} min read`
+}
+
+export default async function Blog() {
+  const allPosts = await getAllBlogPosts(true)
+  const blogPosts = allPosts.slice(0, 3) // Show 3 most recent posts
 
   const formatDate = (dateString: string) => {
     try {
@@ -38,9 +49,11 @@ export default function Blog() {
                 className="bg-card-light p-6 rounded-2xl border border-card-border hover:border-stone-300 transition-all duration-200 hover:shadow-sm group"
               >
                 <div className="flex items-center gap-2 text-sm text-stone-500 mb-3">
-                  <time dateTime={post.date}>{formatDate(post.date)}</time>
+                  <time dateTime={post.published_at || post.created_at}>
+                    {formatDate(post.published_at || post.created_at)}
+                  </time>
                   <span>•</span>
-                  <span>{post.readTime}</span>
+                  <span>{estimateReadTime(post.content)}</span>
                 </div>
 
                 <h3 className="text-xl font-semibold tracking-tight text-navy mb-3 group-hover:text-stone-700 transition-colors">
@@ -50,19 +63,6 @@ export default function Blog() {
                 <p className="text-stone-600 leading-relaxed mb-4 line-clamp-3">
                   {post.description}
                 </p>
-
-                {post.tags.length > 0 && (
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {post.tags.slice(0, 3).map((tag) => (
-                      <span
-                        key={tag}
-                        className="text-xs px-2 py-1 bg-warm-white text-stone-600 rounded-full"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                )}
 
                 <Link
                   href={`/blog/${post.slug}`}

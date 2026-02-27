@@ -3,8 +3,11 @@ import { notFound } from "next/navigation";
 import Navigation from "../../components/navigation";
 import Footer from "../../components/footer";
 import Link from "next/link";
-import { getPostBySlug, getAllPostSlugs } from "@/lib/blog/posts";
+import { getBlogPostBySlug } from "@/server/repos/blog";
+import { renderTipTapContent } from "@/lib/blog/tiptap-renderer";
 import CodeBlockWithCopy from "../../components/code-block-with-copy";
+
+export const dynamic = "force-dynamic";
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -12,22 +15,19 @@ interface BlogPostPageProps {
   }>;
 }
 
-export async function generateStaticParams() {
-  const slugs = getAllPostSlugs();
-  return slugs.map((slug) => ({ slug }));
-}
-
 export async function generateMetadata({
   params,
 }: BlogPostPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const post = await getBlogPostBySlug(slug, true);
 
   if (!post) {
     return {
       title: "Post Not Found | CappaWork",
     };
   }
+
+  const dateStr = post.published_at || post.created_at;
 
   return {
     title: `${post.title} | CappaWork Blog`,
@@ -37,7 +37,7 @@ export async function generateMetadata({
       description: post.description || undefined,
       type: "article",
       url: `https://cappawork.com/blog/${post.slug}`,
-      publishedTime: post.date,
+      publishedTime: dateStr,
       siteName: "CappaWork",
       images: [
         {
@@ -58,9 +58,19 @@ export async function generateMetadata({
   };
 }
 
+function estimateReadTime(content: any): string {
+  const text =
+    typeof content === "string"
+      ? content.replace(/<[^>]*>/g, "")
+      : JSON.stringify(content);
+  const words = text.split(/\s+/).length;
+  const minutes = Math.max(1, Math.ceil(words / 250));
+  return `${minutes} min read`;
+}
+
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const post = await getBlogPostBySlug(slug, true);
 
   if (!post) {
     notFound();
@@ -78,13 +88,21 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     }
   };
 
+  const dateStr = post.published_at || post.created_at;
+
+  // Render content: HTML string used directly, TipTap JSON rendered to HTML
+  const htmlContent =
+    typeof post.content === "string"
+      ? post.content
+      : renderTipTapContent(post.content);
+
   // JSON-LD schema for BlogPosting
   const blogPostSchema = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: post.title,
     description: post.description,
-    datePublished: post.date,
+    datePublished: dateStr,
     author: {
       "@type": "Person",
       name: "Nate Pinches",
@@ -118,11 +136,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             {/* Header */}
             <header className="mb-8">
               <div className="flex items-center gap-2 text-sm text-stone-500 mb-4">
-                <time dateTime={post.date}>
-                  {formatDate(post.date)}
+                <time dateTime={dateStr}>
+                  {formatDate(dateStr)}
                 </time>
                 <span>·</span>
-                <span>{post.readTime}</span>
+                <span>{estimateReadTime(post.content)}</span>
               </div>
 
               <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight text-stone-900 mb-4">
@@ -136,7 +154,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
             {/* Content */}
             <div className="prose prose-stone prose-lg max-w-none">
-              <CodeBlockWithCopy html={post.content} />
+              <CodeBlockWithCopy html={htmlContent} />
             </div>
 
             {/* Footer */}

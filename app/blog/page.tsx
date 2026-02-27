@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import Navigation from "../components/navigation";
 import Footer from "../components/footer";
 import Link from "next/link";
-import { getPublishedPosts } from "@/lib/blog/posts";
+import { getAllBlogPosts } from "@/server/repos/blog";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Insights — Workflow, Automation & Profitability | CappaWork",
@@ -36,8 +38,18 @@ export const metadata: Metadata = {
   },
 };
 
-export default function BlogPage() {
-  const blogPosts = getPublishedPosts();
+function estimateReadTime(content: any): string {
+  const text =
+    typeof content === "string"
+      ? content.replace(/<[^>]*>/g, "")
+      : JSON.stringify(content);
+  const words = text.split(/\s+/).length;
+  const minutes = Math.max(1, Math.ceil(words / 250));
+  return `${minutes} min read`;
+}
+
+export default async function BlogPage() {
+  const blogPosts = await getAllBlogPosts(true);
 
   const formatDate = (dateString: string) => {
     try {
@@ -111,11 +123,11 @@ export default function BlogPage() {
                     className="bg-white p-6 rounded-sm border border-stone-200 hover:border-stone-300 transition-all duration-200 hover:shadow-sm group"
                   >
                     <div className="flex items-center gap-2 text-sm text-stone-500 mb-3">
-                      <time dateTime={post.date}>
-                        {formatDate(post.date)}
+                      <time dateTime={post.published_at || post.created_at}>
+                        {formatDate(post.published_at || post.created_at)}
                       </time>
                       <span>·</span>
-                      <span>{post.readTime}</span>
+                      <span>{estimateReadTime(post.content)}</span>
                     </div>
 
                     <h2 className="text-xl font-semibold tracking-tight text-stone-900 mb-3 group-hover:text-stone-700 transition-colors">
