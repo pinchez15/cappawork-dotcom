@@ -1,45 +1,54 @@
-import { Check } from "lucide-react"
+"use client"
 
-const criteria = [
-  "5+ employees",
-  "Growing revenue",
-  "Increasing operational complexity",
-  "Compressed or plateauing margins",
-]
+import { FadeInUp } from "./motion-wrapper"
 
 export default function WhoThisIsFor() {
   return (
-    <section className="py-24 bg-stone-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-5xl font-semibold tracking-tight text-stone-900 mb-6">
+    <section className="py-24 bg-navy">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <FadeInUp>
+          <span className="text-sm font-semibold tracking-widest uppercase text-gold block mb-8">
             Who This Is For
+          </span>
+
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl tracking-tight text-white leading-tight mb-8">
+            Founder-led service businesses doing $3M–$10M.
           </h2>
-          <p className="text-xl text-stone-600 max-w-3xl mx-auto">
-            Founder-led companies doing $3M–$10M annually with:
-          </p>
-        </div>
 
-        <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto mb-12">
-          {criteria.map((item, idx) => (
-            <div
-              key={idx}
-              className="flex items-start gap-4 bg-white p-6 rounded-2xl border border-stone-200"
-            >
-              <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-              <span className="text-stone-700 text-lg">{item}</span>
+          <div className="text-lg text-white/70 leading-relaxed space-y-6 mb-16">
+            <p>
+              You have 5–50 employees. Revenue is growing, but margins aren&apos;t keeping pace. Your team is talented, but they&apos;re spending too much time on work that doesn&apos;t require their talent.
+            </p>
+            <p>
+              Consulting firms, agencies, professional services, trades, staffing companies — the industry matters less than the pattern.
+            </p>
+            <p className="text-white font-medium">
+              The pattern is: real revenue, real team, hidden inefficiency that compounds as you scale.
+            </p>
+          </div>
+
+          {/* Differentiator */}
+          <div className="border-t border-white/10 pt-12">
+            <span className="text-sm font-semibold tracking-widest uppercase text-gold block mb-6">
+              How We&apos;re Different
+            </span>
+
+            <div className="text-lg text-white/70 leading-relaxed space-y-6">
+              <p>
+                Most consultants deliver strategy decks. Most developers build what they&apos;re told. Most AI vendors sell chatbots.
+              </p>
+              <p className="text-white font-medium">
+                We do the diagnosis and the implementation — same team, start to finish.
+              </p>
+              <p>
+                Financial modeling rigor. Operational workflow mapping. AI and systems architecture. Hands-on implementation.
+              </p>
+              <p className="text-white font-medium">
+                No handoff. No translation layer. No six-month discovery cycle.
+              </p>
             </div>
-          ))}
-        </div>
-
-        <div className="text-center max-w-3xl mx-auto space-y-2">
-          <p className="text-lg text-stone-600">
-            Industries matter less than pattern.
-          </p>
-          <p className="text-lg font-medium text-stone-900">
-            The pattern is: real revenue, real team, hidden inefficiency.
-          </p>
-        </div>
+          </div>
+        </FadeInUp>
       </div>
     </section>
   )

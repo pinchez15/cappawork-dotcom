@@ -1,6 +1,7 @@
 "use client"
 
 import { ArrowRight } from "lucide-react"
+import { FadeInUp } from "./motion-wrapper"
 
 export default function WhatsAtStake() {
   const calendlyLink =
@@ -11,53 +12,35 @@ export default function WhatsAtStake() {
   }
 
   return (
-    <section className="py-24 bg-stone-900">
+    <section className="py-24 bg-navy">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* What's At Stake */}
-        <h2 className="text-3xl sm:text-5xl font-semibold tracking-tight text-white mb-8">
-          What's At Stake
-        </h2>
+        <FadeInUp>
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl tracking-tight text-white leading-tight mb-8">
+            Your people are your advantage. But right now, they&apos;re buried.
+          </h2>
 
-        <p className="text-xl text-stone-300 mb-6">If nothing changes:</p>
+          <div className="text-lg text-white/70 leading-relaxed space-y-6 mb-12">
+            <p>
+              Every hour your team spends on repetitive admin is an hour they&apos;re not spending with clients, improving your product, or solving the problems that actually grow the business.
+            </p>
+            <p>
+              AI doesn&apos;t replace your people. It removes the work that&apos;s beneath them. The data entry. The status updates. The report formatting. The follow-up emails that could write themselves.
+            </p>
+            <p className="text-white font-medium">
+              The companies that figure this out first will have a structural advantage that compounds every quarter.
+            </p>
+          </div>
 
-        <ul className="space-y-4 mb-6">
-          {[
-            "Margin continues to compress as revenue grows",
-            "Your best people burn out on manual work",
-            "Hiring becomes your only growth lever",
-            "Complexity compounds",
-            "Competitors who automate gain structural advantage",
-          ].map((item, idx) => (
-            <li key={idx} className="flex items-start gap-3 text-stone-300 text-lg">
-              <span className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-2.5 flex-shrink-0" />
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
-
-        <p className="text-xl font-medium text-white mb-16">
-          The cost of drift compounds quietly.
-        </p>
-
-        {/* CTA */}
-        <div className="border-t border-stone-700 pt-16 text-center">
-          <h3 className="text-2xl sm:text-3xl font-semibold tracking-tight text-white mb-4">
-            Book a Diagnostic Call
-          </h3>
-          <p className="text-lg text-stone-300 mb-2">
-            30 minutes. Your numbers. No pitch deck.
-          </p>
-          <p className="text-stone-400 mb-10 max-w-xl mx-auto">
-            We'll determine whether a Scale & Margin Diagnostic makes sense for your stage — or if you're not there yet.
-          </p>
-          <button
-            onClick={handleBookCall}
-            className="inline-flex items-center gap-2 bg-blue-600 text-white px-8 py-3.5 rounded-full font-medium hover:bg-blue-700 transition-all duration-200 text-lg shadow-lg shadow-blue-500/20"
-          >
-            Book Diagnostic Call
-            <ArrowRight size={16} />
-          </button>
-        </div>
+          <div className="text-center">
+            <button
+              onClick={handleBookCall}
+              className="bg-gold text-navy px-8 py-3.5 rounded-full font-medium hover:bg-gold/90 transition-all duration-200 inline-flex items-center gap-2 text-lg"
+            >
+              Book a Diagnostic Call
+              <ArrowRight size={18} />
+            </button>
+          </div>
+        </FadeInUp>
       </div>
     </section>
   )

@@ -12,8 +12,9 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-inter)"],
-        serif: ["var(--font-crimson)"],
+        sans: ["var(--font-body)"],
+        serif: ["var(--font-display)"],
+        display: ["var(--font-display)"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -61,6 +62,13 @@ module.exports = {
           800: "#292524",
           900: "#1c1917",
         },
+        // Marketing colors
+        navy: "#0A0F1C",
+        "warm-white": "#FAFAF8",
+        gold: "#D4A853",
+        "card-light": "#F5F4F0",
+        "card-dark": "#12172A",
+        "card-border": "#E5E2DB",
         // Service tier colors
         tier: {
           internal: { DEFAULT: "#3B82F6", light: "#EFF6FF" },    // blue

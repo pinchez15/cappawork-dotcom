@@ -1,6 +1,7 @@
 "use client"
 
 import { ArrowRight } from "lucide-react"
+import { FadeInUp } from "./motion-wrapper"
 
 export default function ClosingCTA() {
   const calendlyLink =
@@ -11,21 +12,23 @@ export default function ClosingCTA() {
   }
 
   return (
-    <section className="py-24 bg-stone-50">
+    <section className="py-24 bg-navy">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <p className="text-2xl sm:text-3xl font-semibold tracking-tight text-stone-900 mb-4 leading-snug">
-          You didn't build a $3M+ business to stay on the treadmill.
-        </p>
-        <p className="text-lg text-stone-600 mb-10 leading-relaxed">
-          Let's find out what your operations are really costing you — and what they could be earning instead.
-        </p>
-        <button
-          onClick={handleBookCall}
-          className="inline-flex items-center gap-2 bg-blue-600 text-white px-8 py-3.5 rounded-full font-medium hover:bg-blue-700 transition-all duration-200 text-lg shadow-lg shadow-blue-500/20"
-        >
-          Book Diagnostic Call
-          <ArrowRight size={16} />
-        </button>
+        <FadeInUp>
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl tracking-tight text-white mb-6 leading-tight">
+            Your people deserve better work. Let&apos;s build it that way.
+          </h2>
+          <p className="text-lg text-white/70 mb-10 leading-relaxed">
+            30 minutes. Your numbers. No pitch deck. We&apos;ll determine whether a diagnostic makes sense for your stage.
+          </p>
+          <button
+            onClick={handleBookCall}
+            className="bg-gold text-navy px-8 py-3.5 rounded-full font-medium hover:bg-gold/90 transition-all duration-200 inline-flex items-center gap-2 text-lg"
+          >
+            Book a Diagnostic Call
+            <ArrowRight size={18} />
+          </button>
+        </FadeInUp>
       </div>
     </section>
   )

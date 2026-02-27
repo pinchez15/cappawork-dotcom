@@ -17,14 +17,14 @@ export default function Blog() {
   }
 
   return (
-    <section id="blog" className="py-24 bg-stone-50">
+    <section id="blog" className="py-24 bg-warm-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-stone-900 mb-4">
+          <h2 className="font-display text-3xl sm:text-4xl tracking-tight text-navy mb-4">
             Insights
           </h2>
           <p className="text-lg text-stone-600 max-w-2xl mx-auto mb-8">
-            Practical insights on operational efficiency, automation strategy, and scaling
+            Practical insights on operational efficiency, AI transformation, and scaling
             your business without scaling your headcount.
           </p>
         </div>
@@ -35,7 +35,7 @@ export default function Blog() {
             {blogPosts.map((post) => (
               <article
                 key={post.slug}
-                className="bg-white p-6 rounded-2xl border border-stone-200 hover:border-stone-300 transition-all duration-200 hover:shadow-sm group"
+                className="bg-card-light p-6 rounded-2xl border border-card-border hover:border-stone-300 transition-all duration-200 hover:shadow-sm group"
               >
                 <div className="flex items-center gap-2 text-sm text-stone-500 mb-3">
                   <time dateTime={post.date}>{formatDate(post.date)}</time>
@@ -43,7 +43,7 @@ export default function Blog() {
                   <span>{post.readTime}</span>
                 </div>
 
-                <h3 className="text-xl font-semibold tracking-tight text-stone-900 mb-3 group-hover:text-stone-700 transition-colors">
+                <h3 className="text-xl font-semibold tracking-tight text-navy mb-3 group-hover:text-stone-700 transition-colors">
                   <Link href={`/blog/${post.slug}`}>{post.title}</Link>
                 </h3>
 
@@ -56,7 +56,7 @@ export default function Blog() {
                     {post.tags.slice(0, 3).map((tag) => (
                       <span
                         key={tag}
-                        className="text-xs px-2 py-1 bg-stone-100 text-stone-700 rounded-full"
+                        className="text-xs px-2 py-1 bg-warm-white text-stone-600 rounded-full"
                       >
                         {tag}
                       </span>
@@ -66,7 +66,7 @@ export default function Blog() {
 
                 <Link
                   href={`/blog/${post.slug}`}
-                  className="inline-flex items-center gap-2 text-stone-700 hover:text-stone-900 transition-colors font-medium text-sm"
+                  className="inline-flex items-center gap-2 text-navy hover:text-gold transition-colors font-medium text-sm"
                 >
                   Read article →
                 </Link>
@@ -83,7 +83,7 @@ export default function Blog() {
         <div className="text-center">
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 bg-stone-900 text-white px-6 py-3 rounded-full font-medium hover:bg-stone-800 transition-all duration-200"
+            className="inline-flex items-center gap-2 bg-navy text-white px-6 py-3 rounded-full font-medium hover:bg-navy/90 transition-all duration-200"
           >
             View all articles
           </Link>

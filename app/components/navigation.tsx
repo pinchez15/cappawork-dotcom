@@ -16,6 +16,8 @@ export default function Navigation() {
     const currentPath = window.location.pathname
     if (currentPath === "/blog") {
       setActiveSection("blog")
+    } else if (currentPath === "/transformation") {
+      setActiveSection("transformation")
     } else if (currentPath === "/") {
       const handleScroll = () => {
         const sections = ["hero", "problem", "approach", "engagement", "faq"]
@@ -39,6 +41,7 @@ export default function Navigation() {
   }, [])
 
   const navItems = [
+    { id: "transformation", label: "Transformation", href: "/transformation" },
     { id: "problem", label: "Problem", href: "/#problem" },
     { id: "approach", label: "Approach", href: "/#approach" },
     { id: "engagement", label: "Engagement", href: "/#engagement" },
@@ -60,12 +63,12 @@ export default function Navigation() {
   }
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-stone-200">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-navy/95 backdrop-blur-sm border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <a
             href="/"
-            className="text-xl font-semibold tracking-tight text-stone-900 hover:text-stone-700 transition-colors"
+            className="text-xl font-display tracking-tight text-white hover:text-white/80 transition-colors"
           >
             CappaWork
           </a>
@@ -78,8 +81,8 @@ export default function Navigation() {
                 onClick={() => handleNavClick(item.href, item.id)}
                 className={`text-sm font-medium transition-colors ${
                   activeSection === item.id
-                    ? "text-blue-600 font-semibold"
-                    : "text-stone-600 hover:text-stone-900"
+                    ? "text-gold"
+                    : "text-white/60 hover:text-white"
                 }`}
               >
                 {item.label}
@@ -88,7 +91,7 @@ export default function Navigation() {
             <div className="flex items-center space-x-3">
               <SignedOut>
                 <SignInButton mode="modal">
-                  <button className="text-sm font-medium text-stone-600 hover:text-stone-900 transition-colors">
+                  <button className="text-sm font-medium text-white/60 hover:text-white transition-colors">
                     Sign In
                   </button>
                 </SignInButton>
@@ -96,7 +99,7 @@ export default function Navigation() {
               <SignedIn>
                 <Link
                   href="/dashboard"
-                  className="text-sm font-medium text-stone-600 hover:text-stone-900 transition-colors"
+                  className="text-sm font-medium text-white/60 hover:text-white transition-colors"
                 >
                   Dashboard
                 </Link>
@@ -107,26 +110,30 @@ export default function Navigation() {
               href={calendlyLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm font-medium bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition-colors"
+              className="text-sm font-medium bg-gold text-navy px-4 py-2 rounded-full hover:bg-gold/90 transition-colors"
             >
-              Book a Diagnostic Call
+              Book a Call
             </a>
           </div>
 
           {/* Mobile Navigation Button */}
-          <button onClick={() => setIsOpen(!isOpen)} className="md:hidden p-2 text-stone-600 hover:text-stone-900">
+          <button onClick={() => setIsOpen(!isOpen)} className="md:hidden p-2 text-white/80 hover:text-white">
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
 
         {/* Mobile Navigation Menu */}
         {isOpen && (
-          <div className="md:hidden py-4 border-t border-stone-200">
+          <div className="md:hidden py-4 border-t border-white/10">
             {navItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => handleNavClick(item.href, item.id)}
-                className="block w-full text-left py-3 text-stone-600 hover:text-stone-900 transition-colors"
+                className={`block w-full text-left py-3 transition-colors ${
+                  activeSection === item.id
+                    ? "text-gold"
+                    : "text-white/60 hover:text-white"
+                }`}
               >
                 {item.label}
               </button>
@@ -134,7 +141,7 @@ export default function Navigation() {
             <div className="flex flex-col space-y-2 mt-4">
               <SignedOut>
                 <SignInButton mode="modal">
-                  <button className="block w-full text-left py-3 text-stone-600 hover:text-stone-900 transition-colors">
+                  <button className="block w-full text-left py-3 text-white/60 hover:text-white transition-colors">
                     Sign In
                   </button>
                 </SignInButton>
@@ -142,12 +149,12 @@ export default function Navigation() {
               <SignedIn>
                 <Link
                   href="/dashboard"
-                  className="block w-full text-left py-3 text-stone-600 hover:text-stone-900 transition-colors"
+                  className="block w-full text-left py-3 text-white/60 hover:text-white transition-colors"
                 >
                   Dashboard
                 </Link>
                 <div className="flex items-center justify-between py-2">
-                  <span className="text-stone-600">Account</span>
+                  <span className="text-white/60">Account</span>
                   <UserButton />
                 </div>
               </SignedIn>
@@ -156,9 +163,9 @@ export default function Navigation() {
               href={calendlyLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="block w-full text-center mt-4 font-medium bg-blue-600 text-white px-4 py-3 rounded-full hover:bg-blue-700 transition-colors"
+              className="block w-full text-center mt-4 font-medium bg-gold text-navy px-4 py-3 rounded-full hover:bg-gold/90 transition-colors"
             >
-              Book a Diagnostic Call
+              Book a Call
             </a>
           </div>
         )}

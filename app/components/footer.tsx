@@ -2,16 +2,16 @@ import Link from "next/link"
 
 export default function Footer() {
   return (
-    <footer className="bg-stone-900 text-stone-300 border-t border-stone-800">
+    <footer className="bg-navy text-white/50 border-t border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="col-span-1 md:col-span-2">
-            <Link href="/" className="text-xl font-semibold tracking-tight text-white mb-4 inline-block">
+            <Link href="/" className="text-xl font-display tracking-tight text-white mb-4 inline-block">
               CappaWork
             </Link>
-            <p className="text-stone-400 text-sm max-w-md">
-              Operational analytics and automation for growing businesses doing $3M–$10M.
+            <p className="text-white/50 text-sm max-w-md">
+              AI transformation for founder-led businesses doing $3M–$10M.
             </p>
           </div>
 
@@ -20,17 +20,22 @@ export default function Footer() {
             <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wide">Company</h3>
             <ul className="space-y-3">
               <li>
-                <Link href="/about" className="text-stone-400 hover:text-white text-sm transition-colors">
+                <Link href="/transformation" className="text-white/50 hover:text-white text-sm transition-colors">
+                  Transformation
+                </Link>
+              </li>
+              <li>
+                <Link href="/about" className="text-white/50 hover:text-white text-sm transition-colors">
                   About
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="text-stone-400 hover:text-white text-sm transition-colors">
+                <Link href="/contact" className="text-white/50 hover:text-white text-sm transition-colors">
                   Contact
                 </Link>
               </li>
               <li>
-                <Link href="/blog" className="text-stone-400 hover:text-white text-sm transition-colors">
+                <Link href="/blog" className="text-white/50 hover:text-white text-sm transition-colors">
                   Blog
                 </Link>
               </li>
@@ -41,12 +46,12 @@ export default function Footer() {
             <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wide">Legal</h3>
             <ul className="space-y-3">
               <li>
-                <Link href="/privacy" className="text-stone-400 hover:text-white text-sm transition-colors">
+                <Link href="/privacy" className="text-white/50 hover:text-white text-sm transition-colors">
                   Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link href="/terms" className="text-stone-400 hover:text-white text-sm transition-colors">
+                <Link href="/terms" className="text-white/50 hover:text-white text-sm transition-colors">
                   Terms of Service
                 </Link>
               </li>
@@ -54,7 +59,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-stone-800 text-center text-sm text-stone-500 space-y-2">
+        <div className="mt-12 pt-8 border-t border-white/10 text-center text-sm text-white/40 space-y-2">
           <p>&copy; {new Date().getFullYear()} CappaWork. All rights reserved.</p>
           <p>Built by CappaWork.</p>
         </div>

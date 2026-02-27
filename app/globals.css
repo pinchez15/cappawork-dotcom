@@ -4,8 +4,16 @@
 
 @layer base {
   :root {
-    --font-inter: "Inter", sans-serif;
-    --font-crimson: "Crimson Text", serif;
+    --font-body: "DM Sans", sans-serif;
+    --font-display: "Instrument Serif", serif;
+
+    /* Marketing color tokens */
+    --color-navy: #0A0F1C;
+    --color-warm-white: #FAFAF8;
+    --color-gold: #D4A853;
+    --color-card-light: #F5F4F0;
+    --color-card-dark: #12172A;
+    --color-card-border: #E5E2DB;
   }
 
   html {
@@ -23,11 +31,15 @@
   }
 
   .font-serif {
-    font-family: var(--font-crimson);
+    font-family: var(--font-display);
   }
 
   .font-sans {
-    font-family: var(--font-inter);
+    font-family: var(--font-body);
+  }
+
+  .font-display {
+    font-family: var(--font-display);
   }
 
   .line-clamp-3 {
