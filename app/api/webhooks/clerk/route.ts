@@ -2,7 +2,7 @@ import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import { Webhook } from "svix";
 import { upsertProfile } from "@/server/repos/profiles";
-import { upsertOrganization } from "@/server/repos/organizations";
+import { upsertOrganization, deleteOrganization } from "@/server/repos/organizations";
 import {
   upsertOrganizationMember,
   deleteOrganizationMember,
@@ -87,6 +87,11 @@ export async function POST(req: Request) {
           slug,
           image_url,
         });
+        break;
+      }
+      case "organization.deleted": {
+        const { id } = evt.data;
+        await deleteOrganization(id);
         break;
       }
       case "organizationMembership.created":
