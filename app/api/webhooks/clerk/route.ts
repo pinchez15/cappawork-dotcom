@@ -99,6 +99,15 @@ export async function POST(req: Request) {
           slug: organization.slug,
           image_url: organization.image_url,
         });
+        // Ensure profile exists (membership events can arrive before user.created)
+        await upsertProfile({
+          id: public_user_data.user_id,
+          email_addresses: [{ email_address: public_user_data.identifier || "" }],
+          first_name: public_user_data.first_name,
+          last_name: public_user_data.last_name,
+          public_metadata: null,
+          private_metadata: null,
+        });
         await upsertOrganizationMember({
           clerkMembershipId: id,
           clerkOrgId: organization.id,
