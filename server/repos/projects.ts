@@ -1,6 +1,6 @@
 import { supabaseAdmin } from "@/lib/db/client";
 
-export type ServiceTier = "internal_tool" | "scale_ready" | "commercial_product";
+export type ServiceTier = "portal_build" | "diagnostic" | "implementation";
 
 export interface Project {
   id: string;

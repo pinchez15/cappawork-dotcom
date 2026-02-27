@@ -71,9 +71,9 @@ module.exports = {
         "card-border": "#E5E2DB",
         // Service tier colors
         tier: {
-          internal: { DEFAULT: "#3B82F6", light: "#EFF6FF" },    // blue
-          scale: { DEFAULT: "#6366F1", light: "#EEF2FF" },       // indigo
-          commercial: { DEFAULT: "#8B5CF6", light: "#F5F3FF" },  // purple
+          portal: { DEFAULT: "#3B82F6", light: "#EFF6FF" },           // blue
+          diagnostic: { DEFAULT: "#D97706", light: "#FFFBEB" },       // amber
+          implementation: { DEFAULT: "#059669", light: "#ECFDF5" },   // emerald
         },
         // Phase status colors
         phase: {

@@ -49,26 +49,26 @@ export function getStaggerDelay(index: number, baseMs: number = 50): React.CSSPr
 
 // Tier color mappings
 export const tierColors = {
-  internal_tool: {
-    bg: "bg-tier-internal",
-    bgLight: "bg-tier-internal-light",
-    text: "text-tier-internal",
-    border: "border-tier-internal",
-    ring: "ring-tier-internal",
+  portal_build: {
+    bg: "bg-tier-portal",
+    bgLight: "bg-tier-portal-light",
+    text: "text-tier-portal",
+    border: "border-tier-portal",
+    ring: "ring-tier-portal",
   },
-  scale_ready: {
-    bg: "bg-tier-scale",
-    bgLight: "bg-tier-scale-light",
-    text: "text-tier-scale",
-    border: "border-tier-scale",
-    ring: "ring-tier-scale",
+  diagnostic: {
+    bg: "bg-tier-diagnostic",
+    bgLight: "bg-tier-diagnostic-light",
+    text: "text-tier-diagnostic",
+    border: "border-tier-diagnostic",
+    ring: "ring-tier-diagnostic",
   },
-  commercial_product: {
-    bg: "bg-tier-commercial",
-    bgLight: "bg-tier-commercial-light",
-    text: "text-tier-commercial",
-    border: "border-tier-commercial",
-    ring: "ring-tier-commercial",
+  implementation: {
+    bg: "bg-tier-implementation",
+    bgLight: "bg-tier-implementation-light",
+    text: "text-tier-implementation",
+    border: "border-tier-implementation",
+    ring: "ring-tier-implementation",
   },
 } as const;
 
@@ -94,32 +94,32 @@ export const phaseColors = {
 // Get tier display info
 export function getTierInfo(tier: string | null) {
   switch (tier) {
-    case "internal_tool":
+    case "portal_build":
       return {
-        label: "Internal Tool",
-        price: "$9,900",
-        colors: tierColors.internal_tool,
+        label: "Client Portal",
+        price: "$10,000",
+        colors: tierColors.portal_build,
       };
-    case "scale_ready":
+    case "diagnostic":
       return {
-        label: "Scale-Ready",
-        price: "$14,900",
-        colors: tierColors.scale_ready,
+        label: "Phase I Diagnostic",
+        price: "$30,000",
+        colors: tierColors.diagnostic,
       };
-    case "commercial_product":
+    case "implementation":
       return {
-        label: "Commercial Product",
-        price: "$24,900",
-        colors: tierColors.commercial_product,
+        label: "Phase II Build",
+        price: "$50,000+",
+        colors: tierColors.implementation,
       };
     default:
       return {
         label: "Standard",
         price: "",
-        colors: tierColors.internal_tool,
+        colors: tierColors.portal_build,
       };
   }
 }
 
-export type ServiceTier = "internal_tool" | "scale_ready" | "commercial_product";
+export type ServiceTier = "portal_build" | "diagnostic" | "implementation";
 export type PhaseStatus = "pending" | "active" | "completed";

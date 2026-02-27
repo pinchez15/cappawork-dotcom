@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils"
 interface ProgressProps
   extends React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root> {
   value?: number;
-  variant?: "default" | "success" | "warning" | "tier-internal" | "tier-scale" | "tier-commercial";
+  variant?: "default" | "success" | "warning" | "tier-portal" | "tier-diagnostic" | "tier-implementation";
   showPulse?: boolean;
   animated?: boolean;
   size?: "sm" | "md" | "lg";
@@ -19,9 +19,9 @@ const variantStyles = {
   default: "bg-primary",
   success: "bg-phase-completed",
   warning: "bg-yellow-500",
-  "tier-internal": "bg-tier-internal",
-  "tier-scale": "bg-tier-scale",
-  "tier-commercial": "bg-tier-commercial",
+  "tier-portal": "bg-tier-portal",
+  "tier-diagnostic": "bg-tier-diagnostic",
+  "tier-implementation": "bg-tier-implementation",
 };
 
 const sizeStyles = {
@@ -91,16 +91,16 @@ interface RadialProgressProps {
   value: number;
   size?: number;
   strokeWidth?: number;
-  variant?: "default" | "tier-internal" | "tier-scale" | "tier-commercial";
+  variant?: "default" | "tier-portal" | "tier-diagnostic" | "tier-implementation";
   showLabel?: boolean;
   className?: string;
 }
 
 const radialGradients: Record<string, [string, string]> = {
   default: ["#3B82F6", "#60A5FA"],
-  "tier-internal": ["#2563EB", "#60A5FA"],
-  "tier-scale": ["#4F46E5", "#818CF8"],
-  "tier-commercial": ["#7C3AED", "#A78BFA"],
+  "tier-portal": ["#3B82F6", "#60A5FA"],
+  "tier-diagnostic": ["#D97706", "#F59E0B"],
+  "tier-implementation": ["#059669", "#34D399"],
 };
 
 function RadialProgress({

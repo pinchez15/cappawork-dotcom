@@ -27,25 +27,25 @@ function SubmitButton() {
 
 const SERVICE_TIERS = [
   {
-    value: "internal_tool",
-    label: "Internal Tool",
-    price: "$9,900",
-    description: "Core rebuild with clean architecture",
-    color: "bg-tier-internal text-white",
+    value: "portal_build",
+    label: "Client Portal",
+    price: "$10,000",
+    description: "Custom portal or dashboard build",
+    color: "bg-tier-portal text-white",
   },
   {
-    value: "scale_ready",
-    label: "Scale-Ready",
-    price: "$14,900",
-    description: "Scalability, RBAC, and analytics",
-    color: "bg-tier-scale text-white",
+    value: "diagnostic",
+    label: "Phase I Diagnostic",
+    price: "$30,000",
+    description: "Scale & margin diagnostic (4–6 weeks)",
+    color: "bg-tier-diagnostic text-white",
   },
   {
-    value: "commercial_product",
-    label: "Commercial Product",
-    price: "$24,900",
-    description: "Full product with billing and integrations",
-    color: "bg-tier-commercial text-white",
+    value: "implementation",
+    label: "Phase II Build",
+    price: "$50,000+",
+    description: "Custom system build from diagnostic findings",
+    color: "bg-tier-implementation text-white",
   },
 ];
 

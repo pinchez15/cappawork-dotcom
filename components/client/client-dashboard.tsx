@@ -63,12 +63,12 @@ export function ClientDashboard({
   // Get variant for radial progress based on tier
   const getRadialVariant = () => {
     switch (project.service_tier) {
-      case "internal_tool":
-        return "tier-internal" as const;
-      case "scale_ready":
-        return "tier-scale" as const;
-      case "commercial_product":
-        return "tier-commercial" as const;
+      case "portal_build":
+        return "tier-portal" as const;
+      case "diagnostic":
+        return "tier-diagnostic" as const;
+      case "implementation":
+        return "tier-implementation" as const;
       default:
         return "default" as const;
     }
