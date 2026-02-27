@@ -46,11 +46,11 @@ const phaseColors = {
     accent: "from-emerald-400 to-emerald-500",
   },
   active: {
-    header: "bg-gradient-to-r from-blue-50 to-blue-50/40 border-blue-200",
-    headerText: "text-blue-800",
-    badge: "bg-blue-100 text-blue-700",
+    header: "bg-gradient-to-r from-gold/10 to-gold/5 border-gold/40",
+    headerText: "text-gold",
+    badge: "bg-gold/20 text-gold",
     progress: "bg-phase-active",
-    accent: "from-blue-400 to-blue-500",
+    accent: "from-gold to-gold/80",
   },
   pending: {
     header: "bg-stone-50/50 border-stone-200",
@@ -146,7 +146,7 @@ export function ClientKanbanView({ phases, tasks }: ClientKanbanViewProps) {
             <CheckCircle2 className="h-6 w-6 text-phase-completed" />
           ) : (
             <div className="relative h-6 w-6">
-              <div className="absolute inset-0 rounded-full bg-blue-400 animate-ping opacity-20" />
+              <div className="absolute inset-0 rounded-full bg-gold animate-ping opacity-20" />
               <Circle className="relative h-6 w-6 text-phase-active" />
             </div>
           )}
@@ -198,7 +198,7 @@ export function ClientKanbanView({ phases, tasks }: ClientKanbanViewProps) {
               <Card
                 className={`transition-all duration-300 overflow-hidden ${
                   isActive
-                    ? "shadow-lg ring-2 ring-blue-300/50 ring-offset-2"
+                    ? "shadow-lg ring-2 ring-gold/40 ring-offset-2"
                     : "shadow-sm hover:shadow-md"
                 }`}
               >
@@ -213,7 +213,7 @@ export function ClientKanbanView({ phases, tasks }: ClientKanbanViewProps) {
                       {phase.name}
                     </CardTitle>
                     {isActive && (
-                      <Badge className="bg-blue-500 text-white shadow-sm text-xs">
+                      <Badge className="bg-gold text-navy shadow-sm text-xs">
                         Active
                       </Badge>
                     )}
@@ -255,7 +255,7 @@ export function ClientKanbanView({ phases, tasks }: ClientKanbanViewProps) {
                       className={`border rounded-xl p-3.5 cursor-pointer transition-all duration-200 group ${
                         task.is_completed
                           ? "bg-stone-50 border-stone-200/80 opacity-60"
-                          : "bg-white border-stone-200 hover:shadow-md hover:border-blue-200 hover:-translate-y-px"
+                          : "bg-white border-stone-200 hover:shadow-md hover:border-gold/40 hover:-translate-y-px"
                       }`}
                     >
                       <div className="flex items-start gap-3">
@@ -263,7 +263,7 @@ export function ClientKanbanView({ phases, tasks }: ClientKanbanViewProps) {
                           {task.is_completed ? (
                             <CheckCircle2 className="h-[18px] w-[18px] text-emerald-500" />
                           ) : (
-                            <Circle className="h-[18px] w-[18px] text-stone-300 group-hover:text-blue-400 transition-colors" />
+                            <Circle className="h-[18px] w-[18px] text-stone-300 group-hover:text-gold transition-colors" />
                           )}
                         </div>
                         <div className="flex-1 min-w-0">

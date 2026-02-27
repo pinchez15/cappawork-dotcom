@@ -34,13 +34,13 @@ export function ClientURLs({ urls }: ClientURLsProps) {
               className="border border-stone-200 rounded-lg p-4 flex justify-between items-center"
             >
               <div className="flex-1">
-                <div className="font-medium text-stone-900">{url.label}</div>
+                <div className="font-medium text-navy">{url.label}</div>
                 <div className="text-sm text-stone-500 capitalize">{url.type}</div>
                 <Link
                   href={url.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-blue-600 hover:underline flex items-center gap-1 mt-1"
+                  className="text-sm text-gold hover:underline flex items-center gap-1 mt-1"
                 >
                   {url.url}
                   <ExternalLink className="h-3 w-3" />

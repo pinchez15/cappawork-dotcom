@@ -90,7 +90,7 @@ export function ClientDesignSpec({ design, projectId }: ClientDesignSpecProps) {
                 <Sparkles className="h-6 w-6 text-primary" />
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-stone-900 mb-1">
+                <h3 className="text-lg font-semibold text-navy mb-1">
                   Choose Your Design Style
                 </h3>
                 <p className="text-stone-600">
@@ -129,20 +129,20 @@ export function ClientDesignSpec({ design, projectId }: ClientDesignSpecProps) {
   return (
     <div className={`space-y-6 ${animations.fadeIn}`}>
       {/* Status Banner */}
-      <Card className={isFinalized ? "border-green-200 bg-green-50/50" : "border-blue-200 bg-blue-50/50"}>
+      <Card className={isFinalized ? "border-green-200 bg-green-50/50" : "border-gold/30 bg-gold/5"}>
         <CardContent className="py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               {isFinalized ? (
                 <CheckCircle2 className="h-5 w-5 text-green-600" />
               ) : (
-                <Sparkles className="h-5 w-5 text-blue-600" />
+                <Sparkles className="h-5 w-5 text-gold" />
               )}
               <div>
-                <span className={`font-medium ${isFinalized ? "text-green-800" : "text-blue-800"}`}>
+                <span className={`font-medium ${isFinalized ? "text-green-800" : "text-gold"}`}>
                   {isFinalized ? "Design Finalized" : "Design Selected"}
                 </span>
-                <span className={`ml-2 text-sm ${isFinalized ? "text-green-600" : "text-blue-600"}`}>
+                <span className={`ml-2 text-sm ${isFinalized ? "text-green-600" : "text-gold/80"}`}>
                   {isFinalized
                     ? "Your design is locked in and being implemented."
                     : "You can still change your selection before the project begins."}

@@ -52,7 +52,7 @@ export function HandoffView({ project, secrets, urls }: HandoffViewProps) {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-semibold text-stone-900 mb-2">
+        <h1 className="text-3xl font-semibold text-navy mb-2">
           Project Handoff
         </h1>
         <p className="text-stone-600">
@@ -75,7 +75,7 @@ export function HandoffView({ project, secrets, urls }: HandoffViewProps) {
                   >
                     <div className="flex justify-between items-start">
                       <div>
-                        <div className="font-medium text-stone-900">{secret.name}</div>
+                        <div className="font-medium text-navy">{secret.name}</div>
                         <div className="text-sm text-stone-500 capitalize">
                           {secret.type}
                         </div>
@@ -129,13 +129,13 @@ export function HandoffView({ project, secrets, urls }: HandoffViewProps) {
                     className="border border-stone-200 rounded-lg p-4 flex justify-between items-center"
                   >
                     <div className="flex-1">
-                      <div className="font-medium text-stone-900">{url.label}</div>
+                      <div className="font-medium text-navy">{url.label}</div>
                       <div className="text-sm text-stone-500 capitalize">{url.type}</div>
                       <Link
                         href={url.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-sm text-blue-600 hover:underline flex items-center gap-1 mt-1"
+                        className="text-sm text-gold hover:underline flex items-center gap-1 mt-1"
                       >
                         {url.url}
                         <ExternalLink className="h-3 w-3" />

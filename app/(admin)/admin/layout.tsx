@@ -37,7 +37,7 @@ export default async function AdminLayout({
           <div className="flex-1" />
           <UserButton afterSignOutUrl="/" />
         </header>
-        <main className="flex-1 overflow-auto bg-stone-50">{children}</main>
+        <main className="flex-1 overflow-auto bg-warm-white">{children}</main>
       </SidebarInset>
     </SidebarProvider>
   );

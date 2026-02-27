@@ -119,7 +119,7 @@ export function ClientDashboard({
     <div ref={containerRef} className="space-y-8">
       {/* Hero Card */}
       <div ref={heroRef} style={{ opacity: 0 }}>
-        <Card className="overflow-hidden border-0 shadow-xl bg-gradient-to-br from-white via-stone-50 to-stone-100/80">
+        <Card className="overflow-hidden border-0 shadow-xl bg-gradient-to-br from-white via-warm-white to-card-light">
           <CardContent className="p-8 lg:p-10">
             <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
               {/* Radial Progress */}
@@ -135,7 +135,7 @@ export function ClientDashboard({
               {/* Project Info */}
               <div className="flex-1 text-center lg:text-left">
                 <div className="flex items-center justify-center lg:justify-start gap-3 mb-3">
-                  <h2 className="text-2xl lg:text-3xl font-bold text-stone-900 tracking-tight">
+                  <h2 className="text-2xl lg:text-3xl font-bold text-navy tracking-tight">
                     {project.name}
                   </h2>
                   <Badge
@@ -154,12 +154,12 @@ export function ClientDashboard({
                 <div className="flex flex-wrap items-center justify-center lg:justify-start gap-6 text-sm">
                   <div className="flex items-center gap-2.5 bg-white/80 rounded-full px-4 py-2 shadow-sm border border-stone-200/60">
                     <CheckCircle2 className="h-4 w-4 text-phase-completed" />
-                    <span className="text-stone-600">
-                      <span className="font-semibold text-stone-900">
+                    <span className="text-stone-500">
+                      <span className="font-semibold text-navy">
                         {completedTasks}
                       </span>{" "}
                       of{" "}
-                      <span className="font-semibold text-stone-900">
+                      <span className="font-semibold text-navy">
                         {totalTasks}
                       </span>{" "}
                       tasks
@@ -167,9 +167,9 @@ export function ClientDashboard({
                   </div>
                   <div className="flex items-center gap-2.5 bg-white/80 rounded-full px-4 py-2 shadow-sm border border-stone-200/60">
                     <Sparkles className="h-4 w-4 text-phase-active" />
-                    <span className="text-stone-600">
+                    <span className="text-stone-500">
                       Current:{" "}
-                      <span className="font-semibold text-stone-900">
+                      <span className="font-semibold text-navy">
                         {currentPhase?.name}
                       </span>
                     </span>
@@ -211,7 +211,7 @@ export function ClientDashboard({
                       isComplete
                         ? "bg-gradient-to-b from-emerald-50 to-white border-emerald-300 shadow-sm"
                         : isCurrent
-                          ? "bg-gradient-to-b from-blue-50 to-white border-blue-400 shadow-md ring-1 ring-blue-200"
+                          ? "bg-gradient-to-b from-gold/10 to-white border-gold shadow-md ring-1 ring-gold/30"
                           : "bg-stone-50/50 border-stone-200"
                     }`}
                   >
@@ -221,8 +221,8 @@ export function ClientDashboard({
                         <CheckCircle2 className="h-5 w-5 text-emerald-500" />
                       ) : isCurrent ? (
                         <div className="relative h-5 w-5">
-                          <div className="absolute inset-0 rounded-full bg-blue-400 animate-ping opacity-25" />
-                          <div className="relative h-5 w-5 rounded-full bg-blue-500" />
+                          <div className="absolute inset-0 rounded-full bg-gold animate-ping opacity-25" />
+                          <div className="relative h-5 w-5 rounded-full bg-gold" />
                         </div>
                       ) : (
                         <Circle className="h-5 w-5 text-stone-300" />
@@ -238,7 +238,7 @@ export function ClientDashboard({
                         isComplete
                           ? "text-emerald-700"
                           : isCurrent
-                            ? "text-blue-700"
+                            ? "text-gold"
                             : "text-stone-500"
                       }`}
                     >
@@ -257,7 +257,7 @@ export function ClientDashboard({
                           isComplete
                             ? "bg-emerald-400"
                             : isCurrent
-                              ? "bg-blue-400"
+                              ? "bg-gold"
                               : "bg-stone-300"
                         }`}
                         style={{
@@ -338,7 +338,7 @@ function QuickActionCard({
             />
           </div>
           <div className="flex-1">
-            <div className="font-semibold text-stone-900">{title}</div>
+            <div className="font-semibold text-navy">{title}</div>
             <div className="text-sm text-stone-500">{description}</div>
           </div>
           <ArrowRight className="h-4 w-4 text-stone-300 group-hover:text-stone-500 group-hover:translate-x-0.5 transition-all" />

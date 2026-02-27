@@ -27,15 +27,15 @@ export default async function ProjectsPage() {
   if (!profile) {
     // Profile not synced yet - should not happen, but handle gracefully
     return (
-      <div className="min-h-screen bg-stone-50">
-        <header className="border-b border-stone-200 bg-white">
+      <div className="min-h-screen bg-warm-white">
+        <header className="border-b border-white/10 bg-navy">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center h-16">
               <Link href="/projects" className="flex items-center gap-2">
                 <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
                   <span className="text-sm font-bold">C</span>
                 </div>
-                <span className="text-xl font-semibold text-stone-900">
+                <span className="text-xl font-semibold text-white font-display">
                   CappaWork
                 </span>
               </Link>
@@ -100,9 +100,9 @@ export default async function ProjectsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-stone-50">
+    <div className="min-h-screen bg-warm-white">
       {/* Header */}
-      <header className="border-b border-stone-200 bg-white sticky top-0 z-50">
+      <header className="border-b border-white/10 bg-navy sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <Link href="/projects" className="flex items-center gap-2">
@@ -110,15 +110,15 @@ export default async function ProjectsPage() {
                 <span className="text-sm font-bold">C</span>
               </div>
               <div className="flex flex-col">
-                <span className="text-lg font-semibold text-stone-900">
+                <span className="text-lg font-semibold text-white font-display">
                   CappaWork
                 </span>
-                <span className="text-xs text-muted-foreground -mt-1">Client Portal</span>
+                <span className="text-xs text-white/60 -mt-1">Client Portal</span>
               </div>
             </Link>
             <div className="flex items-center gap-4">
               <Link href="/">
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" className="text-white/70 border-white/20 hover:bg-white/10">
                   View Site
                 </Button>
               </Link>
@@ -131,8 +131,8 @@ export default async function ProjectsPage() {
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-semibold text-stone-900">My Projects</h1>
-          <p className="text-stone-600 mt-1">
+          <h1 className="text-3xl font-semibold text-navy">My Projects</h1>
+          <p className="text-stone-500 mt-1">
             View progress and details for your active projects
           </p>
         </div>
@@ -141,10 +141,10 @@ export default async function ProjectsPage() {
           <Card>
             <CardContent className="pt-6">
               <div className="text-center py-12">
-                <div className="mx-auto w-16 h-16 bg-stone-100 rounded-full flex items-center justify-center mb-4">
+                <div className="mx-auto w-16 h-16 bg-card-light rounded-full flex items-center justify-center mb-4">
                   <FolderKanban className="h-8 w-8 text-stone-400" />
                 </div>
-                <p className="text-stone-600 mb-2">
+                <p className="text-stone-500 mb-2">
                   You don&apos;t have access to any projects yet.
                 </p>
                 <p className="text-sm text-stone-500">
@@ -168,7 +168,7 @@ export default async function ProjectsPage() {
                         <Badge
                           className={
                             project.status === "active"
-                              ? "bg-blue-100 text-blue-800"
+                              ? "bg-gold/20 text-gold"
                               : project.status === "completed"
                               ? "bg-green-100 text-green-800"
                               : "bg-yellow-100 text-yellow-800"

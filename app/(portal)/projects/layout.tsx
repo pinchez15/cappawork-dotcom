@@ -22,7 +22,7 @@ export default async function PortalLayout({
   }
 
   return (
-    <div className="min-h-screen bg-stone-50">
+    <div className="min-h-screen bg-warm-white">
       {children}
     </div>
   );

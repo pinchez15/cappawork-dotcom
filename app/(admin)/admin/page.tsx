@@ -11,7 +11,7 @@ export const dynamic = "force-dynamic";
 function getStatusColor(status: string) {
   switch (status) {
     case "active":
-      return "bg-blue-100 text-blue-800";
+      return "bg-gold/20 text-gold";
     case "completed":
       return "bg-green-100 text-green-800";
     case "on_hold":
@@ -32,8 +32,8 @@ export default async function AdminDashboard() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-3xl font-semibold text-stone-900">Projects</h1>
-          <p className="text-stone-600 mt-1">Manage all client projects</p>
+          <h1 className="text-3xl font-semibold text-navy">Projects</h1>
+          <p className="text-stone-500 mt-1">Manage all client projects</p>
         </div>
         <Link href="/admin/projects/new">
           <Button>

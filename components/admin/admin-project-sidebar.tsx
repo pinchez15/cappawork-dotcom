@@ -99,7 +99,7 @@ export function AdminProjectSidebar({ project }: AdminProjectSidebarProps) {
                 <Badge
                   className={
                     project.status === "active"
-                      ? "bg-blue-100 text-blue-800"
+                      ? "bg-gold/20 text-gold"
                       : project.status === "completed"
                       ? "bg-green-100 text-green-800"
                       : "bg-yellow-100 text-yellow-800"

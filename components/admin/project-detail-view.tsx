@@ -48,13 +48,13 @@ export function ProjectDetailView({
       {/* Project Header */}
       <div className="mb-6">
         <div className="flex items-center gap-3 mb-2">
-          <h1 className="text-2xl font-semibold text-stone-900">
+          <h1 className="text-2xl font-semibold text-navy">
             {project.name}
           </h1>
           <Badge
             className={
               project.status === "active"
-                ? "bg-blue-100 text-blue-800"
+                ? "bg-gold/20 text-gold"
                 : project.status === "completed"
                 ? "bg-green-100 text-green-800"
                 : "bg-yellow-100 text-yellow-800"
@@ -69,7 +69,7 @@ export function ProjectDetailView({
           )}
         </div>
         {project.description && (
-          <p className="text-stone-600">{project.description}</p>
+          <p className="text-stone-500">{project.description}</p>
         )}
       </div>
 
@@ -86,7 +86,7 @@ export function ProjectDetailView({
 
       {/* Tabs */}
       <Tabs defaultValue="kanban" className="space-y-6">
-        <TabsList className="bg-stone-100 p-1">
+        <TabsList className="bg-card-light p-1">
           <TabsTrigger value="kanban" className="gap-2">
             <Kanban className="h-4 w-4" />
             Kanban

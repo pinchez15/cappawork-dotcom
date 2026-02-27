@@ -78,13 +78,13 @@ module.exports = {
         // Phase status colors
         phase: {
           pending: "#94A3B8",
-          active: "#3B82F6",
+          active: "#D4A853",
           completed: "#22C55E",
         },
         // Brand colors
         brand: {
-          DEFAULT: "#3B82F6",
-          hover: "#2563EB",
+          DEFAULT: "#D4A853",
+          hover: "#C4983F",
         },
       },
       borderRadius: {
