@@ -11,6 +11,7 @@ import WhatsAtStake from "./components/whats-at-stake"
 import ProofPoint from "./components/proof-point"
 import FAQSection from "./components/faq-section"
 import ClosingCTA from "./components/closing-cta"
+import FounderSection from "./components/founder-section"
 
 export const metadata: Metadata = {
   title: "CappaWork — Make Work Human Again",
@@ -55,6 +56,7 @@ export default function HomePage() {
       <FAQSection />
       <ClosingCTA />
       <Blog />
+      <FounderSection />
       <Footer />
     </main>
   )
