@@ -24,21 +24,12 @@ export const metadata: Metadata = {
     type: "website",
     url: "https://cappawork.com",
     siteName: "CappaWork",
-    images: [
-      {
-        url: "https://cappawork.com/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "CappaWork — Make Work Human Again",
-      },
-    ],
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
     title: "CappaWork — Make Work Human Again",
     description: "AI transformation for founder-led service businesses doing $3M–$10M. We elevate your people and automate your process.",
-    images: ["https://cappawork.com/og-image.png"],
   },
 }
 
