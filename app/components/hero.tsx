@@ -53,7 +53,7 @@ export default function Hero() {
           >
             <Image
               src="/coworking.png"
-              alt="CappaWork Coworking Space"
+              alt="CappaWork operational analytics dashboard for growing businesses"
               width={2400}
               height={1600}
               className="rounded-xl lg:rounded-2xl shadow-sm block w-full h-auto"

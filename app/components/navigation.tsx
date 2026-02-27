@@ -2,13 +2,12 @@
 
 import { useState, useEffect } from "react"
 import { Menu, X } from "lucide-react"
-import { SignInButton, UserButton, SignedIn, SignedOut, useUser } from "@clerk/nextjs"
+import { SignInButton, UserButton, SignedIn, SignedOut } from "@clerk/nextjs"
 import Link from "next/link"
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const [activeSection, setActiveSection] = useState("hero")
-  const { user } = useUser()
 
   const calendlyLink =
     process.env.NEXT_PUBLIC_CALENDLY_LINK || "https://calendly.com/cappawork/discovery_call"
@@ -127,7 +126,7 @@ export default function Navigation() {
               <button
                 key={item.id}
                 onClick={() => handleNavClick(item.href, item.id)}
-                className="block w-full text-left py-2 text-stone-600 hover:text-stone-900 transition-colors"
+                className="block w-full text-left py-3 text-stone-600 hover:text-stone-900 transition-colors"
               >
                 {item.label}
               </button>
@@ -135,7 +134,7 @@ export default function Navigation() {
             <div className="flex flex-col space-y-2 mt-4">
               <SignedOut>
                 <SignInButton mode="modal">
-                  <button className="block w-full text-left py-2 text-stone-600 hover:text-stone-900 transition-colors">
+                  <button className="block w-full text-left py-3 text-stone-600 hover:text-stone-900 transition-colors">
                     Sign In
                   </button>
                 </SignInButton>
@@ -143,7 +142,7 @@ export default function Navigation() {
               <SignedIn>
                 <Link
                   href="/dashboard"
-                  className="block w-full text-left py-2 text-stone-600 hover:text-stone-900 transition-colors"
+                  className="block w-full text-left py-3 text-stone-600 hover:text-stone-900 transition-colors"
                 >
                   Dashboard
                 </Link>
@@ -157,7 +156,7 @@ export default function Navigation() {
               href={calendlyLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="block w-full text-center mt-4 font-medium bg-blue-600 text-white px-4 py-3 rounded-md hover:bg-blue-700 transition-colors"
+              className="block w-full text-center mt-4 font-medium bg-blue-600 text-white px-4 py-3 rounded-full hover:bg-blue-700 transition-colors"
             >
               Book a Diagnostic Call
             </a>

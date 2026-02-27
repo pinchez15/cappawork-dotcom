@@ -49,7 +49,6 @@ export const metadata: Metadata = {
     description: "Web development agency crafting tools with clarity, utility, and restraint.",
     images: ["https://cappawork.com/og-image.png"],
   },
-    generator: 'v0.dev'
 }
 
 export default function RootLayout({

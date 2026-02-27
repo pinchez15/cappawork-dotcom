@@ -18,7 +18,7 @@ export default function Blog() {
 
   return (
     <section id="blog" className="py-24 bg-stone-50">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-stone-900 mb-4">
             Insights
@@ -35,7 +35,7 @@ export default function Blog() {
             {blogPosts.map((post) => (
               <article
                 key={post.slug}
-                className="bg-white p-6 rounded-sm border border-stone-200 hover:border-stone-300 transition-all duration-200 hover:shadow-sm group"
+                className="bg-white p-6 rounded-2xl border border-stone-200 hover:border-stone-300 transition-all duration-200 hover:shadow-sm group"
               >
                 <div className="flex items-center gap-2 text-sm text-stone-500 mb-3">
                   <time dateTime={post.date}>{formatDate(post.date)}</time>
@@ -56,7 +56,7 @@ export default function Blog() {
                     {post.tags.slice(0, 3).map((tag) => (
                       <span
                         key={tag}
-                        className="text-xs px-2 py-1 bg-stone-100 text-stone-700 rounded-sm"
+                        className="text-xs px-2 py-1 bg-stone-100 text-stone-700 rounded-full"
                       >
                         {tag}
                       </span>

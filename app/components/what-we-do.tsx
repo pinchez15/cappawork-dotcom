@@ -7,9 +7,9 @@ export default function WhatWeDo() {
         </span>
 
         <div className="text-lg text-stone-600 leading-relaxed space-y-6">
-          <p className="text-2xl font-semibold text-stone-900 leading-snug">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-stone-900 leading-snug">
             We help $3M–$10M companies increase profitability through operational analytics and targeted automation.
-          </p>
+          </h2>
           <p className="font-medium text-stone-900">
             Diagnosis first. Implementation second. No guessing.
           </p>
