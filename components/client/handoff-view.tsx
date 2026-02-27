@@ -52,7 +52,7 @@ export function HandoffView({ project, secrets, urls }: HandoffViewProps) {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-semibold text-navy mb-2">
+        <h1 className="text-3xl font-semibold text-foreground mb-2">
           Project Handoff
         </h1>
         <p className="text-stone-600">
@@ -71,11 +71,11 @@ export function HandoffView({ project, secrets, urls }: HandoffViewProps) {
                 {secrets.map((secret) => (
                   <div
                     key={secret.id}
-                    className="border border-stone-200 rounded-lg p-4 space-y-3"
+                    className="border border-border rounded-lg p-4 space-y-3"
                   >
                     <div className="flex justify-between items-start">
                       <div>
-                        <div className="font-medium text-navy">{secret.name}</div>
+                        <div className="font-medium text-foreground">{secret.name}</div>
                         <div className="text-sm text-stone-500 capitalize">
                           {secret.type}
                         </div>
@@ -105,7 +105,7 @@ export function HandoffView({ project, secrets, urls }: HandoffViewProps) {
                       </div>
                     </div>
                     {revealedSecrets[secret.id] && (
-                      <div className="bg-stone-50 p-3 rounded font-mono text-sm break-all">
+                      <div className="bg-muted p-3 rounded font-mono text-sm break-all">
                         {revealedSecrets[secret.id]}
                       </div>
                     )}
@@ -126,10 +126,10 @@ export function HandoffView({ project, secrets, urls }: HandoffViewProps) {
                 {urls.map((url) => (
                   <div
                     key={url.id}
-                    className="border border-stone-200 rounded-lg p-4 flex justify-between items-center"
+                    className="border border-border rounded-lg p-4 flex justify-between items-center"
                   >
                     <div className="flex-1">
-                      <div className="font-medium text-navy">{url.label}</div>
+                      <div className="font-medium text-foreground">{url.label}</div>
                       <div className="text-sm text-stone-500 capitalize">{url.type}</div>
                       <Link
                         href={url.url}

@@ -63,7 +63,7 @@ export function ProjectClientAssignment({
                 Assigned to
               </p>
               <div className="flex items-center gap-1.5">
-                <span className="text-sm font-semibold text-stone-900">
+                <span className="text-sm font-semibold text-foreground">
                   {currentOrganization.name}
                 </span>
                 <Link
@@ -81,7 +81,7 @@ export function ProjectClientAssignment({
               size="sm"
               onClick={() => setIsReassigning(true)}
               disabled={isPending}
-              className="text-stone-500 hover:text-stone-900 text-xs"
+              className="text-muted-foreground hover:text-foreground text-xs"
             >
               Reassign
             </Button>
@@ -163,7 +163,7 @@ export function ProjectClientAssignment({
       {allOrganizations.length > 0 ? (
         <div className="flex gap-2">
           <Select value={selectedOrgId} onValueChange={setSelectedOrgId}>
-            <SelectTrigger className="flex-1 bg-white">
+            <SelectTrigger className="flex-1 bg-background">
               <SelectValue placeholder="Select a client..." />
             </SelectTrigger>
             <SelectContent>

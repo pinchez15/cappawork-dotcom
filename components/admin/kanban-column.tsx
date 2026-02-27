@@ -40,13 +40,13 @@ export function KanbanColumn({
   return (
     <Card
       ref={setNodeRef}
-      className={`w-80 flex-shrink-0 ${isOver ? "ring-2 ring-blue-500" : ""}`}
+      className={`min-w-[272px] w-[272px] flex-shrink-0 ${isOver ? "ring-2 ring-blue-500" : ""}`}
     >
       <CardHeader className="pb-3">
         <CardTitle className="text-base">{phase.name}</CardTitle>
         <div className="text-sm text-stone-500">{tasks.length} tasks</div>
       </CardHeader>
-      <CardContent className="space-y-2 min-h-[400px]">
+      <CardContent className="space-y-2 min-h-[400px] max-h-[70vh] overflow-y-auto">
         <SortableContext
           items={tasks.map((t) => t.id)}
           strategy={verticalListSortingStrategy}

@@ -149,10 +149,10 @@ export function URLsSection({ projectId, initialUrls }: URLsSectionProps) {
             {urls.map((url) => (
               <div
                 key={url.id}
-                className="border border-stone-200 rounded-lg p-4 flex justify-between items-center"
+                className="border rounded-lg p-4 flex justify-between items-center"
               >
                 <div className="flex-1">
-                  <div className="font-medium text-stone-900">{url.label}</div>
+                  <div className="font-medium text-foreground">{url.label}</div>
                   <div className="text-sm text-stone-500 capitalize">{url.type}</div>
                   <Link
                     href={url.url}

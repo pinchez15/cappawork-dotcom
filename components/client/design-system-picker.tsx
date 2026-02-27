@@ -37,23 +37,98 @@ export interface DesignSystem {
 
 export const DESIGN_SYSTEMS: DesignSystem[] = [
   {
-    id: "base",
-    name: "Base",
-    description: "Clean foundation with neutral tones",
+    id: "executive",
+    name: "Executive",
+    description: "Navy and gold — authoritative and polished",
     tokens: {
-      background: "#0a0a0a",
-      foreground: "#fafafa",
-      card: "#171717",
-      cardForeground: "#fafafa",
-      primary: "#3b82f6",
-      primaryForeground: "#ffffff",
-      secondary: "#27272a",
-      secondaryForeground: "#fafafa",
-      accent: "#22c55e",
-      accentForeground: "#ffffff",
-      muted: "#27272a",
-      mutedForeground: "#a1a1aa",
-      border: "#27272a",
+      background: "#FFFFFF",
+      foreground: "#1E293B",
+      card: "#F8FAFC",
+      cardForeground: "#1E293B",
+      primary: "#1E3A5F",
+      primaryForeground: "#FFFFFF",
+      secondary: "#F1F5F9",
+      secondaryForeground: "#1E3A5F",
+      accent: "#D4A853",
+      accentForeground: "#1E3A5F",
+      muted: "#F1F5F9",
+      mutedForeground: "#64748B",
+      border: "#E2E8F0",
+      borderRadius: "8px",
+      borderWidth: "1px",
+      shadow: "0 1px 3px rgba(0,0,0,0.08)",
+      fontHeading: "Inter",
+      fontBody: "Inter",
+    },
+  },
+  {
+    id: "slate",
+    name: "Slate",
+    description: "Cool gray and blue — modern corporate",
+    tokens: {
+      background: "#F8FAFC",
+      foreground: "#0F172A",
+      card: "#FFFFFF",
+      cardForeground: "#0F172A",
+      primary: "#334155",
+      primaryForeground: "#FFFFFF",
+      secondary: "#F1F5F9",
+      secondaryForeground: "#334155",
+      accent: "#3B82F6",
+      accentForeground: "#FFFFFF",
+      muted: "#F1F5F9",
+      mutedForeground: "#64748B",
+      border: "#E2E8F0",
+      borderRadius: "8px",
+      borderWidth: "1px",
+      shadow: "0 1px 2px rgba(0,0,0,0.05)",
+      fontHeading: "Inter",
+      fontBody: "Inter",
+    },
+  },
+  {
+    id: "evergreen",
+    name: "Evergreen",
+    description: "Forest and warm neutrals — trusted advisory",
+    tokens: {
+      background: "#FEFDF8",
+      foreground: "#1C1917",
+      card: "#FFFFFF",
+      cardForeground: "#1C1917",
+      primary: "#1B4332",
+      primaryForeground: "#FFFFFF",
+      secondary: "#F5F5F0",
+      secondaryForeground: "#1B4332",
+      accent: "#2D6A4F",
+      accentForeground: "#FFFFFF",
+      muted: "#F5F5F0",
+      mutedForeground: "#78716C",
+      border: "#E7E5E4",
+      borderRadius: "8px",
+      borderWidth: "1px",
+      shadow: "0 1px 3px rgba(0,0,0,0.06)",
+      fontHeading: "Inter",
+      fontBody: "Inter",
+    },
+  },
+  {
+    id: "charcoal",
+    name: "Charcoal",
+    description: "Dark mode — minimal and focused",
+    tokens: {
+      background: "#09090B",
+      foreground: "#FAFAFA",
+      card: "#18181B",
+      cardForeground: "#FAFAFA",
+      primary: "#3B82F6",
+      primaryForeground: "#FFFFFF",
+      secondary: "#27272A",
+      secondaryForeground: "#FAFAFA",
+      accent: "#3B82F6",
+      accentForeground: "#FFFFFF",
+      muted: "#27272A",
+      mutedForeground: "#A1A1AA",
+      border: "#27272A",
       borderRadius: "8px",
       borderWidth: "1px",
       shadow: "0 1px 3px rgba(0,0,0,0.3)",
@@ -62,127 +137,52 @@ export const DESIGN_SYSTEMS: DesignSystem[] = [
     },
   },
   {
-    id: "mono",
-    name: "Mono",
-    description: "Monochromatic with crisp typography",
+    id: "sandstone",
+    name: "Sandstone",
+    description: "Warm earth tones — approachable and grounded",
     tokens: {
-      background: "#0f0f0f",
-      foreground: "#e5e5e5",
-      card: "#1a1a1a",
-      cardForeground: "#e5e5e5",
-      primary: "#ffffff",
-      primaryForeground: "#000000",
-      secondary: "#262626",
-      secondaryForeground: "#e5e5e5",
-      accent: "#737373",
-      accentForeground: "#ffffff",
-      muted: "#262626",
-      mutedForeground: "#737373",
-      border: "#262626",
-      borderRadius: "4px",
+      background: "#FFFBEB",
+      foreground: "#1C1917",
+      card: "#FFFFFF",
+      cardForeground: "#1C1917",
+      primary: "#78350F",
+      primaryForeground: "#FFFFFF",
+      secondary: "#FEF3C7",
+      secondaryForeground: "#78350F",
+      accent: "#D97706",
+      accentForeground: "#FFFFFF",
+      muted: "#FEF3C7",
+      mutedForeground: "#92400E",
+      border: "#FDE68A",
+      borderRadius: "8px",
       borderWidth: "1px",
-      shadow: "none",
-      fontHeading: "Space Grotesk",
+      shadow: "0 1px 3px rgba(0,0,0,0.06)",
+      fontHeading: "Inter",
       fontBody: "Inter",
     },
   },
   {
-    id: "cosmic_night",
-    name: "Cosmic Night",
-    description: "Deep purple gradients with neon accents",
+    id: "midnight",
+    name: "Midnight",
+    description: "Dark navy and emerald — finance and ops",
     tokens: {
-      background: "#0c0a1d",
-      foreground: "#e4e2f5",
-      card: "#1a1735",
-      cardForeground: "#e4e2f5",
-      primary: "#a855f7",
-      primaryForeground: "#ffffff",
-      secondary: "#1e1b4b",
-      secondaryForeground: "#e4e2f5",
-      accent: "#f0abfc",
-      accentForeground: "#0c0a1d",
-      muted: "#1e1b4b",
-      mutedForeground: "#a78bfa",
-      border: "#2e2a5e",
-      borderRadius: "12px",
+      background: "#020617",
+      foreground: "#F8FAFC",
+      card: "#0F172A",
+      cardForeground: "#F8FAFC",
+      primary: "#10B981",
+      primaryForeground: "#FFFFFF",
+      secondary: "#1E293B",
+      secondaryForeground: "#F8FAFC",
+      accent: "#10B981",
+      accentForeground: "#FFFFFF",
+      muted: "#1E293B",
+      mutedForeground: "#94A3B8",
+      border: "#1E293B",
+      borderRadius: "8px",
       borderWidth: "1px",
-      shadow: "0 4px 20px rgba(168, 85, 247, 0.15)",
-      fontHeading: "Plus Jakarta Sans",
-      fontBody: "Inter",
-    },
-  },
-  {
-    id: "soft_pop",
-    name: "Soft Pop",
-    description: "Warm pastels with playful energy",
-    tokens: {
-      background: "#1c1917",
-      foreground: "#fafaf9",
-      card: "#292524",
-      cardForeground: "#fafaf9",
-      primary: "#fbbf24",
-      primaryForeground: "#1c1917",
-      secondary: "#44403c",
-      secondaryForeground: "#fafaf9",
-      accent: "#fb923c",
-      accentForeground: "#1c1917",
-      muted: "#44403c",
-      mutedForeground: "#a8a29e",
-      border: "#44403c",
-      borderRadius: "16px",
-      borderWidth: "1px",
-      shadow: "0 2px 8px rgba(0,0,0,0.2)",
-      fontHeading: "Poppins",
-      fontBody: "Inter",
-    },
-  },
-  {
-    id: "neo_brutalist",
-    name: "Neobrutalist",
-    description: "Bold borders, high contrast, playful chaos",
-    tokens: {
-      background: "#fffef0",
-      foreground: "#000000",
-      card: "#ffffff",
-      cardForeground: "#000000",
-      primary: "#ff3366",
-      primaryForeground: "#ffffff",
-      secondary: "#00d4ff",
-      secondaryForeground: "#000000",
-      accent: "#ffcc00",
-      accentForeground: "#000000",
-      muted: "#f5f5dc",
-      mutedForeground: "#666666",
-      border: "#000000",
-      borderRadius: "0px",
-      borderWidth: "3px",
-      shadow: "4px 4px 0px #000000",
-      fontHeading: "Space Grotesk",
-      fontBody: "Inter",
-    },
-  },
-  {
-    id: "neumorphic",
-    name: "Neumorphic",
-    description: "Soft shadows with tactile depth",
-    tokens: {
-      background: "#e0e5ec",
-      foreground: "#2d3748",
-      card: "#e0e5ec",
-      cardForeground: "#2d3748",
-      primary: "#6366f1",
-      primaryForeground: "#ffffff",
-      secondary: "#d1d5db",
-      secondaryForeground: "#374151",
-      accent: "#8b5cf6",
-      accentForeground: "#ffffff",
-      muted: "#d1d5db",
-      mutedForeground: "#6b7280",
-      border: "transparent",
-      borderRadius: "20px",
-      borderWidth: "0px",
-      shadow: "8px 8px 16px #b8bcc2, -8px -8px 16px #ffffff",
-      fontHeading: "Plus Jakarta Sans",
+      shadow: "0 1px 3px rgba(0,0,0,0.4)",
+      fontHeading: "Inter",
       fontBody: "Inter",
     },
   },
@@ -195,7 +195,7 @@ interface DesignSystemPickerProps {
 }
 
 export function DesignSystemPicker({
-  selectedId = "base",
+  selectedId = "executive",
   onSelect,
   readOnly = false,
 }: DesignSystemPickerProps) {
@@ -252,7 +252,7 @@ export function DesignSystemPicker({
                   "relative text-left rounded-lg border-2 p-3 transition-all design-system-card",
                   activeSystem.id === system.id
                     ? "border-primary bg-primary/5 ring-2 ring-primary/20"
-                    : "border-stone-200 hover:border-stone-300 bg-white",
+                    : "border-border hover:border-border/80 bg-card",
                   readOnly && "cursor-default"
                 )}
               >
@@ -307,7 +307,7 @@ function MiniDashboardPreview({ system }: { system: DesignSystem }) {
       >
         <div style={{ color: t.mutedForeground }}>Revenue</div>
         <div className="font-bold" style={{ color: t.primary, fontSize: "8px" }}>
-          $15,231
+          $4.2M
         </div>
         <div className="mt-1 h-3 flex items-end gap-px">
           {[40, 60, 45, 70, 55, 80, 65].map((h, i) => (
@@ -324,7 +324,7 @@ function MiniDashboardPreview({ system }: { system: DesignSystem }) {
           ))}
         </div>
       </div>
-      {/* Subs Card */}
+      {/* Margin Card */}
       <div
         className="flex-1 p-1.5 text-[6px]"
         style={{
@@ -334,9 +334,9 @@ function MiniDashboardPreview({ system }: { system: DesignSystem }) {
           boxShadow: t.shadow,
         }}
       >
-        <div style={{ color: t.mutedForeground }}>Subs</div>
+        <div style={{ color: t.mutedForeground }}>Margin</div>
         <div className="font-bold" style={{ color: t.accent, fontSize: "8px" }}>
-          +2,350
+          34.2%
         </div>
       </div>
     </div>
@@ -361,10 +361,10 @@ function DashboardPreview({ system }: { system: DesignSystem }) {
           className="text-2xl font-bold mb-1"
           style={{ color: t.foreground, fontFamily: t.fontHeading }}
         >
-          Dashboard Overview
+          Operations Dashboard
         </h1>
         <p style={{ color: t.mutedForeground }} className="text-sm">
-          Welcome back! Here&apos;s what&apos;s happening with your project.
+          Q4 performance — trailing 90 days
         </p>
       </div>
 
@@ -372,31 +372,30 @@ function DashboardPreview({ system }: { system: DesignSystem }) {
       <div className="grid grid-cols-3 gap-4 mb-6">
         <StatCard
           system={system}
-          label="Total Revenue"
-          value="$15,231.89"
-          change="+20.1% from last month"
+          label="Revenue"
+          value="$4.2M"
+          change="+12.3% vs. prior quarter"
           positive
         />
         <StatCard
           system={system}
-          label="Subscriptions"
-          value="+2,350"
-          change="+180.1% from last month"
+          label="Gross Margin"
+          value="34.2%"
+          change="+2.1pp from baseline"
           positive
           useAccent
         />
         <StatCard
           system={system}
-          label="Active Users"
-          value="573"
-          change="+201 since last hour"
-          positive
+          label="Utilization"
+          value="78%"
+          change="Target: 85%"
         />
       </div>
 
       {/* Content Grid */}
       <div className="grid grid-cols-2 gap-4">
-        {/* Payment Form */}
+        {/* Data Table */}
         <div
           className="p-4"
           style={{
@@ -410,72 +409,34 @@ function DashboardPreview({ system }: { system: DesignSystem }) {
             className="font-semibold mb-3"
             style={{ color: t.cardForeground, fontFamily: t.fontHeading }}
           >
-            Upgrade your subscription
+            Revenue by Service Line
           </h3>
-          <p className="text-sm mb-4" style={{ color: t.mutedForeground }}>
-            You are currently on the free plan. Upgrade to pro for more features.
-          </p>
-          <div className="space-y-3">
-            <div>
-              <label className="text-xs block mb-1" style={{ color: t.mutedForeground }}>
-                Name
-              </label>
-              <input
-                type="text"
-                placeholder="First Last"
-                className="w-full px-3 py-2 text-sm outline-none"
-                style={{
-                  backgroundColor: t.background,
-                  color: t.foreground,
-                  borderRadius: t.borderRadius,
-                  border: `${t.borderWidth} solid ${t.border}`,
-                }}
-              />
-            </div>
-            <div>
-              <label className="text-xs block mb-1" style={{ color: t.mutedForeground }}>
-                Card Number
-              </label>
-              <input
-                type="text"
-                placeholder="1234 1234 1234 1234"
-                className="w-full px-3 py-2 text-sm outline-none"
-                style={{
-                  backgroundColor: t.background,
-                  color: t.foreground,
-                  borderRadius: t.borderRadius,
-                  border: `${t.borderWidth} solid ${t.border}`,
-                }}
-              />
-            </div>
-            <div className="flex gap-2">
-              <input
-                type="text"
-                placeholder="MM/YY"
-                className="flex-1 px-3 py-2 text-sm outline-none"
-                style={{
-                  backgroundColor: t.background,
-                  color: t.foreground,
-                  borderRadius: t.borderRadius,
-                  border: `${t.borderWidth} solid ${t.border}`,
-                }}
-              />
-              <input
-                type="text"
-                placeholder="CVC"
-                className="w-20 px-3 py-2 text-sm outline-none"
-                style={{
-                  backgroundColor: t.background,
-                  color: t.foreground,
-                  borderRadius: t.borderRadius,
-                  border: `${t.borderWidth} solid ${t.border}`,
-                }}
-              />
-            </div>
-          </div>
+          <table className="w-full text-sm">
+            <thead>
+              <tr style={{ borderBottom: `1px solid ${t.border}` }}>
+                <th className="text-left pb-2 font-medium" style={{ color: t.mutedForeground }}>Service</th>
+                <th className="text-right pb-2 font-medium" style={{ color: t.mutedForeground }}>Revenue</th>
+                <th className="text-right pb-2 font-medium" style={{ color: t.mutedForeground }}>Margin</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                { service: "Consulting", revenue: "$1.8M", margin: "42%" },
+                { service: "Implementation", revenue: "$1.4M", margin: "31%" },
+                { service: "Managed Services", revenue: "$680K", margin: "28%" },
+                { service: "Training", revenue: "$320K", margin: "51%" },
+              ].map((row, i) => (
+                <tr key={i} style={{ borderBottom: `1px solid ${t.border}` }}>
+                  <td className="py-2" style={{ color: t.cardForeground }}>{row.service}</td>
+                  <td className="py-2 text-right font-medium" style={{ color: t.primary }}>{row.revenue}</td>
+                  <td className="py-2 text-right" style={{ color: t.accent }}>{row.margin}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
 
-        {/* Sign Up Form */}
+        {/* KPI Summary */}
         <div
           className="p-4"
           style={{
@@ -486,77 +447,45 @@ function DashboardPreview({ system }: { system: DesignSystem }) {
           }}
         >
           <h3
-            className="font-semibold mb-1"
+            className="font-semibold mb-3"
             style={{ color: t.cardForeground, fontFamily: t.fontHeading }}
           >
-            Create an account
+            Key Metrics
           </h3>
-          <p className="text-sm mb-4" style={{ color: t.mutedForeground }}>
-            Enter your email below to create your account
-          </p>
-          <div className="flex gap-2 mb-3">
-            <button
-              className="flex-1 py-2 text-sm font-medium flex items-center justify-center gap-2"
-              style={{
-                backgroundColor: t.secondary,
-                color: t.secondaryForeground,
-                borderRadius: t.borderRadius,
-                border: `${t.borderWidth} solid ${t.border}`,
-              }}
-            >
-              <GithubIcon /> GitHub
-            </button>
-            <button
-              className="flex-1 py-2 text-sm font-medium flex items-center justify-center gap-2"
-              style={{
-                backgroundColor: t.secondary,
-                color: t.secondaryForeground,
-                borderRadius: t.borderRadius,
-                border: `${t.borderWidth} solid ${t.border}`,
-              }}
-            >
-              <GoogleIcon /> Google
-            </button>
+          <div className="space-y-3">
+            {[
+              { label: "Revenue per Employee", value: "$210K", target: "$250K" },
+              { label: "Client Retention", value: "94%", target: "95%" },
+              { label: "Avg. Project Margin", value: "36%", target: "40%" },
+              { label: "Pipeline Coverage", value: "3.2x", target: "3.0x" },
+            ].map((metric, i) => (
+              <div key={i}>
+                <div className="flex justify-between text-xs mb-1">
+                  <span style={{ color: t.mutedForeground }}>{metric.label}</span>
+                  <span style={{ color: t.cardForeground }} className="font-medium">{metric.value}</span>
+                </div>
+                <div
+                  className="h-1.5 rounded-full overflow-hidden"
+                  style={{ backgroundColor: t.muted }}
+                >
+                  <div
+                    className="h-full rounded-full"
+                    style={{
+                      width: `${60 + i * 10}%`,
+                      backgroundColor: t.primary,
+                    }}
+                  />
+                </div>
+                <div className="text-[10px] mt-0.5" style={{ color: t.mutedForeground }}>
+                  Target: {metric.target}
+                </div>
+              </div>
+            ))}
           </div>
-          <div className="flex items-center gap-2 my-3">
-            <div className="flex-1 h-px" style={{ backgroundColor: t.border }} />
-            <span className="text-xs" style={{ color: t.mutedForeground }}>
-              OR CONTINUE WITH
-            </span>
-            <div className="flex-1 h-px" style={{ backgroundColor: t.border }} />
-          </div>
-          <div className="mb-3">
-            <label className="text-xs block mb-1" style={{ color: t.mutedForeground }}>
-              Email
-            </label>
-            <input
-              type="email"
-              placeholder="m@example.com"
-              className="w-full px-3 py-2 text-sm outline-none"
-              style={{
-                backgroundColor: t.background,
-                color: t.foreground,
-                borderRadius: t.borderRadius,
-                border: `${t.borderWidth} solid ${t.border}`,
-              }}
-            />
-          </div>
-          <button
-            className="w-full py-2 text-sm font-medium"
-            style={{
-              backgroundColor: t.primary,
-              color: t.primaryForeground,
-              borderRadius: t.borderRadius,
-              border: `${t.borderWidth} solid ${t.border}`,
-              boxShadow: t.shadow,
-            }}
-          >
-            Create account
-          </button>
         </div>
       </div>
 
-      {/* Payment Pill */}
+      {/* Status Bar */}
       <div className="mt-6 flex justify-center">
         <div
           className="inline-flex items-center gap-2 px-4 py-2 text-sm"
@@ -567,8 +496,8 @@ function DashboardPreview({ system }: { system: DesignSystem }) {
             boxShadow: t.shadow,
           }}
         >
-          <span className="font-medium">Pro Plan</span>
-          <span className="opacity-80">$10/month</span>
+          <span className="font-medium">Phase 2 Active</span>
+          <span className="opacity-80">Week 6 of 12</span>
         </div>
       </div>
     </div>
@@ -636,36 +565,5 @@ function StatCard({
         ))}
       </div>
     </div>
-  );
-}
-
-function GithubIcon() {
-  return (
-    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-    </svg>
-  );
-}
-
-function GoogleIcon() {
-  return (
-    <svg className="w-4 h-4" viewBox="0 0 24 24">
-      <path
-        fill="currentColor"
-        d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
-      />
-      <path
-        fill="currentColor"
-        d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-      />
-      <path
-        fill="currentColor"
-        d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
-      />
-      <path
-        fill="currentColor"
-        d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
-      />
-    </svg>
   );
 }

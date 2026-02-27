@@ -176,7 +176,7 @@ export function KanbanBoard({
         </div>
         <DragOverlay>
           {activeTask ? (
-            <div className="bg-white p-3 rounded border shadow-lg max-w-xs">
+            <div className="bg-card p-3 rounded border shadow-lg max-w-xs">
               {activeTask.title}
             </div>
           ) : null}

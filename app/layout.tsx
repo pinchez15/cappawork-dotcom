@@ -2,6 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { DM_Sans, Instrument_Serif } from "next/font/google"
 import { ClerkProvider } from "@clerk/nextjs"
+import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/sonner"
 import "./globals.css"
 
@@ -67,10 +68,17 @@ export default function RootLayout({
         },
       }}
     >
-      <html lang="en" className={`${dmSans.variable} ${instrumentSerif.variable}`}>
+      <html lang="en" className={`${dmSans.variable} ${instrumentSerif.variable}`} suppressHydrationWarning>
         <body className="font-sans">
-          {children}
-          <Toaster />
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+            <Toaster />
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>

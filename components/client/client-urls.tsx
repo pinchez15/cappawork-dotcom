@@ -34,7 +34,7 @@ export function ClientURLs({ urls }: ClientURLsProps) {
               className="border border-stone-200 rounded-lg p-4 flex justify-between items-center"
             >
               <div className="flex-1">
-                <div className="font-medium text-navy">{url.label}</div>
+                <div className="font-medium text-foreground">{url.label}</div>
                 <div className="text-sm text-stone-500 capitalize">{url.type}</div>
                 <Link
                   href={url.url}

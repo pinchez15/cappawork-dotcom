@@ -53,7 +53,7 @@ const phaseColors = {
     accent: "from-gold to-gold/80",
   },
   pending: {
-    header: "bg-stone-50/50 border-stone-200",
+    header: "bg-muted/50 border-border",
     headerText: "text-stone-500",
     badge: "bg-stone-100 text-stone-500",
     progress: "bg-phase-pending",
@@ -245,7 +245,7 @@ export function ClientKanbanView({ phases, tasks }: ClientKanbanViewProps) {
                     />
                   </div>
                 </CardHeader>
-                <CardContent className="space-y-2.5 min-h-[280px] pt-4 bg-white/50">
+                <CardContent className="space-y-2.5 min-h-[280px] pt-4 bg-card/50">
                   {phaseTasks.map((task) => (
                     <div
                       key={task.id}
@@ -254,8 +254,8 @@ export function ClientKanbanView({ phases, tasks }: ClientKanbanViewProps) {
                       style={{ opacity: 0 }}
                       className={`border rounded-xl p-3.5 cursor-pointer transition-all duration-200 group ${
                         task.is_completed
-                          ? "bg-stone-50 border-stone-200/80 opacity-60"
-                          : "bg-white border-stone-200 hover:shadow-md hover:border-gold/40 hover:-translate-y-px"
+                          ? "bg-muted border-border/80 opacity-60"
+                          : "bg-card border-border hover:shadow-md hover:border-gold/40 hover:-translate-y-px"
                       }`}
                     >
                       <div className="flex items-start gap-3">

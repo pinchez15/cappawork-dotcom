@@ -90,7 +90,7 @@ export function ClientDesignSpec({ design, projectId }: ClientDesignSpecProps) {
                 <Sparkles className="h-6 w-6 text-primary" />
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-navy mb-1">
+                <h3 className="text-lg font-semibold text-foreground mb-1">
                   Choose Your Design Style
                 </h3>
                 <p className="text-stone-600">
@@ -179,7 +179,7 @@ export function ClientDesignSpec({ design, projectId }: ClientDesignSpecProps) {
       <Card>
         <CardContent className="pt-6">
           <DesignSystemPicker
-            selectedId={selectedSystem?.id || design?.theme_id || "base"}
+            selectedId={selectedSystem?.id || design?.theme_id || "executive"}
             onSelect={handleSelect}
             readOnly={isFinalized}
           />

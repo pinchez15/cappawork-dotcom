@@ -17,24 +17,20 @@ interface TierTemplate {
   tasks: Record<string, TaskTemplate[]>;
 }
 
-// Standard kanban columns for all project types
-const KANBAN_PHASES: PhaseTemplate[] = [
-  { name: "Upcoming", order: 0 },
-  { name: "To Do", order: 1 },
-  { name: "In Progress", order: 2 },
-  { name: "Needs Review", order: 3 },
-  { name: "Done", order: 4 },
-];
-
 // ─────────────────────────────────────────────────────────────────────────────
 // TEMPLATE 1: Custom Portal / Dashboard Build — $10,000 | 6–10 weeks
 // ─────────────────────────────────────────────────────────────────────────────
 
 const PORTAL_BUILD_TEMPLATE: TierTemplate = {
-  phases: KANBAN_PHASES,
+  phases: [
+    { name: "Discovery & Requirements", order: 0 },
+    { name: "Architecture & Design", order: 1 },
+    { name: "Build", order: 2 },
+    { name: "Testing & Refinement", order: 3 },
+    { name: "Launch & Handoff", order: 4 },
+  ],
   tasks: {
-    "To Do": [
-      // Week 1–2: Discovery & Requirements
+    "Discovery & Requirements": [
       { title: "Kickoff call", description: "Align on goals, timeline, success criteria, and key stakeholders" },
       { title: "Access & credentials handoff", description: "Provide logins, API keys, data sources, and system access needed for build" },
       { title: "Current workflow documentation", description: "Map existing processes, tools, and pain points from kickoff notes" },
@@ -43,8 +39,7 @@ const PORTAL_BUILD_TEMPLATE: TierTemplate = {
       { title: "Requirements document draft", description: "Written spec: features, data flows, user roles, and success metrics" },
       { title: "Requirements review & sign-off", description: "Client reviews and approves requirements doc — changes after this are scoped separately" },
     ],
-    "Upcoming": [
-      // Week 3–4: Architecture & Design
+    "Architecture & Design": [
       { title: "Technical architecture plan", description: "Database schema, API design, hosting, and integration approach" },
       { title: "Wireframes / UI mockups", description: "Visual mockups of key screens and user flows for client review" },
       { title: "Wireframe review & feedback", description: "Client reviews mockups and provides consolidated feedback" },
@@ -52,7 +47,8 @@ const PORTAL_BUILD_TEMPLATE: TierTemplate = {
       { title: "Design sign-off", description: "Approve final wireframes — this is what we build" },
       { title: "Data pipeline design", description: "Map how data flows in, gets processed, and surfaces in the portal" },
       { title: "Development environment setup", description: "Repo, CI/CD, staging environment, auth scaffolding" },
-      // Week 5–7: Build
+    ],
+    "Build": [
       { title: "Core platform build", description: "Authentication, navigation, user roles, base infrastructure" },
       { title: "Data integration & pipeline", description: "Connect data sources, build ETL/sync, validate data integrity" },
       { title: "Dashboard / reporting views", description: "Build primary dashboard screens per approved designs" },
@@ -61,14 +57,16 @@ const PORTAL_BUILD_TEMPLATE: TierTemplate = {
       { title: "Mid-build feedback", description: "Provide written feedback from demo within 3 business days" },
       { title: "AI workflow integration", description: "Implement any AI-driven automations scoped in requirements" },
       { title: "Notification & alert system", description: "Email/in-app notifications for key events and thresholds" },
-      // Week 8–9: Testing & Refinement
+    ],
+    "Testing & Refinement": [
       { title: "Internal QA & bug fixes", description: "Full test pass — functionality, edge cases, mobile, permissions" },
       { title: "Data validation", description: "Verify all data displays correctly, calculations are accurate" },
       { title: "Client UAT (user acceptance testing)", description: "Client tests the portal against real scenarios and flags issues" },
       { title: "UAT bug fixes & refinements", description: "Resolve issues surfaced during client testing" },
       { title: "Performance & security review", description: "Load testing, security audit, backup verification" },
       { title: "Final design polish", description: "UI tightening, micro-interactions, responsive fixes" },
-      // Week 10: Launch & Handoff
+    ],
+    "Launch & Handoff": [
       { title: "Team training session", description: "Live walkthrough with client team — recorded for future reference" },
       { title: "Admin documentation", description: "How to manage users, update content, troubleshoot common issues" },
       { title: "Production deployment", description: "Deploy to production, DNS, SSL, final environment config" },
@@ -85,10 +83,16 @@ const PORTAL_BUILD_TEMPLATE: TierTemplate = {
 // ─────────────────────────────────────────────────────────────────────────────
 
 const DIAGNOSTIC_TEMPLATE: TierTemplate = {
-  phases: KANBAN_PHASES,
+  phases: [
+    { name: "Kickoff & Access", order: 0 },
+    { name: "Financial Analysis", order: 1 },
+    { name: "Operational Mapping", order: 2 },
+    { name: "Analysis & Opportunity Sizing", order: 3 },
+    { name: "Deliverable Build", order: 4 },
+    { name: "Delivery & Decision", order: 5 },
+  ],
   tasks: {
-    "To Do": [
-      // Week 1: Kickoff & Access
+    "Kickoff & Access": [
       { title: "Kickoff call", description: "Align on goals, concerns, timeline, and what success looks like" },
       { title: "Data access & credentials", description: "Provide access to financial systems, P&L, CRM, tools, and any reporting" },
       { title: "Team roster & org chart", description: "Who does what — roles, responsibilities, reporting lines" },
@@ -96,33 +100,36 @@ const DIAGNOSTIC_TEMPLATE: TierTemplate = {
       { title: "Founder priorities interview", description: "60-min deep dive with founder on biggest pain points and growth goals" },
       { title: "Stakeholder interview scheduling", description: "Schedule 3–5 interviews with key team members across functions" },
     ],
-    "Upcoming": [
-      // Week 2: Financial Analysis
+    "Financial Analysis": [
       { title: "P&L deep dive (trailing 24 months)", description: "Analyze revenue, COGS, margins, and expense trends over time" },
       { title: "Revenue segmentation analysis", description: "Break down revenue by customer, product/service, channel, and geography" },
       { title: "Margin decomposition by segment", description: "Identify which segments are profitable and which are margin-negative" },
       { title: "Revenue per employee modeling", description: "Benchmark current efficiency and model path to $10M" },
       { title: "Software stack cost analysis", description: "Total spend, per-user cost, overlap, and ROI assessment" },
       { title: "Stakeholder interviews (batch 1)", description: "Interviews with 2–3 team members on workflow, bottlenecks, time sinks" },
-      // Week 3: Operational Mapping
+    ],
+    "Operational Mapping": [
       { title: "End-to-end workflow mapping", description: "Map core business processes from lead to cash to delivery to support" },
       { title: "Stakeholder interviews (batch 2)", description: "Remaining 2–3 interviews focused on operational detail" },
       { title: "Time allocation analysis", description: "Estimate how team time splits across value-add vs. manual/admin work" },
       { title: "Bottleneck identification", description: "Pinpoint where work stalls, queues, or requires manual intervention" },
       { title: "Data quality assessment", description: "Evaluate state of client's data — completeness, accuracy, accessibility" },
       { title: "Progress check-in", description: "Brief update to founder on emerging themes — no deliverable yet" },
-      // Week 4: Analysis & Opportunity Sizing
+    ],
+    "Analysis & Opportunity Sizing": [
       { title: "Automation opportunity identification", description: "List every process that could be automated, AI-assisted, or eliminated" },
       { title: "Dollar-impact modeling per opportunity", description: "Quantify each opportunity: time saved, cost reduced, margin gained" },
       { title: "Prioritization matrix (impact vs. effort)", description: "Rank all opportunities by ROI and implementation complexity" },
       { title: "Quick wins identification", description: "Flag anything that can be fixed in <1 week with outsized impact" },
       { title: "Risk & dependency mapping", description: "Identify what blocks what — sequencing constraints and prerequisites" },
-      // Week 5: Deliverable Build
+    ],
+    "Deliverable Build": [
       { title: "Draft diagnostic report", description: "Compile findings into structured deliverable with executive summary" },
       { title: "Implementation roadmap draft", description: "Phased plan with timelines, costs, and expected ROI per initiative" },
       { title: "Internal review & QA", description: "Verify all numbers, pressure-test recommendations, refine narrative" },
       { title: "Final report design & formatting", description: "Polish deliverable for client presentation" },
-      // Week 6: Delivery & Decision
+    ],
+    "Delivery & Decision": [
       { title: "Diagnostic readout (live presentation)", description: "60–90 min session walking through findings, opportunities, and roadmap" },
       { title: "Diagnostic report delivered", description: "Final written deliverable — PDF + supporting data" },
       { title: "Q&A follow-up session", description: "Scheduled within 1 week of readout for follow-up questions" },
@@ -138,10 +145,16 @@ const DIAGNOSTIC_TEMPLATE: TierTemplate = {
 // ─────────────────────────────────────────────────────────────────────────────
 
 const IMPLEMENTATION_TEMPLATE: TierTemplate = {
-  phases: KANBAN_PHASES,
+  phases: [
+    { name: "Scoping & Planning", order: 0 },
+    { name: "Design & Architecture", order: 1 },
+    { name: "Core Build", order: 2 },
+    { name: "Integration & Refinement", order: 3 },
+    { name: "Testing & Training", order: 4 },
+    { name: "Launch & Stabilize", order: 5 },
+  ],
   tasks: {
-    "To Do": [
-      // Week 1: Scoping & Planning
+    "Scoping & Planning": [
       { title: "Phase 2 kickoff call", description: "Review diagnostic findings, confirm build priorities, align on scope" },
       { title: "Statement of work finalized", description: "Formal scope document with deliverables, timeline, milestones, investment" },
       { title: "SOW review & sign-off", description: "Client approves SOW — work begins on approval" },
@@ -149,8 +162,7 @@ const IMPLEMENTATION_TEMPLATE: TierTemplate = {
       { title: "Technical requirements spec", description: "Translate diagnostic recommendations into build requirements" },
       { title: "Data migration / cleanup plan", description: "Plan for moving and cleaning client data into new systems" },
     ],
-    "Upcoming": [
-      // Week 2–3: Design & Architecture
+    "Design & Architecture": [
       { title: "System architecture design", description: "Technical blueprint: data model, integrations, infrastructure" },
       { title: "UI/UX wireframes", description: "Visual mockups of dashboards, workflows, and key interfaces" },
       { title: "Wireframe review & feedback", description: "Client reviews and provides feedback within 5 business days" },
@@ -158,7 +170,8 @@ const IMPLEMENTATION_TEMPLATE: TierTemplate = {
       { title: "AI workflow specification", description: "Define exactly what gets automated, triggers, logic, and fallbacks" },
       { title: "Integration mapping", description: "Document all connections to existing tools and data sources" },
       { title: "Change management plan", description: "How we'll transition the team: communication, training, rollout sequence" },
-      // Week 4–7: Core Build
+    ],
+    "Core Build": [
       { title: "Platform infrastructure", description: "Auth, hosting, CI/CD, base application framework" },
       { title: "Data migration & cleanup execution", description: "Move, clean, deduplicate, and structure client data" },
       { title: "Data validation checkpoint", description: "Client spot-checks migrated data for accuracy" },
@@ -170,21 +183,24 @@ const IMPLEMENTATION_TEMPLATE: TierTemplate = {
       { title: "Dashboard & reporting build", description: "Real-time dashboards tied to the new operational data" },
       { title: "Bi-weekly progress demo #2", description: "Second progress demo — system should be substantially functional" },
       { title: "Client feedback (demo #2)", description: "Written feedback within 3 business days" },
-      // Week 8–10: Integration & Refinement
+    ],
+    "Integration & Refinement": [
       { title: "Third-party integrations", description: "Connect to existing tools (accounting, CRM, email, etc.)" },
       { title: "Integration testing", description: "Verify all data flows correctly between systems" },
       { title: "Refinement sprint", description: "Address all feedback from demos — polish features and UX" },
       { title: "Internal QA — full test pass", description: "Functionality, edge cases, permissions, mobile, performance" },
       { title: "Bi-weekly progress demo #3", description: "Near-final demo — should feel ready for real use" },
       { title: "Security & permissions audit", description: "Verify access controls, data protection, and backup systems" },
-      // Week 11–12: Testing & Training
+    ],
+    "Testing & Training": [
       { title: "Client UAT (user acceptance testing)", description: "Client team tests system against real workflows for 1 week" },
       { title: "UAT issue resolution", description: "Fix everything surfaced in UAT" },
       { title: "Team training — session 1 (core users)", description: "Hands-on training with daily users — recorded" },
       { title: "Team training — session 2 (admin/owner)", description: "Admin functions, configuration, and troubleshooting for founder/ops lead" },
       { title: "Training documentation & SOPs", description: "Written guides for all key workflows and admin functions" },
       { title: "AI workflow training", description: "How the automations work, what to monitor, when to intervene" },
-      // Week 13–14: Launch & Stabilize
+    ],
+    "Launch & Stabilize": [
       { title: "Staged rollout plan", description: "Plan for phased go-live — not everything at once if team is large" },
       { title: "Production deployment", description: "Deploy to production environment" },
       { title: "Go-live monitoring (1 week)", description: "Active monitoring for errors, data issues, and performance" },

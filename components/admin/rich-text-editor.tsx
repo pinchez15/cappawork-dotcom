@@ -44,14 +44,14 @@ export function RichTextEditor({
   }
 
   return (
-    <div className="border border-stone-200 rounded-lg overflow-hidden">
-      <div className="border-b border-stone-200 p-2 flex gap-2 bg-stone-50">
+    <div className="border rounded-lg overflow-hidden">
+      <div className="border-b p-2 flex gap-2 bg-muted">
         <Button
           type="button"
           variant="ghost"
           size="sm"
           onClick={() => editor.chain().focus().toggleBold().run()}
-          className={editor.isActive("bold") ? "bg-stone-200" : ""}
+          className={editor.isActive("bold") ? "bg-accent" : ""}
         >
           <Bold className="h-4 w-4" />
         </Button>
@@ -60,7 +60,7 @@ export function RichTextEditor({
           variant="ghost"
           size="sm"
           onClick={() => editor.chain().focus().toggleItalic().run()}
-          className={editor.isActive("italic") ? "bg-stone-200" : ""}
+          className={editor.isActive("italic") ? "bg-accent" : ""}
         >
           <Italic className="h-4 w-4" />
         </Button>
@@ -69,7 +69,7 @@ export function RichTextEditor({
           variant="ghost"
           size="sm"
           onClick={() => editor.chain().focus().toggleBulletList().run()}
-          className={editor.isActive("bulletList") ? "bg-stone-200" : ""}
+          className={editor.isActive("bulletList") ? "bg-accent" : ""}
         >
           <List className="h-4 w-4" />
         </Button>
@@ -78,7 +78,7 @@ export function RichTextEditor({
           variant="ghost"
           size="sm"
           onClick={() => editor.chain().focus().toggleOrderedList().run()}
-          className={editor.isActive("orderedList") ? "bg-stone-200" : ""}
+          className={editor.isActive("orderedList") ? "bg-accent" : ""}
         >
           <ListOrdered className="h-4 w-4" />
         </Button>
@@ -92,7 +92,7 @@ export function RichTextEditor({
               editor.chain().focus().setLink({ href: url }).run();
             }
           }}
-          className={editor.isActive("link") ? "bg-stone-200" : ""}
+          className={editor.isActive("link") ? "bg-accent" : ""}
         >
           <LinkIcon className="h-4 w-4" />
         </Button>

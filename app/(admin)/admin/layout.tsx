@@ -4,6 +4,7 @@ import { UserButton } from "@clerk/nextjs";
 import { getProfileByClerkId } from "@/server/repos/profiles";
 import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
 import { AdminSidebar } from "@/components/admin/admin-sidebar";
+import { ThemeToggle } from "@/components/admin/theme-toggle";
 import { Separator } from "@/components/ui/separator";
 
 export const runtime = "nodejs";
@@ -35,9 +36,10 @@ export default async function AdminLayout({
           <SidebarTrigger className="-ml-2" />
           <Separator orientation="vertical" className="h-6" />
           <div className="flex-1" />
+          <ThemeToggle />
           <UserButton afterSignOutUrl="/" />
         </header>
-        <main className="flex-1 overflow-auto bg-warm-white">{children}</main>
+        <main className="flex-1 overflow-auto bg-background">{children}</main>
       </SidebarInset>
     </SidebarProvider>
   );

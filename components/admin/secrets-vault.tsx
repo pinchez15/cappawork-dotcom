@@ -187,11 +187,11 @@ export function SecretsVault({
             {secrets.map((secret) => (
               <div
                 key={secret.id}
-                className="border border-stone-200 rounded-lg p-4 space-y-3"
+                className="border rounded-lg p-4 space-y-3"
               >
                 <div className="flex justify-between items-start">
                   <div>
-                    <div className="font-medium text-stone-900">{secret.name}</div>
+                    <div className="font-medium text-foreground">{secret.name}</div>
                     <div className="text-sm text-stone-500 capitalize">{secret.type}</div>
                   </div>
                   <div className="flex gap-2">
@@ -226,7 +226,7 @@ export function SecretsVault({
                   </div>
                 </div>
                 {revealedSecrets[secret.id] && (
-                  <div className="bg-stone-50 p-3 rounded font-mono text-sm break-all">
+                  <div className="bg-muted p-3 rounded font-mono text-sm break-all">
                     {revealedSecrets[secret.id]}
                   </div>
                 )}

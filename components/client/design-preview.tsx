@@ -88,7 +88,7 @@ export function DesignPreview({ design }: DesignPreviewProps) {
               <Clock className="h-8 w-8 text-stone-400" />
             </div>
             <div>
-              <h3 className="text-lg font-medium text-stone-900 mb-1">
+              <h3 className="text-lg font-medium text-foreground mb-1">
                 Design Configuration Pending
               </h3>
               <p className="text-stone-500 max-w-md">
@@ -194,7 +194,7 @@ export function DesignPreview({ design }: DesignPreviewProps) {
                 <Type className="h-4 w-4" />
                 Typography
               </h4>
-              <div className="bg-stone-50 rounded-lg p-4 space-y-3">
+              <div className="bg-muted rounded-lg p-4 space-y-3">
                 {design.heading_font && (
                   <div>
                     <span className="text-xs text-stone-500 block mb-1">Headings</span>

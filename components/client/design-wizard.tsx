@@ -94,7 +94,7 @@ export function DesignWizard({ projectId, themes, initialDesign }: DesignWizardP
   return (
     <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-semibold text-stone-900 mb-2">
+        <h1 className="text-3xl font-semibold text-foreground mb-2">
           Design Selection
         </h1>
         <p className="text-stone-600">
@@ -289,7 +289,7 @@ export function DesignWizard({ projectId, themes, initialDesign }: DesignWizardP
               <div className="space-y-4 border border-stone-200 rounded-lg p-4">
                 <div>
                   <div className="text-sm font-medium text-stone-700">Theme</div>
-                  <div className="text-stone-900">
+                  <div className="text-foreground">
                     {themes.find((t) => t.id === design.theme_id)?.name || "Not selected"}
                   </div>
                 </div>
@@ -319,7 +319,7 @@ export function DesignWizard({ projectId, themes, initialDesign }: DesignWizardP
                 {(design.heading_font || design.body_font) && (
                   <div>
                     <div className="text-sm font-medium text-stone-700">Typography</div>
-                    <div className="text-stone-900">
+                    <div className="text-foreground">
                       {design.heading_font && `Heading: ${design.heading_font}`}
                       {design.heading_font && design.body_font && " • "}
                       {design.body_font && `Body: ${design.body_font}`}
@@ -329,7 +329,7 @@ export function DesignWizard({ projectId, themes, initialDesign }: DesignWizardP
                 {design.corner_radius && (
                   <div>
                     <div className="text-sm font-medium text-stone-700">Corner Radius</div>
-                    <div className="text-stone-900 capitalize">{design.corner_radius}</div>
+                    <div className="text-foreground capitalize">{design.corner_radius}</div>
                   </div>
                 )}
               </div>

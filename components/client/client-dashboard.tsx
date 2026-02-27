@@ -135,7 +135,7 @@ export function ClientDashboard({
               {/* Project Info */}
               <div className="flex-1 text-center lg:text-left">
                 <div className="flex items-center justify-center lg:justify-start gap-3 mb-3">
-                  <h2 className="text-2xl lg:text-3xl font-bold text-navy tracking-tight">
+                  <h2 className="text-2xl lg:text-3xl font-bold text-foreground tracking-tight">
                     {project.name}
                   </h2>
                   <Badge
@@ -152,24 +152,24 @@ export function ClientDashboard({
 
                 {/* Key Metrics */}
                 <div className="flex flex-wrap items-center justify-center lg:justify-start gap-6 text-sm">
-                  <div className="flex items-center gap-2.5 bg-white/80 rounded-full px-4 py-2 shadow-sm border border-stone-200/60">
+                  <div className="flex items-center gap-2.5 bg-card/80 rounded-full px-4 py-2 shadow-sm border border-stone-200/60">
                     <CheckCircle2 className="h-4 w-4 text-phase-completed" />
                     <span className="text-stone-500">
-                      <span className="font-semibold text-navy">
+                      <span className="font-semibold text-foreground">
                         {completedTasks}
                       </span>{" "}
                       of{" "}
-                      <span className="font-semibold text-navy">
+                      <span className="font-semibold text-foreground">
                         {totalTasks}
                       </span>{" "}
                       tasks
                     </span>
                   </div>
-                  <div className="flex items-center gap-2.5 bg-white/80 rounded-full px-4 py-2 shadow-sm border border-stone-200/60">
+                  <div className="flex items-center gap-2.5 bg-card/80 rounded-full px-4 py-2 shadow-sm border border-stone-200/60">
                     <Sparkles className="h-4 w-4 text-phase-active" />
                     <span className="text-stone-500">
                       Current:{" "}
-                      <span className="font-semibold text-navy">
+                      <span className="font-semibold text-foreground">
                         {currentPhase?.name}
                       </span>
                     </span>
@@ -209,10 +209,10 @@ export function ClientDashboard({
                   <div
                     className={`relative p-4 rounded-xl border-2 transition-all duration-300 ${
                       isComplete
-                        ? "bg-gradient-to-b from-emerald-50 to-white border-emerald-300 shadow-sm"
+                        ? "bg-gradient-to-b from-emerald-50/80 to-card border-emerald-300 shadow-sm"
                         : isCurrent
-                          ? "bg-gradient-to-b from-gold/10 to-white border-gold shadow-md ring-1 ring-gold/30"
-                          : "bg-stone-50/50 border-stone-200"
+                          ? "bg-gradient-to-b from-gold/10 to-card border-gold shadow-md ring-1 ring-gold/30"
+                          : "bg-muted/50 border-border"
                     }`}
                   >
                     {/* Status Icon */}
@@ -338,7 +338,7 @@ function QuickActionCard({
             />
           </div>
           <div className="flex-1">
-            <div className="font-semibold text-navy">{title}</div>
+            <div className="font-semibold text-foreground">{title}</div>
             <div className="text-sm text-stone-500">{description}</div>
           </div>
           <ArrowRight className="h-4 w-4 text-stone-300 group-hover:text-stone-500 group-hover:translate-x-0.5 transition-all" />

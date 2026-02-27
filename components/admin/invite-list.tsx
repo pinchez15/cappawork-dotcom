@@ -55,7 +55,7 @@ export function InviteList({ invites, organizationId }: InviteListProps) {
           <div className="flex items-center gap-3">
             <Mail className="h-4 w-4 text-amber-600" />
             <div>
-              <p className="font-medium text-stone-900">{invite.email}</p>
+              <p className="font-medium text-foreground">{invite.email}</p>
               <p className="text-xs text-stone-500">
                 Sent {new Date(invite.created_at).toLocaleDateString()}
               </p>

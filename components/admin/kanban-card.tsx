@@ -67,7 +67,7 @@ export function KanbanCard({ task, projectId, onUpdate }: KanbanCardProps) {
           <div className="flex-1 min-w-0">
             <div
               className={`text-sm font-medium ${
-                task.is_completed ? "line-through text-stone-500" : "text-stone-900"
+                task.is_completed ? "line-through text-muted-foreground" : "text-card-foreground"
               }`}
             >
               {task.title}

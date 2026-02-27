@@ -32,7 +32,7 @@ export default async function AdminDashboard() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-3xl font-semibold text-navy">Projects</h1>
+          <h1 className="text-3xl font-semibold text-foreground">Projects</h1>
           <p className="text-stone-500 mt-1">Manage all client projects</p>
         </div>
         <Link href="/admin/projects/new">
