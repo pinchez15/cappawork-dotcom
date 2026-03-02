@@ -45,7 +45,7 @@ export function AdminSidebar() {
 
   return (
     <Sidebar>
-      <SidebarHeader className="border-b px-4 py-4">
+      <SidebarHeader className="border-b px-4 h-14 flex justify-center">
         <Link href="/admin" className="flex items-center gap-2">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
             <span className="text-sm font-bold">C</span>
