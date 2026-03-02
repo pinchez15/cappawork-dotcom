@@ -27,7 +27,7 @@ export default async function ProjectsPage() {
   if (!profile) {
     // Profile not synced yet - should not happen, but handle gracefully
     return (
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-stone-50">
         <header className="border-b border-white/10 bg-navy">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center h-16">
@@ -100,7 +100,7 @@ export default async function ProjectsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-stone-50">
       {/* Header */}
       <header className="border-b border-white/10 bg-navy sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -131,17 +131,17 @@ export default async function ProjectsPage() {
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-semibold text-foreground">My Projects</h1>
+          <h1 className="text-3xl font-semibold text-stone-900">My Projects</h1>
           <p className="text-stone-500 mt-1">
             View progress and details for your active projects
           </p>
         </div>
 
         {projects.length === 0 ? (
-          <Card>
+          <Card className="bg-white">
             <CardContent className="pt-6">
               <div className="text-center py-12">
-                <div className="mx-auto w-16 h-16 bg-card-light rounded-full flex items-center justify-center mb-4">
+                <div className="mx-auto w-16 h-16 bg-stone-100 rounded-full flex items-center justify-center mb-4">
                   <FolderKanban className="h-8 w-8 text-stone-400" />
                 </div>
                 <p className="text-stone-500 mb-2">
@@ -159,10 +159,10 @@ export default async function ProjectsPage() {
               const tierInfo = getTierInfo(project.service_tier);
               return (
                 <Link key={project.id} href={`/projects/${project.id}`}>
-                  <Card className="hover:shadow-lg hover:border-primary/30 transition-all cursor-pointer h-full group">
+                  <Card className="bg-white hover:shadow-lg hover:border-primary/30 transition-all cursor-pointer h-full group">
                     <CardHeader>
                       <div className="flex justify-between items-start gap-2">
-                        <CardTitle className="text-xl group-hover:text-primary transition-colors">
+                        <CardTitle className="text-xl text-stone-900 group-hover:text-primary transition-colors">
                           {project.name}
                         </CardTitle>
                         <Badge

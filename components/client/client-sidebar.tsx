@@ -208,7 +208,7 @@ export function ClientSidebar({
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>
                   <a
-                    href="mailto:support@cappawork.com"
+                    href="mailto:nate@cappawork.com"
                     className="flex items-center"
                   >
                     <MessageCircle className="h-4 w-4" />

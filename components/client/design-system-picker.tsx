@@ -258,7 +258,7 @@ export function DesignSystemPicker({
   };
 
   return (
-    <div className="flex flex-col lg:flex-row gap-6 h-full">
+    <div className="flex flex-col lg:flex-row gap-6">
       {/* Left Panel - Style Picker */}
       <div className="lg:w-80 flex-shrink-0 space-y-4">
         <div>
@@ -302,8 +302,8 @@ export function DesignSystemPicker({
         </div>
       </div>
 
-      {/* Right Panel - Live Preview */}
-      <div className="flex-1 min-w-0">
+      {/* Right Panel - Live Preview (sticky) */}
+      <div className="flex-1 min-w-0 lg:self-start lg:sticky lg:top-4">
         <h3 className="text-sm font-medium text-stone-500 mb-3">Live Preview</h3>
         <div ref={previewRef} className="rounded-xl border border-stone-200 overflow-hidden bg-stone-100">
           <DashboardPreview system={activeSystem} />

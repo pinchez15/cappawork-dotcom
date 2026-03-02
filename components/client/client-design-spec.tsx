@@ -102,16 +102,12 @@ export function ClientDesignSpec({ design, projectId }: ClientDesignSpecProps) {
           </CardContent>
         </Card>
 
-        {/* Design System Picker */}
-        <Card>
-          <CardContent className="pt-6">
-            <DesignSystemPicker
-              selectedId={undefined}
-              onSelect={handleSelect}
-              readOnly={false}
-            />
-          </CardContent>
-        </Card>
+        {/* Design System Picker (no Card wrapper so sticky preview works) */}
+        <DesignSystemPicker
+          selectedId={undefined}
+          onSelect={handleSelect}
+          readOnly={false}
+        />
 
         {/* Save Button */}
         {selectedSystem && (
@@ -175,16 +171,12 @@ export function ClientDesignSpec({ design, projectId }: ClientDesignSpecProps) {
         </Card>
       )}
 
-      {/* Design System Picker */}
-      <Card>
-        <CardContent className="pt-6">
-          <DesignSystemPicker
-            selectedId={selectedSystem?.id || design?.theme_id || "executive"}
-            onSelect={handleSelect}
-            readOnly={isFinalized}
-          />
-        </CardContent>
-      </Card>
+      {/* Design System Picker (no Card wrapper so sticky preview works) */}
+      <DesignSystemPicker
+        selectedId={selectedSystem?.id || design?.theme_id || "executive"}
+        onSelect={handleSelect}
+        readOnly={isFinalized}
+      />
 
       {/* Save Button */}
       {hasChanges && !isFinalized && (
