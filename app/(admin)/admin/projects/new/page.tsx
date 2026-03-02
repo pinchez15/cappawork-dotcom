@@ -1,5 +1,10 @@
 import { redirect } from "next/navigation";
-import { createProject, ServiceTier } from "@/server/repos/projects";
+import {
+  createProject,
+  assignProjectToOrganization,
+  ServiceTier,
+} from "@/server/repos/projects";
+import { getOrganizationByClerkId } from "@/server/repos/organizations";
 import { initializeKanbanForProject } from "@/server/services/kanban-templates";
 import { requireAdmin } from "@/lib/auth/guards";
 import { ProjectForm } from "@/components/admin/project-form";
@@ -9,7 +14,7 @@ export const runtime = "nodejs";
 export default function NewProjectPage() {
   async function createProjectAction(formData: FormData) {
     "use server";
-    await requireAdmin();
+    const user = await requireAdmin();
 
     const name = formData.get("name") as string;
     const description = formData.get("description") as string;
@@ -28,6 +33,14 @@ export default function NewProjectPage() {
       description: description || undefined,
       service_tier: serviceTier,
     });
+
+    // Auto-assign to admin's org so project is visible in portal for prep
+    if (user.orgId) {
+      const org = await getOrganizationByClerkId(user.orgId);
+      if (org) {
+        await assignProjectToOrganization(project.id, org.id);
+      }
+    }
 
     // Initialize kanban board with tier-specific template
     await initializeKanbanForProject(project.id, serviceTier);
