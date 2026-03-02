@@ -1,9 +1,4 @@
--- Drop old Stripe billing tables and column
-DROP TABLE IF EXISTS public.stripe_invoices CASCADE;
-DROP TABLE IF EXISTS public.stripe_subscriptions CASCADE;
-ALTER TABLE public.organizations DROP COLUMN IF EXISTS stripe_customer_id;
-
--- New billing_links table for Stripe Payment Links
+-- Billing links table for admin-managed Stripe Payment Links
 CREATE TABLE public.billing_links (
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
   organization_id uuid NOT NULL REFERENCES public.organizations(id) ON DELETE CASCADE,
