@@ -8,6 +8,7 @@ import { ClientDesignSpec } from "./client-design-spec";
 import { ClientAttachments } from "./client-attachments";
 import { ClientDashboard } from "./client-dashboard";
 import { ClientMessages } from "./client-messages";
+import { ClientMeetings } from "./client-meetings";
 import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -29,6 +30,19 @@ interface Message {
   };
 }
 
+interface Meeting {
+  id: string;
+  title: string;
+  start_time: string;
+  end_time: string;
+  location_url: string | null;
+  status: string;
+  invitee_name: string | null;
+  invitee_email: string | null;
+  event_type_name: string | null;
+  calendly_cancel_url: string | null;
+}
+
 interface ClientProjectViewProps {
   project: any;
   phases: any[];
@@ -37,7 +51,10 @@ interface ClientProjectViewProps {
   design: any;
   attachments: any[];
   messages?: Message[];
+  meetings?: Meeting[];
   currentProfileId?: string;
+  currentUserName?: string;
+  currentUserEmail?: string;
 }
 
 export function ClientProjectView({
@@ -48,7 +65,10 @@ export function ClientProjectView({
   design,
   attachments,
   messages = [],
+  meetings = [],
   currentProfileId,
+  currentUserName = "",
+  currentUserEmail = "",
 }: ClientProjectViewProps) {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -61,6 +81,7 @@ export function ClientProjectView({
     : tabParam === "urls" ? "urls"
     : tabParam === "design" ? "design"
     : tabParam === "messages" ? "messages"
+    : tabParam === "meetings" ? "meetings"
     : "dashboard";
 
   const handoffPhase = phases.find((p) => p.name === "Handoff");
@@ -137,6 +158,15 @@ export function ClientProjectView({
             projectId={project.id}
             messages={messages}
             currentProfileId={currentProfileId || ""}
+          />
+        </TabsContent>
+
+        <TabsContent value="meetings" className="mt-0">
+          <ClientMeetings
+            projectId={project.id}
+            meetings={meetings}
+            currentUserName={currentUserName}
+            currentUserEmail={currentUserEmail}
           />
         </TabsContent>
       </Tabs>

@@ -9,6 +9,7 @@ import {
   getAllProjects,
 } from "@/server/repos/projects";
 import { getInvitesForOrganization } from "@/server/repos/organization-invites";
+import { getBillingLinksForOrganization } from "@/server/repos/billing-links";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -23,6 +24,7 @@ import { ProjectAssignment } from "@/components/admin/project-assignment";
 import { InviteList } from "@/components/admin/invite-list";
 import { InviteForm } from "@/components/admin/invite-form";
 import { DeleteClientButton } from "@/components/admin/delete-client-button";
+import { ClientBillingLinks } from "@/components/admin/client-billing-links";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -34,13 +36,14 @@ interface Props {
 export default async function ClientDetailPage({ params }: Props) {
   const { orgId } = await params;
 
-  const [organization, members, projects, invites, allProjects] =
+  const [organization, members, projects, invites, allProjects, billingLinks] =
     await Promise.all([
       getOrganizationById(orgId),
       getOrganizationMembers(orgId),
       getProjectsForOrganization(orgId),
       getInvitesForOrganization(orgId),
       getAllProjects(),
+      getBillingLinksForOrganization(orgId),
     ]);
 
   if (!organization) {
@@ -181,6 +184,15 @@ export default async function ClientDetailPage({ params }: Props) {
             </CardContent>
           </Card>
         </div>
+      </div>
+
+      {/* Billing */}
+      <div className="mt-8">
+        <ClientBillingLinks
+          organizationId={organization.id}
+          billingLinks={billingLinks}
+          projects={projects}
+        />
       </div>
     </div>
   );

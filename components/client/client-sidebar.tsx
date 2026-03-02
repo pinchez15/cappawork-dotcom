@@ -26,6 +26,8 @@ import {
   Palette,
   Key,
   MessageCircle,
+  Calendar,
+  CreditCard,
 } from "lucide-react";
 
 interface ClientSidebarProps {
@@ -35,6 +37,7 @@ interface ClientSidebarProps {
   urlsCount?: number;
   isHandoffReady?: boolean;
   messagesUnreadCount?: number;
+  upcomingMeetingsCount?: number;
 }
 
 export function ClientSidebar({
@@ -44,6 +47,7 @@ export function ClientSidebar({
   urlsCount = 0,
   isHandoffReady = false,
   messagesUnreadCount = 0,
+  upcomingMeetingsCount = 0,
 }: ClientSidebarProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -94,6 +98,13 @@ export function ClientSidebar({
       href: `/projects/${project.id}?tab=messages`,
       tab: "messages",
       badge: messagesUnreadCount > 0 ? messagesUnreadCount : null,
+    },
+    {
+      title: "Meetings",
+      icon: Calendar,
+      href: `/projects/${project.id}?tab=meetings`,
+      tab: "meetings",
+      badge: upcomingMeetingsCount > 0 ? upcomingMeetingsCount : null,
     },
   ];
 
@@ -194,6 +205,25 @@ export function ClientSidebar({
                   </SidebarMenuItem>
                 );
               })}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        <SidebarSeparator />
+
+        {/* Account */}
+        <SidebarGroup>
+          <SidebarGroupLabel>Account</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild isActive={pathname === "/billing"}>
+                  <Link href="/billing">
+                    <CreditCard className="h-4 w-4" />
+                    <span>Billing</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>

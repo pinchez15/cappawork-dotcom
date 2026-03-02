@@ -12,6 +12,7 @@ import { ActivityTracker } from "@/components/client/activity-tracker";
 import { UserButton } from "@clerk/nextjs";
 import { Separator } from "@/components/ui/separator";
 import { getUnreadCountForProject } from "@/server/repos/messages";
+import { getMeetingsForProject } from "@/server/repos/meetings";
 
 export const runtime = "nodejs";
 
@@ -126,8 +127,15 @@ export default async function ProjectLayout({
     (t) => t.phase_id === handoffPhase.id && t.is_completed
   );
 
-  // Get unread message count for this project
-  const messagesUnreadCount = await getUnreadCountForProject(id, profile.id);
+  // Get unread message count and upcoming meetings count
+  const [messagesUnreadCount, projectMeetings] = await Promise.all([
+    getUnreadCountForProject(id, profile.id),
+    getMeetingsForProject(id),
+  ]);
+
+  const upcomingMeetingsCount = projectMeetings.filter(
+    (m: any) => m.status === "scheduled" && new Date(m.start_time) >= new Date()
+  ).length;
 
   return (
     <SidebarProvider>
@@ -139,6 +147,7 @@ export default async function ProjectLayout({
         urlsCount={urls.length}
         isHandoffReady={isHandoffReady}
         messagesUnreadCount={messagesUnreadCount}
+        upcomingMeetingsCount={upcomingMeetingsCount}
       />
       <SidebarInset>
         <header className="flex h-14 items-center gap-4 border-b bg-background px-6">
@@ -147,7 +156,7 @@ export default async function ProjectLayout({
           <div className="flex-1" />
           <UserButton afterSignOutUrl="/" />
         </header>
-        <main className="flex-1 overflow-auto bg-stone-50">{children}</main>
+        <main className="flex-1 overflow-auto bg-background">{children}</main>
       </SidebarInset>
     </SidebarProvider>
   );
