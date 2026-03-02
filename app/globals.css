@@ -146,6 +146,28 @@
     --sidebar-border: 222 25% 16%;
     --sidebar-ring: 39 55% 58%;
   }
+  /* Force light mode on portal content when nested inside .dark */
+  .light {
+    --background: 60 7% 98%;
+    --foreground: 222 47% 8%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 8%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 8%;
+    --primary: 39 55% 58%;
+    --primary-foreground: 222 47% 8%;
+    --secondary: 40 10% 95%;
+    --secondary-foreground: 222 47% 8%;
+    --muted: 40 10% 95%;
+    --muted-foreground: 222 10% 45%;
+    --accent: 40 10% 95%;
+    --accent-foreground: 222 47% 8%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 40 10% 88%;
+    --input: 40 10% 88%;
+    --ring: 39 55% 58%;
+  }
 }
 
 @layer base {
