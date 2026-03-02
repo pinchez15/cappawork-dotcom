@@ -4,8 +4,8 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { Card, CardContent } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
-import { updateTask } from "@/server/repos/kanban";
-import { useState } from "react";
+import { toggleTaskAction } from "@/server/actions/kanban";
+import { GripVertical } from "lucide-react";
 
 interface Task {
   id: string;
@@ -20,13 +20,15 @@ interface KanbanCardProps {
   task: Task;
   projectId: string;
   onUpdate: (task: Task) => void;
+  onCardClick: (task: Task) => void;
 }
 
-export function KanbanCard({ task, projectId, onUpdate }: KanbanCardProps) {
+export function KanbanCard({ task, projectId, onUpdate, onCardClick }: KanbanCardProps) {
   const {
     attributes,
     listeners,
     setNodeRef,
+    setActivatorNodeRef,
     transform,
     transition,
     isDragging,
@@ -40,7 +42,7 @@ export function KanbanCard({ task, projectId, onUpdate }: KanbanCardProps) {
 
   const handleToggleComplete = async (checked: boolean) => {
     try {
-      const updated = await updateTask(task.id, { is_completed: checked });
+      const updated = await toggleTaskAction(task.id, checked);
       onUpdate(updated);
     } catch (error) {
       console.error("Failed to update task:", error);
@@ -52,17 +54,26 @@ export function KanbanCard({ task, projectId, onUpdate }: KanbanCardProps) {
       ref={setNodeRef}
       style={style}
       {...attributes}
-      {...listeners}
-      className={`cursor-grab active:cursor-grabbing ${
+      className={`cursor-pointer hover:ring-1 hover:ring-stone-300 transition-shadow ${
         task.is_completed ? "opacity-60" : ""
       }`}
+      onClick={() => onCardClick(task)}
     >
       <CardContent className="p-3">
         <div className="flex items-start gap-2">
+          <button
+            ref={setActivatorNodeRef}
+            {...listeners}
+            className="mt-0.5 cursor-grab active:cursor-grabbing text-stone-300 hover:text-stone-500 transition-colors shrink-0"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <GripVertical className="h-4 w-4" />
+          </button>
           <Checkbox
             checked={task.is_completed}
             onCheckedChange={handleToggleComplete}
             onClick={(e) => e.stopPropagation()}
+            className="mt-0.5 shrink-0"
           />
           <div className="flex-1 min-w-0">
             <div
@@ -83,4 +94,3 @@ export function KanbanCard({ task, projectId, onUpdate }: KanbanCardProps) {
     </Card>
   );
 }
-

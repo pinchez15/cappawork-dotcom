@@ -106,6 +106,14 @@ export function ProjectDetailView({
               {tierInfo.label}
             </Badge>
           )}
+          {allOrganizations !== undefined && (
+            <ProjectClientAssignment
+              projectId={project.id}
+              currentOrganization={currentOrganization ?? null}
+              allOrganizations={allOrganizations}
+              variant="compact"
+            />
+          )}
           <div className="ml-auto">
             <AlertDialog>
               <AlertDialogTrigger asChild>
@@ -142,17 +150,6 @@ export function ProjectDetailView({
           <p className="text-stone-500">{project.description}</p>
         )}
       </div>
-
-      {/* Client Assignment */}
-      {allOrganizations !== undefined && (
-        <div className="mb-8">
-          <ProjectClientAssignment
-            projectId={project.id}
-            currentOrganization={currentOrganization ?? null}
-            allOrganizations={allOrganizations}
-          />
-        </div>
-      )}
 
       {/* Tabs */}
       <Tabs defaultValue="kanban" className="space-y-6">

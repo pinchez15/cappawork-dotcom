@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   DndContext,
   DragEndEvent,
@@ -16,9 +16,7 @@ import {
   arrayMove,
 } from "@dnd-kit/sortable";
 import { KanbanColumn } from "./kanban-column";
-import { KanbanCard } from "./kanban-card";
-import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
+import { KanbanTaskDetail } from "./kanban-task-detail";
 import { reorderTasksAction } from "@/server/actions/kanban";
 
 interface Phase {
@@ -47,10 +45,12 @@ export function KanbanBoard({
   initialPhases,
   initialTasks,
 }: KanbanBoardProps) {
-  const [phases, setPhases] = useState(initialPhases);
+  const [phases] = useState(initialPhases);
   const [tasks, setTasks] = useState(initialTasks);
   const [activeTask, setActiveTask] = useState<Task | null>(null);
   const [isReordering, setIsReordering] = useState(false);
+  const [expandedPhaseId, setExpandedPhaseId] = useState<string | null>(null);
+  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -152,6 +152,24 @@ export function KanbanBoard({
       .sort((a, b) => a.order_index - b.order_index);
   };
 
+  const handleToggleExpand = (phaseId: string) => {
+    setExpandedPhaseId((prev) => (prev === phaseId ? null : phaseId));
+  };
+
+  const handleTaskUpdate = (updatedTask: Task) => {
+    setTasks((prev) =>
+      prev.map((t) => (t.id === updatedTask.id ? updatedTask : t))
+    );
+    // Also update selectedTask if it's the one being edited
+    if (selectedTask?.id === updatedTask.id) {
+      setSelectedTask(updatedTask);
+    }
+  };
+
+  const handleTaskDelete = (taskId: string) => {
+    setTasks((prev) => prev.filter((t) => t.id !== taskId));
+  };
+
   return (
     <div className="space-y-4">
       <DndContext
@@ -166,11 +184,11 @@ export function KanbanBoard({
               phase={phase}
               tasks={getTasksForPhase(phase.id)}
               projectId={projectId}
-              onTaskUpdate={(updatedTask) => {
-                setTasks((prev) =>
-                  prev.map((t) => (t.id === updatedTask.id ? updatedTask : t))
-                );
-              }}
+              onTaskUpdate={handleTaskUpdate}
+              onCardClick={setSelectedTask}
+              isExpanded={expandedPhaseId === phase.id}
+              isCollapsed={expandedPhaseId !== null && expandedPhaseId !== phase.id}
+              onToggleExpand={() => handleToggleExpand(phase.id)}
             />
           ))}
         </div>
@@ -182,7 +200,17 @@ export function KanbanBoard({
           ) : null}
         </DragOverlay>
       </DndContext>
+
+      <KanbanTaskDetail
+        task={selectedTask}
+        phases={phases}
+        open={selectedTask !== null}
+        onOpenChange={(open) => {
+          if (!open) setSelectedTask(null);
+        }}
+        onTaskUpdate={handleTaskUpdate}
+        onTaskDelete={handleTaskDelete}
+      />
     </div>
   );
 }
-
