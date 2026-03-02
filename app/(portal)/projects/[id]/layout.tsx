@@ -8,8 +8,10 @@ import { getProfileByClerkId } from "@/server/repos/profiles";
 import { supabaseAdmin } from "@/lib/db/client";
 import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
 import { ClientSidebar } from "@/components/client/client-sidebar";
+import { ActivityTracker } from "@/components/client/activity-tracker";
 import { UserButton } from "@clerk/nextjs";
 import { Separator } from "@/components/ui/separator";
+import { getUnreadCountForProject } from "@/server/repos/messages";
 
 export const runtime = "nodejs";
 
@@ -124,14 +126,19 @@ export default async function ProjectLayout({
     (t) => t.phase_id === handoffPhase.id && t.is_completed
   );
 
+  // Get unread message count for this project
+  const messagesUnreadCount = await getUnreadCountForProject(id, profile.id);
+
   return (
     <SidebarProvider>
+      {!profile.is_admin && <ActivityTracker projectId={id} />}
       <ClientSidebar
         project={project}
         projects={userProjects}
         attachmentsCount={attachments.length}
         urlsCount={urls.length}
         isHandoffReady={isHandoffReady}
+        messagesUnreadCount={messagesUnreadCount}
       />
       <SidebarInset>
         <header className="flex h-14 items-center gap-4 border-b bg-background px-6">

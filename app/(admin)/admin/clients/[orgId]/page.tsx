@@ -22,6 +22,7 @@ import { ArrowLeft, Building2 } from "lucide-react";
 import { ProjectAssignment } from "@/components/admin/project-assignment";
 import { InviteList } from "@/components/admin/invite-list";
 import { InviteForm } from "@/components/admin/invite-form";
+import { DeleteClientButton } from "@/components/admin/delete-client-button";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -79,13 +80,20 @@ export default async function ClientDetailPage({ params }: Props) {
               <Building2 className="h-8 w-8 text-stone-500" />
             </div>
           )}
-          <div>
+          <div className="flex-1">
             <h1 className="text-3xl font-semibold text-stone-900">
               {organization.name}
             </h1>
             {organization.slug && (
               <p className="text-stone-600 mt-1">@{organization.slug}</p>
             )}
+          </div>
+          <div className="ml-auto self-center">
+            <DeleteClientButton
+              orgId={organization.id}
+              clerkOrgId={organization.clerk_org_id}
+              orgName={organization.name}
+            />
           </div>
         </div>
       </div>

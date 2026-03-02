@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { KanbanBoard } from "./kanban-board";
 import { PRDEditor } from "./prd-editor";
@@ -8,14 +9,43 @@ import { URLsSection } from "./urls-section";
 import { DesignSpec } from "./design-spec";
 import { FileAttachments } from "./file-attachments";
 import { ProjectClientAssignment } from "./project-client-assignment";
+import { ProjectMessages } from "./project-messages";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { getTierInfo } from "@/lib/animations";
-import { Kanban, FileText, FolderOpen, Key, Link2, Palette } from "lucide-react";
+import { deleteProjectAction } from "@/server/actions/projects";
+import { Kanban, FileText, FolderOpen, Key, Link2, Palette, Trash2, MessageCircle } from "lucide-react";
 
 interface Organization {
   id: string;
   name: string;
   slug: string | null;
+}
+
+interface Message {
+  id: string;
+  project_id: string;
+  sender_profile_id: string;
+  content: string;
+  is_read: boolean;
+  created_at: string;
+  sender: {
+    id: string;
+    name: string | null;
+    email: string;
+    is_admin: boolean;
+  };
 }
 
 interface ProjectDetailViewProps {
@@ -28,6 +58,8 @@ interface ProjectDetailViewProps {
   attachments: any[];
   currentOrganization?: Organization | null;
   allOrganizations?: Organization[];
+  messages?: Message[];
+  currentProfileId?: string;
 }
 
 export function ProjectDetailView({
@@ -40,8 +72,15 @@ export function ProjectDetailView({
   attachments,
   currentOrganization,
   allOrganizations,
+  messages = [],
+  currentProfileId,
 }: ProjectDetailViewProps) {
   const tierInfo = getTierInfo(project.service_tier);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const unreadCount = messages.filter(
+    (m) => !m.is_read && m.sender_profile_id !== currentProfileId
+  ).length;
 
   return (
     <div className="p-6 overflow-hidden min-w-0">
@@ -67,6 +106,37 @@ export function ProjectDetailView({
               {tierInfo.label}
             </Badge>
           )}
+          <div className="ml-auto">
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button variant="ghost" size="sm" className="text-red-600 hover:text-red-700 hover:bg-red-50">
+                  <Trash2 className="h-4 w-4 mr-1" />
+                  Delete Project
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Delete &ldquo;{project.name}&rdquo;?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This will permanently delete this project and all associated data including kanban boards, secrets, files, URLs, and design specs. This action cannot be undone.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction
+                    className="bg-red-600 hover:bg-red-700"
+                    disabled={isDeleting}
+                    onClick={async () => {
+                      setIsDeleting(true);
+                      await deleteProjectAction(project.id);
+                    }}
+                  >
+                    {isDeleting ? "Deleting..." : "Delete Project"}
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          </div>
         </div>
         {project.description && (
           <p className="text-stone-500">{project.description}</p>
@@ -111,6 +181,15 @@ export function ProjectDetailView({
             <Palette className="h-4 w-4" />
             Design
           </TabsTrigger>
+          <TabsTrigger value="messages" className="gap-2">
+            <MessageCircle className="h-4 w-4" />
+            Messages
+            {unreadCount > 0 && (
+              <Badge className="ml-1 h-5 px-1.5 text-xs bg-blue-600 text-white">
+                {unreadCount}
+              </Badge>
+            )}
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="kanban">
@@ -139,6 +218,14 @@ export function ProjectDetailView({
 
         <TabsContent value="design">
           <DesignSpec projectId={project.id} initialDesign={design} />
+        </TabsContent>
+
+        <TabsContent value="messages">
+          <ProjectMessages
+            projectId={project.id}
+            messages={messages}
+            currentProfileId={currentProfileId || ""}
+          />
         </TabsContent>
       </Tabs>
     </div>

@@ -20,6 +20,7 @@ import {
   FolderKanban,
   FileText,
   MessageCircle,
+  Activity,
 } from "lucide-react";
 
 export function AdminSidebar() {
@@ -35,6 +36,11 @@ export function AdminSidebar() {
       title: "Clients",
       icon: Users,
       href: "/admin/clients",
+    },
+    {
+      title: "Activity",
+      icon: Activity,
+      href: "/admin/activity",
     },
     {
       title: "Blog",

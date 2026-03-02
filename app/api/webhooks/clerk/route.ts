@@ -141,6 +141,23 @@ export async function POST(req: Request) {
         await updateInviteStatusByClerkId(id, "revoked");
         break;
       }
+      case "session.created": {
+        const { user_id } = evt.data;
+        try {
+          const { getProfileByClerkId } = await import("@/server/repos/profiles");
+          const { createActivityEvent } = await import("@/server/repos/activity");
+          const profile = await getProfileByClerkId(user_id);
+          if (profile && !profile.is_admin) {
+            await createActivityEvent({
+              profile_id: profile.id,
+              event_type: "login",
+            });
+          }
+        } catch (e) {
+          console.error("Failed to log login event:", e);
+        }
+        break;
+      }
       default:
         console.log(`Unhandled event type: ${eventType}`);
     }

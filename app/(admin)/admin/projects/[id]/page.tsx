@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { auth } from "@clerk/nextjs/server";
 import { getProjectById } from "@/server/repos/projects";
 import { getPhasesForProject, getTasksForProject } from "@/server/repos/kanban";
 import { getSecretsForProject } from "@/server/repos/secrets";
@@ -6,6 +7,8 @@ import { getUrlsForProject } from "@/server/repos/urls";
 import { getDesignForProject } from "@/server/repos/design";
 import { getAttachmentsForProject } from "@/server/repos/attachments";
 import { getAllOrganizations, getOrganizationById } from "@/server/repos/organizations";
+import { getMessagesForProject } from "@/server/repos/messages";
+import { getProfileByClerkId } from "@/server/repos/profiles";
 import { ProjectDetailView } from "@/components/admin/project-detail-view";
 
 export const runtime = "nodejs";
@@ -18,7 +21,9 @@ export default async function ProjectDetailPage({
 }) {
   const { id } = await params;
 
-  const [project, phases, tasks, secrets, urls, design, attachments, allOrganizations] = await Promise.all([
+  const { userId } = await auth();
+
+  const [project, phases, tasks, secrets, urls, design, attachments, allOrganizations, messages] = await Promise.all([
     getProjectById(id),
     getPhasesForProject(id),
     getTasksForProject(id),
@@ -27,11 +32,15 @@ export default async function ProjectDetailPage({
     getDesignForProject(id),
     getAttachmentsForProject(id),
     getAllOrganizations(),
+    getMessagesForProject(id),
   ]);
 
   if (!project) {
     redirect("/admin");
   }
+
+  // Get admin profile ID
+  const profile = userId ? await getProfileByClerkId(userId) : null;
 
   // If assigned to an org, fetch the org details
   const currentOrganization = project.organization_id
@@ -49,6 +58,8 @@ export default async function ProjectDetailPage({
       attachments={attachments}
       currentOrganization={currentOrganization}
       allOrganizations={allOrganizations}
+      messages={messages}
+      currentProfileId={profile?.id}
     />
   );
 }

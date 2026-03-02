@@ -9,6 +9,7 @@ import {
 } from "@/server/repos/organization-invites";
 import { assignProjectToOrganization } from "@/server/repos/projects";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 export async function createClientOrganization(formData: FormData) {
   const user = await requireAdmin();
@@ -114,6 +115,29 @@ export async function assignProjectToOrg(
   if (organizationId) {
     revalidatePath(`/admin/clients/${organizationId}`);
   }
+}
+
+export async function deleteClientOrganization(
+  orgId: string,
+  clerkOrgId: string
+) {
+  await requireAdmin();
+
+  const clerk = await clerkClient();
+
+  // Delete from Clerk first (may already be deleted)
+  try {
+    await clerk.organizations.deleteOrganization(clerkOrgId);
+  } catch (e) {
+    console.error("Failed to delete org from Clerk (may already be deleted):", e);
+  }
+
+  // Delete from local DB (projects FK ON DELETE SET NULL will unassign them)
+  const { deleteOrganization } = await import("@/server/repos/organizations");
+  await deleteOrganization(clerkOrgId);
+
+  revalidatePath("/admin/clients");
+  redirect("/admin/clients");
 }
 
 export async function revokeInvite(inviteId: string, clerkInvitationId: string | null) {

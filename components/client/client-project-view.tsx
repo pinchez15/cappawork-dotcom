@@ -7,11 +7,27 @@ import { ClientURLs } from "./client-urls";
 import { ClientDesignSpec } from "./client-design-spec";
 import { ClientAttachments } from "./client-attachments";
 import { ClientDashboard } from "./client-dashboard";
+import { ClientMessages } from "./client-messages";
 import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2 } from "lucide-react";
 import { animations } from "@/lib/animations";
+
+interface Message {
+  id: string;
+  project_id: string;
+  sender_profile_id: string;
+  content: string;
+  is_read: boolean;
+  created_at: string;
+  sender: {
+    id: string;
+    name: string | null;
+    email: string;
+    is_admin: boolean;
+  };
+}
 
 interface ClientProjectViewProps {
   project: any;
@@ -20,6 +36,8 @@ interface ClientProjectViewProps {
   urls: any[];
   design: any;
   attachments: any[];
+  messages?: Message[];
+  currentProfileId?: string;
 }
 
 export function ClientProjectView({
@@ -29,6 +47,8 @@ export function ClientProjectView({
   urls,
   design,
   attachments,
+  messages = [],
+  currentProfileId,
 }: ClientProjectViewProps) {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -40,6 +60,7 @@ export function ClientProjectView({
     : tabParam === "files" ? "files"
     : tabParam === "urls" ? "urls"
     : tabParam === "design" ? "design"
+    : tabParam === "messages" ? "messages"
     : "dashboard";
 
   const handoffPhase = phases.find((p) => p.name === "Handoff");
@@ -109,6 +130,14 @@ export function ClientProjectView({
 
         <TabsContent value="design" className="mt-0">
           <ClientDesignSpec design={design} projectId={project.id} />
+        </TabsContent>
+
+        <TabsContent value="messages" className="mt-0">
+          <ClientMessages
+            projectId={project.id}
+            messages={messages}
+            currentProfileId={currentProfileId || ""}
+          />
         </TabsContent>
       </Tabs>
     </div>

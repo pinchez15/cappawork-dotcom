@@ -34,6 +34,7 @@ interface ClientSidebarProps {
   attachmentsCount?: number;
   urlsCount?: number;
   isHandoffReady?: boolean;
+  messagesUnreadCount?: number;
 }
 
 export function ClientSidebar({
@@ -42,6 +43,7 @@ export function ClientSidebar({
   attachmentsCount = 0,
   urlsCount = 0,
   isHandoffReady = false,
+  messagesUnreadCount = 0,
 }: ClientSidebarProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -85,6 +87,13 @@ export function ClientSidebar({
       href: `/projects/${project.id}?tab=design`,
       tab: "design",
       badge: null,
+    },
+    {
+      title: "Messages",
+      icon: MessageCircle,
+      href: `/projects/${project.id}?tab=messages`,
+      tab: "messages",
+      badge: messagesUnreadCount > 0 ? messagesUnreadCount : null,
     },
   ];
 
