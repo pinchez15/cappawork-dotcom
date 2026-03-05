@@ -21,6 +21,7 @@ import {
   FileText,
   MessageCircle,
   Activity,
+  Megaphone,
 } from "lucide-react";
 
 export function AdminSidebar() {
@@ -36,6 +37,11 @@ export function AdminSidebar() {
       title: "Clients",
       icon: Users,
       href: "/admin/clients",
+    },
+    {
+      title: "Outreach",
+      icon: Megaphone,
+      href: "/admin/outreach",
     },
     {
       title: "Activity",
