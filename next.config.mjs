@@ -34,19 +34,13 @@ const nextConfig = {
             value: '1; mode=block'
           },
           {
-            key: 'Content-Security-Policy',
-            value: [
-              "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.clerk.accounts.dev https://*.clerk.com https://challenges.cloudflare.com",
-              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-              "img-src 'self' data: blob: https://*.clerk.com https://img.clerk.com https://*.supabase.co",
-              "font-src 'self' https://fonts.gstatic.com",
-              "connect-src 'self' https://*.clerk.accounts.dev https://*.clerk.com https://*.supabase.co https://api.calendly.com",
-              "frame-src 'self' https://*.clerk.accounts.dev https://*.clerk.com https://challenges.cloudflare.com https://calendly.com",
-              "object-src 'none'",
-              "base-uri 'self'",
-            ].join('; ')
+            key: 'Permissions-Policy',
+            value: 'camera=(), microphone=(), geolocation=()'
           }
+          // CSP intentionally omitted — Clerk loads resources from dynamic
+          // subdomains (*.clerk.com, *.clerk.accounts.dev, *.cloudflare.com)
+          // that break with a static allowlist. Revisit when Clerk publishes
+          // a stable CSP-compatible origin list.
         ]
       }
     ]
