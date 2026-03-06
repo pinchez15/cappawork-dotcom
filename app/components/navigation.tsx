@@ -18,6 +18,8 @@ export default function Navigation() {
       setActiveSection("blog")
     } else if (currentPath === "/transformation") {
       setActiveSection("transformation")
+    } else if (currentPath === "/calculator") {
+      setActiveSection("calculator")
     } else if (currentPath === "/") {
       const handleScroll = () => {
         const sections = ["hero", "problem", "approach", "engagement", "faq"]
@@ -47,6 +49,7 @@ export default function Navigation() {
     { id: "engagement", label: "Engagement", href: "/#engagement" },
     { id: "faq", label: "FAQ", href: "/#faq" },
     { id: "blog", label: "Blog", href: "/blog" },
+    { id: "calculator", label: "Calculator", href: "/calculator" },
   ]
 
   const handleNavClick = (href: string, id: string) => {
