@@ -19,12 +19,11 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  // Security: Require secret token in production
+  // Security: Require secret token in all environments
   const { secret } = await req.json().catch(() => ({}));
   const expectedSecret = process.env.ADMIN_SETUP_SECRET;
 
-  // In production, require the secret
-  if (process.env.NODE_ENV === "production" && secret !== expectedSecret) {
+  if (!expectedSecret || secret !== expectedSecret) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 

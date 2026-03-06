@@ -6,6 +6,7 @@ import {
 } from "@/server/repos/outreach";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 type Props = {
   searchParams: Promise<{ date?: string }>;

@@ -14,6 +14,10 @@ import {
 
 const OUTREACH_PATH = "/admin/outreach";
 
+const VALID_COUNTER_IDS = new Set([
+  "referral", "connect", "dms", "comments", "replies", "calls",
+]);
+
 export async function createGoalAction(goalText: string) {
   await requireAdmin();
   const startDate = new Date().toISOString().slice(0, 10);
@@ -35,6 +39,9 @@ export async function updateCounterAction(
   value: number
 ) {
   await requireAdmin();
+  if (!VALID_COUNTER_IDS.has(counterId)) {
+    throw new Error("Invalid counter ID");
+  }
   const existing = await getEntryByDate(date);
   const counts: OutreachCounts = (existing?.counts as OutreachCounts) || {};
   counts[counterId] = value;

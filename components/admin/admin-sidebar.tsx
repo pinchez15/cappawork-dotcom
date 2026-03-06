@@ -44,7 +44,7 @@ export function AdminSidebar() {
       href: "/admin/outreach",
     },
     {
-      title: "Activity",
+      title: "Site Activity",
       icon: Activity,
       href: "/admin/activity",
     },

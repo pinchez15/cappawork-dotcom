@@ -65,6 +65,11 @@ export async function sendClientInvite(
 ) {
   const user = await requireAdmin();
 
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!email || !emailRegex.test(email.trim())) {
+    throw new Error("Invalid email address");
+  }
+
   const clerk = await clerkClient();
 
   // Get the organization to find Clerk org ID
@@ -184,6 +189,8 @@ export async function resendInvite(
   email: string,
   oldInviteId: string
 ) {
+  await requireAdmin();
+
   // Revoke the old invite
   const { supabaseAdmin } = await import("@/lib/db/client");
   const { data: oldInvite } = await supabaseAdmin

@@ -9,6 +9,24 @@ export const runtime = "nodejs";
 // Max file size: 50MB
 const MAX_FILE_SIZE = 50 * 1024 * 1024;
 
+const ALLOWED_EXTENSIONS = new Set([
+  "pdf", "doc", "docx", "xls", "xlsx", "ppt", "pptx",
+  "csv", "txt", "rtf",
+  "png", "jpg", "jpeg", "gif", "webp", "svg",
+  "zip", "gz",
+  "mp4", "mov", "mp3",
+  "fig", "sketch", "ai", "psd",
+]);
+
+const ALLOWED_MIME_PREFIXES = [
+  "image/", "application/pdf",
+  "application/msword", "application/vnd.openxmlformats",
+  "application/vnd.ms-excel", "application/vnd.ms-powerpoint",
+  "text/plain", "text/csv",
+  "application/zip", "application/gzip",
+  "video/", "audio/",
+];
+
 export async function POST(req: NextRequest) {
   try {
     // Require admin access
@@ -41,8 +59,23 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // Validate file extension and MIME type
+    const fileExt = (file.name.split(".").pop() || "").toLowerCase();
+    if (!fileExt || !ALLOWED_EXTENSIONS.has(fileExt)) {
+      return NextResponse.json(
+        { error: `File type .${fileExt || "unknown"} is not allowed` },
+        { status: 400 }
+      );
+    }
+
+    if (!ALLOWED_MIME_PREFIXES.some((prefix) => file.type.startsWith(prefix))) {
+      return NextResponse.json(
+        { error: "File MIME type is not allowed" },
+        { status: 400 }
+      );
+    }
+
     // Generate unique storage path
-    const fileExt = file.name.split(".").pop() || "bin";
     const storagePath = `${projectId}/${uuidv4()}.${fileExt}`;
 
     // Upload to Supabase Storage

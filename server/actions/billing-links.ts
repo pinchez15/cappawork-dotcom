@@ -24,6 +24,27 @@ export async function addBillingLinkAction(params: {
     throw new Error("URL must be a valid HTTPS link");
   }
 
+  const ALLOWED_PAYMENT_DOMAINS = [
+    "buy.stripe.com",
+    "checkout.stripe.com",
+    "invoice.stripe.com",
+    "pay.squareup.com",
+    "squareup.com",
+    "paypal.com",
+    "paypal.me",
+    "invoice.zoho.com",
+    "bill.com",
+  ];
+  try {
+    const urlObj = new URL(trimmedUrl);
+    if (!ALLOWED_PAYMENT_DOMAINS.some((d) => urlObj.hostname === d || urlObj.hostname.endsWith("." + d))) {
+      throw new Error("URL must be from an approved payment provider");
+    }
+  } catch (e) {
+    if (e instanceof Error && e.message.includes("approved payment")) throw e;
+    throw new Error("Invalid URL format");
+  }
+
   const trimmedLabel = params.label.trim();
   if (!trimmedLabel) {
     throw new Error("Label is required");
