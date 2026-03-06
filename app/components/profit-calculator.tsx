@@ -9,12 +9,16 @@ type Data = {
   revenue: number | null;
   margin: number | null;
   headcount: number;
-  tools: number | null;
   admin: number;
-  growth: number | null;
   bottleneckName: string;
   bottleneckCurrent: number | null;
   bottleneckPeople: number | null;
+};
+
+type LeadInfo = {
+  firstName: string;
+  email: string;
+  company: string;
 };
 
 // ── Component ──────────────────────────────────────────────────
@@ -22,13 +26,18 @@ type Data = {
 export function ProfitCalculator() {
   const [step, setStep] = useState(1);
   const [showResults, setShowResults] = useState(false);
+  const [leadSaving, setLeadSaving] = useState(false);
+  const [leadError, setLeadError] = useState("");
+  const [lead, setLead] = useState<LeadInfo>({
+    firstName: "",
+    email: "",
+    company: "",
+  });
   const [data, setData] = useState<Data>({
     revenue: null,
     margin: null,
-    headcount: 12,
-    tools: null,
+    headcount: 8,
     admin: 40,
-    growth: null,
     bottleneckName: "",
     bottleneckCurrent: null,
     bottleneckPeople: null,
@@ -38,7 +47,7 @@ export function ProfitCalculator() {
     process.env.NEXT_PUBLIC_CALENDLY_LINK ||
     "https://calendly.com/cappawork/discovery_call";
 
-  const totalSteps = 7;
+  const totalSteps = 6;
 
   const set = useCallback(
     (key: keyof Data, value: Data[keyof Data]) =>
@@ -51,57 +60,95 @@ export function ProfitCalculator() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
-  function calculate() {
-    setShowResults(true);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
-
   // ── Calculations ────────────────────────────────────────────
 
   const rev = data.revenue || 0;
   const hc = data.headcount;
   const margin = data.margin === -1 ? 0.07 : data.margin || 0;
-  const tools = data.tools || 0;
   const adminPct = data.admin / 100;
-  const growthMult = data.growth || 1;
 
   const revenuePerEmployee = hc > 0 ? rev / hc : 0;
   const currentProfit = rev * margin;
 
   const avgFullyLoadedCost = rev < 5000000 ? 75000 : 90000;
-  const totalLaborCost = hc * avgFullyLoadedCost;
   const recoverableAdminPct = Math.max(0, adminPct - 0.2);
 
   const hourlyRate = Math.round(avgFullyLoadedCost / 2080);
   const adminHoursPerWeek = Math.round(hc * 40 * adminPct);
   const recoverableHoursPerWeek = Math.round(hc * 40 * recoverableAdminPct);
+  const equivalentFTEs = recoverableHoursPerWeek / 40;
   const recoverableLaborValue = recoverableHoursPerWeek * 52 * hourlyRate;
 
-  const avgToolCostPerUser = 150;
-  const toolWaste = Math.round(tools * hc * avgToolCostPerUser * 12 * 0.3);
+  // Revenue capacity: freed hours redirected to billable work
+  const billableHoursPerWeek = hc * 40 - adminHoursPerWeek;
+  const revenueCapacity =
+    billableHoursPerWeek > 0
+      ? Math.round((recoverableHoursPerWeek / billableHoursPerWeek) * rev)
+      : 0;
+  const capacityPct =
+    billableHoursPerWeek > 0
+      ? Math.round((recoverableHoursPerWeek / billableHoursPerWeek) * 100)
+      : 0;
 
-  const totalOpportunity = recoverableLaborValue + toolWaste;
-
-  const potentialProfit = currentProfit + totalOpportunity;
-  const potentialMargin = rev > 0 ? Math.min(0.2, potentialProfit / rev) : 0;
-
-  // Growth projections
-  const futureRev = rev * growthMult;
-  const futureHC = Math.ceil(hc * growthMult * 0.95);
-  const nonLaborCosts = rev - totalLaborCost - currentProfit;
-  const futureNonLaborCosts = nonLaborCosts * (1 + (growthMult - 1) * 0.7);
-  const additionalNewEmployees = futureHC - hc;
-  const hiringCostPerEmployee = 15000;
-  const optimizedFutureHC = Math.ceil(hc * growthMult * 0.7);
-  const optimizedNewHires = Math.max(0, optimizedFutureHC - hc);
+  const potentialMargin =
+    rev > 0
+      ? Math.min(0.25, (currentProfit + recoverableLaborValue) / rev)
+      : 0;
 
   // Bottleneck
   const hasBottleneck =
     data.bottleneckName && data.bottleneckCurrent && data.bottleneckPeople;
-  const bTotalNow = (data.bottleneckCurrent || 0) * (data.bottleneckPeople || 0);
-  const conservativeMultiplier = 3;
-  const moderateMultiplier = 5;
-  const aggressiveMultiplier = 10;
+  const bTotalNow =
+    (data.bottleneckCurrent || 0) * (data.bottleneckPeople || 0);
+
+  async function submitLead() {
+    if (!lead.firstName || !lead.email || !lead.company) {
+      setLeadError("Please fill in all fields.");
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(lead.email)) {
+      setLeadError("Please enter a valid email address.");
+      return;
+    }
+
+    setLeadSaving(true);
+    setLeadError("");
+
+    try {
+      await fetch("/api/calculator-leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firstName: lead.firstName,
+          email: lead.email,
+          company: lead.company,
+          inputs: {
+            revenue: data.revenue,
+            margin: data.margin,
+            headcount: data.headcount,
+            admin: data.admin,
+            bottleneck: data.bottleneckName,
+            bottleneckCurrent: data.bottleneckCurrent,
+            bottleneckPeople: data.bottleneckPeople,
+          },
+          results: {
+            revenueCapacity,
+            capacityPct,
+            recoverableHoursPerWeek,
+            equivalentFTEs: +equivalentFTEs.toFixed(1),
+            recoverableLaborValue,
+            potentialMargin: +(potentialMargin * 100).toFixed(0),
+          },
+        }),
+      });
+    } catch {
+      // Save failed silently — still show results
+    }
+
+    setLeadSaving(false);
+    setShowResults(true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
 
   // ── Shared styles ───────────────────────────────────────────
 
@@ -114,17 +161,10 @@ export function ProfitCalculator() {
     "bg-[#c9a84c] text-[#0a1628] font-bold py-3.5 px-8 rounded-xl transition-all hover:brightness-110 disabled:bg-stone-300 disabled:cursor-not-allowed flex-1 text-center";
   const btnBack =
     "bg-white text-stone-500 font-bold py-3.5 px-6 rounded-xl border border-stone-200 hover:bg-stone-50";
+  const inputClass =
+    "w-full px-4 py-3 border-2 border-stone-200 rounded-xl text-sm font-semibold text-stone-900 bg-stone-50 focus:outline-none focus:border-[#0a1628] placeholder:text-stone-300 placeholder:font-normal";
 
-  const growthLabel =
-    growthMult === 1.25
-      ? "25%"
-      : growthMult === 1.5
-        ? "50%"
-        : growthMult === 2
-          ? "100%"
-          : "10%";
-
-  // ── Render ──────────────────────────────────────────────────
+  // ── Results ───────────────────────────────────────────────
 
   if (showResults) {
     return (
@@ -143,13 +183,13 @@ export function ProfitCalculator() {
           {/* Hero */}
           <div className="bg-gradient-to-br from-[#0a1628] to-[#162a46] text-white rounded-2xl p-10 text-center mb-6">
             <div className="text-xs uppercase tracking-[3px] opacity-70 mb-2">
-              Your AI Opportunity
+              Your Untapped Revenue Capacity
             </div>
             <div className="text-5xl font-black tracking-tight mb-1">
-              ${totalOpportunity.toLocaleString()}
+              ${revenueCapacity.toLocaleString()}
             </div>
             <div className="text-base opacity-80">
-              in annual profit waiting to be captured
+              in additional revenue your current team could handle
             </div>
           </div>
 
@@ -163,59 +203,56 @@ export function ProfitCalculator() {
                 {hc} people
               </div>
               <div className="text-xs text-stone-500 mt-1">
-                Generating ${Math.round(revenuePerEmployee).toLocaleString()}{" "}
-                per person
+                ${Math.round(revenuePerEmployee).toLocaleString()} revenue per
+                person
               </div>
             </div>
             <div className="bg-white border border-stone-200 rounded-xl p-5 shadow-sm">
               <div className="text-[11px] font-bold uppercase tracking-wider text-stone-500 mb-1">
-                With AI Optimization
+                Time on Admin Work
               </div>
               <div className="text-2xl font-black text-stone-900">
-                {(potentialMargin * 100).toFixed(0)}% margin
+                {data.admin}%
               </div>
               <div className="text-xs text-stone-500 mt-1">
-                Up from {data.margin === -1 ? "~7" : (margin * 100).toFixed(0)}
-                % today
+                {adminHoursPerWeek} hours/week not serving customers
               </div>
             </div>
             <div className="bg-[#c9a84c]/10 border border-[#c9a84c]/30 rounded-xl p-5">
               <div className="text-[11px] font-bold uppercase tracking-wider text-stone-500 mb-1">
-                Capacity You Can Unlock
+                Capacity AI Unlocks
               </div>
               <div className="text-2xl font-black text-[#92750a]">
-                {recoverableHoursPerWeek} hrs/wk
+                +{capacityPct}% more
               </div>
               <div className="text-xs text-stone-500 mt-1">
-                {data.admin}% admin → 20% with automation
+                {recoverableHoursPerWeek} hrs/wk freed for customer work
               </div>
             </div>
-            {toolWaste > 5000 && (
-              <div className="bg-[#c9a84c]/10 border border-[#c9a84c]/30 rounded-xl p-5">
-                <div className="text-[11px] font-bold uppercase tracking-wider text-stone-500 mb-1">
-                  Tool Consolidation Savings
-                </div>
-                <div className="text-2xl font-black text-[#92750a]">
-                  ${toolWaste.toLocaleString()}/yr
-                </div>
-                <div className="text-xs text-stone-500 mt-1">
-                  {tools} tools → streamlined stack
-                </div>
+            <div className="bg-[#c9a84c]/10 border border-[#c9a84c]/30 rounded-xl p-5">
+              <div className="text-[11px] font-bold uppercase tracking-wider text-stone-500 mb-1">
+                Like Adding
               </div>
-            )}
+              <div className="text-2xl font-black text-[#92750a]">
+                {equivalentFTEs.toFixed(1)} FTEs
+              </div>
+              <div className="text-xs text-stone-500 mt-1">
+                Without hiring or increasing overhead
+              </div>
+            </div>
           </div>
 
           {/* Math section */}
           <div className={card}>
             <h3 className="text-lg font-bold text-[#0a1628] mb-1">
-              The Math Behind Your Opportunity
+              How We Got Here
             </h3>
             <p className="text-sm text-stone-500 mb-4">
               Every line uses your inputs. No black boxes.
             </p>
 
             <div className="text-[11px] font-bold uppercase tracking-wider text-[#0a7c42] mb-2">
-              Capacity AI Can Unlock
+              Capacity Your Team Can Reclaim
             </div>
 
             <MathRow label="Your team" value={`${hc} people`} />
@@ -230,57 +267,53 @@ export function ProfitCalculator() {
               value={`${adminHoursPerWeek} hrs/wk`}
             />
             <MathRow
-              label="Hours AI can give back"
+              label="Hours AI can redirect to customers"
               formula={`${hc * 40} x ${Math.round(recoverableAdminPct * 100)}%`}
               value={`${recoverableHoursPerWeek} hrs/wk`}
               highlight
             />
             <MathRow
-              label="That's like adding"
+              label="Equivalent full-time capacity"
               formula={`${recoverableHoursPerWeek} / 40`}
-              value={`${(recoverableHoursPerWeek / 40).toFixed(1)} full-time people`}
+              value={`${equivalentFTEs.toFixed(1)} FTEs`}
               highlight
             />
-            <MathRow
-              label="Value of that capacity"
-              formula={`${recoverableHoursPerWeek} hrs x 52 wks x $${hourlyRate}/hr`}
-              value={`$${recoverableLaborValue.toLocaleString()}/yr`}
-            />
 
-            {toolWaste > 5000 && (
-              <>
-                <div className="text-[11px] font-bold uppercase tracking-wider text-[#0a7c42] mt-5 mb-2">
-                  Software Stack Savings
-                </div>
-                <MathRow label="Current tools" value={`${tools} tools`} />
-                <MathRow
-                  label="Est. annual tool spend"
-                  formula={`${tools} x ${hc} x $${avgToolCostPerUser} x 12`}
-                  value={`$${Math.round(tools * hc * avgToolCostPerUser * 12).toLocaleString()}`}
-                />
-                <MathRow
-                  label="Savings from consolidation (est. 30%)"
-                  formula="x 0.30"
-                  value={`$${toolWaste.toLocaleString()}/yr`}
-                  highlight
-                />
-              </>
-            )}
+            <div className="text-[11px] font-bold uppercase tracking-wider text-[#0a7c42] mt-5 mb-2">
+              Revenue Capacity
+            </div>
+
+            <MathRow
+              label="Current billable hours / week"
+              formula={`${hc * 40} - ${adminHoursPerWeek}`}
+              value={`${billableHoursPerWeek} hrs/wk`}
+            />
+            <MathRow
+              label="Revenue per billable hour"
+              formula={`$${rev.toLocaleString()} / (${billableHoursPerWeek} x 52)`}
+              value={`$${billableHoursPerWeek > 0 ? Math.round(rev / (billableHoursPerWeek * 52)).toLocaleString() : 0}/hr`}
+            />
+            <MathRow
+              label="Additional customer capacity"
+              formula={`${recoverableHoursPerWeek} / ${billableHoursPerWeek}`}
+              value={`+${capacityPct}%`}
+              highlight
+            />
 
             <div className="border-t-2 border-[#0a7c42] mt-5 pt-3">
               <div className="flex justify-between items-center py-2">
                 <span className="font-bold text-stone-900 text-sm">
-                  Total Annual Opportunity
+                  Revenue Capacity Unlocked
                 </span>
                 <span className="font-black text-[#0a7c42] text-lg">
-                  ${totalOpportunity.toLocaleString()}/yr
+                  ${revenueCapacity.toLocaleString()}/yr
                 </span>
               </div>
             </div>
 
             <p className="text-xs text-stone-400 mt-4 italic">
-              Conservative estimates using industry benchmarks. A diagnostic
-              maps your exact numbers — the real opportunity is usually larger.
+              This is capacity — the ability to serve more customers without
+              adding staff. Actual revenue depends on your pipeline and market.
             </p>
           </div>
 
@@ -288,8 +321,7 @@ export function ProfitCalculator() {
           {hasBottleneck && (
             <div className={card}>
               <h3 className="text-lg font-bold text-[#0a1628] mb-1">
-                What {data.bottleneckName} Looks Like at {moderateMultiplier}x
-                Speed
+                What {data.bottleneckName} Looks Like With AI
               </h3>
               <p className="text-sm text-stone-500 mb-4">
                 AI doesn&apos;t replace your team — it removes the manual steps
@@ -316,9 +348,7 @@ export function ProfitCalculator() {
                       With AI
                     </div>
                     <div className="text-3xl font-black text-[#0a7c42]">
-                      {(data.bottleneckPeople || 0) *
-                        (data.bottleneckCurrent || 0) *
-                        moderateMultiplier}
+                      {bTotalNow * 3}
                     </div>
                     <div className="text-xs text-stone-500">per week</div>
                   </div>
@@ -329,28 +359,14 @@ export function ProfitCalculator() {
                     Same {data.bottleneckPeople} people. No new hires.
                   </p>
                   <p className="mb-2">
-                    <strong>Month 1 ({conservativeMultiplier}x):</strong>{" "}
-                    {(data.bottleneckPeople || 0) *
-                      (data.bottleneckCurrent || 0) *
-                      conservativeMultiplier}
-                    /week. AI pre-fills data and generates templates. Your team
-                    reviews and handles exceptions.
-                  </p>
-                  <p className="mb-2">
-                    <strong>Month 3 ({moderateMultiplier}x):</strong>{" "}
-                    {(data.bottleneckPeople || 0) *
-                      (data.bottleneckCurrent || 0) *
-                      moderateMultiplier}
-                    /week. AI runs the process end-to-end. Team focuses on
-                    client relationships.
+                    <strong>Month 1 (2x):</strong>{" "}
+                    {bTotalNow * 2}/week. AI pre-fills data and generates
+                    templates. Your team reviews and handles exceptions.
                   </p>
                   <p>
-                    <strong>Fully optimized ({aggressiveMultiplier}x):</strong>{" "}
-                    {(data.bottleneckPeople || 0) *
-                      (data.bottleneckCurrent || 0) *
-                      aggressiveMultiplier}
-                    /week. Automated pipeline with human oversight on
-                    exceptions.
+                    <strong>Month 3 (3x):</strong>{" "}
+                    {bTotalNow * 3}/week. AI runs the routine steps end-to-end.
+                    Team focuses on client relationships and quality.
                   </p>
                 </div>
               </div>
@@ -360,34 +376,55 @@ export function ProfitCalculator() {
           {/* Insights */}
           <div className={card}>
             <h3 className="text-lg font-bold text-[#0a1628] mb-3">
-              Where the Biggest Wins Are
+              What This Means for Your Business
             </h3>
 
             <div className="py-3 border-b border-stone-100 text-sm text-stone-600">
-              <strong className="text-[#0a1628]">Team capacity:</strong> Your
-              team spends {data.admin}% of their time on admin work. AI can
+              <strong className="text-[#0a1628]">
+                Serve more customers without hiring:
+              </strong>{" "}
+              Your team spends {data.admin}% of their time on admin. AI can
               automate most of that down to ~20%, freeing{" "}
-              <strong>{recoverableHoursPerWeek} hours per week</strong> —{" "}
+              <strong>{recoverableHoursPerWeek} hours per week</strong> for
+              actual customer work. That&apos;s{" "}
+              <span className="font-bold text-[#0a7c42]">
+                {capacityPct}% more capacity
+              </span>{" "}
+              — enough to take on significantly more clients at your current
+              quality level.
+            </div>
+
+            <div className="py-3 border-b border-stone-100 text-sm text-stone-600">
+              <strong className="text-[#0a1628]">
+                Improve margins as you grow:
+              </strong>{" "}
+              When your team handles more revenue with the same headcount, your
+              margin moves from{" "}
+              <strong>
+                {data.margin === -1 ? "~7" : (margin * 100).toFixed(0)}%
+              </strong>{" "}
+              toward <strong>{(potentialMargin * 100).toFixed(0)}%</strong>.
+              That&apos;s{" "}
               <span className="font-bold text-[#0a7c42]">
                 ${recoverableLaborValue.toLocaleString()}/year
               </span>{" "}
-              in capacity redirected to client work and strategic projects.
+              in labor value redirected from busywork to billable output.
             </div>
 
-            {toolWaste > 10000 && (
+            {revenuePerEmployee < 250000 && (
               <div className="py-3 border-b border-stone-100 text-sm text-stone-600">
-                <strong className="text-[#0a1628]">Streamlined tools:</strong>{" "}
-                With {tools} tools across {hc} people, there&apos;s an
-                opportunity to consolidate overlapping systems — roughly{" "}
-                <span className="font-bold text-[#0a7c42]">
-                  ${toolWaste.toLocaleString()}/year
-                </span>{" "}
-                in savings, plus less context-switching.
+                <strong className="text-[#0a1628]">
+                  Revenue per person:
+                </strong>{" "}
+                At ${Math.round(revenuePerEmployee).toLocaleString()}/employee,
+                there&apos;s room to grow toward the $250K+ benchmark for
+                optimized service businesses — not by working harder, but by
+                removing the operational drag that limits throughput.
               </div>
             )}
 
             {data.margin === -1 && (
-              <div className="py-3 border-b border-stone-100 text-sm text-stone-600">
+              <div className="py-3 text-sm text-stone-600">
                 <strong className="text-[#0a1628]">
                   Visibility opportunity:
                 </strong>{" "}
@@ -396,72 +433,7 @@ export function ProfitCalculator() {
                 dollar flows, the optimization path becomes clear.
               </div>
             )}
-
-            {revenuePerEmployee < 250000 && (
-              <div className="py-3 text-sm text-stone-600">
-                <strong className="text-[#0a1628]">
-                  Revenue per person:
-                </strong>{" "}
-                At $
-                {Math.round(revenuePerEmployee).toLocaleString()}
-                /employee, there&apos;s room to grow toward the $250K+ benchmark
-                for optimized service businesses. Not by working harder — by
-                removing operational drag.
-              </div>
-            )}
           </div>
-
-          {/* Growth path */}
-          {growthMult > 1.15 ? (
-            <div className={card}>
-              <h3 className="text-lg font-bold text-[#0a1628] mb-3">
-                Your Growth Path: {growthLabel} Revenue, Healthier Margins
-              </h3>
-              <div className="py-3 border-b border-stone-100 text-sm text-stone-600">
-                <strong className="text-[#0a1628]">Without optimization:</strong>{" "}
-                Hire {additionalNewEmployees} people, spend ~$
-                {(additionalNewEmployees * hiringCostPerEmployee).toLocaleString()}{" "}
-                on recruiting and onboarding. Every new hire carries the same{" "}
-                {data.admin}% admin load.
-              </div>
-              <div className="py-3 border-b border-stone-100 text-sm text-stone-600">
-                <strong className="text-[#0a1628]">With AI-first operations:</strong>{" "}
-                Automate admin from {data.admin}% to 20%. Hit {growthLabel}{" "}
-                growth with ~{optimizedNewHires} new hires instead of{" "}
-                {additionalNewEmployees}. Every person is more productive from
-                day one.
-              </div>
-              <div className="py-3 text-sm text-stone-600">
-                <strong className="text-[#0a1628]">Bottom line:</strong> Margin
-                moves from {data.margin === -1 ? "~7" : (margin * 100).toFixed(0)}
-                % toward {(potentialMargin * 100).toFixed(0)}% — adding{" "}
-                <span className="font-bold text-[#0a7c42]">
-                  ${totalOpportunity.toLocaleString()}
-                </span>{" "}
-                to annual profit before you even start growing. Then that margin
-                compounds as you scale.
-              </div>
-            </div>
-          ) : (
-            <div className={card}>
-              <h3 className="text-lg font-bold text-[#0a1628] mb-3">
-                More Profit, Same Headcount
-              </h3>
-              <div className="py-3 text-sm text-stone-600">
-                With AI optimization, your margin moves from{" "}
-                <strong>
-                  {data.margin === -1 ? "~7" : (margin * 100).toFixed(0)}%
-                </strong>{" "}
-                toward <strong>{(potentialMargin * 100).toFixed(0)}%</strong>.
-                That&apos;s{" "}
-                <span className="font-bold text-[#0a7c42]">
-                  ${totalOpportunity.toLocaleString()}
-                </span>{" "}
-                in additional annual profit without adding a single customer or
-                dollar of revenue. It drops straight to your bottom line.
-              </div>
-            </div>
-          )}
 
           {/* CTA */}
           <div className="bg-gradient-to-br from-[#0a1628] to-[#162a46] text-white rounded-2xl p-10 text-center mt-8">
@@ -470,8 +442,8 @@ export function ProfitCalculator() {
             </h3>
             <p className="text-sm opacity-80 mb-6 max-w-md mx-auto">
               This calculator uses industry benchmarks. A Phase I diagnostic
-              maps <em>your</em> actual workflows, tools, and team — and builds
-              a specific implementation roadmap.
+              maps <em>your</em> actual workflows and team — and builds a
+              specific implementation roadmap.
             </p>
             <a
               href={calendlyLink}
@@ -489,9 +461,8 @@ export function ProfitCalculator() {
 
           <div className="text-center text-xs text-stone-400 mt-10 pt-5 border-t border-stone-200">
             Estimates based on industry benchmarks for founder-led service
-            businesses ($3M-$10M revenue). Your actual opportunity depends on
-            your specific operations. A Phase I diagnostic maps your exact
-            numbers.
+            businesses ($3M-$10M revenue). Actual results depend on your
+            specific operations. A Phase I diagnostic maps your exact numbers.
           </div>
         </div>
       </div>
@@ -515,17 +486,18 @@ export function ProfitCalculator() {
             Free Assessment
           </div>
           <h1 className="text-3xl md:text-4xl font-black tracking-tight text-[#0a1628] mb-3">
-            AI Opportunity Calculator
+            AI Capacity Calculator
           </h1>
           <p className="text-stone-500 max-w-md mx-auto">
-            See how much bigger your business gets when AI multiplies what your
-            team can do. Takes 2 minutes.
+            See how many more customers your team can serve when AI handles the
+            busywork. Takes 2 minutes.
           </p>
         </div>
 
         {/* Progress */}
         <div className="text-center text-xs font-semibold text-stone-400 mb-2">
-          Question {step} of {totalSteps}
+          Question {Math.min(step, 5)} of {totalSteps - 1}
+          {step === 6 && " — Almost there"}
         </div>
         <div className="bg-stone-200 rounded-full h-1.5 mb-10 overflow-hidden">
           <div
@@ -591,7 +563,7 @@ export function ProfitCalculator() {
             <input
               type="range"
               min={3}
-              max={20}
+              max={15}
               value={data.headcount}
               onChange={(e) => set("headcount", parseInt(e.target.value))}
               className="w-full h-1.5 appearance-none bg-stone-200 rounded-full outline-none [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-6 [&::-webkit-slider-thumb]:h-6 [&::-webkit-slider-thumb]:bg-[#0a1628] [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:cursor-pointer"
@@ -599,9 +571,9 @@ export function ProfitCalculator() {
             <div className="flex justify-between text-[11px] text-stone-400 mt-1">
               <span>3</span>
               <span>5</span>
+              <span>8</span>
               <span>10</span>
               <span>15</span>
-              <span>20</span>
             </div>
             <div className="flex gap-3 mt-6">
               <button className={btnBack} onClick={() => goTo(1)}>
@@ -621,8 +593,8 @@ export function ProfitCalculator() {
               What&apos;s your approximate net profit margin?
             </h2>
             <p className="text-sm text-stone-500 mb-5">
-              Best guess is fine. This tells us how much room there is to grow
-              your bottom line.
+              Best guess is fine. This tells us how much room there is to
+              improve your bottom line.
             </p>
             <div className="grid grid-cols-2 gap-3">
               {[
@@ -667,51 +639,8 @@ export function ProfitCalculator() {
           </div>
         )}
 
-        {/* Step 4: Tools */}
+        {/* Step 4: Admin Time */}
         {step === 4 && (
-          <div className={card}>
-            <h2 className="text-xl font-bold text-stone-900 mb-1">
-              How many software tools does your team use daily?
-            </h2>
-            <p className="text-sm text-stone-500 mb-5">
-              CRM, project management, accounting, communication, reporting,
-              scheduling — count them all.
-            </p>
-            <div className="grid grid-cols-3 gap-3">
-              {[
-                { v: 5, l: "1 - 5" },
-                { v: 10, l: "6 - 12" },
-                { v: 20, l: "13 - 20" },
-                { v: 30, l: "20 - 30" },
-                { v: 40, l: "30+" },
-                { v: 15, l: "No idea" },
-              ].map((o) => (
-                <button
-                  key={o.v}
-                  className={`${optionBase} ${data.tools === o.v ? optionSelected : ""}`}
-                  onClick={() => set("tools", o.v)}
-                >
-                  {o.l}
-                </button>
-              ))}
-            </div>
-            <div className="flex gap-3 mt-6">
-              <button className={btnBack} onClick={() => goTo(3)}>
-                Back
-              </button>
-              <button
-                className={btnPrimary}
-                disabled={!data.tools}
-                onClick={() => goTo(5)}
-              >
-                Continue
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* Step 5: Admin Time */}
-        {step === 5 && (
           <div className={card}>
             <h2 className="text-xl font-bold text-stone-900 mb-1">
               What percentage of your team&apos;s time goes to admin and
@@ -719,7 +648,8 @@ export function ProfitCalculator() {
             </h2>
             <p className="text-sm text-stone-500 mb-5">
               Data entry, status updates, moving info between systems, formatting
-              reports, scheduling, follow-ups.
+              reports, scheduling, follow-ups — anything that&apos;s not
+              directly serving customers.
             </p>
             <div className="text-center text-4xl font-black text-[#0a1628] mb-2">
               {data.admin}%
@@ -740,21 +670,21 @@ export function ProfitCalculator() {
               <span>70%+</span>
             </div>
             <div className="flex gap-3 mt-6">
-              <button className={btnBack} onClick={() => goTo(4)}>
+              <button className={btnBack} onClick={() => goTo(3)}>
                 Back
               </button>
-              <button className={btnPrimary} onClick={() => goTo(6)}>
+              <button className={btnPrimary} onClick={() => goTo(5)}>
                 Continue
               </button>
             </div>
           </div>
         )}
 
-        {/* Step 6: Bottleneck */}
-        {step === 6 && (
+        {/* Step 5: Bottleneck */}
+        {step === 5 && (
           <div className={card}>
             <h2 className="text-xl font-bold text-stone-900 mb-1">
-              What&apos;s the one process you wish ran 10x faster?
+              What&apos;s the one process you wish your team could do 3x faster?
             </h2>
             <p className="text-sm text-stone-500 mb-5">
               Client onboarding, proposal generation, reporting, invoice
@@ -770,7 +700,7 @@ export function ProfitCalculator() {
                   placeholder="e.g., Client onboarding, monthly reporting..."
                   value={data.bottleneckName}
                   onChange={(e) => set("bottleneckName", e.target.value)}
-                  className="w-full px-4 py-3 border-2 border-stone-200 rounded-xl text-sm font-semibold text-stone-900 bg-stone-50 focus:outline-none focus:border-[#0a1628] placeholder:text-stone-300 placeholder:font-normal"
+                  className={inputClass}
                 />
               </div>
               <div>
@@ -789,7 +719,7 @@ export function ProfitCalculator() {
                         e.target.value ? parseInt(e.target.value) : null
                       )
                     }
-                    className="w-full px-4 py-3 border-2 border-stone-200 rounded-xl text-sm font-semibold text-stone-900 bg-stone-50 focus:outline-none focus:border-[#0a1628] placeholder:text-stone-300 placeholder:font-normal"
+                    className={inputClass}
                   />
                   <span className="text-xs text-stone-400 shrink-0">
                     per week
@@ -812,7 +742,7 @@ export function ProfitCalculator() {
                         e.target.value ? parseInt(e.target.value) : null
                       )
                     }
-                    className="w-full px-4 py-3 border-2 border-stone-200 rounded-xl text-sm font-semibold text-stone-900 bg-stone-50 focus:outline-none focus:border-[#0a1628] placeholder:text-stone-300 placeholder:font-normal"
+                    className={inputClass}
                   />
                   <span className="text-xs text-stone-400 shrink-0">
                     people
@@ -821,57 +751,88 @@ export function ProfitCalculator() {
               </div>
             </div>
             <div className="flex gap-3 mt-6">
-              <button className={btnBack} onClick={() => goTo(5)}>
+              <button className={btnBack} onClick={() => goTo(4)}>
                 Back
               </button>
-              <button className={btnPrimary} onClick={() => goTo(7)}>
+              <button className={btnPrimary} onClick={() => goTo(6)}>
                 Continue
               </button>
             </div>
           </div>
         )}
 
-        {/* Step 7: Growth */}
-        {step === 7 && (
+        {/* Step 6: Lead Capture */}
+        {step === 6 && (
           <div className={card}>
             <h2 className="text-xl font-bold text-stone-900 mb-1">
-              Where do you want revenue in 12-18 months?
+              Where should we send your results?
             </h2>
             <p className="text-sm text-stone-500 mb-5">
-              This shows what&apos;s possible when operations scale ahead of
-              revenue.
+              We&apos;ll calculate your custom opportunity report and follow up
+              with ideas specific to your business.
             </p>
-            <div className="grid grid-cols-2 gap-3">
-              {[
-                { v: 1.25, l: "25% growth", s: "Steady scaling" },
-                { v: 1.5, l: "50% growth", s: "Aggressive" },
-                { v: 2.0, l: "Double it", s: "2x revenue" },
-                { v: 1.1, l: "Maintain", s: "Focus on profit" },
-              ].map((o) => (
-                <button
-                  key={o.v}
-                  className={`${optionBase} ${data.growth === o.v ? optionSelected : ""}`}
-                  onClick={() => set("growth", o.v)}
-                >
-                  <span className="block">{o.l}</span>
-                  <span className="block text-xs font-normal opacity-70 mt-0.5">
-                    {o.s}
-                  </span>
-                </button>
-              ))}
+            <div className="space-y-4">
+              <div>
+                <label className="block text-xs font-semibold text-stone-500 mb-1.5">
+                  First name
+                </label>
+                <input
+                  type="text"
+                  placeholder="Nathan"
+                  value={lead.firstName}
+                  onChange={(e) =>
+                    setLead((prev) => ({ ...prev, firstName: e.target.value }))
+                  }
+                  className={inputClass}
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-stone-500 mb-1.5">
+                  Work email
+                </label>
+                <input
+                  type="email"
+                  placeholder="nathan@company.com"
+                  value={lead.email}
+                  onChange={(e) =>
+                    setLead((prev) => ({ ...prev, email: e.target.value }))
+                  }
+                  className={inputClass}
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-stone-500 mb-1.5">
+                  Company name
+                </label>
+                <input
+                  type="text"
+                  placeholder="Acme Services"
+                  value={lead.company}
+                  onChange={(e) =>
+                    setLead((prev) => ({ ...prev, company: e.target.value }))
+                  }
+                  className={inputClass}
+                />
+              </div>
             </div>
+            {leadError && (
+              <p className="text-sm text-red-600 mt-3">{leadError}</p>
+            )}
             <div className="flex gap-3 mt-6">
-              <button className={btnBack} onClick={() => goTo(6)}>
+              <button className={btnBack} onClick={() => goTo(5)}>
                 Back
               </button>
               <button
                 className={btnPrimary}
-                disabled={!data.growth}
-                onClick={calculate}
+                disabled={leadSaving}
+                onClick={submitLead}
               >
-                See My Results
+                {leadSaving ? "Calculating..." : "See My Results"}
               </button>
             </div>
+            <p className="text-xs text-stone-400 mt-4 text-center">
+              No spam. We&apos;ll only reach out if we think we can help.
+            </p>
           </div>
         )}
       </div>
