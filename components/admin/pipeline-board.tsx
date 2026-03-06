@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import {
   DndContext,
   DragOverlay,
@@ -82,6 +82,11 @@ export function PipelineBoard({ initialStages }: Props) {
   const router = useRouter();
   const [stages, setStages] = useState(initialStages);
   const [activeId, setActiveId] = useState<string | null>(null);
+
+  // Sync when server re-renders with new data (e.g. after chat creates a deal)
+  useEffect(() => {
+    setStages(initialStages);
+  }, [initialStages]);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingDeal, setEditingDeal] = useState<BDDeal | null>(null);
   const [defaultStage, setDefaultStage] = useState("lead");
