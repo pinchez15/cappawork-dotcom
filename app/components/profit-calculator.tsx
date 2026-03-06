@@ -101,51 +101,52 @@ export function ProfitCalculator() {
   const bTotalNow =
     (data.bottleneckCurrent || 0) * (data.bottleneckPeople || 0);
 
-  async function submitLead() {
-    if (!lead.firstName || !lead.email || !lead.company) {
-      setLeadError("Please fill in all fields.");
-      return;
-    }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(lead.email)) {
-      setLeadError("Please enter a valid email address.");
-      return;
+  const hasLeadInfo = lead.firstName && lead.email && lead.company;
+
+  async function submitLead(skip = false) {
+    if (!skip && hasLeadInfo) {
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(lead.email)) {
+        setLeadError("Please enter a valid email address.");
+        return;
+      }
+
+      setLeadSaving(true);
+      setLeadError("");
+
+      try {
+        await fetch("/api/calculator-leads", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            firstName: lead.firstName,
+            email: lead.email,
+            company: lead.company,
+            inputs: {
+              revenue: data.revenue,
+              margin: data.margin,
+              headcount: data.headcount,
+              admin: data.admin,
+              bottleneck: data.bottleneckName,
+              bottleneckCurrent: data.bottleneckCurrent,
+              bottleneckPeople: data.bottleneckPeople,
+            },
+            results: {
+              revenueCapacity,
+              capacityPct,
+              recoverableHoursPerWeek,
+              equivalentFTEs: +equivalentFTEs.toFixed(1),
+              recoverableLaborValue,
+              potentialMargin: +(potentialMargin * 100).toFixed(0),
+            },
+          }),
+        });
+      } catch {
+        // Save failed silently — still show results
+      }
+
+      setLeadSaving(false);
     }
 
-    setLeadSaving(true);
-    setLeadError("");
-
-    try {
-      await fetch("/api/calculator-leads", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          firstName: lead.firstName,
-          email: lead.email,
-          company: lead.company,
-          inputs: {
-            revenue: data.revenue,
-            margin: data.margin,
-            headcount: data.headcount,
-            admin: data.admin,
-            bottleneck: data.bottleneckName,
-            bottleneckCurrent: data.bottleneckCurrent,
-            bottleneckPeople: data.bottleneckPeople,
-          },
-          results: {
-            revenueCapacity,
-            capacityPct,
-            recoverableHoursPerWeek,
-            equivalentFTEs: +equivalentFTEs.toFixed(1),
-            recoverableLaborValue,
-            potentialMargin: +(potentialMargin * 100).toFixed(0),
-          },
-        }),
-      });
-    } catch {
-      // Save failed silently — still show results
-    }
-
-    setLeadSaving(false);
     setShowResults(true);
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
@@ -829,20 +830,23 @@ export function ProfitCalculator() {
           </div>
         )}
 
-        {/* Step 6: Lead Capture */}
+        {/* Step 6: Lead Capture (Optional) */}
         {step === 6 && (
           <div className={card}>
             <h2 className="text-xl font-bold text-stone-900 mb-1">
-              Where should we send your results?
+              Want us to follow up?
             </h2>
             <p className="text-sm text-stone-500 mb-5">
-              We&apos;ll calculate your custom opportunity report and follow up
-              with ideas specific to your business.
+              Optional — leave your info and we&apos;ll reach out with ideas
+              specific to your business. Or skip straight to your results.
             </p>
             <div className="space-y-4">
               <div>
                 <label className="block text-xs font-semibold text-stone-500 mb-1.5">
                   First name
+                  <span className="text-stone-300 font-normal ml-1">
+                    optional
+                  </span>
                 </label>
                 <input
                   type="text"
@@ -857,6 +861,9 @@ export function ProfitCalculator() {
               <div>
                 <label className="block text-xs font-semibold text-stone-500 mb-1.5">
                   Work email
+                  <span className="text-stone-300 font-normal ml-1">
+                    optional
+                  </span>
                 </label>
                 <input
                   type="email"
@@ -871,6 +878,9 @@ export function ProfitCalculator() {
               <div>
                 <label className="block text-xs font-semibold text-stone-500 mb-1.5">
                   Company name
+                  <span className="text-stone-300 font-normal ml-1">
+                    optional
+                  </span>
                 </label>
                 <input
                   type="text"
@@ -893,14 +903,28 @@ export function ProfitCalculator() {
               <button
                 className={btnPrimary}
                 disabled={leadSaving}
-                onClick={submitLead}
+                onClick={() => submitLead(false)}
               >
-                {leadSaving ? "Calculating..." : "See My Results"}
+                {leadSaving
+                  ? "Calculating..."
+                  : hasLeadInfo
+                    ? "Submit & See Results"
+                    : "See My Results"}
               </button>
             </div>
-            <p className="text-xs text-stone-400 mt-4 text-center">
-              No spam. We&apos;ll only reach out if we think we can help.
-            </p>
+            {!hasLeadInfo && (
+              <button
+                className="w-full text-xs text-stone-400 hover:text-stone-600 mt-3 transition-colors"
+                onClick={() => submitLead(true)}
+              >
+                Skip — just show my results
+              </button>
+            )}
+            {hasLeadInfo && (
+              <p className="text-xs text-stone-400 mt-4 text-center">
+                No spam. We&apos;ll only reach out if we think we can help.
+              </p>
+            )}
           </div>
         )}
       </div>
