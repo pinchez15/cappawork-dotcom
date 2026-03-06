@@ -123,21 +123,57 @@ export async function deleteDeal(id: string): Promise<void> {
   if (error) throw error;
 }
 
+const STAGE_WEIGHTS: Record<string, number> = {
+  lead: 0.1,
+  contacted: 0.2,
+  discovery: 0.4,
+  proposal: 0.7,
+  won: 1.0,
+  lost: 0,
+};
+
 export async function getPipelineStats() {
   const { data, error } = await supabaseAdmin
     .from("bd_deals")
-    .select("stage, value");
+    .select("stage, value, created_at");
 
   if (error) throw error;
-  const deals = (data || []) as { stage: string; value: number | null }[];
+  const deals = (data || []) as {
+    stage: string;
+    value: number | null;
+    created_at: string;
+  }[];
 
-  const total = deals.length;
-  const totalValue = deals.reduce((sum, d) => sum + (d.value || 0), 0);
-  const won = deals.filter((d) => d.stage === "won");
-  const wonValue = won.reduce((sum, d) => sum + (d.value || 0), 0);
   const active = deals.filter(
     (d) => d.stage !== "won" && d.stage !== "lost"
-  ).length;
+  );
+  const activeValue = active.reduce((sum, d) => sum + (d.value || 0), 0);
 
-  return { total, totalValue, wonCount: won.length, wonValue, active };
+  const weightedValue = active.reduce((sum, d) => {
+    const weight = STAGE_WEIGHTS[d.stage] ?? 0;
+    return sum + (d.value || 0) * weight;
+  }, 0);
+
+  const yearStart = new Date(new Date().getFullYear(), 0, 1).toISOString();
+  const wonYTD = deals.filter(
+    (d) => d.stage === "won" && d.created_at >= yearStart
+  );
+  const wonValue = wonYTD.reduce((sum, d) => sum + (d.value || 0), 0);
+
+  const withValue = deals.filter(
+    (d) => d.stage !== "lost" && d.value && d.value > 0
+  ).length;
+  const totalActive = active.length;
+  const dataCoverage =
+    totalActive > 0 ? Math.round((withValue / totalActive) * 100) : 0;
+
+  return {
+    activeCount: totalActive,
+    activeValue,
+    weightedValue: Math.round(weightedValue),
+    wonCount: wonYTD.length,
+    wonValue,
+    dataCoverage,
+    totalWithValue: withValue,
+  };
 }
