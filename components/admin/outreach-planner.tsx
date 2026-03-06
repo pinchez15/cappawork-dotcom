@@ -516,11 +516,11 @@ export function OutreachPlanner({ goal, entry, entries, currentDate }: Props) {
               return (
                 <Card
                   key={c.id}
-                  className={`transition-all ${
+                  className={`transition-all flex flex-col ${
                     isComplete ? "border-green-300 bg-green-50/50" : ""
                   }`}
                 >
-                  <CardContent className="pt-6">
+                  <CardContent className="pt-6 flex flex-col flex-1">
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex items-center gap-2">
                         <Icon
@@ -580,27 +580,26 @@ export function OutreachPlanner({ goal, entry, entries, currentDate }: Props) {
                       </div>
                     )}
 
-                    <div className="flex items-center justify-center gap-2">
+                    <div className="flex items-center justify-center gap-3 mt-auto">
                       <Button
                         variant="outline"
                         size="icon"
-                        className="h-9 w-9"
+                        className="h-10 w-10"
                         onClick={() => updateCounter(c.id, -1)}
                         disabled={count <= 0}
                       >
                         <Minus className="h-4 w-4" />
                       </Button>
                       <Button
-                        size="sm"
-                        className={`px-6 ${
+                        size="icon"
+                        className={`h-10 w-10 ${
                           isComplete
                             ? "bg-green-600 hover:bg-green-700"
                             : ""
                         }`}
                         onClick={() => updateCounter(c.id, 1)}
                       >
-                        <Plus className="mr-1 h-4 w-4" />
-                        1
+                        <Plus className="h-4 w-4" />
                       </Button>
                     </div>
                   </CardContent>

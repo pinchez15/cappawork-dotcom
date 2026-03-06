@@ -26,7 +26,8 @@ import {
 import { getTierInfo } from "@/lib/animations";
 import { deleteProjectAction } from "@/server/actions/projects";
 import { ProjectMeetings } from "./project-meetings";
-import { Kanban, FileText, FolderOpen, Key, Link2, Palette, Trash2, MessageCircle, Calendar } from "lucide-react";
+import { ProjectQuestionnaireView } from "./project-questionnaire-view";
+import { Kanban, FileText, FolderOpen, Key, Link2, Palette, Lightbulb, Trash2, MessageCircle, Calendar } from "lucide-react";
 
 interface Organization {
   id: string;
@@ -69,6 +70,7 @@ interface ProjectDetailViewProps {
   secrets: any[];
   urls: any[];
   design: any;
+  questionnaire: any;
   attachments: any[];
   currentOrganization?: Organization | null;
   allOrganizations?: Organization[];
@@ -85,6 +87,7 @@ export function ProjectDetailView({
   secrets,
   urls,
   design,
+  questionnaire,
   attachments,
   currentOrganization,
   allOrganizations,
@@ -192,6 +195,10 @@ export function ProjectDetailView({
             <Link2 className="h-4 w-4" />
             URLs
           </TabsTrigger>
+          <TabsTrigger value="vision" className="gap-2">
+            <Lightbulb className="h-4 w-4" />
+            Vision
+          </TabsTrigger>
           <TabsTrigger value="design" className="gap-2">
             <Palette className="h-4 w-4" />
             Design
@@ -233,6 +240,10 @@ export function ProjectDetailView({
 
         <TabsContent value="urls">
           <URLsSection projectId={project.id} initialUrls={urls} />
+        </TabsContent>
+
+        <TabsContent value="vision">
+          <ProjectQuestionnaireView questionnaire={questionnaire} />
         </TabsContent>
 
         <TabsContent value="design">

@@ -6,6 +6,7 @@ import { getDesignForProject } from "@/server/repos/design";
 import { getAttachmentsForProject } from "@/server/repos/attachments";
 import { getMessagesForProject } from "@/server/repos/messages";
 import { getMeetingsForProject } from "@/server/repos/meetings";
+import { getQuestionnaireForProject } from "@/server/repos/questionnaire";
 import { getProfileByClerkId } from "@/server/repos/profiles";
 import { ClientProjectView } from "@/components/client/client-project-view";
 
@@ -22,12 +23,13 @@ export default async function ClientProjectPage({
 
   // Fetch all project data
   // Note: Access control is handled in the layout
-  const [project, phases, tasks, urls, design, attachments, messages, meetings] = await Promise.all([
+  const [project, phases, tasks, urls, design, questionnaire, attachments, messages, meetings] = await Promise.all([
     getProjectById(id),
     getPhasesForProject(id),
     getTasksForProject(id),
     getUrlsForProject(id),
     getDesignForProject(id),
+    getQuestionnaireForProject(id),
     getAttachmentsForProject(id),
     getMessagesForProject(id),
     getMeetingsForProject(id),
@@ -47,6 +49,7 @@ export default async function ClientProjectPage({
       tasks={tasks}
       urls={urls}
       design={design}
+      questionnaire={questionnaire}
       attachments={attachments}
       messages={messages}
       meetings={meetings}

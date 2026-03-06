@@ -5,6 +5,7 @@ import { Tabs, TabsContent } from "@/components/ui/tabs";
 import { ClientKanbanView } from "./client-kanban-view";
 import { ClientURLs } from "./client-urls";
 import { ClientDesignSpec } from "./client-design-spec";
+import { ClientQuestionnaire } from "./client-questionnaire";
 import { ClientAttachments } from "./client-attachments";
 import { ClientDashboard } from "./client-dashboard";
 import { ClientMessages } from "./client-messages";
@@ -49,6 +50,7 @@ interface ClientProjectViewProps {
   tasks: any[];
   urls: any[];
   design: any;
+  questionnaire: any;
   attachments: any[];
   messages?: Message[];
   meetings?: Meeting[];
@@ -63,6 +65,7 @@ export function ClientProjectView({
   tasks,
   urls,
   design,
+  questionnaire,
   attachments,
   messages = [],
   meetings = [],
@@ -79,6 +82,7 @@ export function ClientProjectView({
   const activeTab = tabParam === "progress" ? "progress"
     : tabParam === "files" ? "files"
     : tabParam === "urls" ? "urls"
+    : tabParam === "vision" ? "vision"
     : tabParam === "design" ? "design"
     : tabParam === "messages" ? "messages"
     : tabParam === "meetings" ? "meetings"
@@ -147,6 +151,10 @@ export function ClientProjectView({
 
         <TabsContent value="urls" className="mt-0">
           <ClientURLs urls={urls} />
+        </TabsContent>
+
+        <TabsContent value="vision" className="mt-0">
+          <ClientQuestionnaire questionnaire={questionnaire} projectId={project.id} />
         </TabsContent>
 
         <TabsContent value="design" className="mt-0">

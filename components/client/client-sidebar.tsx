@@ -24,6 +24,7 @@ import {
   FileText,
   Link2,
   Palette,
+  Lightbulb,
   Key,
   MessageCircle,
   Calendar,
@@ -38,6 +39,7 @@ interface ClientSidebarProps {
   isHandoffReady?: boolean;
   messagesUnreadCount?: number;
   upcomingMeetingsCount?: number;
+  questionnaireSubmitted?: boolean;
 }
 
 export function ClientSidebar({
@@ -48,6 +50,7 @@ export function ClientSidebar({
   isHandoffReady = false,
   messagesUnreadCount = 0,
   upcomingMeetingsCount = 0,
+  questionnaireSubmitted = false,
 }: ClientSidebarProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -84,6 +87,13 @@ export function ClientSidebar({
       href: `/projects/${project.id}?tab=urls`,
       tab: "urls",
       badge: urlsCount > 0 ? urlsCount : null,
+    },
+    {
+      title: "Vision",
+      icon: Lightbulb,
+      href: `/projects/${project.id}?tab=vision`,
+      tab: "vision",
+      badge: questionnaireSubmitted ? null : "New",
     },
     {
       title: "Design",

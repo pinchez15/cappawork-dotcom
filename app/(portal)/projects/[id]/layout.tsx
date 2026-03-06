@@ -14,6 +14,7 @@ import { ThemeToggle } from "@/components/admin/theme-toggle";
 import { Separator } from "@/components/ui/separator";
 import { getUnreadCountForProject } from "@/server/repos/messages";
 import { getMeetingsForProject } from "@/server/repos/meetings";
+import { getQuestionnaireForProject } from "@/server/repos/questionnaire";
 
 export const runtime = "nodejs";
 
@@ -128,10 +129,11 @@ export default async function ProjectLayout({
     (t) => t.phase_id === handoffPhase.id && t.is_completed
   );
 
-  // Get unread message count and upcoming meetings count
-  const [messagesUnreadCount, projectMeetings] = await Promise.all([
+  // Get unread message count, upcoming meetings count, and questionnaire status
+  const [messagesUnreadCount, projectMeetings, questionnaire] = await Promise.all([
     getUnreadCountForProject(id, profile.id),
     getMeetingsForProject(id),
+    getQuestionnaireForProject(id),
   ]);
 
   const upcomingMeetingsCount = projectMeetings.filter(
@@ -149,6 +151,7 @@ export default async function ProjectLayout({
         isHandoffReady={isHandoffReady}
         messagesUnreadCount={messagesUnreadCount}
         upcomingMeetingsCount={upcomingMeetingsCount}
+        questionnaireSubmitted={!!questionnaire?.submitted_at}
       />
       <SidebarInset>
         <header className="flex h-14 items-center gap-4 border-b bg-background px-6">

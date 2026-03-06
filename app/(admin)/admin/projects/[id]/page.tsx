@@ -9,6 +9,7 @@ import { getAttachmentsForProject } from "@/server/repos/attachments";
 import { getAllOrganizations, getOrganizationById } from "@/server/repos/organizations";
 import { getMessagesForProject } from "@/server/repos/messages";
 import { getMeetingsForProject, getUnassignedMeetings } from "@/server/repos/meetings";
+import { getQuestionnaireForProject } from "@/server/repos/questionnaire";
 import { getProfileByClerkId } from "@/server/repos/profiles";
 import { ProjectDetailView } from "@/components/admin/project-detail-view";
 
@@ -24,13 +25,14 @@ export default async function ProjectDetailPage({
 
   const { userId } = await auth();
 
-  const [project, phases, tasks, secrets, urls, design, attachments, allOrganizations, messages, meetings, unassignedMeetings] = await Promise.all([
+  const [project, phases, tasks, secrets, urls, design, questionnaire, attachments, allOrganizations, messages, meetings, unassignedMeetings] = await Promise.all([
     getProjectById(id),
     getPhasesForProject(id),
     getTasksForProject(id),
     getSecretsForProject(id),
     getUrlsForProject(id),
     getDesignForProject(id),
+    getQuestionnaireForProject(id),
     getAttachmentsForProject(id),
     getAllOrganizations(),
     getMessagesForProject(id),
@@ -58,6 +60,7 @@ export default async function ProjectDetailPage({
       secrets={secrets}
       urls={urls}
       design={design}
+      questionnaire={questionnaire}
       attachments={attachments}
       currentOrganization={currentOrganization}
       allOrganizations={allOrganizations}
