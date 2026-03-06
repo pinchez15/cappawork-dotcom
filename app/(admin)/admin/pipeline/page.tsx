@@ -6,7 +6,6 @@ import {
   DollarSign,
   Target,
   TrendingUp,
-  BarChart3,
 } from "lucide-react";
 
 export const runtime = "nodejs";
@@ -25,7 +24,7 @@ export default async function PipelinePage() {
       </div>
 
       {/* Stats cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-3 gap-4 mb-6">
         <Card>
           <CardContent className="pt-5 pb-4">
             <div className="flex items-center gap-2 text-xs font-medium text-stone-500 mb-1">
@@ -71,20 +70,6 @@ export default async function PipelinePage() {
           </CardContent>
         </Card>
 
-        <Card>
-          <CardContent className="pt-5 pb-4">
-            <div className="flex items-center gap-2 text-xs font-medium text-stone-500 mb-1">
-              <BarChart3 className="h-3.5 w-3.5" />
-              Data Coverage
-            </div>
-            <div className="text-2xl font-bold text-stone-900">
-              {stats.dataCoverage}%
-            </div>
-            <div className="text-xs text-stone-400 mt-0.5">
-              {stats.totalWithValue}/{stats.activeCount} have values
-            </div>
-          </CardContent>
-        </Card>
       </div>
 
       <PipelineBoard initialStages={stages} />

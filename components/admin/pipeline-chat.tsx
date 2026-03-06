@@ -95,35 +95,9 @@ export function PipelineChat() {
         </span>
       </div>
 
-      {/* Input area — always visible */}
-      <form onSubmit={handleSubmit} className="px-4 pb-3">
-        <div className="relative">
-          <textarea
-            ref={inputRef}
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={handleKeyDown}
-            placeholder={'Describe a lead, paste a LinkedIn profile, or just drop a name and company.\n\ne.g. "John Smith, CEO of Acme Services, $5M revenue, found on Sales Nav"'}
-            rows={4}
-            className="w-full resize-none rounded-lg border border-stone-200 bg-stone-50 text-sm text-stone-900 placeholder:text-stone-400 focus:outline-none focus:border-stone-400 p-3 pr-12"
-          />
-          <button
-            type="submit"
-            disabled={sending || !input.trim()}
-            className="absolute right-2 bottom-2 h-8 w-8 flex items-center justify-center rounded-lg bg-blue-600 text-white hover:bg-blue-700 disabled:bg-stone-200 disabled:text-stone-400 transition-colors"
-          >
-            {sending ? (
-              <Loader2 className="h-4 w-4 animate-spin" />
-            ) : (
-              <Send className="h-4 w-4" />
-            )}
-          </button>
-        </div>
-      </form>
-
-      {/* Message history */}
+      {/* Conversation history — pinned above input */}
       {messages.length > 0 && (
-        <div className="border-t border-stone-100 max-h-[200px] overflow-y-auto p-3 space-y-2">
+        <div className="max-h-[240px] overflow-y-auto px-4 pb-3 space-y-2">
           {messages.map((msg) => (
             <div
               key={msg.id}
@@ -145,6 +119,35 @@ export function PipelineChat() {
           <div ref={messagesEndRef} />
         </div>
       )}
+
+      {/* Input — always at bottom */}
+      <form
+        onSubmit={handleSubmit}
+        className={`px-4 pb-3 ${messages.length > 0 ? "border-t border-stone-100 pt-3" : ""}`}
+      >
+        <div className="relative">
+          <textarea
+            ref={inputRef}
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={handleKeyDown}
+            placeholder={'Describe a lead, paste a LinkedIn profile or email, or just drop a name and company.\n\ne.g. "John Smith, CEO of Acme Services, $5M revenue, found on Sales Nav"'}
+            rows={4}
+            className="w-full resize-none rounded-lg border border-stone-200 bg-stone-50 text-sm text-stone-900 placeholder:text-stone-400 focus:outline-none focus:border-stone-400 p-3 pr-12"
+          />
+          <button
+            type="submit"
+            disabled={sending || !input.trim()}
+            className="absolute right-2 bottom-2 h-8 w-8 flex items-center justify-center rounded-lg bg-blue-600 text-white hover:bg-blue-700 disabled:bg-stone-200 disabled:text-stone-400 transition-colors"
+          >
+            {sending ? (
+              <Loader2 className="h-4 w-4 animate-spin" />
+            ) : (
+              <Send className="h-4 w-4" />
+            )}
+          </button>
+        </div>
+      </form>
     </div>
   );
 }
