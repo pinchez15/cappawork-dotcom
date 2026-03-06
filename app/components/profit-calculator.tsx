@@ -170,9 +170,8 @@ export function ProfitCalculator() {
   if (showResults) {
     return (
       <div className="min-h-screen bg-stone-50 font-sans">
-        <div className="max-w-[720px] mx-auto px-6 py-10 pb-20">
-          {/* Nav */}
-          <div className="text-center mb-8">
+        <nav className="border-b border-stone-200 bg-white/80 backdrop-blur-sm mb-8">
+          <div className="max-w-[720px] mx-auto px-6 h-14 flex items-center">
             <Link
               href="/"
               className="text-xl font-display tracking-tight text-stone-900 hover:text-stone-600 transition-colors"
@@ -180,7 +179,8 @@ export function ProfitCalculator() {
               CappaWork
             </Link>
           </div>
-
+        </nav>
+        <div className="max-w-[720px] mx-auto px-6 pb-20">
           {/* Hero */}
           <div className="bg-gradient-to-br from-[#0a1628] to-[#162a46] text-white rounded-2xl p-10 text-center mb-6">
             <div className="text-xs uppercase tracking-[3px] opacity-70 mb-2">
@@ -523,15 +523,19 @@ export function ProfitCalculator() {
 
   return (
     <div className="min-h-screen bg-stone-50 font-sans">
-      <div className="max-w-[720px] mx-auto px-6 py-10 pb-20">
-        {/* Header */}
-        <div className="text-center mb-12">
+      <nav className="border-b border-stone-200 bg-white/80 backdrop-blur-sm">
+        <div className="max-w-[720px] mx-auto px-6 h-14 flex items-center">
           <Link
             href="/"
-            className="text-xl font-display tracking-tight text-stone-900 hover:text-stone-600 transition-colors inline-block mb-6"
+            className="text-xl font-display tracking-tight text-stone-900 hover:text-stone-600 transition-colors"
           >
             CappaWork
           </Link>
+        </div>
+      </nav>
+      <div className="max-w-[720px] mx-auto px-6 pt-10 pb-20">
+        {/* Header */}
+        <div className="text-center mb-12">
           <div className="inline-block bg-[#0a1628] text-white text-[10px] font-bold tracking-[2px] uppercase px-4 py-1 rounded-full mb-4">
             Free Assessment
           </div>
