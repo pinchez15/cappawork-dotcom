@@ -87,11 +87,11 @@ export default async function PipelinePage() {
         </Card>
       </div>
 
-      <div className="mb-6 max-w-2xl">
+      <PipelineBoard initialStages={stages} />
+
+      <div className="mt-8 max-w-2xl">
         <PipelineChat />
       </div>
-
-      <PipelineBoard initialStages={stages} />
     </div>
   );
 }

@@ -86,10 +86,44 @@ export function PipelineChat() {
   }
 
   return (
-    <div className="border border-stone-200 rounded-xl bg-white shadow-sm overflow-hidden">
-      {/* Messages area */}
+    <div className="border border-stone-200 rounded-xl bg-white shadow-sm">
+      {/* Label */}
+      <div className="flex items-center gap-2 px-4 pt-3 pb-2">
+        <Sparkles className="h-4 w-4 text-stone-400" />
+        <span className="text-xs font-semibold text-stone-500 uppercase tracking-wider">
+          Quick Add
+        </span>
+      </div>
+
+      {/* Input area — always visible */}
+      <form onSubmit={handleSubmit} className="px-4 pb-3">
+        <div className="relative">
+          <textarea
+            ref={inputRef}
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={handleKeyDown}
+            placeholder={'Describe a lead, paste a LinkedIn profile, or just drop a name and company.\n\ne.g. "John Smith, CEO of Acme Services, $5M revenue, found on Sales Nav"'}
+            rows={4}
+            className="w-full resize-none rounded-lg border border-stone-200 bg-stone-50 text-sm text-stone-900 placeholder:text-stone-400 focus:outline-none focus:border-stone-400 p-3 pr-12"
+          />
+          <button
+            type="submit"
+            disabled={sending || !input.trim()}
+            className="absolute right-2 bottom-2 h-8 w-8 flex items-center justify-center rounded-lg bg-blue-600 text-white hover:bg-blue-700 disabled:bg-stone-200 disabled:text-stone-400 transition-colors"
+          >
+            {sending ? (
+              <Loader2 className="h-4 w-4 animate-spin" />
+            ) : (
+              <Send className="h-4 w-4" />
+            )}
+          </button>
+        </div>
+      </form>
+
+      {/* Message history */}
       {messages.length > 0 && (
-        <div className="max-h-[240px] overflow-y-auto p-3 space-y-2 border-b border-stone-100">
+        <div className="border-t border-stone-100 max-h-[200px] overflow-y-auto p-3 space-y-2">
           {messages.map((msg) => (
             <div
               key={msg.id}
@@ -111,35 +145,6 @@ export function PipelineChat() {
           <div ref={messagesEndRef} />
         </div>
       )}
-
-      {/* Input */}
-      <form onSubmit={handleSubmit} className="flex items-end gap-2 p-3">
-        <div className="flex-1 relative">
-          {messages.length === 0 && (
-            <div className="absolute left-3 top-2.5 flex items-center gap-1.5 text-stone-300 pointer-events-none">
-              <Sparkles className="h-3.5 w-3.5" />
-            </div>
-          )}
-          <textarea
-            ref={inputRef}
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={handleKeyDown}
-            placeholder='Add a lead — "John Smith, CEO of Acme Services, found on Sales Nav" or paste a LinkedIn profile'
-            rows={1}
-            className={`w-full resize-none rounded-lg border border-stone-200 bg-stone-50 text-sm text-stone-900 placeholder:text-stone-400 focus:outline-none focus:border-stone-400 py-2.5 pr-3 ${
-              messages.length === 0 ? "pl-9" : "pl-3"
-            }`}
-          />
-        </div>
-        <button
-          type="submit"
-          disabled={sending || !input.trim()}
-          className="shrink-0 h-10 w-10 flex items-center justify-center rounded-lg bg-blue-600 text-white hover:bg-blue-700 disabled:bg-stone-200 disabled:text-stone-400 transition-colors"
-        >
-          <Send className="h-4 w-4" />
-        </button>
-      </form>
     </div>
   );
 }
