@@ -20,12 +20,14 @@ import {
 } from "@/components/ui/select";
 import { Trash2, ExternalLink } from "lucide-react";
 import { STAGES, type BDDeal } from "@/server/repos/bd-deals";
+import type { BDCatalyst } from "@/server/repos/bd-catalysts";
 
 type Props = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   deal: BDDeal | null;
   defaultStage: string;
+  catalysts: BDCatalyst[];
   onSaved: () => void;
   onDeleted: () => void;
 };
@@ -43,6 +45,7 @@ export function DealFormDialog({
   onOpenChange,
   deal,
   defaultStage,
+  catalysts,
   onSaved,
   onDeleted,
 }: Props) {
@@ -61,6 +64,9 @@ export function DealFormDialog({
     stage: defaultStage,
     source: "linkedin",
     referral_partner: "",
+    catalyst_id: "",
+    follow_up_date: "",
+    next_action: "",
     notes: "",
   });
 
@@ -77,6 +83,9 @@ export function DealFormDialog({
         stage: deal.stage,
         source: deal.source,
         referral_partner: deal.referral_partner || "",
+        catalyst_id: deal.catalyst_id || "",
+        follow_up_date: deal.follow_up_date || "",
+        next_action: deal.next_action || "",
         notes: deal.notes || "",
       });
     } else {
@@ -91,6 +100,9 @@ export function DealFormDialog({
         stage: defaultStage,
         source: "linkedin",
         referral_partner: "",
+        catalyst_id: "",
+        follow_up_date: "",
+        next_action: "",
         notes: "",
       });
     }
@@ -103,18 +115,25 @@ export function DealFormDialog({
     if (!form.name.trim()) return;
     setSaving(true);
 
+    const payload = {
+      ...form,
+      catalyst_id: form.catalyst_id || null,
+      follow_up_date: form.follow_up_date || null,
+      next_action: form.next_action || null,
+    };
+
     try {
       if (isEditing) {
         await fetch(`/api/admin/bd-deals/${deal.id}`, {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(form),
+          body: JSON.stringify(payload),
         });
       } else {
         await fetch("/api/admin/bd-deals", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(form),
+          body: JSON.stringify(payload),
         });
       }
       onSaved();
@@ -280,18 +299,67 @@ export function DealFormDialog({
             </div>
           </div>
 
-          {/* Referral partner */}
-          {(form.source === "referral" || form.referral_partner) && (
+          {/* Referral / Catalyst */}
+          <div className="grid grid-cols-2 gap-3">
             <div>
-              <Label htmlFor="referral_partner">Referral partner</Label>
+              <Label>Referred by</Label>
+              <Select
+                value={form.catalyst_id || "none"}
+                onValueChange={(v) =>
+                  set("catalyst_id", v === "none" ? "" : v)
+                }
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="No referral" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="none">No referral</SelectItem>
+                  {catalysts.map((c) => (
+                    <SelectItem key={c.id} value={c.id}>
+                      {c.name}
+                      {c.company ? ` (${c.company})` : ""}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label htmlFor="referral_partner">Referral note</Label>
               <Input
                 id="referral_partner"
-                placeholder="Who referred this lead?"
+                placeholder="Additional context"
                 value={form.referral_partner}
                 onChange={(e) => set("referral_partner", e.target.value)}
               />
             </div>
-          )}
+          </div>
+
+          {/* Follow-up */}
+          <div className="border-t border-stone-100 pt-4">
+            <div className="text-xs font-semibold text-stone-500 uppercase tracking-wider mb-3">
+              Follow-up
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <Label htmlFor="follow_up_date">Follow-up date</Label>
+                <Input
+                  id="follow_up_date"
+                  type="date"
+                  value={form.follow_up_date}
+                  onChange={(e) => set("follow_up_date", e.target.value)}
+                />
+              </div>
+              <div>
+                <Label htmlFor="next_action">Next action</Label>
+                <Input
+                  id="next_action"
+                  placeholder="Send proposal, schedule call..."
+                  value={form.next_action}
+                  onChange={(e) => set("next_action", e.target.value)}
+                />
+              </div>
+            </div>
+          </div>
 
           {/* Notes */}
           <div>

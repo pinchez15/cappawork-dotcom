@@ -1,8 +1,10 @@
 "use client";
 
 import { useState, Fragment } from "react";
+import { useRouter } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { ChevronDown, ChevronUp, Plus, Check } from "lucide-react";
 
 type Lead = {
   id: string;
@@ -32,9 +34,18 @@ function formatRevenue(v: unknown): string {
   return "$1M-$3M";
 }
 
-function ExpandedRow({ lead }: { lead: Lead }) {
+function ExpandedRow({ lead, onPromote }: { lead: Lead; onPromote: (lead: Lead) => void }) {
   const i = lead.inputs;
   const r = lead.results;
+  const [promoted, setPromoted] = useState(false);
+  const [promoting, setPromoting] = useState(false);
+
+  async function handlePromote() {
+    setPromoting(true);
+    await onPromote(lead);
+    setPromoted(true);
+    setPromoting(false);
+  }
 
   return (
     <tr>
@@ -105,13 +116,65 @@ function ExpandedRow({ lead }: { lead: Lead }) {
             </div>
           </div>
         </div>
+        <div className="mt-3 flex justify-end">
+          {promoted ? (
+            <span className="text-xs text-green-600 flex items-center gap-1">
+              <Check className="h-3 w-3" /> Added to Pipeline
+            </span>
+          ) : (
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={(e) => {
+                e.stopPropagation();
+                handlePromote();
+              }}
+              disabled={promoting}
+              className="text-xs"
+            >
+              <Plus className="h-3 w-3 mr-1" />
+              {promoting ? "Adding..." : "Add to Pipeline"}
+            </Button>
+          )}
+        </div>
       </td>
     </tr>
   );
 }
 
 export function CalculatorLeadsTable({ leads }: { leads: Lead[] }) {
+  const router = useRouter();
   const [expandedId, setExpandedId] = useState<string | null>(null);
+
+  async function promoteToPipeline(lead: Lead) {
+    const rev = lead.inputs?.revenue as number | undefined;
+    const value = rev || 0;
+    const notes = [
+      `Calculator lead: ${lead.first_name}`,
+      lead.email ? `Email: ${lead.email}` : "",
+      `Revenue: ${formatRevenue(lead.inputs?.revenue)}`,
+      `Headcount: ${(lead.inputs?.headcount as number) || "?"}`,
+      `Capacity unlocked: +${(lead.results?.capacityPct as number) || 0}%`,
+      `Revenue capacity: $${((lead.results?.revenueCapacity as number) || 0).toLocaleString()}`,
+    ].filter(Boolean).join("\n");
+
+    await fetch("/api/admin/bd-deals", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: `${lead.first_name}${lead.company ? ` — ${lead.company}` : ""}`,
+        stage: "lead",
+        stage_order: 0,
+        source: "calculator",
+        contact_name: lead.first_name,
+        contact_email: lead.email,
+        company: lead.company,
+        value,
+        notes,
+      }),
+    });
+    router.refresh();
+  }
 
   return (
     <div className="overflow-x-auto">
@@ -163,7 +226,7 @@ export function CalculatorLeadsTable({ leads }: { leads: Lead[] }) {
                     )}
                   </td>
                 </tr>
-                {isExpanded && <ExpandedRow lead={lead} />}
+                {isExpanded && <ExpandedRow lead={lead} onPromote={promoteToPipeline} />}
               </Fragment>
             );
           })}

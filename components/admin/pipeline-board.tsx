@@ -15,11 +15,15 @@ import { useRouter } from "next/navigation";
 import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { STAGES, type BDDeal, type DealsByStage } from "@/server/repos/bd-deals";
+import type { BDCatalyst } from "@/server/repos/bd-catalysts";
 import { DealCard } from "@/components/admin/deal-card";
 import { DealFormDialog } from "@/components/admin/deal-form-dialog";
+import { AlertTriangle, Clock } from "lucide-react";
 
 type Props = {
   initialStages: DealsByStage[];
+  overdue: BDDeal[];
+  catalysts: BDCatalyst[];
 };
 
 function DroppableColumn({
@@ -78,7 +82,7 @@ function DroppableColumn({
   );
 }
 
-export function PipelineBoard({ initialStages }: Props) {
+export function PipelineBoard({ initialStages, overdue, catalysts }: Props) {
   const router = useRouter();
   const [stages, setStages] = useState(initialStages);
   const [activeId, setActiveId] = useState<string | null>(null);
@@ -180,6 +184,38 @@ export function PipelineBoard({ initialStages }: Props) {
 
   return (
     <>
+      {/* Overdue follow-ups */}
+      {overdue.length > 0 && (
+        <div className="mb-4 bg-amber-50 border border-amber-200 rounded-xl p-4">
+          <div className="flex items-center gap-2 text-sm font-bold text-amber-800 mb-2">
+            <AlertTriangle className="h-4 w-4" />
+            {overdue.length} overdue follow-up{overdue.length !== 1 ? "s" : ""}
+          </div>
+          <div className="space-y-1.5">
+            {overdue.map((deal) => (
+              <button
+                key={deal.id}
+                onClick={() => handleEdit(deal)}
+                className="flex items-center gap-3 w-full text-left text-sm hover:bg-amber-100/50 rounded-lg px-2 py-1.5 transition-colors"
+              >
+                <Clock className="h-3.5 w-3.5 text-amber-500 shrink-0" />
+                <span className="font-medium text-stone-900 truncate">
+                  {deal.name}
+                </span>
+                {deal.next_action && (
+                  <span className="text-stone-500 truncate flex-1">
+                    — {deal.next_action}
+                  </span>
+                )}
+                <span className="text-xs text-amber-600 shrink-0">
+                  {deal.follow_up_date}
+                </span>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
       <div className="mb-4">
         <Button
           onClick={() => {
@@ -230,6 +266,7 @@ export function PipelineBoard({ initialStages }: Props) {
         onOpenChange={setDialogOpen}
         deal={editingDeal}
         defaultStage={defaultStage}
+        catalysts={catalysts}
         onSaved={handleSaved}
         onDeleted={handleDeleted}
       />

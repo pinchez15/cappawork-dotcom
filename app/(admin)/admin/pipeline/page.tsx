@@ -1,20 +1,23 @@
-import { getDealsByStage, getPipelineStats } from "@/server/repos/bd-deals";
+import {
+  getDealsByStage,
+  getPipelineStats,
+  getOverdueDeals,
+} from "@/server/repos/bd-deals";
+import { getCatalysts } from "@/server/repos/bd-catalysts";
 import { PipelineBoard } from "@/components/admin/pipeline-board";
 import { PipelineChat } from "@/components/admin/pipeline-chat";
 import { Card, CardContent } from "@/components/ui/card";
-import {
-  DollarSign,
-  Target,
-  TrendingUp,
-} from "lucide-react";
+import { DollarSign, Target, TrendingUp } from "lucide-react";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export default async function PipelinePage() {
-  const [stages, stats] = await Promise.all([
+  const [stages, stats, overdue, catalysts] = await Promise.all([
     getDealsByStage(),
     getPipelineStats(),
+    getOverdueDeals(),
+    getCatalysts(),
   ]);
 
   return (
@@ -35,7 +38,8 @@ export default async function PipelinePage() {
               ${stats.activeValue.toLocaleString()}
             </div>
             <div className="text-xs text-stone-400 mt-0.5">
-              {stats.activeCount} active prospect{stats.activeCount !== 1 ? "s" : ""}
+              {stats.activeCount} active prospect
+              {stats.activeCount !== 1 ? "s" : ""}
             </div>
           </CardContent>
         </Card>
@@ -65,14 +69,18 @@ export default async function PipelinePage() {
               ${stats.wonValue.toLocaleString()}
             </div>
             <div className="text-xs text-stone-400 mt-0.5">
-              {stats.wonCount} closed deal{stats.wonCount !== 1 ? "s" : ""} (YTD)
+              {stats.wonCount} closed deal{stats.wonCount !== 1 ? "s" : ""}{" "}
+              (YTD)
             </div>
           </CardContent>
         </Card>
-
       </div>
 
-      <PipelineBoard initialStages={stages} />
+      <PipelineBoard
+        initialStages={stages}
+        overdue={overdue}
+        catalysts={catalysts}
+      />
 
       <div className="mt-8 max-w-2xl">
         <PipelineChat />

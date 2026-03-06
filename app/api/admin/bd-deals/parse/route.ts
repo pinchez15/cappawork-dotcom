@@ -86,6 +86,9 @@ export async function POST(request: NextRequest) {
       stage: "lead",
       source: parsed.source || "linkedin",
       referral_partner: parsed.referral_partner || null,
+      catalyst_id: null,
+      follow_up_date: null,
+      next_action: null,
       notes: parsed.notes || null,
     });
 

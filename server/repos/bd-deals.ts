@@ -13,6 +13,9 @@ export type BDDeal = {
   stage_order: number;
   source: string;
   referral_partner: string | null;
+  catalyst_id: string | null;
+  follow_up_date: string | null;
+  next_action: string | null;
   notes: string | null;
   created_at: string;
   updated_at: string;
@@ -112,6 +115,19 @@ export async function moveDeal(
     .eq("id", id);
 
   if (error) throw error;
+}
+
+export async function getOverdueDeals(): Promise<BDDeal[]> {
+  const today = new Date().toISOString().split("T")[0];
+  const { data, error } = await supabaseAdmin
+    .from("bd_deals")
+    .select("*")
+    .lte("follow_up_date", today)
+    .not("stage", "in", '("won","lost")')
+    .order("follow_up_date", { ascending: true });
+
+  if (error) throw error;
+  return (data as BDDeal[]) || [];
 }
 
 export async function deleteDeal(id: string): Promise<void> {
