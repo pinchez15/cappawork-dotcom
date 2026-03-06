@@ -1,0 +1,233 @@
+"use client";
+
+import { useState, useCallback } from "react";
+import {
+  DndContext,
+  DragOverlay,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  type DragStartEvent,
+  type DragEndEvent,
+} from "@dnd-kit/core";
+import { useDroppable } from "@dnd-kit/core";
+import { useRouter } from "next/navigation";
+import { Plus } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { STAGES, type BDDeal, type DealsByStage } from "@/server/repos/bd-deals";
+import { DealCard } from "@/components/admin/deal-card";
+import { DealFormDialog } from "@/components/admin/deal-form-dialog";
+
+type Props = {
+  initialStages: DealsByStage[];
+};
+
+function DroppableColumn({
+  stageId,
+  label,
+  color,
+  deals,
+  onEdit,
+  onAddToStage,
+}: {
+  stageId: string;
+  label: string;
+  color: string;
+  deals: BDDeal[];
+  onEdit: (deal: BDDeal) => void;
+  onAddToStage: (stageId: string) => void;
+}) {
+  const { isOver, setNodeRef } = useDroppable({ id: stageId });
+  const totalValue = deals.reduce((sum, d) => sum + (d.value || 0), 0);
+
+  return (
+    <div
+      ref={setNodeRef}
+      className={`flex flex-col rounded-xl border border-stone-200 ${color} min-w-[260px] w-[260px] shrink-0 transition-shadow ${
+        isOver ? "ring-2 ring-blue-400 shadow-md" : ""
+      }`}
+    >
+      <div className="px-3 py-3 border-b border-stone-200/60">
+        <div className="flex items-center justify-between mb-0.5">
+          <h3 className="text-sm font-bold text-stone-900">{label}</h3>
+          <span className="text-xs font-medium text-stone-400">
+            {deals.length}
+          </span>
+        </div>
+        {totalValue > 0 && (
+          <div className="text-xs text-stone-500">
+            ${totalValue.toLocaleString()}
+          </div>
+        )}
+      </div>
+      <div className="flex-1 p-2 space-y-2 min-h-[120px] overflow-y-auto max-h-[calc(100vh-260px)]">
+        {deals.map((deal) => (
+          <DealCard key={deal.id} deal={deal} onEdit={onEdit} />
+        ))}
+      </div>
+      <div className="p-2 border-t border-stone-200/60">
+        <button
+          onClick={() => onAddToStage(stageId)}
+          className="w-full flex items-center justify-center gap-1 text-xs text-stone-400 hover:text-stone-600 py-1.5 rounded-lg hover:bg-white/60 transition-colors"
+        >
+          <Plus className="h-3 w-3" />
+          Add
+        </button>
+      </div>
+    </div>
+  );
+}
+
+export function PipelineBoard({ initialStages }: Props) {
+  const router = useRouter();
+  const [stages, setStages] = useState(initialStages);
+  const [activeId, setActiveId] = useState<string | null>(null);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [editingDeal, setEditingDeal] = useState<BDDeal | null>(null);
+  const [defaultStage, setDefaultStage] = useState("lead");
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, { activationConstraint: { distance: 8 } })
+  );
+
+  const activeDeal = activeId
+    ? stages.flatMap((s) => s.deals).find((d) => d.id === activeId)
+    : null;
+
+  const handleDragStart = useCallback((event: DragStartEvent) => {
+    setActiveId(event.active.id as string);
+  }, []);
+
+  const handleDragEnd = useCallback(
+    async (event: DragEndEvent) => {
+      setActiveId(null);
+      const { active, over } = event;
+      if (!over) return;
+
+      const dealId = active.id as string;
+      const destStageId = over.id as string;
+
+      // Find source stage
+      const sourceStage = stages.find((s) =>
+        s.deals.some((d) => d.id === dealId)
+      );
+      if (!sourceStage || sourceStage.stageId === destStageId) return;
+
+      // Optimistic update
+      const deal = sourceStage.deals.find((d) => d.id === dealId);
+      if (!deal) return;
+
+      setStages((prev) =>
+        prev.map((s) => {
+          if (s.stageId === sourceStage.stageId) {
+            return { ...s, deals: s.deals.filter((d) => d.id !== dealId) };
+          }
+          if (s.stageId === destStageId) {
+            return {
+              ...s,
+              deals: [...s.deals, { ...deal, stage: destStageId }],
+            };
+          }
+          return s;
+        })
+      );
+
+      // Persist
+      try {
+        const destDeals = stages.find((s) => s.stageId === destStageId)?.deals;
+        const newOrder = (destDeals?.length ?? 0);
+
+        await fetch(`/api/admin/bd-deals/${dealId}/move`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ stage: destStageId, order: newOrder }),
+        });
+      } catch {
+        // Revert on error
+        setStages(initialStages);
+      }
+    },
+    [stages, initialStages]
+  );
+
+  const handleEdit = useCallback((deal: BDDeal) => {
+    setEditingDeal(deal);
+    setDialogOpen(true);
+  }, []);
+
+  const handleAddToStage = useCallback((stageId: string) => {
+    setDefaultStage(stageId);
+    setEditingDeal(null);
+    setDialogOpen(true);
+  }, []);
+
+  const handleSaved = useCallback(() => {
+    setDialogOpen(false);
+    setEditingDeal(null);
+    router.refresh();
+  }, [router]);
+
+  const handleDeleted = useCallback(() => {
+    setDialogOpen(false);
+    setEditingDeal(null);
+    router.refresh();
+  }, [router]);
+
+  return (
+    <>
+      <div className="mb-4">
+        <Button
+          onClick={() => {
+            setDefaultStage("lead");
+            setEditingDeal(null);
+            setDialogOpen(true);
+          }}
+          className="rounded-full bg-blue-600 hover:bg-blue-700"
+        >
+          <Plus className="h-4 w-4 mr-1" />
+          Add Deal
+        </Button>
+      </div>
+
+      <DndContext
+        sensors={sensors}
+        onDragStart={handleDragStart}
+        onDragEnd={handleDragEnd}
+      >
+        <div className="flex gap-3 overflow-x-auto pb-4">
+          {STAGES.map((stageDef) => {
+            const stageData = stages.find((s) => s.stageId === stageDef.id);
+            return (
+              <DroppableColumn
+                key={stageDef.id}
+                stageId={stageDef.id}
+                label={stageDef.label}
+                color={stageDef.color}
+                deals={stageData?.deals || []}
+                onEdit={handleEdit}
+                onAddToStage={handleAddToStage}
+              />
+            );
+          })}
+        </div>
+
+        <DragOverlay>
+          {activeDeal ? (
+            <div className="opacity-80 rotate-2">
+              <DealCard deal={activeDeal} onEdit={() => {}} />
+            </div>
+          ) : null}
+        </DragOverlay>
+      </DndContext>
+
+      <DealFormDialog
+        open={dialogOpen}
+        onOpenChange={setDialogOpen}
+        deal={editingDeal}
+        defaultStage={defaultStage}
+        onSaved={handleSaved}
+        onDeleted={handleDeleted}
+      />
+    </>
+  );
+}
