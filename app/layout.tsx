@@ -28,6 +28,10 @@ export const metadata: Metadata = {
   creator: "CappaWork",
   publisher: "CappaWork",
   robots: "index, follow",
+  icons: {
+    icon: "/cappawork-favicon.svg",
+    apple: "/cappawork-favicon.svg",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",

@@ -193,3 +193,40 @@ export async function getPipelineStats() {
     totalWithValue: withValue,
   };
 }
+
+export async function getTopCatalysts(limit = 5) {
+  const { data, error } = await supabaseAdmin
+    .from("bd_deals")
+    .select("catalyst_id, stage, value")
+    .not("catalyst_id", "is", null);
+
+  if (error) throw error;
+  const deals = (data || []) as { catalyst_id: string; stage: string; value: number | null }[];
+
+  // Group by catalyst
+  const map = new Map<string, { count: number; wonCount: number; totalValue: number }>();
+  for (const d of deals) {
+    const existing = map.get(d.catalyst_id) || { count: 0, wonCount: 0, totalValue: 0 };
+    existing.count++;
+    if (d.stage === "won") existing.wonCount++;
+    existing.totalValue += d.value || 0;
+    map.set(d.catalyst_id, existing);
+  }
+
+  // Get catalyst names
+  const ids = [...map.keys()];
+  if (ids.length === 0) return [];
+
+  const { data: catalysts } = await supabaseAdmin
+    .from("bd_catalysts")
+    .select("id, name, company, category")
+    .in("id", ids);
+
+  return (catalysts || [])
+    .map((c: { id: string; name: string; company: string | null; category: string }) => ({
+      ...c,
+      ...map.get(c.id)!,
+    }))
+    .sort((a, b) => b.count - a.count)
+    .slice(0, limit);
+}

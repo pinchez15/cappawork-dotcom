@@ -2,10 +2,13 @@ import {
   getDealsByStage,
   getPipelineStats,
   getOverdueDeals,
+  getTopCatalysts,
 } from "@/server/repos/bd-deals";
 import { getCatalysts } from "@/server/repos/bd-catalysts";
 import { PipelineBoard } from "@/components/admin/pipeline-board";
 import { PipelineChat } from "@/components/admin/pipeline-chat";
+import { PipelineGoal } from "@/components/admin/pipeline-goal";
+import { TopCatalysts } from "@/components/admin/top-catalysts";
 import { Card, CardContent } from "@/components/ui/card";
 import { DollarSign, Target, TrendingUp } from "lucide-react";
 
@@ -13,11 +16,12 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export default async function PipelinePage() {
-  const [stages, stats, overdue, catalysts] = await Promise.all([
+  const [stages, stats, overdue, catalysts, topCatalysts] = await Promise.all([
     getDealsByStage(),
     getPipelineStats(),
     getOverdueDeals(),
     getCatalysts(),
+    getTopCatalysts(),
   ]);
 
   return (
@@ -26,8 +30,15 @@ export default async function PipelinePage() {
         <h1 className="text-3xl font-semibold text-stone-900">Pipeline</h1>
       </div>
 
-      {/* Stats cards */}
-      <div className="grid grid-cols-3 gap-4 mb-6">
+      {/* Goal tracker */}
+      <PipelineGoal
+        activeValue={stats.activeValue}
+        weightedValue={stats.weightedValue}
+        wonValue={stats.wonValue}
+      />
+
+      {/* Stats + Top Catalysts row */}
+      <div className="grid grid-cols-4 gap-4 mb-6">
         <Card>
           <CardContent className="pt-5 pb-4">
             <div className="flex items-center gap-2 text-xs font-medium text-stone-500 mb-1">
@@ -74,6 +85,8 @@ export default async function PipelinePage() {
             </div>
           </CardContent>
         </Card>
+
+        <TopCatalysts catalysts={topCatalysts} />
       </div>
 
       <PipelineBoard

@@ -1,9 +1,29 @@
 "use client";
 
 import { useDraggable } from "@dnd-kit/core";
-import { GripVertical, Linkedin, UserCircle } from "lucide-react";
+import { GripVertical, Linkedin, UserCircle, Clock } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import type { BDDeal } from "@/server/repos/bd-deals";
+
+const AGING_THRESHOLDS: Record<string, number> = {
+  lead: 10,
+  contacted: 14,
+  discovery: 21,
+  proposal: 21,
+};
+
+function getDaysInStage(deal: BDDeal): number {
+  const updated = new Date(deal.updated_at);
+  const now = new Date();
+  return Math.floor((now.getTime() - updated.getTime()) / (1000 * 60 * 60 * 24));
+}
+
+function isStale(deal: BDDeal): { stale: boolean; days: number } {
+  const threshold = AGING_THRESHOLDS[deal.stage];
+  if (!threshold) return { stale: false, days: 0 };
+  const days = getDaysInStage(deal);
+  return { stale: days >= threshold, days };
+}
 
 type Props = {
   deal: BDDeal;
@@ -30,14 +50,15 @@ export function DealCard({ deal, onEdit }: Props) {
     : undefined;
 
   const badge = sourceBadge[deal.source] || sourceBadge.other;
+  const aging = isStale(deal);
 
   return (
     <div
       ref={setNodeRef}
       style={style}
-      className={`bg-white rounded-lg border border-stone-200 p-3 shadow-sm cursor-pointer hover:border-stone-300 transition-colors ${
+      className={`bg-white rounded-lg border p-3 shadow-sm cursor-pointer hover:border-stone-300 transition-colors ${
         isDragging ? "opacity-50" : ""
-      }`}
+      } ${aging.stale ? "border-amber-300 bg-amber-50/30" : "border-stone-200"}`}
       onClick={() => onEdit(deal)}
     >
       <div className="flex items-start gap-2">
@@ -67,6 +88,12 @@ export function DealCard({ deal, onEdit }: Props) {
             <Badge className={`text-[10px] px-1.5 py-0 ${badge.className}`}>
               {badge.label}
             </Badge>
+            {aging.stale && (
+              <span className="flex items-center gap-0.5 text-[10px] text-amber-600 font-medium">
+                <Clock className="h-2.5 w-2.5" />
+                {aging.days}d
+              </span>
+            )}
           </div>
           {(deal.contact_name || deal.referral_partner) && (
             <div className="flex items-center gap-3 mt-2 text-xs text-stone-400">
