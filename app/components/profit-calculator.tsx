@@ -373,6 +373,55 @@ export function ProfitCalculator() {
             </div>
           )}
 
+          {/* Margin Impact */}
+          <div className={card}>
+            <h3 className="text-lg font-bold text-[#0a1628] mb-1">
+              What a Few Margin Points Mean at Your Scale
+            </h3>
+            <p className="text-sm text-stone-500 mb-4">
+              At ${(rev / 1000000).toFixed(0)}M in revenue, small margin
+              improvements have outsized impact.
+            </p>
+
+            <div className="space-y-3">
+              {[1, 2, 3].map((pts) => {
+                const additionalProfit = Math.round(rev * (pts / 100));
+                const newMargin = margin + pts / 100;
+                return (
+                  <div
+                    key={pts}
+                    className={`flex items-center justify-between p-4 rounded-xl border ${
+                      pts === 2
+                        ? "bg-[#c9a84c]/10 border-[#c9a84c]/30"
+                        : "bg-stone-50 border-stone-200"
+                    }`}
+                  >
+                    <div>
+                      <div className="text-sm font-bold text-[#0a1628]">
+                        +{pts} margin point{pts > 1 ? "s" : ""}
+                      </div>
+                      <div className="text-xs text-stone-500">
+                        {data.margin === -1 ? "~7" : (margin * 100).toFixed(0)}%
+                        → {(newMargin * 100).toFixed(0)}%
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-lg font-black text-[#0a7c42]">
+                        +${additionalProfit.toLocaleString()}
+                      </div>
+                      <div className="text-xs text-stone-500">per year</div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            <p className="text-xs text-stone-400 mt-4 italic">
+              These are pure profit dollars — no additional revenue or customers
+              needed. Just less waste in how work gets done.
+            </p>
+          </div>
+
           {/* Insights */}
           <div className={card}>
             <h3 className="text-lg font-bold text-[#0a1628] mb-3">
@@ -624,6 +673,25 @@ export function ProfitCalculator() {
                 </span>
               </button>
             </div>
+            {data.margin !== null && data.revenue && (
+              <div className="mt-4 bg-stone-50 border border-stone-200 rounded-xl p-4">
+                <div className="text-xs font-bold uppercase tracking-wider text-stone-500 mb-1">
+                  Why this matters
+                </div>
+                <p className="text-sm text-stone-700">
+                  At ${(data.revenue / 1000000).toFixed(0)}M in revenue, every{" "}
+                  <strong className="text-[#0a1628]">1% of margin</strong> ={" "}
+                  <strong className="text-[#0a7c42]">
+                    ${Math.round(data.revenue * 0.01).toLocaleString()}/year
+                  </strong>{" "}
+                  straight to your bottom line. A 2-point improvement means{" "}
+                  <strong className="text-[#0a7c42]">
+                    ${Math.round(data.revenue * 0.02).toLocaleString()}
+                  </strong>{" "}
+                  more in annual profit — without adding a single customer.
+                </p>
+              </div>
+            )}
             <div className="flex gap-3 mt-6">
               <button className={btnBack} onClick={() => goTo(2)}>
                 Back
