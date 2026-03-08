@@ -24,6 +24,7 @@ import {
   Megaphone,
   Target,
   Handshake,
+  Crosshair,
 } from "lucide-react";
 
 export function AdminSidebar() {
@@ -44,6 +45,11 @@ export function AdminSidebar() {
       title: "Pipeline",
       icon: Target,
       href: "/admin/pipeline",
+    },
+    {
+      title: "Prospects",
+      icon: Crosshair,
+      href: "/admin/prospects",
     },
     {
       title: "Catalysts",
