@@ -10,9 +10,9 @@ import { FadeInUp } from "./motion-wrapper"
 
 const faqs = [
   {
-    question: "Do I have to commit to Phase 2?",
+    question: "Do I have to commit to all three phases?",
     answer:
-      "No. Phase 1 is standalone. You receive a full report with quantified opportunities and clear next steps. You can execute internally, work with us, or choose another partner.",
+      "No. Phase 1 is standalone. You receive a full report with quantified opportunities and clear next steps. You can execute internally, work with us, or choose another partner. Each phase builds on the last, but none requires the next.",
   },
   {
     question: "What kind of AI are we talking about?",
@@ -37,7 +37,7 @@ const faqs = [
   {
     question: "How fast do we see results?",
     answer:
-      "Phase 1 (Diagnostic) delivers a prioritized roadmap in 4–6 weeks. Phase 2 implementations typically show measurable impact within 60–90 days. We move fast because we use the same AI tools we recommend.",
+      "Phase 1 (Diagnostic) delivers a prioritized roadmap in 4–6 weeks. Phase 2 implementations typically show measurable impact within 60–90 days. Phase 3 keeps that momentum compounding. We move fast because we use the same AI tools we recommend.",
   },
 ]
 

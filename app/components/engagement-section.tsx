@@ -15,17 +15,35 @@ export default function EngagementSection() {
     <section id="engagement" className="py-24 bg-warm-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <FadeInUp>
-          <div className="max-w-3xl mb-16">
+          <div className="max-w-3xl mb-8">
             <span className="text-sm font-semibold tracking-widest uppercase text-gold block mb-4">
               How We Work
             </span>
             <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl tracking-tight text-navy leading-tight">
-              Two phases. Clarity first, then implementation.
+              Three phases. Find the money. Build the system. Keep it compounding.
             </h2>
           </div>
         </FadeInUp>
 
-        <div className="grid md:grid-cols-2 gap-12 items-start">
+        {/* Phase arc */}
+        <FadeInUp delay={0.05}>
+          <div className="grid grid-cols-3 gap-4 mb-16 max-w-2xl">
+            {[
+              { phase: "1", label: "Find the money" },
+              { phase: "2", label: "Build the system" },
+              { phase: "3", label: "Keep it compounding" },
+            ].map((p, i) => (
+              <div key={i} className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-full bg-gold/10 border border-gold/30 flex items-center justify-center text-sm font-bold text-gold shrink-0">
+                  {p.phase}
+                </div>
+                <span className="text-sm font-medium text-navy">{p.label}</span>
+              </div>
+            ))}
+          </div>
+        </FadeInUp>
+
+        <div className="grid md:grid-cols-3 gap-8 items-start">
 
           {/* Phase 1 */}
           <FadeInUp delay={0.1}>
@@ -36,10 +54,10 @@ export default function EngagementSection() {
               <span className="text-sm font-semibold tracking-widest uppercase text-gold mb-2">
                 Phase 1
               </span>
-              <h3 className="text-2xl sm:text-3xl font-semibold tracking-tight text-navy mb-2">
+              <h3 className="text-2xl font-semibold tracking-tight text-navy mb-2">
                 AI & Operations Diagnostic
               </h3>
-              <div className="text-4xl font-semibold tracking-tight text-navy mb-1">
+              <div className="text-3xl font-semibold tracking-tight text-navy mb-1">
                 $30,000
               </div>
               <p className="text-sm text-stone-500 mb-6">4–6 weeks</p>
@@ -77,7 +95,7 @@ export default function EngagementSection() {
 
               <button
                 onClick={handleBookCall}
-                className="w-full bg-gold text-navy py-3 rounded-full font-medium hover:bg-gold/90 transition-all duration-200 flex items-center justify-center gap-2"
+                className="w-full bg-gold text-navy py-3 rounded-full font-medium hover:bg-gold/90 transition-all duration-200 flex items-center justify-center gap-2 mt-auto"
               >
                 Book Diagnostic Call
                 <ArrowRight size={16} />
@@ -91,13 +109,10 @@ export default function EngagementSection() {
               <span className="text-sm font-semibold tracking-widest uppercase text-stone-500 mb-2">
                 Phase 2
               </span>
-              <h3 className="text-2xl sm:text-3xl font-semibold tracking-tight text-navy mb-2">
+              <h3 className="text-2xl font-semibold tracking-tight text-navy mb-2">
                 AI Implementation
               </h3>
-              <div className="text-4xl font-semibold tracking-tight text-navy mb-1">
-                $50,000+
-              </div>
-              <p className="text-sm text-stone-500 mb-6">Scoped by Phase 1 findings</p>
+              <p className="text-sm text-stone-500 mb-6">Scoped during Phase 1</p>
 
               <div className="text-stone-600 leading-relaxed space-y-4 mb-6">
                 <p>
@@ -126,7 +141,7 @@ export default function EngagementSection() {
 
               <div className="text-stone-600 leading-relaxed space-y-4 mb-8">
                 <p>
-                  Modern AI-assisted development allows us to deploy production-grade systems in weeks, not quarters — dramatically accelerating time to ROI.
+                  Phase 2 investment is scoped during the diagnostic because every business is different. Our benchmark is a minimum 3x return on the build within 12 months.
                 </p>
                 <p className="font-medium text-navy">
                   We are tool-agnostic. The only metric that matters: does this increase profitability at scale?
@@ -135,7 +150,56 @@ export default function EngagementSection() {
 
               <button
                 onClick={handleBookCall}
-                className="w-full bg-gold text-navy py-3 rounded-full font-medium hover:bg-gold/90 transition-all duration-200 flex items-center justify-center gap-2"
+                className="w-full bg-gold text-navy py-3 rounded-full font-medium hover:bg-gold/90 transition-all duration-200 flex items-center justify-center gap-2 mt-auto"
+              >
+                Book Diagnostic Call
+                <ArrowRight size={16} />
+              </button>
+            </div>
+          </FadeInUp>
+
+          {/* Phase 3 */}
+          <FadeInUp delay={0.3}>
+            <div className="flex flex-col p-8 sm:p-10 rounded-2xl border border-card-border bg-card-light">
+              <span className="text-sm font-semibold tracking-widest uppercase text-stone-500 mb-2">
+                Phase 3
+              </span>
+              <h3 className="text-2xl font-semibold tracking-tight text-navy mb-2">
+                Ongoing Optimization
+              </h3>
+              <p className="text-sm text-stone-500 mb-6">Continuous</p>
+
+              <div className="text-stone-600 leading-relaxed space-y-4 mb-6">
+                <p>
+                  AI systems perform best when they evolve with your business. Phase 3 keeps your investment compounding.
+                </p>
+                <p className="font-medium text-navy">Two tracks, based on how you want to grow:</p>
+              </div>
+
+              <div className="space-y-5 mb-6">
+                <div className="bg-white rounded-xl p-5 border border-stone-200">
+                  <h4 className="font-semibold text-navy mb-2">Managed Optimization</h4>
+                  <p className="text-sm text-stone-600 leading-relaxed">
+                    CappaWork stays hands-on — continuously tuning the system, monitoring performance, and identifying the next automation opportunity. For businesses that want results without building internal AI capability.
+                  </p>
+                </div>
+                <div className="bg-white rounded-xl p-5 border border-stone-200">
+                  <h4 className="font-semibold text-navy mb-2">Guided Independence</h4>
+                  <p className="text-sm text-stone-600 leading-relaxed">
+                    CappaWork trains your team to own the system, with structured advisory access as a safety net. For businesses that want to build internal muscle with expert guidance.
+                  </p>
+                </div>
+              </div>
+
+              <div className="text-stone-600 leading-relaxed mb-8">
+                <p>
+                  The systems we build are living infrastructure, not a one-time project. Phase 3 ensures they keep delivering as your business scales.
+                </p>
+              </div>
+
+              <button
+                onClick={handleBookCall}
+                className="w-full bg-gold text-navy py-3 rounded-full font-medium hover:bg-gold/90 transition-all duration-200 flex items-center justify-center gap-2 mt-auto"
               >
                 Book Diagnostic Call
                 <ArrowRight size={16} />
