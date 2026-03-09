@@ -15,7 +15,9 @@ import {
   ExternalLink,
   Linkedin,
   ChevronDown,
+  Upload,
 } from "lucide-react";
+import { ProspectSeedDialog } from "@/components/admin/prospect-seed";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -109,6 +111,7 @@ export function ProspectDashboard({
   const [filterEnrichment, setFilterEnrichment] = useState<string>("all");
   const [enrichingIds, setEnrichingIds] = useState<Set<string>>(new Set());
   const [batchEnriching, setBatchEnriching] = useState(false);
+  const [seedDialogOpen, setSeedDialogOpen] = useState(false);
 
   const filtered = prospects.filter((p) => {
     if (
@@ -194,6 +197,13 @@ export function ProspectDashboard({
           </p>
         </div>
         <div className="flex gap-2">
+          <Button
+            variant="outline"
+            onClick={() => setSeedDialogOpen(true)}
+          >
+            <Upload className="h-4 w-4 mr-1" />
+            Seed from File
+          </Button>
           <Button
             variant="outline"
             onClick={handleBatchEnrich}
@@ -499,6 +509,11 @@ export function ProspectDashboard({
           </div>
         </div>
       )}
+
+      <ProspectSeedDialog
+        open={seedDialogOpen}
+        onOpenChange={setSeedDialogOpen}
+      />
     </>
   );
 }
