@@ -6,6 +6,7 @@ import {
   calculateEnrichmentStatus,
 } from "@/server/repos/prospects";
 import { getVerticals, createVertical } from "@/server/repos/verticals";
+import { supabaseAdmin } from "@/lib/db/client";
 
 export const runtime = "nodejs";
 
@@ -114,11 +115,34 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    // Seed outreach templates if provided
+    let templatesCreated = 0;
+    if (body.templates && Array.isArray(body.templates)) {
+      for (const t of body.templates) {
+        if (!t.body_template) continue;
+        try {
+          await supabaseAdmin.from("outreach_templates").insert({
+            sequence_tier: t.sequence_tier || 1,
+            step_number: t.step_number || 1,
+            channel: t.channel || "other",
+            template_name: t.template_name || "Untitled",
+            subject_line: t.subject_line || null,
+            body_template: t.body_template,
+            is_active: t.is_active !== false,
+          });
+          templatesCreated++;
+        } catch {
+          // Skip duplicates
+        }
+      }
+    }
+
     return NextResponse.json({
       created,
       skipped,
       verticals_count: existingVerticals.length,
-      message: `Seeded ${created} prospects (${skipped} skipped). ${existingVerticals.length} verticals total.`,
+      templates_created: templatesCreated,
+      message: `Seeded ${created} prospects (${skipped} skipped). ${existingVerticals.length} verticals, ${templatesCreated} templates.`,
     });
   } catch (error) {
     console.error("Seed error:", error);

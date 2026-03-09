@@ -48,33 +48,198 @@ export function ProspectSeedDialog({ open, onOpenChange }: Props) {
         parsed = parseCSV(text);
       }
 
+      const validProspects = parsed.filter((r) => r.company_name || r.company);
       setPreview({
-        verticals: new Set(parsed.map((r) => r.vertical).filter(Boolean)).size,
-        prospects: parsed.length,
-        sample: parsed.slice(0, 5).map((r) => r.company_name || r.company || "unknown"),
+        verticals: new Set(validProspects.map((r) => r.vertical).filter(Boolean)).size,
+        prospects: validProspects.length,
+        sample: validProspects.slice(0, 5).map((r) => r.company_name || r.company || "unknown"),
       });
-    } catch {
+    } catch (err) {
+      console.error("Parse error:", err);
       setError("Could not parse file. Supported: .xlsx, .xls, .csv");
     }
   }
 
   function parseExcel(buffer: ArrayBuffer): Record<string, string>[] {
     const workbook = XLSX.read(buffer, { type: "array" });
-    const sheetName = workbook.SheetNames[0];
-    const sheet = workbook.Sheets[sheetName];
-    const rows = XLSX.utils.sheet_to_json<Record<string, unknown>>(sheet);
 
-    return rows.map((row) => {
-      const cleaned: Record<string, string> = {};
-      for (const [key, val] of Object.entries(row)) {
-        const normalizedKey = key
-          .trim()
-          .toLowerCase()
-          .replace(/\s+/g, "_");
-        cleaned[normalizedKey] = val != null ? String(val) : "";
+    // Try to find a prospect/company sheet
+    const prospectSheet =
+      workbook.SheetNames.find((n: string) => n.toLowerCase().includes("prospect")) ||
+      workbook.SheetNames.find((n: string) => n.toLowerCase().includes("company")) ||
+      workbook.SheetNames[0];
+
+    const sheet = workbook.Sheets[prospectSheet];
+    const rawRows = XLSX.utils.sheet_to_json<unknown[]>(sheet, { header: 1 }) as unknown[][];
+
+    // Find the header row — look for a row containing "Company" or "company_name"
+    let headerIdx = 0;
+    for (let i = 0; i < Math.min(10, rawRows.length); i++) {
+      const row = rawRows[i];
+      if (!row) continue;
+      const joined = row.map((c) => String(c || "").toLowerCase()).join(" ");
+      if (joined.includes("company") && (joined.includes("vertical") || joined.includes("revenue") || joined.includes("location"))) {
+        headerIdx = i;
+        break;
       }
-      return cleaned;
-    });
+    }
+
+    const headers = (rawRows[headerIdx] || []).map((h) =>
+      String(h || "")
+        .trim()
+        .toLowerCase()
+        .replace(/\n/g, " ")
+        .replace(/\s+/g, "_")
+        .replace(/[()]/g, "")
+        .replace(/_+/g, "_")
+        .replace(/^_|_$/g, "")
+    );
+
+    // Column name mapping — map spreadsheet columns to our field names
+    const columnMap: Record<string, string> = {
+      "#": "_index",
+      company_name: "company_name",
+      company: "company_name",
+      vertical: "vertical",
+      tier: "tier",
+      "est._revenue": "estimated_revenue",
+      est_revenue: "estimated_revenue",
+      estimated_revenue: "estimated_revenue",
+      revenue: "estimated_revenue",
+      location: "location",
+      key_pain_point: "key_pain_point",
+      pain_point: "key_pain_point",
+      why_they_close_fast: "why_closes_fast",
+      why_closes_fast: "why_closes_fast",
+      linkedin_sales_nav_search_tip: "sales_nav_search_tip",
+      sales_nav_search_tip: "sales_nav_search_tip",
+      cold_email_hook: "cold_email_hook",
+      email_hook: "cold_email_hook",
+      status: "_status",
+      "decision_maker_name": "decision_maker_name",
+      decision_maker: "decision_maker_name",
+      title: "decision_maker_title",
+      linkedin_url: "linkedin_url",
+      linkedin: "linkedin_url",
+      "email_verified": "email_verified",
+      email: "email_verified",
+      "trigger_event_buying_signal": "trigger_event",
+      trigger_event: "trigger_event",
+      buying_signal: "trigger_event",
+      "tech_stack_signal": "tech_stack_signal",
+      tech_stack: "tech_stack_signal",
+      "priority_score_1-100": "priority_score",
+      priority_score: "priority_score",
+      "personalized_first_line": "personalized_first_line",
+      first_line: "personalized_first_line",
+      "sequence_stage": "sequence_stage",
+      stage: "sequence_stage",
+    };
+
+    const results: Record<string, string>[] = [];
+    for (let i = headerIdx + 1; i < rawRows.length; i++) {
+      const row = rawRows[i];
+      if (!row || row.length === 0) continue;
+
+      const record: Record<string, string> = {};
+      headers.forEach((h, idx) => {
+        const mappedKey = columnMap[h] || h;
+        if (mappedKey.startsWith("_")) return; // Skip internal cols
+        const val = row[idx];
+        // Skip placeholder values like [Find via Sales Nav]
+        if (val != null && !String(val).startsWith("[")) {
+          record[mappedKey] = String(val);
+        }
+      });
+
+      // Only include rows that have a company name
+      if (record.company_name) {
+        results.push(record);
+      }
+    }
+
+    return results;
+  }
+
+  function parseExcelFull(buffer: ArrayBuffer): {
+    verticals: Record<string, unknown>[];
+    templates: Record<string, unknown>[];
+  } {
+    const workbook = XLSX.read(buffer, { type: "array" });
+    const verticals: Record<string, unknown>[] = [];
+    const templates: Record<string, unknown>[] = [];
+
+    // Parse Vertical Rankings sheet
+    const vSheetName = workbook.SheetNames.find((n: string) =>
+      n.toLowerCase().includes("vertical")
+    );
+    if (vSheetName) {
+      const vSheet = workbook.Sheets[vSheetName];
+      const vRows = XLSX.utils.sheet_to_json<unknown[]>(vSheet, { header: 1 }) as unknown[][];
+
+      // Find header row (contains "Vertical" and "Tier")
+      let hIdx = 0;
+      for (let i = 0; i < Math.min(10, vRows.length); i++) {
+        const joined = (vRows[i] || []).map((c) => String(c || "").toLowerCase()).join(" ");
+        if (joined.includes("vertical") && joined.includes("tier")) {
+          hIdx = i;
+          break;
+        }
+      }
+
+      for (let i = hIdx + 1; i < vRows.length; i++) {
+        const r = vRows[i];
+        if (!r || !r[1] || typeof r[1] !== "string") continue;
+        const tierStr = String(r[2] || "");
+        const tier = tierStr.includes("1") ? 1 : tierStr.includes("2") ? 2 : tierStr.includes("3") ? 3 : 2;
+        if (typeof r[3] !== "number" && typeof r[3] !== "undefined") continue; // Skip summary rows
+        verticals.push({
+          name: r[1],
+          tier,
+          close_speed: typeof r[3] === "number" ? r[3] : 5,
+          ai_awareness: typeof r[4] === "number" ? r[4] : 5,
+          automation_pain: typeof r[5] === "number" ? r[5] : 5,
+          rationale: r[7] || null,
+        });
+      }
+    }
+
+    // Parse Outreach Sequences sheet
+    const oSheetName = workbook.SheetNames.find((n: string) =>
+      n.toLowerCase().includes("outreach") || n.toLowerCase().includes("sequence")
+    );
+    if (oSheetName) {
+      const oSheet = workbook.Sheets[oSheetName];
+      const oRows = XLSX.utils.sheet_to_json<unknown[]>(oSheet, { header: 1 }) as unknown[][];
+
+      let currentTier = 1;
+      for (let i = 3; i < oRows.length; i++) {
+        const r = oRows[i];
+        if (!r) continue;
+        const first = String(r[0] || "");
+        if (first.includes("TIER 1")) { currentTier = 1; continue; }
+        if (first.includes("TIER 2")) { currentTier = 2; continue; }
+        if (first.includes("TIER 3")) { currentTier = 3; continue; }
+        if (!r[2] || !r[3]) continue;
+
+        const ch = String(r[2] || "").toLowerCase();
+        let channel = "other";
+        if (ch.includes("dm")) channel = "linkedin_dm";
+        else if (ch.includes("linkedin")) channel = "linkedin_engage";
+        else if (ch.includes("email")) channel = "email";
+
+        templates.push({
+          sequence_tier: currentTier,
+          step_number: parseInt(String(r[0])) || i,
+          channel,
+          template_name: `Tier ${currentTier} - Step ${r[0]} - ${r[2]}`,
+          body_template: String(r[3]),
+          is_active: true,
+        });
+      }
+    }
+
+    return { verticals, templates };
   }
 
   function parseCSV(text: string): Record<string, string>[] {
@@ -124,30 +289,33 @@ export function ProspectSeedDialog({ open, onOpenChange }: Props) {
 
     try {
       let rows: Record<string, string>[];
+      let verticals: Record<string, unknown>[] = [];
+      let templates: Record<string, unknown>[] = [];
+
       if (file.name.endsWith(".xlsx") || file.name.endsWith(".xls")) {
         const buffer = await file.arrayBuffer();
         rows = parseExcel(buffer);
+
+        // Also extract verticals and templates from other sheets
+        const parsed = parseExcelFull(buffer);
+        verticals = parsed.verticals;
+        templates = parsed.templates;
       } else {
         const text = await file.text();
         rows = parseCSV(text);
-      }
 
-      // Extract unique verticals
-      const verticalNames = [
-        ...new Set(rows.map((r) => r.vertical).filter(Boolean)),
-      ];
-      const verticals = verticalNames.map((name) => {
-        const sample = rows.find((r) => r.vertical === name);
-        return {
-          name,
-          tier: parseInt(sample?.tier || "2") || 2,
-          close_speed: parseInt(sample?.close_speed || "5") || 5,
-          ai_awareness: parseInt(sample?.ai_awareness || "5") || 5,
-          automation_pain: parseInt(sample?.automation_pain || "5") || 5,
-          rationale: sample?.rationale || null,
-          sales_nav_boolean: sample?.sales_nav_boolean || null,
-        };
-      });
+        // For CSV, extract verticals from the data itself
+        const verticalNames = [
+          ...new Set(rows.map((r) => r.vertical).filter(Boolean)),
+        ];
+        verticals = verticalNames.map((name) => {
+          const sample = rows.find((r) => r.vertical === name);
+          return {
+            name,
+            tier: parseInt(sample?.tier || "2") || 2,
+          };
+        });
+      }
 
       // Map column names — be flexible with common variations
       const prospects = rows.map((r) => ({
@@ -180,7 +348,7 @@ export function ProspectSeedDialog({ open, onOpenChange }: Props) {
       const res = await fetch("/api/admin/prospects/seed", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ verticals, prospects }),
+        body: JSON.stringify({ verticals, prospects, templates }),
       });
 
       const data = await res.json();
