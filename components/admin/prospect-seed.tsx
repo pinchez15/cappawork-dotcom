@@ -48,11 +48,11 @@ export function ProspectSeedDialog({ open, onOpenChange }: Props) {
         parsed = parseCSV(text);
       }
 
-      const validProspects = parsed.filter((r) => r.company_name || r.company);
+      const validProspects = parsed.filter((r) => r.company_name || r.company || r.name);
       setPreview({
-        verticals: new Set(validProspects.map((r) => r.vertical).filter(Boolean)).size,
+        verticals: new Set(validProspects.map((r) => r.vertical || r.primary_industry).filter(Boolean)).size,
         prospects: validProspects.length,
-        sample: validProspects.slice(0, 5).map((r) => r.company_name || r.company || "unknown"),
+        sample: validProspects.slice(0, 5).map((r) => r.company_name || r.company || r.name || "unknown"),
       });
     } catch (err) {
       console.error("Parse error:", err);
@@ -96,44 +96,93 @@ export function ProspectSeedDialog({ open, onOpenChange }: Props) {
     );
 
     // Column name mapping — map spreadsheet columns to our field names
+    // Supports native format, Clay exports, and LinkedIn Sales Nav exports
     const columnMap: Record<string, string> = {
       "#": "_index",
+      find_companies: "_skip",
+      enrich_company: "_skip",
+      research_company_icp_with_ai: "_skip",
+      find_open_jobs: "_skip",
+      find_active_job_openings: "_skip",
+      job_openings: "_skip",
+      follower_count: "_skip",
+      // Company name
       company_name: "company_name",
       company: "company_name",
+      name: "company_name",
+      business_name: "company_name",
+      // Vertical / Industry
       vertical: "vertical",
-      tier: "tier",
+      vertical_name: "vertical",
+      industry: "vertical",
+      primary_industry: "vertical",
+      // Revenue / Size
       "est._revenue": "estimated_revenue",
       est_revenue: "estimated_revenue",
       estimated_revenue: "estimated_revenue",
       revenue: "estimated_revenue",
+      annual_revenue: "estimated_revenue",
+      size: "estimated_revenue",
+      // Location
       location: "location",
+      city_state: "location",
+      city: "location",
+      // Website
+      website: "website",
+      url: "website",
+      domain: "website",
+      // Description
+      description: "description",
+      // Company type / metadata
+      type: "_type",
+      country: "_country",
+      founded: "_founded",
+      employee_count: "employee_count",
+      // Decision maker
+      decision_maker_name: "decision_maker_name",
+      decision_maker: "decision_maker_name",
+      contact_name: "decision_maker_name",
+      ceo: "decision_maker_name",
+      owner: "decision_maker_name",
+      // Title
+      decision_maker_title: "decision_maker_title",
+      contact_title: "decision_maker_title",
+      title: "decision_maker_title",
+      // LinkedIn
+      linkedin_url: "linkedin_url",
+      linkedin: "linkedin_url",
+      // Pain / Close
       key_pain_point: "key_pain_point",
       pain_point: "key_pain_point",
       why_they_close_fast: "why_closes_fast",
       why_closes_fast: "why_closes_fast",
+      // Sales tools
       linkedin_sales_nav_search_tip: "sales_nav_search_tip",
       sales_nav_search_tip: "sales_nav_search_tip",
       cold_email_hook: "cold_email_hook",
       email_hook: "cold_email_hook",
+      // Status
       status: "_status",
-      "decision_maker_name": "decision_maker_name",
-      decision_maker: "decision_maker_name",
-      title: "decision_maker_title",
-      linkedin_url: "linkedin_url",
-      linkedin: "linkedin_url",
-      "email_verified": "email_verified",
+      // Email
+      email_verified: "email_verified",
       email: "email_verified",
-      "trigger_event_buying_signal": "trigger_event",
+      // Triggers / Signals
+      trigger_event_buying_signal: "trigger_event",
       trigger_event: "trigger_event",
       buying_signal: "trigger_event",
-      "tech_stack_signal": "tech_stack_signal",
+      tech_stack_signal: "tech_stack_signal",
       tech_stack: "tech_stack_signal",
+      // Score
       "priority_score_1-100": "priority_score",
       priority_score: "priority_score",
-      "personalized_first_line": "personalized_first_line",
+      // Outreach
+      personalized_first_line: "personalized_first_line",
       first_line: "personalized_first_line",
-      "sequence_stage": "sequence_stage",
+      // Stage
+      sequence_stage: "sequence_stage",
       stage: "sequence_stage",
+      // Tier
+      tier: "tier",
     };
 
     const results: Record<string, string>[] = [];
@@ -248,15 +297,61 @@ export function ProspectSeedDialog({ open, onOpenChange }: Props) {
 
     // Parse header — handle both comma and tab delimited
     const delimiter = lines[0].includes("\t") ? "\t" : ",";
-    const headers = parseLine(lines[0], delimiter).map((h) =>
-      h.trim().toLowerCase().replace(/\s+/g, "_")
+    const rawHeaders = parseLine(lines[0], delimiter).map((h) =>
+      h.trim().toLowerCase().replace(/\s+/g, "_").replace(/[()]/g, "").replace(/_+/g, "_").replace(/^_|_$/g, "")
     );
+
+    // Apply same column mapping as Excel parser for consistency
+    const csvColumnMap: Record<string, string> = {
+      name: "company_name",
+      company: "company_name",
+      company_name: "company_name",
+      business_name: "company_name",
+      primary_industry: "vertical",
+      industry: "vertical",
+      vertical: "vertical",
+      vertical_name: "vertical",
+      size: "size",
+      employee_count: "employee_count",
+      domain: "domain",
+      website: "website",
+      url: "website",
+      linkedin_url: "linkedin_url",
+      linkedin: "linkedin_url",
+      location: "location",
+      city_state: "location",
+      city: "location",
+      country: "_country",
+      type: "_type",
+      founded: "_founded",
+      description: "description",
+      estimated_revenue: "estimated_revenue",
+      revenue: "estimated_revenue",
+      annual_revenue: "estimated_revenue",
+      decision_maker_name: "decision_maker_name",
+      contact_name: "decision_maker_name",
+      decision_maker_title: "decision_maker_title",
+      contact_title: "decision_maker_title",
+      title: "decision_maker_title",
+      key_pain_point: "key_pain_point",
+      pain_point: "key_pain_point",
+      trigger_event: "trigger_event",
+      tech_stack_signal: "tech_stack_signal",
+      tech_stack: "tech_stack_signal",
+      sequence_stage: "sequence_stage",
+      stage: "sequence_stage",
+      tier: "tier",
+    };
+
+    const headers = rawHeaders.map((h) => csvColumnMap[h] || h);
 
     return lines.slice(1).map((line) => {
       const values = parseLine(line, delimiter);
       const row: Record<string, string> = {};
       headers.forEach((h, i) => {
-        row[h] = (values[i] || "").trim();
+        if (h.startsWith("_")) return; // Skip internal columns
+        const val = (values[i] || "").trim();
+        if (val) row[h] = val;
       });
       return row;
     });
@@ -306,10 +401,10 @@ export function ProspectSeedDialog({ open, onOpenChange }: Props) {
 
         // For CSV, extract verticals from the data itself
         const verticalNames = [
-          ...new Set(rows.map((r) => r.vertical).filter(Boolean)),
+          ...new Set(rows.map((r) => r.vertical || r.primary_industry).filter(Boolean)),
         ];
         verticals = verticalNames.map((name) => {
-          const sample = rows.find((r) => r.vertical === name);
+          const sample = rows.find((r) => (r.vertical || r.primary_industry) === name);
           return {
             name,
             tier: parseInt(sample?.tier || "2") || 2,
@@ -318,32 +413,59 @@ export function ProspectSeedDialog({ open, onOpenChange }: Props) {
       }
 
       // Map column names — be flexible with common variations
-      const prospects = rows.map((r) => ({
-        company_name:
-          r.company_name || r.company || r.name || r.business_name || "",
-        vertical: r.vertical || r.vertical_name || r.industry || "",
-        estimated_revenue:
-          r.estimated_revenue || r.revenue || r.annual_revenue || null,
-        location: r.location || r.city_state || r.city || null,
-        website: r.website || r.url || null,
-        decision_maker_name:
-          r.decision_maker_name || r.contact_name || r.ceo || r.owner || null,
-        decision_maker_title:
-          r.decision_maker_title || r.contact_title || r.title || null,
-        linkedin_url: r.linkedin_url || r.linkedin || null,
-        key_pain_point: r.key_pain_point || r.pain_point || null,
-        why_closes_fast: r.why_closes_fast || null,
-        trigger_event: r.trigger_event || null,
-        trigger_event_source: r.trigger_event_source || null,
-        tech_stack_signal: r.tech_stack_signal || r.tech_stack || null,
-        tech_stack_source: r.tech_stack_source || null,
-        personalized_first_line:
-          r.personalized_first_line || r.first_line || null,
-        cold_email_hook: r.cold_email_hook || r.email_hook || null,
-        sales_nav_search_tip:
-          r.sales_nav_search_tip || r.sales_nav_tip || null,
-        sequence_stage: r.sequence_stage || r.stage || "not_started",
-      }));
+      // Handles native format, Clay exports, and LinkedIn Sales Nav exports
+      const prospects = rows.map((r) => {
+        // Normalize website: if it's a bare domain, add https://
+        let website = r.website || r.url || r.domain || null;
+        if (website && !website.startsWith("http")) {
+          website = `https://${website}`;
+        }
+
+        // Normalize employee-count-based revenue estimate
+        let revenue = r.estimated_revenue || r.revenue || r.annual_revenue || null;
+        if (!revenue && r.size) {
+          // Map Clay "Size" field (e.g. "11-50 employees") to revenue estimate
+          const sizeStr = r.size.toLowerCase();
+          if (sizeStr.includes("11-50")) revenue = "$3M-$10M";
+          else if (sizeStr.includes("51-200")) revenue = "$10M-$50M";
+          else if (sizeStr.includes("201-500")) revenue = "$50M+";
+          else if (sizeStr.includes("1-10") || sizeStr.includes("2-10")) revenue = "$1M-$3M";
+        }
+        if (!revenue && r.employee_count) {
+          const count = parseInt(r.employee_count);
+          if (count > 200) revenue = "$50M+";
+          else if (count > 50) revenue = "$10M-$50M";
+          else if (count > 10) revenue = "$3M-$10M";
+          else if (count > 0) revenue = "$1M-$3M";
+        }
+
+        return {
+          company_name:
+            r.company_name || r.company || r.name || r.business_name || "",
+          vertical: r.vertical || r.vertical_name || r.industry || r.primary_industry || "",
+          estimated_revenue: revenue,
+          location: r.location || r.city_state || r.city || null,
+          website,
+          description: r.description || null,
+          decision_maker_name:
+            r.decision_maker_name || r.contact_name || r.ceo || r.owner || null,
+          decision_maker_title:
+            r.decision_maker_title || r.contact_title || r.title || null,
+          linkedin_url: r.linkedin_url || r.linkedin || null,
+          key_pain_point: r.key_pain_point || r.pain_point || null,
+          why_closes_fast: r.why_closes_fast || null,
+          trigger_event: r.trigger_event || null,
+          trigger_event_source: r.trigger_event_source || null,
+          tech_stack_signal: r.tech_stack_signal || r.tech_stack || null,
+          tech_stack_source: r.tech_stack_source || null,
+          personalized_first_line:
+            r.personalized_first_line || r.first_line || null,
+          cold_email_hook: r.cold_email_hook || r.email_hook || null,
+          sales_nav_search_tip:
+            r.sales_nav_search_tip || r.sales_nav_tip || null,
+          sequence_stage: r.sequence_stage || r.stage || "not_started",
+        };
+      });
 
       const res = await fetch("/api/admin/prospects/seed", {
         method: "POST",
