@@ -9,6 +9,7 @@ import {
 import { getVertical } from "@/server/repos/verticals";
 
 export const runtime = "nodejs";
+export const maxDuration = 60;
 
 const client = new Anthropic();
 
@@ -75,12 +76,13 @@ export async function POST(request: NextRequest) {
     const userMessage = `Research this company for sales outreach:
 
 Company: ${prospect.company_name}
+Website: ${prospect.website || "Unknown"}
 Vertical: ${verticalName}
 Location: ${prospect.location || "Unknown"}
 Estimated Revenue: ${prospect.estimated_revenue || "Unknown"}
 Known Pain Point (if any): ${prospect.key_pain_point || "None specified"}
 
-Find: decision maker, trigger events, tech stack, and generate personalized outreach copy.`;
+Find: decision maker, trigger events, tech stack, and generate personalized outreach copy.${prospect.website ? ` Start by searching for "${prospect.website}".` : ""}`;
 
     const response = await client.messages.create({
       model: "claude-sonnet-4-20250514",
@@ -96,20 +98,59 @@ Find: decision maker, trigger events, tech stack, and generate personalized outr
       messages: [{ role: "user", content: userMessage }],
     });
 
-    // Extract text from response (may have multiple content blocks with web search)
+    // Extract text from response — use the LAST text block, which is Claude's
+    // final answer after web search. Earlier text blocks may contain preamble
+    // or thinking that can interfere with JSON extraction.
     const textBlocks = response.content.filter((b) => b.type === "text");
-    const text = textBlocks.map((b) => (b as { type: "text"; text: string }).text).join("\n");
+    if (textBlocks.length === 0) {
+      console.error(`Enrichment for "${prospect.company_name}": no text blocks in response`);
+      return NextResponse.json(
+        { error: "No text response from AI" },
+        { status: 500 }
+      );
+    }
 
-    // Extract JSON
-    const jsonMatch = text.match(/\{[\s\S]*\}/);
-    if (!jsonMatch) {
+    // Try the last text block first (most likely to have the JSON), then fall back to all
+    const lastText = (textBlocks[textBlocks.length - 1] as { type: "text"; text: string }).text;
+    const allText = textBlocks.map((b) => (b as { type: "text"; text: string }).text).join("\n");
+
+    let enrichment: Record<string, unknown> | null = null;
+
+    for (const text of [lastText, allText]) {
+      // Try to find JSON — use a non-greedy approach to find the first complete object
+      // that contains our expected keys
+      const matches = text.match(/\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}/g);
+      if (matches) {
+        for (const m of matches) {
+          try {
+            const parsed = JSON.parse(m);
+            // Verify it looks like our enrichment object (has at least one expected key)
+            if (
+              parsed.decision_maker_name !== undefined ||
+              parsed.key_pain_point !== undefined ||
+              parsed.trigger_event !== undefined ||
+              parsed.personalized_first_line !== undefined
+            ) {
+              enrichment = parsed;
+              break;
+            }
+          } catch {
+            // Not valid JSON, try next match
+          }
+        }
+      }
+      if (enrichment) break;
+    }
+
+    if (!enrichment) {
+      console.error(
+        `Enrichment for "${prospect.company_name}": failed to extract JSON. Last text block: ${lastText.slice(0, 500)}`
+      );
       return NextResponse.json(
         { error: "Failed to parse enrichment response" },
         { status: 500 }
       );
     }
-
-    const enrichment = JSON.parse(jsonMatch[0]);
     const now = new Date().toISOString();
 
     // Build update payload

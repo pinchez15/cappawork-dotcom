@@ -272,9 +272,12 @@ export function ProspectDashboard({
     setBulkUpdating(false);
   }, [selectedIds, router]);
 
+  const [enrichError, setEnrichError] = useState<string | null>(null);
+
   const enrichProspect = useCallback(
     async (id: string) => {
       setEnrichingIds((prev) => new Set(prev).add(id));
+      setEnrichError(null);
       try {
         const res = await fetch("/api/admin/prospects/enrich", {
           method: "POST",
@@ -295,9 +298,14 @@ export function ProspectDashboard({
                 : p
             )
           );
+        } else {
+          const data = await res.json().catch(() => ({}));
+          const name = prospects.find((p) => p.id === id)?.company_name || "Unknown";
+          setEnrichError(`Failed to enrich "${name}": ${data.error || `HTTP ${res.status}`}`);
         }
       } catch {
-        // Silently handle
+        const name = prospects.find((p) => p.id === id)?.company_name || "Unknown";
+        setEnrichError(`Failed to enrich "${name}": network error or timeout`);
       }
       setEnrichingIds((prev) => {
         const next = new Set(prev);
@@ -305,7 +313,7 @@ export function ProspectDashboard({
         return next;
       });
     },
-    []
+    [prospects]
   );
 
   const handleBatchEnrich = useCallback(async () => {
@@ -558,6 +566,16 @@ export function ProspectDashboard({
             <Trash2 className="h-3.5 w-3.5 mr-1" />
             Delete
           </Button>
+        </div>
+      )}
+
+      {/* Enrichment error */}
+      {enrichError && (
+        <div className="flex items-center gap-2 mb-3 bg-red-50 border border-red-200 rounded-xl px-4 py-2.5 text-sm text-red-700">
+          <span className="flex-1">{enrichError}</span>
+          <button onClick={() => setEnrichError(null)} className="text-red-400 hover:text-red-600">
+            <X className="h-3.5 w-3.5" />
+          </button>
         </div>
       )}
 
