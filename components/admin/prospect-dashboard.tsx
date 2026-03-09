@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
@@ -12,16 +12,19 @@ import {
   Filter,
   Zap,
   Loader2,
-  ExternalLink,
   Linkedin,
-  ChevronDown,
   Upload,
+  ArrowUp,
+  ArrowDown,
+  Trash2,
+  X,
 } from "lucide-react";
 import { ProspectSeedDialog } from "@/components/admin/prospect-seed";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Select,
   SelectContent,
@@ -53,6 +56,9 @@ type Props = {
   stats: Stats;
   verticals: Vertical[];
 };
+
+type SortKey = "priority_score" | "company_name" | "vertical_name" | "sequence_stage" | "enrichment_status" | "location";
+type SortDir = "asc" | "desc";
 
 function PriorityBadge({ score }: { score: number }) {
   let color = "bg-stone-100 text-stone-600";
@@ -99,6 +105,15 @@ function TierBadge({ tier }: { tier: number | null }) {
   );
 }
 
+function SortIcon({ column, sortKey, sortDir }: { column: SortKey; sortKey: SortKey; sortDir: SortDir }) {
+  if (column !== sortKey) return null;
+  return sortDir === "asc" ? (
+    <ArrowUp className="h-3 w-3 inline ml-0.5" />
+  ) : (
+    <ArrowDown className="h-3 w-3 inline ml-0.5" />
+  );
+}
+
 export function ProspectDashboard({
   initialProspects,
   stats,
@@ -120,11 +135,22 @@ export function ProspectDashboard({
   const [batchEnriching, setBatchEnriching] = useState(false);
   const [seedDialogOpen, setSeedDialogOpen] = useState(false);
 
+  // Selection
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+  const [bulkUpdating, setBulkUpdating] = useState(false);
+
+  // Sorting
+  const [sortKey, setSortKey] = useState<SortKey>("priority_score");
+  const [sortDir, setSortDir] = useState<SortDir>("desc");
+
   const filtered = prospects.filter((p) => {
     if (
       searchQuery &&
       !p.company_name.toLowerCase().includes(searchQuery.toLowerCase()) &&
       !(p.decision_maker_name || "")
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase()) &&
+      !(p.location || "")
         .toLowerCase()
         .includes(searchQuery.toLowerCase())
     )
@@ -136,6 +162,115 @@ export function ProspectDashboard({
       return false;
     return true;
   });
+
+  const sorted = useMemo(() => {
+    const arr = [...filtered];
+    arr.sort((a, b) => {
+      let aVal: string | number = "";
+      let bVal: string | number = "";
+
+      switch (sortKey) {
+        case "priority_score":
+          aVal = a.priority_score;
+          bVal = b.priority_score;
+          break;
+        case "company_name":
+          aVal = a.company_name.toLowerCase();
+          bVal = b.company_name.toLowerCase();
+          break;
+        case "vertical_name":
+          aVal = (a.vertical_name || "zzz").toLowerCase();
+          bVal = (b.vertical_name || "zzz").toLowerCase();
+          break;
+        case "sequence_stage":
+          aVal = a.sequence_stage;
+          bVal = b.sequence_stage;
+          break;
+        case "enrichment_status":
+          aVal = a.enrichment_status;
+          bVal = b.enrichment_status;
+          break;
+        case "location":
+          aVal = (a.location || "zzz").toLowerCase();
+          bVal = (b.location || "zzz").toLowerCase();
+          break;
+      }
+
+      if (aVal < bVal) return sortDir === "asc" ? -1 : 1;
+      if (aVal > bVal) return sortDir === "asc" ? 1 : -1;
+      return 0;
+    });
+    return arr;
+  }, [filtered, sortKey, sortDir]);
+
+  function handleSort(key: SortKey) {
+    if (sortKey === key) {
+      setSortDir((d) => (d === "asc" ? "desc" : "asc"));
+    } else {
+      setSortKey(key);
+      setSortDir(key === "company_name" || key === "vertical_name" || key === "location" ? "asc" : "desc");
+    }
+  }
+
+  function toggleSelect(id: string) {
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }
+
+  function toggleSelectAll() {
+    if (selectedIds.size === sorted.length) {
+      setSelectedIds(new Set());
+    } else {
+      setSelectedIds(new Set(sorted.map((p) => p.id)));
+    }
+  }
+
+  const bulkUpdate = useCallback(
+    async (updates: Record<string, unknown>) => {
+      if (selectedIds.size === 0) return;
+      setBulkUpdating(true);
+      try {
+        const res = await fetch("/api/admin/prospects/bulk", {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ids: [...selectedIds], updates }),
+        });
+        if (res.ok) {
+          setSelectedIds(new Set());
+          router.refresh();
+        }
+      } catch {
+        // Silently handle
+      }
+      setBulkUpdating(false);
+    },
+    [selectedIds, router]
+  );
+
+  const bulkDelete = useCallback(async () => {
+    if (selectedIds.size === 0) return;
+    if (!confirm(`Delete ${selectedIds.size} prospects? This cannot be undone.`)) return;
+    setBulkUpdating(true);
+    try {
+      const res = await fetch("/api/admin/prospects/bulk", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ids: [...selectedIds] }),
+      });
+      if (res.ok) {
+        setProspects((prev) => prev.filter((p) => !selectedIds.has(p.id)));
+        setSelectedIds(new Set());
+        router.refresh();
+      }
+    } catch {
+      // Silently handle
+    }
+    setBulkUpdating(false);
+  }, [selectedIds, router]);
 
   const enrichProspect = useCallback(
     async (id: string) => {
@@ -193,6 +328,9 @@ export function ProspectDashboard({
     setBatchEnriching(false);
     router.refresh();
   }, [filtered, enrichProspect, router]);
+
+  const allSelected = sorted.length > 0 && selectedIds.size === sorted.length;
+  const someSelected = selectedIds.size > 0 && selectedIds.size < sorted.length;
 
   return (
     <>
@@ -310,7 +448,7 @@ export function ProspectDashboard({
         <div className="relative flex-1 max-w-sm">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-stone-400" />
           <Input
-            placeholder="Search companies or contacts..."
+            placeholder="Search companies, contacts, or locations..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="pl-9"
@@ -361,8 +499,70 @@ export function ProspectDashboard({
         </span>
       </div>
 
+      {/* Bulk actions bar */}
+      {selectedIds.size > 0 && (
+        <div className="flex items-center gap-3 mb-3 bg-blue-50 border border-blue-200 rounded-xl px-4 py-2.5">
+          <span className="text-sm font-medium text-blue-800">
+            {selectedIds.size} selected
+          </span>
+          <button
+            onClick={() => setSelectedIds(new Set())}
+            className="text-blue-600 hover:text-blue-800"
+          >
+            <X className="h-3.5 w-3.5" />
+          </button>
+          <div className="h-4 w-px bg-blue-200" />
+          <Select
+            value=""
+            onValueChange={(val) => {
+              if (val) bulkUpdate({ vertical_id: val });
+            }}
+          >
+            <SelectTrigger className="w-[180px] h-8 text-xs bg-white">
+              <SelectValue placeholder="Set Vertical..." />
+            </SelectTrigger>
+            <SelectContent>
+              {verticals.map((v) => (
+                <SelectItem key={v.id} value={v.id}>
+                  {v.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <Select
+            value=""
+            onValueChange={(val) => {
+              if (val) bulkUpdate({ sequence_stage: val });
+            }}
+          >
+            <SelectTrigger className="w-[160px] h-8 text-xs bg-white">
+              <SelectValue placeholder="Set Stage..." />
+            </SelectTrigger>
+            <SelectContent>
+              {SEQUENCE_STAGES.map((s) => (
+                <SelectItem key={s.value} value={s.value}>
+                  {s.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <div className="flex-1" />
+          {bulkUpdating && <Loader2 className="h-4 w-4 animate-spin text-blue-600" />}
+          <Button
+            variant="ghost"
+            size="sm"
+            className="text-red-600 hover:text-red-700 hover:bg-red-50 text-xs h-8"
+            onClick={bulkDelete}
+            disabled={bulkUpdating}
+          >
+            <Trash2 className="h-3.5 w-3.5 mr-1" />
+            Delete
+          </Button>
+        </div>
+      )}
+
       {/* Prospect table */}
-      {filtered.length === 0 ? (
+      {sorted.length === 0 ? (
         <div className="text-center py-16 text-stone-400">
           <p className="text-lg font-medium mb-1">No prospects found</p>
           <p className="text-sm">
@@ -375,26 +575,61 @@ export function ProspectDashboard({
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b bg-stone-50 text-left">
-                  <th className="py-3 px-4 font-medium text-stone-600 w-12">
+                  <th className="py-3 px-3 w-10">
+                    <Checkbox
+                      checked={allSelected}
+                      ref={(el) => {
+                        if (el) {
+                          (el as unknown as HTMLInputElement).indeterminate = someSelected;
+                        }
+                      }}
+                      onCheckedChange={toggleSelectAll}
+                    />
+                  </th>
+                  <th
+                    className="py-3 px-4 font-medium text-stone-600 w-12 cursor-pointer hover:text-stone-900 select-none"
+                    onClick={() => handleSort("priority_score")}
+                  >
                     Score
+                    <SortIcon column="priority_score" sortKey={sortKey} sortDir={sortDir} />
                   </th>
-                  <th className="py-3 px-4 font-medium text-stone-600">
+                  <th
+                    className="py-3 px-4 font-medium text-stone-600 cursor-pointer hover:text-stone-900 select-none"
+                    onClick={() => handleSort("company_name")}
+                  >
                     Company
+                    <SortIcon column="company_name" sortKey={sortKey} sortDir={sortDir} />
                   </th>
-                  <th className="py-3 px-4 font-medium text-stone-600">
+                  <th
+                    className="py-3 px-4 font-medium text-stone-600 cursor-pointer hover:text-stone-900 select-none"
+                    onClick={() => handleSort("vertical_name")}
+                  >
                     Vertical
+                    <SortIcon column="vertical_name" sortKey={sortKey} sortDir={sortDir} />
+                  </th>
+                  <th
+                    className="py-3 px-4 font-medium text-stone-600 cursor-pointer hover:text-stone-900 select-none"
+                    onClick={() => handleSort("location")}
+                  >
+                    Location
+                    <SortIcon column="location" sortKey={sortKey} sortDir={sortDir} />
                   </th>
                   <th className="py-3 px-4 font-medium text-stone-600">
                     Decision Maker
                   </th>
-                  <th className="py-3 px-4 font-medium text-stone-600">
+                  <th
+                    className="py-3 px-4 font-medium text-stone-600 cursor-pointer hover:text-stone-900 select-none"
+                    onClick={() => handleSort("sequence_stage")}
+                  >
                     Stage
+                    <SortIcon column="sequence_stage" sortKey={sortKey} sortDir={sortDir} />
                   </th>
-                  <th className="py-3 px-4 font-medium text-stone-600">
-                    Trigger
-                  </th>
-                  <th className="py-3 px-4 font-medium text-stone-600">
+                  <th
+                    className="py-3 px-4 font-medium text-stone-600 cursor-pointer hover:text-stone-900 select-none"
+                    onClick={() => handleSort("enrichment_status")}
+                  >
                     Intel
+                    <SortIcon column="enrichment_status" sortKey={sortKey} sortDir={sortDir} />
                   </th>
                   <th className="py-3 px-4 font-medium text-stone-600 w-24">
                     Actions
@@ -402,16 +637,24 @@ export function ProspectDashboard({
                 </tr>
               </thead>
               <tbody className="divide-y">
-                {filtered.map((p) => {
+                {sorted.map((p) => {
                   const isEnriching = enrichingIds.has(p.id);
+                  const isSelected = selectedIds.has(p.id);
                   return (
                     <tr
                       key={p.id}
-                      className="hover:bg-stone-50 cursor-pointer"
+                      className={`hover:bg-stone-50 cursor-pointer ${isSelected ? "bg-blue-50/50" : ""}`}
                       onClick={() =>
                         router.push(`/admin/prospects/${p.id}`)
                       }
                     >
+                      <td className="py-3 px-3">
+                        <Checkbox
+                          checked={isSelected}
+                          onCheckedChange={() => toggleSelect(p.id)}
+                          onClick={(e) => e.stopPropagation()}
+                        />
+                      </td>
                       <td className="py-3 px-4">
                         <PriorityBadge score={p.priority_score} />
                       </td>
@@ -419,11 +662,8 @@ export function ProspectDashboard({
                         <div className="font-medium text-stone-900">
                           {p.company_name}
                         </div>
-                        <div className="text-xs text-stone-400 flex items-center gap-2">
-                          {p.location && <span>{p.location}</span>}
-                          {p.estimated_revenue && (
-                            <span>· {p.estimated_revenue}</span>
-                          )}
+                        <div className="text-xs text-stone-400">
+                          {p.estimated_revenue || ""}
                         </div>
                       </td>
                       <td className="py-3 px-4">
@@ -433,6 +673,11 @@ export function ProspectDashboard({
                             {p.vertical_name || "—"}
                           </span>
                         </div>
+                      </td>
+                      <td className="py-3 px-4">
+                        <span className="text-xs text-stone-600">
+                          {p.location || "—"}
+                        </span>
                       </td>
                       <td className="py-3 px-4">
                         {p.decision_maker_name ? (
@@ -463,26 +708,6 @@ export function ProspectDashboard({
                       </td>
                       <td className="py-3 px-4">
                         <StageBadge stage={p.sequence_stage} />
-                      </td>
-                      <td className="py-3 px-4">
-                        {p.trigger_event ? (
-                          <div className="max-w-[200px]">
-                            <div className="text-xs text-stone-600 truncate">
-                              {p.trigger_event}
-                            </div>
-                            <Badge
-                              className={`text-[9px] mt-0.5 ${
-                                p.trigger_event_source === "ai_generated"
-                                  ? "bg-stone-100 text-stone-500"
-                                  : "bg-green-100 text-green-700"
-                              }`}
-                            >
-                              {p.trigger_event_source}
-                            </Badge>
-                          </div>
-                        ) : (
-                          <span className="text-xs text-stone-300">—</span>
-                        )}
                       </td>
                       <td className="py-3 px-4">
                         <EnrichmentBadge status={p.enrichment_status} />
