@@ -11,6 +11,7 @@ import {
   type CatalystWithStats,
   type BDCatalyst,
 } from "@/server/repos/bd-catalysts";
+import { useCommandContext } from "@/components/admin/command-panel/use-command-context";
 import { CatalystFormDialog } from "@/components/admin/catalyst-form-dialog";
 
 type Props = {
@@ -34,6 +35,14 @@ function CategoryLabel({ value }: { value: string }) {
 
 export function CatalystsView({ catalysts, due }: Props) {
   const router = useRouter();
+
+  const champions = catalysts.filter((c) => c.relationship === "champion");
+  const totalReferrals = catalysts.reduce((sum, c) => sum + c.deal_count, 0);
+  useCommandContext({
+    page: "catalysts",
+    summary: `${catalysts.length} catalysts, ${champions.length} champions, ${totalReferrals} referrals, ${due.length} due for contact`,
+    capabilities: ["create_catalyst", "query_catalysts", "update_catalyst"],
+  });
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editing, setEditing] = useState<CatalystWithStats | null>(null);
 
@@ -49,8 +58,6 @@ export function CatalystsView({ catalysts, due }: Props) {
     router.refresh();
   }
 
-  const champions = catalysts.filter((c) => c.relationship === "champion");
-  const totalReferrals = catalysts.reduce((sum, c) => sum + c.deal_count, 0);
   const totalWon = catalysts.reduce((sum, c) => sum + c.won_count, 0);
 
   return (

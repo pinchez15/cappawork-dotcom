@@ -6,7 +6,6 @@ import {
 } from "@/server/repos/bd-deals";
 import { getCatalysts } from "@/server/repos/bd-catalysts";
 import { PipelineBoard } from "@/components/admin/pipeline-board";
-import { PipelineChat } from "@/components/admin/pipeline-chat";
 import { PipelineGoal } from "@/components/admin/pipeline-goal";
 import { TopCatalysts } from "@/components/admin/top-catalysts";
 import { Card, CardContent } from "@/components/ui/card";
@@ -94,10 +93,6 @@ export default async function PipelinePage() {
         overdue={overdue}
         catalysts={catalysts}
       />
-
-      <div className="mt-8 max-w-2xl">
-        <PipelineChat />
-      </div>
     </div>
   );
 }

@@ -6,6 +6,9 @@ import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/s
 import { AdminSidebar } from "@/components/admin/admin-sidebar";
 import { ThemeToggle } from "@/components/admin/theme-toggle";
 import { Separator } from "@/components/ui/separator";
+import { CommandPanelProvider } from "@/components/admin/command-panel/command-panel-provider";
+import { CommandPanel } from "@/components/admin/command-panel/command-panel";
+import { CommandPanelTrigger } from "@/components/admin/command-panel/command-panel-trigger";
 
 export const runtime = "nodejs";
 
@@ -39,7 +42,11 @@ export default async function AdminLayout({
           <ThemeToggle />
           <UserButton afterSignOutUrl="/" />
         </header>
-        <main className="flex-1 overflow-auto bg-background">{children}</main>
+        <CommandPanelProvider>
+          <main className="flex-1 overflow-auto bg-background">{children}</main>
+          <CommandPanel />
+          <CommandPanelTrigger />
+        </CommandPanelProvider>
       </SidebarInset>
     </SidebarProvider>
   );

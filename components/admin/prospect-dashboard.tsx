@@ -35,6 +35,7 @@ import {
   ENRICHMENT_STATUSES,
 } from "@/server/repos/prospects";
 import type { Vertical } from "@/server/repos/verticals";
+import { useCommandContext } from "@/components/admin/command-panel/use-command-context";
 
 type Stats = {
   total: number;
@@ -104,6 +105,12 @@ export function ProspectDashboard({
   verticals,
 }: Props) {
   const router = useRouter();
+
+  useCommandContext({
+    page: "prospects",
+    summary: `${stats.total} prospects, ${stats.enriched} enriched, ${stats.callsBooked} calls booked, ${stats.sold} sold, avg score ${stats.avgScore}`,
+    capabilities: ["create_prospect", "query_prospects", "update_prospect"],
+  });
   const [prospects, setProspects] = useState(initialProspects);
   const [searchQuery, setSearchQuery] = useState("");
   const [filterVertical, setFilterVertical] = useState<string>("all");

@@ -16,6 +16,7 @@ import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { STAGES, type BDDeal, type DealsByStage } from "@/server/repos/bd-deals";
 import type { BDCatalyst } from "@/server/repos/bd-catalysts";
+import { useCommandContext } from "@/components/admin/command-panel/use-command-context";
 import { DealCard } from "@/components/admin/deal-card";
 import { DealFormDialog } from "@/components/admin/deal-form-dialog";
 import { AlertTriangle, Clock } from "lucide-react";
@@ -85,6 +86,16 @@ function DroppableColumn({
 export function PipelineBoard({ initialStages, overdue, catalysts }: Props) {
   const router = useRouter();
   const [stages, setStages] = useState(initialStages);
+
+  const totalDeals = initialStages.reduce((sum, s) => sum + s.deals.length, 0);
+  const totalValue = initialStages
+    .flatMap((s) => s.deals)
+    .reduce((sum, d) => sum + (d.value || 0), 0);
+  useCommandContext({
+    page: "pipeline",
+    summary: `${totalDeals} deals, $${totalValue.toLocaleString()} total value, ${overdue.length} overdue`,
+    capabilities: ["create_deal", "query_deals", "move_deal"],
+  });
   const [activeId, setActiveId] = useState<string | null>(null);
 
   // Sync when server re-renders with new data (e.g. after chat creates a deal)
