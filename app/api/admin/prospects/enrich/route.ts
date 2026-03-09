@@ -84,19 +84,31 @@ Known Pain Point (if any): ${prospect.key_pain_point || "None specified"}
 
 Find: decision maker, trigger events, tech stack, and generate personalized outreach copy.${prospect.website ? ` Start by searching for "${prospect.website}".` : ""}`;
 
-    const response = await client.messages.create({
-      model: "claude-sonnet-4-20250514",
-      max_tokens: 2048,
-      system: SYSTEM_PROMPT,
-      tools: [
-        {
-          type: "web_search_20250305",
-          name: "web_search",
-          max_uses: 5,
-        },
-      ],
-      messages: [{ role: "user", content: userMessage }],
-    });
+    let response;
+    try {
+      response = await client.messages.create({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 2048,
+        system: SYSTEM_PROMPT,
+        tools: [
+          {
+            type: "web_search_20250305",
+            name: "web_search",
+            max_uses: 5,
+          },
+        ],
+        messages: [{ role: "user", content: userMessage }],
+      });
+    } catch (apiError: unknown) {
+      // Surface rate limit errors clearly
+      if (apiError instanceof Error && "status" in apiError && (apiError as { status: number }).status === 429) {
+        return NextResponse.json(
+          { error: "Rate limited — wait a minute and try again" },
+          { status: 429 }
+        );
+      }
+      throw apiError;
+    }
 
     // Extract text from response — use the LAST text block, which is Claude's
     // final answer after web search. Earlier text blocks may contain preamble

@@ -301,7 +301,11 @@ export function ProspectDashboard({
         } else {
           const data = await res.json().catch(() => ({}));
           const name = prospects.find((p) => p.id === id)?.company_name || "Unknown";
-          setEnrichError(`Failed to enrich "${name}": ${data.error || `HTTP ${res.status}`}`);
+          if (res.status === 429) {
+            setEnrichError(`Rate limited — wait a minute before enriching more. (Failed on "${name}")`);
+          } else {
+            setEnrichError(`Failed to enrich "${name}": ${data.error || `HTTP ${res.status}`}`);
+          }
         }
       } catch {
         const name = prospects.find((p) => p.id === id)?.company_name || "Unknown";
@@ -329,8 +333,8 @@ export function ProspectDashboard({
 
     for (const p of toEnrich) {
       await enrichProspect(p.id);
-      // 2-second delay between calls
-      await new Promise((r) => setTimeout(r, 2000));
+      // 12-second delay between calls to stay within 30K input tokens/min rate limit
+      await new Promise((r) => setTimeout(r, 12000));
     }
 
     setBatchEnriching(false);
