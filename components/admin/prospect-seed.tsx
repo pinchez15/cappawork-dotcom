@@ -292,12 +292,12 @@ export function ProspectSeedDialog({ open, onOpenChange }: Props) {
   }
 
   function parseCSV(text: string): Record<string, string>[] {
-    const lines = text.split("\n").filter((l) => l.trim());
-    if (lines.length < 2) return [];
+    // Parse CSV properly handling quoted fields with embedded newlines
+    const rows = parseCSVRows(text);
+    if (rows.length < 2) return [];
 
-    // Parse header — handle both comma and tab delimited
-    const delimiter = lines[0].includes("\t") ? "\t" : ",";
-    const rawHeaders = parseLine(lines[0], delimiter).map((h) =>
+    // Detect delimiter from first row
+    const rawHeaders = rows[0].map((h) =>
       h.trim().toLowerCase().replace(/\s+/g, "_").replace(/[()]/g, "").replace(/_+/g, "_").replace(/^_|_$/g, "")
     );
 
@@ -345,8 +345,7 @@ export function ProspectSeedDialog({ open, onOpenChange }: Props) {
 
     const headers = rawHeaders.map((h) => csvColumnMap[h] || h);
 
-    return lines.slice(1).map((line) => {
-      const values = parseLine(line, delimiter);
+    return rows.slice(1).map((values) => {
       const row: Record<string, string> = {};
       headers.forEach((h, i) => {
         if (h.startsWith("_")) return; // Skip internal columns
@@ -357,24 +356,63 @@ export function ProspectSeedDialog({ open, onOpenChange }: Props) {
     });
   }
 
-  function parseLine(line: string, delimiter: string): string[] {
-    const result: string[] = [];
+  // Full RFC 4180 CSV parser that handles quoted fields with embedded newlines
+  function parseCSVRows(text: string): string[][] {
+    const rows: string[][] = [];
     let current = "";
     let inQuotes = false;
+    const fields: string[] = [];
 
-    for (let i = 0; i < line.length; i++) {
-      const char = line[i];
-      if (char === '"') {
-        inQuotes = !inQuotes;
-      } else if (char === delimiter && !inQuotes) {
-        result.push(current);
-        current = "";
+    // Detect delimiter from the first line (before any quoted newlines)
+    const firstLineEnd = text.indexOf("\n");
+    const firstLine = firstLineEnd > 0 ? text.slice(0, firstLineEnd) : text;
+    const delimiter = firstLine.includes("\t") ? "\t" : ",";
+
+    for (let i = 0; i < text.length; i++) {
+      const char = text[i];
+
+      if (inQuotes) {
+        if (char === '"') {
+          // Check for escaped quote ("")
+          if (i + 1 < text.length && text[i + 1] === '"') {
+            current += '"';
+            i++; // Skip next quote
+          } else {
+            inQuotes = false;
+          }
+        } else {
+          current += char;
+        }
       } else {
-        current += char;
+        if (char === '"') {
+          inQuotes = true;
+        } else if (char === delimiter) {
+          fields.push(current);
+          current = "";
+        } else if (char === "\n" || char === "\r") {
+          // Skip \r in \r\n
+          if (char === "\r" && i + 1 < text.length && text[i + 1] === "\n") {
+            i++;
+          }
+          fields.push(current);
+          current = "";
+          if (fields.some((f) => f.trim())) {
+            rows.push(fields.slice());
+          }
+          fields.length = 0;
+        } else {
+          current += char;
+        }
       }
     }
-    result.push(current);
-    return result;
+
+    // Push last field and row
+    fields.push(current);
+    if (fields.some((f) => f.trim())) {
+      rows.push(fields);
+    }
+
+    return rows;
   }
 
   async function handleSeed() {
