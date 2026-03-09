@@ -50,6 +50,7 @@ export async function POST(request: NextRequest) {
     // Seed prospects
     let created = 0;
     let skipped = 0;
+    let lastError: string | null = null;
 
     if (body.prospects && Array.isArray(body.prospects)) {
       for (const p of body.prospects) {
@@ -71,6 +72,25 @@ export async function POST(request: NextRequest) {
           }
         }
 
+        // Normalize sequence stage to match DB check constraint
+        const stageRaw = (p.sequence_stage || "not_started")
+          .toLowerCase()
+          .replace(/\s+/g, "_");
+        const validStages = [
+          "not_started", "warming_up", "connected", "dm_sent", "email_sent",
+          "follow_up_sent", "breakup_sent", "nurture", "call_booked",
+          "diagnostic_sold", "lost", "disqualified",
+        ];
+        const sequenceStage = validStages.includes(stageRaw) ? stageRaw : "not_started";
+
+        // Normalize trigger_event_source and tech_stack_source
+        const validTriggerSources = ["linkedin_post", "job_posting", "news", "manual", "ai_generated"];
+        const validTechSources = ["job_posting", "website", "linkedin", "ai_generated"];
+        const triggerSource = p.trigger_event_source && validTriggerSources.includes(p.trigger_event_source)
+          ? p.trigger_event_source : null;
+        const techSource = p.tech_stack_source && validTechSources.includes(p.tech_stack_source)
+          ? p.tech_stack_source : null;
+
         const prospectData = {
           vertical_id: verticalId,
           company_name: p.company_name,
@@ -85,14 +105,14 @@ export async function POST(request: NextRequest) {
           key_pain_point: p.key_pain_point || null,
           why_closes_fast: p.why_closes_fast || null,
           trigger_event: p.trigger_event || null,
-          trigger_event_source: p.trigger_event_source || null,
-          trigger_event_date: p.trigger_event_date || null,
+          trigger_event_source: triggerSource,
+          trigger_event_date: null, // Date parsing handled during enrichment
           tech_stack_signal: p.tech_stack_signal || null,
-          tech_stack_source: p.tech_stack_source || null,
+          tech_stack_source: techSource,
           personalized_first_line: p.personalized_first_line || null,
           cold_email_hook: p.cold_email_hook || null,
           sales_nav_search_tip: p.sales_nav_search_tip || null,
-          sequence_stage: p.sequence_stage || "not_started",
+          sequence_stage: sequenceStage,
         };
 
         const { score, breakdown } = calculatePriorityScore(
@@ -109,7 +129,10 @@ export async function POST(request: NextRequest) {
             enrichment_status: enrichmentStatus,
           });
           created++;
-        } catch {
+        } catch (err: unknown) {
+          const msg = err instanceof Error ? err.message : JSON.stringify(err);
+          console.error(`Failed to create prospect "${p.company_name}":`, msg);
+          lastError = msg;
           skipped++;
         }
       }
@@ -142,7 +165,7 @@ export async function POST(request: NextRequest) {
       skipped,
       verticals_count: existingVerticals.length,
       templates_created: templatesCreated,
-      message: `Seeded ${created} prospects (${skipped} skipped). ${existingVerticals.length} verticals, ${templatesCreated} templates.`,
+      message: `Seeded ${created} prospects (${skipped} skipped). ${existingVerticals.length} verticals, ${templatesCreated} templates.${lastError ? ` Last error: ${lastError}` : ""}`,
     });
   } catch (error) {
     console.error("Seed error:", error);
