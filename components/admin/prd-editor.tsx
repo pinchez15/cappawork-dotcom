@@ -4,7 +4,7 @@ import { useState } from "react";
 import { RichTextEditor } from "./rich-text-editor";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { updateProject } from "@/server/repos/projects";
+import { updateProjectAction } from "@/server/actions/projects";
 import { toast } from "sonner";
 
 interface PRDEditorProps {
@@ -19,7 +19,7 @@ export function PRDEditor({ projectId, initialContent }: PRDEditorProps) {
   const handleSave = async () => {
     setIsSaving(true);
     try {
-      await updateProject(projectId, { prd_content: content });
+      await updateProjectAction(projectId, { prd_content: content });
       toast.success("PRD saved successfully");
     } catch (error) {
       toast.error("Failed to save PRD");

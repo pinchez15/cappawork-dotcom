@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/dialog";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Plus, Eye, EyeOff, Copy, Trash2 } from "lucide-react";
-import { createSecret, getDecryptedSecret, deleteSecret } from "@/server/repos/secrets";
+import { createSecretAction, getDecryptedSecretAction, deleteSecretAction } from "@/server/actions/secrets";
 import { toast } from "sonner";
 
 interface Secret {
@@ -57,7 +57,7 @@ export function SecretsVault({
 
     setIsLoading(true);
     try {
-      const decrypted = await getDecryptedSecret(secretId);
+      const decrypted = await getDecryptedSecretAction(secretId);
       if (decrypted) {
         setRevealedSecrets((prev) => ({
           ...prev,
@@ -80,7 +80,7 @@ export function SecretsVault({
     if (!confirm("Are you sure you want to delete this secret?")) return;
 
     try {
-      await deleteSecret(secretId);
+      await deleteSecretAction(secretId);
       setSecrets((prev) => prev.filter((s) => s.id !== secretId));
       setRevealedSecrets((prev) => {
         const next = { ...prev };
@@ -104,7 +104,7 @@ export function SecretsVault({
     }
 
     try {
-      const secret = await createSecret(projectId, { name, value, type: type as any });
+      const secret = await createSecretAction(projectId, { name, value, type: type as any });
       setSecrets((prev) => [secret, ...prev]);
       setIsDialogOpen(false);
       toast.success("Secret created");

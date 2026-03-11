@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Eye, EyeOff, Copy, ExternalLink } from "lucide-react";
-import { getDecryptedSecret } from "@/server/repos/secrets";
+import { getDecryptedSecretAction } from "@/server/actions/secrets";
 import { toast } from "sonner";
 import Link from "next/link";
 
@@ -30,7 +30,7 @@ export function HandoffView({ project, secrets, urls }: HandoffViewProps) {
 
     setIsLoading(true);
     try {
-      const decrypted = await getDecryptedSecret(secretId);
+      const decrypted = await getDecryptedSecretAction(secretId);
       if (decrypted) {
         setRevealedSecrets((prev) => ({
           ...prev,

@@ -13,7 +13,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { upsertDesign } from "@/server/repos/design";
+import { upsertDesignAction } from "@/server/actions/design";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
@@ -80,7 +80,7 @@ export function DesignWizard({ projectId, themes, initialDesign }: DesignWizardP
 
   const handleSubmit = async () => {
     try {
-      await upsertDesign(projectId, {
+      await upsertDesignAction(projectId, {
         ...design,
         onboarding_completed: true,
       });

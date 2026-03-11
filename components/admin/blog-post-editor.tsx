@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { updateBlogPost } from "@/server/repos/blog";
+import { updateBlogPostAction } from "@/server/actions/blog";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
@@ -28,7 +28,7 @@ export function BlogPostEditor({ post }: BlogPostEditorProps) {
   const handleSave = async () => {
     setIsSaving(true);
     try {
-      await updateBlogPost(post.id, {
+      await updateBlogPostAction(post.id, {
         title,
         slug,
         description: description || null,

@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/dialog";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Plus, ExternalLink, Trash2 } from "lucide-react";
-import { createUrl, deleteUrl } from "@/server/repos/urls";
+import { createUrlAction, deleteUrlAction } from "@/server/actions/urls";
 import { toast } from "sonner";
 import Link from "next/link";
 
@@ -53,7 +53,7 @@ export function URLsSection({ projectId, initialUrls }: URLsSectionProps) {
     }
 
     try {
-      const newUrl = await createUrl(projectId, { label, url, type: type as any });
+      const newUrl = await createUrlAction(projectId, { label, url, type: type as any });
       setUrls((prev) => [newUrl, ...prev]);
       setIsDialogOpen(false);
       toast.success("URL added");
@@ -66,7 +66,7 @@ export function URLsSection({ projectId, initialUrls }: URLsSectionProps) {
     if (!confirm("Are you sure you want to delete this URL?")) return;
 
     try {
-      await deleteUrl(urlId);
+      await deleteUrlAction(urlId);
       setUrls((prev) => prev.filter((u) => u.id !== urlId));
       toast.success("URL deleted");
     } catch (error) {
