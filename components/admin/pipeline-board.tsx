@@ -19,6 +19,7 @@ import type { BDCatalyst } from "@/server/repos/bd-catalysts";
 import { useCommandContext } from "@/components/admin/command-panel/use-command-context";
 import { DealCard } from "@/components/admin/deal-card";
 import { DealFormDialog } from "@/components/admin/deal-form-dialog";
+import { WinCelebration } from "@/components/admin/win-celebration";
 import { AlertTriangle, Clock } from "lucide-react";
 
 type Props = {
@@ -105,6 +106,8 @@ export function PipelineBoard({ initialStages, overdue, catalysts }: Props) {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingDeal, setEditingDeal] = useState<BDDeal | null>(null);
   const [defaultStage, setDefaultStage] = useState("lead");
+  const [celebrating, setCelebrating] = useState(false);
+  const [celebrationDealName, setCelebrationDealName] = useState<string>("");
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 8 } })
@@ -151,6 +154,12 @@ export function PipelineBoard({ initialStages, overdue, catalysts }: Props) {
           return s;
         })
       );
+
+      // PARTY TIME — celebrate when a deal is won!
+      if (destStageId === "won") {
+        setCelebrationDealName(deal.name);
+        setCelebrating(true);
+      }
 
       // Persist
       try {
@@ -271,6 +280,12 @@ export function PipelineBoard({ initialStages, overdue, catalysts }: Props) {
           ) : null}
         </DragOverlay>
       </DndContext>
+
+      <WinCelebration
+        active={celebrating}
+        dealName={celebrationDealName}
+        onComplete={() => setCelebrating(false)}
+      />
 
       <DealFormDialog
         open={dialogOpen}
