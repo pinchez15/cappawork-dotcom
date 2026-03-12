@@ -49,7 +49,7 @@ function DroppableColumn({
   return (
     <div
       ref={setNodeRef}
-      className={`flex flex-col rounded-xl border border-stone-200 ${color} min-w-[260px] w-[260px] shrink-0 transition-shadow ${
+      className={`flex flex-col rounded-xl border border-stone-200 ${color} min-w-0 flex-1 transition-shadow ${
         isOver ? "ring-2 ring-blue-400 shadow-md" : ""
       }`}
     >
@@ -255,7 +255,7 @@ export function PipelineBoard({ initialStages, overdue, catalysts }: Props) {
         onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}
       >
-        <div className="flex gap-3 overflow-x-auto pb-4">
+        <div className="flex gap-2 pb-4">
           {STAGES.map((stageDef) => {
             const stageData = stages.find((s) => s.stageId === stageDef.id);
             return (
