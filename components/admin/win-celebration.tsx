@@ -14,26 +14,28 @@ const COLORS = ["#FFD700", "#22c55e", "#3b82f6", "#ffffff", "#f59e0b", "#ec4899"
 const GOLD = ["#FFD700", "#f59e0b", "#ffffff"];
 const NEON = ["#00ff87", "#60efff", "#ff00e5", "#ffd700", "#ff3d00"];
 
-// ─── Confetti helpers ───────────────────────────────────────────────
+// ─── Confetti helpers (take a confetti instance) ────────────────────
 
-function fireCannons() {
-  confetti({ particleCount: 150, spread: 100, origin: { y: 0.6 }, colors: COLORS, scalar: 1.2 });
-  confetti({ particleCount: 80, angle: 60, spread: 55, origin: { x: 0, y: 0.7 }, colors: COLORS });
-  confetti({ particleCount: 80, angle: 120, spread: 55, origin: { x: 1, y: 0.7 }, colors: COLORS });
+type ConfettiFn = confetti.CreateTypes;
+
+function fireCannons(c: ConfettiFn) {
+  c({ particleCount: 150, spread: 100, origin: { y: 0.6 }, colors: COLORS, scalar: 1.2 });
+  c({ particleCount: 80, angle: 60, spread: 55, origin: { x: 0, y: 0.7 }, colors: COLORS });
+  c({ particleCount: 80, angle: 120, spread: 55, origin: { x: 1, y: 0.7 }, colors: COLORS });
 }
 
-function fireStars() {
-  confetti({
+function fireStars(c: ConfettiFn) {
+  c({
     particleCount: 30, spread: 360, ticks: 100, gravity: 0, decay: 0.94,
     startVelocity: 20, shapes: ["star"], colors: GOLD, scalar: 1.5,
     origin: { x: Math.random(), y: Math.random() * 0.5 },
   });
 }
 
-function fireRain() {
+function fireRain(c: ConfettiFn) {
   for (let i = 0; i < 5; i++) {
     setTimeout(() => {
-      confetti({
+      c({
         particleCount: 40, startVelocity: 0, ticks: 300,
         origin: { x: Math.random(), y: -0.1 }, colors: COLORS,
         gravity: 0.6, scalar: 0.8, drift: (Math.random() - 0.5) * 2,
@@ -43,30 +45,26 @@ function fireRain() {
 }
 
 // THE DROP — absolute chaos
-function fireMegaDrop() {
-  // Massive center explosion
-  confetti({ particleCount: 300, spread: 160, origin: { y: 0.5 }, colors: NEON, scalar: 1.8, startVelocity: 60 });
-  // Double side cannons
+function fireMegaDrop(c: ConfettiFn) {
+  c({ particleCount: 300, spread: 160, origin: { y: 0.5 }, colors: NEON, scalar: 1.8, startVelocity: 60 });
   for (let i = 0; i < 3; i++) {
     setTimeout(() => {
-      confetti({ particleCount: 120, angle: 60, spread: 70, origin: { x: 0, y: 0.5 + i * 0.15 }, colors: NEON, startVelocity: 55 });
-      confetti({ particleCount: 120, angle: 120, spread: 70, origin: { x: 1, y: 0.5 + i * 0.15 }, colors: NEON, startVelocity: 55 });
+      c({ particleCount: 120, angle: 60, spread: 70, origin: { x: 0, y: 0.5 + i * 0.15 }, colors: NEON, startVelocity: 55 });
+      c({ particleCount: 120, angle: 120, spread: 70, origin: { x: 1, y: 0.5 + i * 0.15 }, colors: NEON, startVelocity: 55 });
     }, i * 150);
   }
-  // Star shower
   for (let i = 0; i < 8; i++) {
     setTimeout(() => {
-      confetti({
+      c({
         particleCount: 50, spread: 360, ticks: 120, gravity: 0.3, decay: 0.92,
         startVelocity: 35, shapes: ["star"], colors: GOLD, scalar: 2,
         origin: { x: Math.random(), y: Math.random() * 0.4 },
       });
     }, i * 100);
   }
-  // Top rain burst
   for (let i = 0; i < 10; i++) {
     setTimeout(() => {
-      confetti({
+      c({
         particleCount: 60, startVelocity: 5, ticks: 400,
         origin: { x: i / 10, y: -0.1 }, colors: NEON,
         gravity: 0.8, scalar: 1.2,
@@ -75,24 +73,22 @@ function fireMegaDrop() {
   }
 }
 
-// Firework burst at random position
-function fireFirework() {
+function fireFirework(c: ConfettiFn) {
   const x = 0.1 + Math.random() * 0.8;
   const y = 0.1 + Math.random() * 0.4;
-  confetti({
+  c({
     particleCount: 80, spread: 360, ticks: 80, gravity: 0.4,
     decay: 0.95, startVelocity: 25, colors: NEON, scalar: 1.2,
     origin: { x, y },
   });
 }
 
-// Spiraling confetti
-function fireSpiral() {
+function fireSpiral(c: ConfettiFn) {
   for (let i = 0; i < 20; i++) {
     setTimeout(() => {
       const angle = (i / 20) * 360;
       const rad = (angle * Math.PI) / 180;
-      confetti({
+      c({
         particleCount: 15, spread: 30, startVelocity: 30,
         origin: { x: 0.5 + Math.cos(rad) * 0.3, y: 0.5 + Math.sin(rad) * 0.3 },
         angle: angle + 90, colors: NEON, scalar: 1,
@@ -101,11 +97,10 @@ function fireSpiral() {
   }
 }
 
-// Fountain effect from bottom
-function fireFountain() {
+function fireFountain(c: ConfettiFn) {
   for (let i = 0; i < 6; i++) {
     setTimeout(() => {
-      confetti({
+      c({
         particleCount: 50, angle: 90, spread: 40, startVelocity: 55,
         origin: { x: 0.3 + i * 0.08, y: 1 }, colors: GOLD, gravity: 1.2, scalar: 0.9,
       });
@@ -127,6 +122,8 @@ const PHASE_TIMINGS: { phase: Phase; startMs: number }[] = [
 ];
 
 export function WinCelebration({ active, dealName, onComplete }: Props) {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const confettiRef = useRef<confetti.CreateTypes | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const intervalsRef = useRef<ReturnType<typeof setInterval>[]>([]);
   const timeoutsRef = useRef<ReturnType<typeof setTimeout>[]>([]);
@@ -170,12 +167,19 @@ export function WinCelebration({ active, dealName, onComplete }: Props) {
     setShakeIntensity("light");
     setLightSpeed("normal");
 
+    // Create confetti instance bound to our canvas (inside the overlay)
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const myConfetti = confetti.create(canvas, { resize: true, useWorker: true });
+    confettiRef.current = myConfetti;
+    const c = myConfetti;
+
     // ─── PHASE 1: INTRO (0-15s) — Building anticipation ───
-    fireCannons();
-    addTimeout(fireCannons, 800);
-    addTimeout(fireStars, 400);
-    const introConfetti = addInterval(fireCannons, 3000);
-    const introStars = addInterval(fireStars, 2000);
+    fireCannons(c);
+    addTimeout(() => fireCannons(c), 800);
+    addTimeout(() => fireStars(c), 400);
+    const introConfetti = addInterval(() => fireCannons(c), 3000);
+    const introStars = addInterval(() => fireStars(c), 2000);
 
     // ─── PHASE 2: THE DROP (15s) — ABSOLUTE CHAOS ───
     addTimeout(() => {
@@ -184,20 +188,16 @@ export function WinCelebration({ active, dealName, onComplete }: Props) {
       setShakeIntensity("heavy");
       setLightSpeed("strobe");
 
-      // THE BIG ONE
-      fireMegaDrop();
+      fireMegaDrop(c);
 
-      // Rapid-fire for 5 seconds
       clearInterval(introConfetti);
       clearInterval(introStars);
-      const dropCannons = addInterval(fireMegaDrop, 2000);
-      const dropFireworks = addInterval(fireFirework, 400);
-      const dropStars = addInterval(fireStars, 600);
+      const dropCannons = addInterval(() => fireMegaDrop(c), 2000);
+      const dropFireworks = addInterval(() => fireFirework(c), 400);
+      const dropStars = addInterval(() => fireStars(c), 600);
 
-      // Flash off quickly
       addTimeout(() => setDropFlash(false), 400);
 
-      // Ease up after 10s
       addTimeout(() => {
         clearInterval(dropCannons);
         clearInterval(dropFireworks);
@@ -212,13 +212,12 @@ export function WinCelebration({ active, dealName, onComplete }: Props) {
       setLightSpeed("fast");
       setShowDollarSigns(true);
 
-      addInterval(fireCannons, 4000);
-      addInterval(fireFirework, 2000);
-      addInterval(fireSpiral, 8000);
-      addInterval(fireRain, 5000);
+      addInterval(() => fireCannons(c), 4000);
+      addInterval(() => fireFirework(c), 2000);
+      addInterval(() => fireSpiral(c), 8000);
+      addInterval(() => fireRain(c), 5000);
     }, 30000);
 
-    // Dollar signs appear/disappear
     addTimeout(() => setShowDollarSigns(false), 45000);
     addTimeout(() => setShowWave(true), 50000);
     addTimeout(() => setShowWave(false), 65000);
@@ -229,9 +228,9 @@ export function WinCelebration({ active, dealName, onComplete }: Props) {
       setLightSpeed("fast");
       setShowFireworks(true);
 
-      addInterval(fireFirework, 1200);
-      addInterval(fireFountain, 4000);
-      addInterval(fireStars, 1500);
+      addInterval(() => fireFirework(c), 1200);
+      addInterval(() => fireFountain(c), 4000);
+      addInterval(() => fireStars(c), 1500);
     }, 90000);
 
     // ─── PHASE 5: FINALE (150s-170s) — Everything at once ───
@@ -242,11 +241,11 @@ export function WinCelebration({ active, dealName, onComplete }: Props) {
       setDropFlash(true);
       addTimeout(() => setDropFlash(false), 800);
 
-      fireMegaDrop();
-      addInterval(fireMegaDrop, 3000);
-      addInterval(fireFirework, 500);
-      addInterval(fireSpiral, 4000);
-      addInterval(fireFountain, 3000);
+      fireMegaDrop(c);
+      addInterval(() => fireMegaDrop(c), 3000);
+      addInterval(() => fireFirework(c), 500);
+      addInterval(() => fireSpiral(c), 4000);
+      addInterval(() => fireFountain(c), 3000);
     }, 150000);
 
     // ─── PHASE 6: OUTRO (170s+) — Gentle wind-down ───
@@ -256,12 +255,10 @@ export function WinCelebration({ active, dealName, onComplete }: Props) {
       setLightSpeed("normal");
       setShowFireworks(false);
 
-      // Clear all heavy intervals
       clearAll();
 
-      // Gentle confetti
-      addInterval(fireStars, 3000);
-      addInterval(fireRain, 6000);
+      addInterval(() => fireStars(c), 3000);
+      addInterval(() => fireRain(c), 6000);
     }, 170000);
 
     // Play audio
@@ -270,7 +267,6 @@ export function WinCelebration({ active, dealName, onComplete }: Props) {
     audio.play().catch(() => {});
     audioRef.current = audio;
 
-    // End when song ends
     audio.addEventListener("ended", onComplete);
 
     return () => {
@@ -280,7 +276,7 @@ export function WinCelebration({ active, dealName, onComplete }: Props) {
         audioRef.current.pause();
         audioRef.current = null;
       }
-      confetti.reset();
+      if (confettiRef.current) confettiRef.current.reset();
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [active]);
@@ -296,6 +292,9 @@ export function WinCelebration({ active, dealName, onComplete }: Props) {
       <div className={`absolute inset-0 z-0 transition-opacity duration-1000 ${
         phase === "outro" ? "bg-black/70" : "bg-black/85"
       }`} />
+
+      {/* Confetti canvas — renders above backdrop, below text */}
+      <canvas ref={canvasRef} className="absolute inset-0 z-10 w-full h-full" />
 
       {/* Animated party lights on top of backdrop */}
       <div className={`absolute inset-0 z-10 ${
