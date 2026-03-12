@@ -194,8 +194,8 @@ export function WinCelebration({ active, dealName, onComplete }: Props) {
       const dropFireworks = addInterval(fireFirework, 400);
       const dropStars = addInterval(fireStars, 600);
 
-      // Flash off after 1s
-      addTimeout(() => setDropFlash(false), 1000);
+      // Flash off quickly
+      addTimeout(() => setDropFlash(false), 400);
 
       // Ease up after 10s
       addTimeout(() => {
@@ -292,16 +292,21 @@ export function WinCelebration({ active, dealName, onComplete }: Props) {
       className="fixed inset-0 z-[9999] pointer-events-auto select-none"
       onClick={onComplete}
     >
-      {/* Base dark overlay with party lights */}
+      {/* Dark backdrop — dims the page so effects pop */}
+      <div className={`absolute inset-0 transition-opacity duration-1000 ${
+        phase === "outro" ? "bg-black/70" : "bg-black/85"
+      }`} />
+
+      {/* Animated party lights on top of backdrop */}
       <div className={`absolute inset-0 ${
         lightSpeed === "strobe" ? "animate-party-lights-strobe" :
         lightSpeed === "fast" ? "animate-party-lights-fast" :
         "animate-party-lights"
-      } ${phase === "outro" ? "opacity-20" : "opacity-30"}`} />
+      } ${phase === "outro" ? "opacity-30" : "opacity-50"}`} />
 
-      {/* Drop flash — white screen flash */}
+      {/* Drop flash — quick bright pulse, not full white */}
       {dropFlash && (
-        <div className="absolute inset-0 bg-white animate-flash-out z-10" />
+        <div className="absolute inset-0 bg-white/50 animate-flash-out z-10" />
       )}
 
       {/* Scanning spotlight */}
@@ -466,21 +471,21 @@ export function WinCelebration({ active, dealName, onComplete }: Props) {
 
       <style jsx>{`
         @keyframes party-lights {
-          0% { background: radial-gradient(ellipse at 20% 50%, rgba(59, 130, 246, 0.6) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(236, 72, 153, 0.6) 0%, transparent 50%), radial-gradient(ellipse at 50% 80%, rgba(34, 197, 94, 0.6) 0%, transparent 50%), rgba(0, 0, 0, 0.85); }
-          25% { background: radial-gradient(ellipse at 80% 50%, rgba(245, 158, 11, 0.6) 0%, transparent 50%), radial-gradient(ellipse at 20% 80%, rgba(139, 92, 246, 0.6) 0%, transparent 50%), radial-gradient(ellipse at 50% 20%, rgba(59, 130, 246, 0.6) 0%, transparent 50%), rgba(0, 0, 0, 0.85); }
-          50% { background: radial-gradient(ellipse at 50% 30%, rgba(236, 72, 153, 0.6) 0%, transparent 50%), radial-gradient(ellipse at 10% 60%, rgba(34, 197, 94, 0.6) 0%, transparent 50%), radial-gradient(ellipse at 90% 70%, rgba(245, 158, 11, 0.6) 0%, transparent 50%), rgba(0, 0, 0, 0.85); }
-          75% { background: radial-gradient(ellipse at 30% 80%, rgba(59, 130, 246, 0.6) 0%, transparent 50%), radial-gradient(ellipse at 70% 30%, rgba(34, 197, 94, 0.6) 0%, transparent 50%), radial-gradient(ellipse at 50% 50%, rgba(255, 215, 0, 0.6) 0%, transparent 50%), rgba(0, 0, 0, 0.85); }
-          100% { background: radial-gradient(ellipse at 20% 50%, rgba(59, 130, 246, 0.6) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(236, 72, 153, 0.6) 0%, transparent 50%), radial-gradient(ellipse at 50% 80%, rgba(34, 197, 94, 0.6) 0%, transparent 50%), rgba(0, 0, 0, 0.85); }
+          0% { background: radial-gradient(ellipse at 20% 50%, rgba(59, 130, 246, 0.7) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(236, 72, 153, 0.7) 0%, transparent 50%), radial-gradient(ellipse at 50% 80%, rgba(34, 197, 94, 0.7) 0%, transparent 50%); }
+          25% { background: radial-gradient(ellipse at 80% 50%, rgba(245, 158, 11, 0.7) 0%, transparent 50%), radial-gradient(ellipse at 20% 80%, rgba(139, 92, 246, 0.7) 0%, transparent 50%), radial-gradient(ellipse at 50% 20%, rgba(59, 130, 246, 0.7) 0%, transparent 50%); }
+          50% { background: radial-gradient(ellipse at 50% 30%, rgba(236, 72, 153, 0.7) 0%, transparent 50%), radial-gradient(ellipse at 10% 60%, rgba(34, 197, 94, 0.7) 0%, transparent 50%), radial-gradient(ellipse at 90% 70%, rgba(245, 158, 11, 0.7) 0%, transparent 50%); }
+          75% { background: radial-gradient(ellipse at 30% 80%, rgba(59, 130, 246, 0.7) 0%, transparent 50%), radial-gradient(ellipse at 70% 30%, rgba(34, 197, 94, 0.7) 0%, transparent 50%), radial-gradient(ellipse at 50% 50%, rgba(255, 215, 0, 0.7) 0%, transparent 50%); }
+          100% { background: radial-gradient(ellipse at 20% 50%, rgba(59, 130, 246, 0.7) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(236, 72, 153, 0.7) 0%, transparent 50%), radial-gradient(ellipse at 50% 80%, rgba(34, 197, 94, 0.7) 0%, transparent 50%); }
         }
         @keyframes party-lights-fast {
-          0% { background: radial-gradient(ellipse at 20% 50%, rgba(59, 130, 246, 0.7) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(236, 72, 153, 0.7) 0%, transparent 50%), rgba(0, 0, 0, 0.8); }
-          33% { background: radial-gradient(ellipse at 80% 70%, rgba(34, 197, 94, 0.7) 0%, transparent 50%), radial-gradient(ellipse at 20% 30%, rgba(255, 215, 0, 0.7) 0%, transparent 50%), rgba(0, 0, 0, 0.8); }
-          66% { background: radial-gradient(ellipse at 50% 20%, rgba(139, 92, 246, 0.7) 0%, transparent 50%), radial-gradient(ellipse at 50% 80%, rgba(236, 72, 153, 0.7) 0%, transparent 50%), rgba(0, 0, 0, 0.8); }
-          100% { background: radial-gradient(ellipse at 20% 50%, rgba(59, 130, 246, 0.7) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(236, 72, 153, 0.7) 0%, transparent 50%), rgba(0, 0, 0, 0.8); }
+          0% { background: radial-gradient(ellipse at 20% 50%, rgba(59, 130, 246, 0.8) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(236, 72, 153, 0.8) 0%, transparent 50%); }
+          33% { background: radial-gradient(ellipse at 80% 70%, rgba(34, 197, 94, 0.8) 0%, transparent 50%), radial-gradient(ellipse at 20% 30%, rgba(255, 215, 0, 0.8) 0%, transparent 50%); }
+          66% { background: radial-gradient(ellipse at 50% 20%, rgba(139, 92, 246, 0.8) 0%, transparent 50%), radial-gradient(ellipse at 50% 80%, rgba(236, 72, 153, 0.8) 0%, transparent 50%); }
+          100% { background: radial-gradient(ellipse at 20% 50%, rgba(59, 130, 246, 0.8) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(236, 72, 153, 0.8) 0%, transparent 50%); }
         }
         @keyframes party-lights-strobe {
-          0%, 49% { background: radial-gradient(ellipse at 30% 40%, rgba(0, 255, 135, 0.8) 0%, transparent 40%), radial-gradient(ellipse at 70% 60%, rgba(255, 0, 229, 0.8) 0%, transparent 40%), rgba(0, 0, 0, 0.75); }
-          50%, 100% { background: radial-gradient(ellipse at 70% 30%, rgba(96, 239, 255, 0.8) 0%, transparent 40%), radial-gradient(ellipse at 30% 70%, rgba(255, 61, 0, 0.8) 0%, transparent 40%), rgba(0, 0, 0, 0.75); }
+          0%, 49% { background: radial-gradient(ellipse at 30% 40%, rgba(0, 255, 135, 0.9) 0%, transparent 40%), radial-gradient(ellipse at 70% 60%, rgba(255, 0, 229, 0.9) 0%, transparent 40%); }
+          50%, 100% { background: radial-gradient(ellipse at 70% 30%, rgba(96, 239, 255, 0.9) 0%, transparent 40%), radial-gradient(ellipse at 30% 70%, rgba(255, 61, 0, 0.9) 0%, transparent 40%); }
         }
         @keyframes spotlight {
           0% { background: radial-gradient(circle 300px at 10% 50%, rgba(255, 255, 255, 0.3) 0%, transparent 100%); }
@@ -592,7 +597,7 @@ export function WinCelebration({ active, dealName, onComplete }: Props) {
         .animate-fade-in-up { animation: fade-in-up 0.6s ease-out 0.5s both; }
         .animate-spin-slow { animation: spin-slow 20s linear infinite; }
         .animate-spin-fast { animation: spin-fast 5s linear infinite; }
-        .animate-flash-out { animation: flash-out 0.8s ease-out forwards; }
+        .animate-flash-out { animation: flash-out 0.4s ease-out forwards; }
         .animate-laser { animation: laser 0.8s ease-in-out infinite; transform-origin: top; }
         .animate-float-up { animation: float-up 5s ease-out forwards; }
         .animate-firework-ring { animation: firework-ring 1.5s ease-out infinite; }
