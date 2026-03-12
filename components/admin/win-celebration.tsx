@@ -292,13 +292,13 @@ export function WinCelebration({ active, dealName, onComplete }: Props) {
       className="fixed inset-0 z-[9999] pointer-events-auto select-none"
       onClick={onComplete}
     >
-      {/* Dark backdrop — dims the page so effects pop */}
-      <div className={`absolute inset-0 transition-opacity duration-1000 ${
+      {/* Dark backdrop — behind everything, dims the CRM page */}
+      <div className={`absolute inset-0 z-0 transition-opacity duration-1000 ${
         phase === "outro" ? "bg-black/70" : "bg-black/85"
       }`} />
 
       {/* Animated party lights on top of backdrop */}
-      <div className={`absolute inset-0 ${
+      <div className={`absolute inset-0 z-10 ${
         lightSpeed === "strobe" ? "animate-party-lights-strobe" :
         lightSpeed === "fast" ? "animate-party-lights-fast" :
         "animate-party-lights"
@@ -310,13 +310,13 @@ export function WinCelebration({ active, dealName, onComplete }: Props) {
       )}
 
       {/* Scanning spotlight */}
-      <div className={`absolute inset-0 ${
+      <div className={`absolute inset-0 z-10 ${
         lightSpeed === "strobe" ? "animate-spotlight-fast" : "animate-spotlight"
       } opacity-20`} />
 
       {/* Laser beams — visible during drop and finale */}
       {(phase === "drop" || phase === "finale") && (
-        <div className="absolute inset-0 overflow-hidden opacity-40">
+        <div className="absolute inset-0 z-10 overflow-hidden opacity-40">
           {Array.from({ length: 8 }).map((_, i) => (
             <div
               key={`laser-${i}`}
@@ -335,7 +335,7 @@ export function WinCelebration({ active, dealName, onComplete }: Props) {
 
       {/* Floating dollar signs during groove */}
       {showDollarSigns && (
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute inset-0 z-10 overflow-hidden pointer-events-none">
           {Array.from({ length: 20 }).map((_, i) => (
             <div
               key={`dollar-${i}`}
@@ -355,7 +355,7 @@ export function WinCelebration({ active, dealName, onComplete }: Props) {
 
       {/* Firework bursts — rendered as expanding rings */}
       {showFireworks && (
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute inset-0 z-10 overflow-hidden pointer-events-none">
           {Array.from({ length: 5 }).map((_, i) => (
             <div
               key={`ring-${i}`}
@@ -373,7 +373,7 @@ export function WinCelebration({ active, dealName, onComplete }: Props) {
 
       {/* Audio wave visualizer during groove */}
       {showWave && (
-        <div className="absolute bottom-0 left-0 right-0 flex items-end justify-center gap-1 h-32 px-8 opacity-40">
+        <div className="absolute bottom-0 left-0 right-0 z-10 flex items-end justify-center gap-1 h-32 px-8 opacity-40">
           {Array.from({ length: 40 }).map((_, i) => (
             <div
               key={`bar-${i}`}
@@ -388,7 +388,7 @@ export function WinCelebration({ active, dealName, onComplete }: Props) {
       )}
 
       {/* Screen shake container */}
-      <div className={`absolute inset-0 flex items-center justify-center ${
+      <div className={`absolute inset-0 z-20 flex items-center justify-center ${
         shakeIntensity === "heavy" ? "animate-screen-shake-heavy" : "animate-screen-shake"
       }`}>
         {/* Center content — evolves per phase */}
@@ -442,7 +442,7 @@ export function WinCelebration({ active, dealName, onComplete }: Props) {
       </div>
 
       {/* Radial burst rays */}
-      <div className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none">
+      <div className="absolute inset-0 z-10 flex items-center justify-center overflow-hidden pointer-events-none">
         <div className={`w-[200vmax] h-[200vmax] ${
           phase === "drop" || phase === "finale" ? "animate-spin-fast" : "animate-spin-slow"
         } ${phase === "drop" ? "opacity-25" : "opacity-10"}`}>
@@ -462,10 +462,10 @@ export function WinCelebration({ active, dealName, onComplete }: Props) {
       {/* Corner strobes during drop */}
       {(phase === "drop" || phase === "finale") && (
         <>
-          <div className="absolute top-0 left-0 w-1/3 h-1/3 bg-gradient-to-br from-blue-500/30 to-transparent animate-corner-strobe" />
-          <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-gradient-to-bl from-pink-500/30 to-transparent animate-corner-strobe" style={{ animationDelay: "0.2s" }} />
-          <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-gradient-to-tr from-green-500/30 to-transparent animate-corner-strobe" style={{ animationDelay: "0.4s" }} />
-          <div className="absolute bottom-0 right-0 w-1/3 h-1/3 bg-gradient-to-tl from-amber-500/30 to-transparent animate-corner-strobe" style={{ animationDelay: "0.6s" }} />
+          <div className="absolute top-0 left-0 z-10 w-1/3 h-1/3 bg-gradient-to-br from-blue-500/30 to-transparent animate-corner-strobe" />
+          <div className="absolute top-0 right-0 z-10 w-1/3 h-1/3 bg-gradient-to-bl from-pink-500/30 to-transparent animate-corner-strobe" style={{ animationDelay: "0.2s" }} />
+          <div className="absolute bottom-0 left-0 z-10 w-1/3 h-1/3 bg-gradient-to-tr from-green-500/30 to-transparent animate-corner-strobe" style={{ animationDelay: "0.4s" }} />
+          <div className="absolute bottom-0 right-0 z-10 w-1/3 h-1/3 bg-gradient-to-tl from-amber-500/30 to-transparent animate-corner-strobe" style={{ animationDelay: "0.6s" }} />
         </>
       )}
 
