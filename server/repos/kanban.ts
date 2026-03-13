@@ -20,6 +20,26 @@ export interface Task {
   updated_at: string;
 }
 
+export async function getAllPhases() {
+  const { data, error } = await supabaseAdmin
+    .from("project_phases")
+    .select("*")
+    .order("project_id", { ascending: true })
+    .order("order_index", { ascending: true });
+
+  if (error) throw error;
+  return (data || []) as Phase[];
+}
+
+export async function getAllProjectTasks() {
+  const { data, error } = await supabaseAdmin
+    .from("project_tasks")
+    .select("*");
+
+  if (error) throw error;
+  return (data || []) as Task[];
+}
+
 export async function getPhasesForProject(projectId: string) {
   const { data, error } = await supabaseAdmin
     .from("project_phases")

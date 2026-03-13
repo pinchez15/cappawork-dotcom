@@ -21,14 +21,17 @@ type Props = {
   tasks: AdminTaskWithProject[];
   onEdit: (task: AdminTaskWithProject) => void;
   onStatusChange: (taskId: string, newStatus: string) => void;
+  phaseByProject: Record<string, string | null>;
 };
 
 function TaskCard({
   task,
   onEdit,
+  phaseByProject,
 }: {
   task: AdminTaskWithProject;
   onEdit: (task: AdminTaskWithProject) => void;
+  phaseByProject?: Record<string, string | null>;
 }) {
   const priorityDef = TASK_PRIORITIES.find((p) => p.id === task.priority);
   const today = new Date().toISOString().split("T")[0];
@@ -52,7 +55,14 @@ function TaskCard({
         </span>
       </div>
       {task.project_name && (
-        <div className="text-xs text-stone-400 mb-1">{task.project_name}</div>
+        <div className="text-xs text-stone-400 mb-1">
+          {task.project_name}
+          {task.project_id && phaseByProject?.[task.project_id] && (
+            <span className="ml-1 text-[10px] bg-stone-100 text-stone-500 rounded-full px-1.5 py-0.5">
+              {phaseByProject[task.project_id]}
+            </span>
+          )}
+        </div>
       )}
       {task.due_date && (
         <div
@@ -72,11 +82,13 @@ function DroppableColumn({
   label,
   tasks,
   onEdit,
+  phaseByProject,
 }: {
   statusId: string;
   label: string;
   tasks: AdminTaskWithProject[];
   onEdit: (task: AdminTaskWithProject) => void;
+  phaseByProject: Record<string, string | null>;
 }) {
   const { isOver, setNodeRef } = useDroppable({ id: statusId });
   const statusDef = TASK_STATUSES.find((s) => s.id === statusId);
@@ -106,14 +118,14 @@ function DroppableColumn({
       </div>
       <div className="flex-1 p-2 space-y-2 min-h-[120px] overflow-y-auto max-h-[calc(100vh-300px)]">
         {tasks.map((task) => (
-          <TaskCard key={task.id} task={task} onEdit={onEdit} />
+          <TaskCard key={task.id} task={task} onEdit={onEdit} phaseByProject={phaseByProject} />
         ))}
       </div>
     </div>
   );
 }
 
-export function TaskKanbanView({ tasks, onEdit, onStatusChange }: Props) {
+export function TaskKanbanView({ tasks, onEdit, onStatusChange, phaseByProject }: Props) {
   const [activeId, setActiveId] = useState<string | null>(null);
 
   const sensors = useSensors(
@@ -159,6 +171,7 @@ export function TaskKanbanView({ tasks, onEdit, onStatusChange }: Props) {
             label={status.label}
             tasks={tasks.filter((t) => t.status === status.id)}
             onEdit={onEdit}
+            phaseByProject={phaseByProject}
           />
         ))}
       </div>
@@ -166,7 +179,7 @@ export function TaskKanbanView({ tasks, onEdit, onStatusChange }: Props) {
       <DragOverlay>
         {activeTask ? (
           <div className="opacity-80 rotate-2">
-            <TaskCard task={activeTask} onEdit={() => {}} />
+            <TaskCard task={activeTask} onEdit={() => {}} phaseByProject={phaseByProject} />
           </div>
         ) : null}
       </DragOverlay>

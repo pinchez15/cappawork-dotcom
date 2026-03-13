@@ -10,6 +10,7 @@ import {
 type Props = {
   tasks: AdminTaskWithProject[];
   onEdit: (task: AdminTaskWithProject) => void;
+  phaseByProject: Record<string, string | null>;
 };
 
 function StatusBadge({ status }: { status: string }) {
@@ -30,7 +31,7 @@ function PriorityBadge({ priority }: { priority: string }) {
   );
 }
 
-export function TaskListView({ tasks, onEdit }: Props) {
+export function TaskListView({ tasks, onEdit, phaseByProject }: Props) {
   const today = new Date().toISOString().split("T")[0];
 
   if (tasks.length === 0) {
@@ -75,7 +76,12 @@ export function TaskListView({ tasks, onEdit }: Props) {
                   {task.title}
                 </td>
                 <td className="px-4 py-3 text-stone-500">
-                  {task.project_name || "—"}
+                  <div>{task.project_name || "—"}</div>
+                  {task.project_id && phaseByProject[task.project_id] && (
+                    <span className="text-[10px] bg-stone-100 text-stone-500 rounded-full px-1.5 py-0.5">
+                      {phaseByProject[task.project_id]}
+                    </span>
+                  )}
                 </td>
                 <td className="px-4 py-3">
                   <StatusBadge status={task.status} />

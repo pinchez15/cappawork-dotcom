@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { Plus, List, Columns3, AlertTriangle, Clock, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -20,6 +20,8 @@ import {
 import { TaskListView } from "@/components/admin/task-list-view";
 import { TaskKanbanView } from "@/components/admin/task-kanban-view";
 import { TaskFormDialog } from "@/components/admin/task-form-dialog";
+import { ProjectProgressStrip } from "@/components/admin/project-progress-strip";
+import type { ProjectProgress } from "@/server/repos/projects";
 
 type Props = {
   initialTasks: AdminTaskWithProject[];
@@ -33,11 +35,12 @@ type Props = {
     total: number;
   };
   projects: { id: string; name: string }[];
+  projectProgress: ProjectProgress[];
 };
 
 type ViewMode = "list" | "kanban";
 
-export function TaskDashboard({ initialTasks, stats, projects }: Props) {
+export function TaskDashboard({ initialTasks, stats, projects, projectProgress }: Props) {
   const router = useRouter();
   const [tasks, setTasks] = useState(initialTasks);
   const [view, setView] = useState<ViewMode>("list");
@@ -116,6 +119,14 @@ export function TaskDashboard({ initialTasks, stats, projects }: Props) {
     setFilterPriority("");
   };
 
+  const phaseByProject = useMemo(() => {
+    const map: Record<string, string | null> = {};
+    for (const p of projectProgress) {
+      map[p.id] = p.activePhase;
+    }
+    return map;
+  }, [projectProgress]);
+
   return (
     <>
       {/* Header */}
@@ -180,6 +191,9 @@ export function TaskDashboard({ initialTasks, stats, projects }: Props) {
           </Button>
         </div>
       </div>
+
+      {/* Project progress */}
+      <ProjectProgressStrip progress={projectProgress} filterProject={filterProject} />
 
       {/* Filter bar */}
       <div className="flex items-center gap-3 mb-4">
@@ -253,12 +267,13 @@ export function TaskDashboard({ initialTasks, stats, projects }: Props) {
 
       {/* Content */}
       {view === "list" ? (
-        <TaskListView tasks={filteredTasks} onEdit={handleEdit} />
+        <TaskListView tasks={filteredTasks} onEdit={handleEdit} phaseByProject={phaseByProject} />
       ) : (
         <TaskKanbanView
           tasks={filteredTasks}
           onEdit={handleEdit}
           onStatusChange={handleStatusChange}
+          phaseByProject={phaseByProject}
         />
       )}
 

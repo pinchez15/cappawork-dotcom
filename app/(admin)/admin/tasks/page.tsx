@@ -1,15 +1,16 @@
 import { getTasks, getTaskStats } from "@/server/repos/admin-tasks";
-import { getAllProjects } from "@/server/repos/projects";
+import { getAllProjects, getProjectsWithProgress } from "@/server/repos/projects";
 import { TaskDashboard } from "@/components/admin/task-dashboard";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export default async function TasksPage() {
-  const [tasks, stats, projects] = await Promise.all([
+  const [tasks, stats, projects, projectProgress] = await Promise.all([
     getTasks(),
     getTaskStats(),
     getAllProjects(),
+    getProjectsWithProgress(),
   ]);
 
   const projectOptions = projects.map((p: any) => ({
@@ -23,6 +24,7 @@ export default async function TasksPage() {
         initialTasks={tasks}
         stats={stats}
         projects={projectOptions}
+        projectProgress={projectProgress}
       />
     </div>
   );

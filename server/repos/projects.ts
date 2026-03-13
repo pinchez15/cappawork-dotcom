@@ -1,4 +1,5 @@
 import { supabaseAdmin } from "@/lib/db/client";
+import { getAllPhases, getAllProjectTasks } from "@/server/repos/kanban";
 
 export type ServiceTier = "portal_build" | "diagnostic" | "implementation";
 
@@ -152,5 +153,72 @@ export async function getUnassignedProjects() {
 
   if (error) throw error;
   return data || [];
+}
+
+export type ProjectProgress = {
+  id: string;
+  name: string;
+  status: string;
+  activePhase: string | null;
+  phases: { name: string; completed: number; total: number }[];
+  completedTasks: number;
+  totalTasks: number;
+  progressPercent: number;
+};
+
+export async function getProjectsWithProgress(): Promise<ProjectProgress[]> {
+  const [projects, phases, tasks] = await Promise.all([
+    getAllProjects(),
+    getAllPhases(),
+    getAllProjectTasks(),
+  ]);
+
+  // Group phases and tasks by project_id
+  const phasesByProject = new Map<string, typeof phases>();
+  for (const phase of phases) {
+    const arr = phasesByProject.get(phase.project_id) || [];
+    arr.push(phase);
+    phasesByProject.set(phase.project_id, arr);
+  }
+
+  const tasksByPhase = new Map<string, typeof tasks>();
+  for (const task of tasks) {
+    const arr = tasksByPhase.get(task.phase_id) || [];
+    arr.push(task);
+    tasksByPhase.set(task.phase_id, arr);
+  }
+
+  return projects
+    .filter((p) => phasesByProject.has(p.id))
+    .map((p) => {
+      const projectPhases = phasesByProject.get(p.id) || [];
+      let totalTasks = 0;
+      let completedTasks = 0;
+      let activePhase: string | null = null;
+
+      const phaseProgress = projectPhases.map((phase) => {
+        const phaseTasks = tasksByPhase.get(phase.id) || [];
+        const completed = phaseTasks.filter((t) => t.is_completed).length;
+        totalTasks += phaseTasks.length;
+        completedTasks += completed;
+
+        if (!activePhase && completed < phaseTasks.length) {
+          activePhase = phase.name;
+        }
+
+        return { name: phase.name, completed, total: phaseTasks.length };
+      });
+
+      return {
+        id: p.id,
+        name: p.name,
+        status: p.status,
+        activePhase,
+        phases: phaseProgress,
+        completedTasks,
+        totalTasks,
+        progressPercent: totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0,
+      };
+    });
 }
 
