@@ -11,7 +11,11 @@ import { ProjectForm } from "@/components/admin/project-form";
 
 export const runtime = "nodejs";
 
-export default function NewProjectPage() {
+export default async function NewProjectPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ name?: string; description?: string; service_tier?: string }>;
+}) {
   async function createProjectAction(formData: FormData) {
     "use server";
     const user = await requireAdmin();
@@ -48,12 +52,21 @@ export default function NewProjectPage() {
     redirect(`/admin/projects/${project.id}`);
   }
 
+  const params = await searchParams;
+
   return (
     <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <h1 className="text-3xl font-semibold text-stone-900 mb-8">
         Create New Project
       </h1>
-      <ProjectForm action={createProjectAction} />
+      <ProjectForm
+        action={createProjectAction}
+        initialData={{
+          name: params.name,
+          description: params.description,
+          service_tier: params.service_tier,
+        }}
+      />
     </div>
   );
 }

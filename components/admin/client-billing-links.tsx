@@ -30,6 +30,7 @@ import {
 } from "@/components/ui/table";
 import {
   addBillingLinkAction,
+  updateBillingLinkAction,
   updateBillingLinkStatusAction,
   removeBillingLinkAction,
 } from "@/server/actions/billing-links";
@@ -41,6 +42,9 @@ import {
   Trash2,
   Loader2,
   Plus,
+  Pencil,
+  X,
+  Check,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -101,6 +105,13 @@ export function ClientBillingLinks({
   const [notes, setNotes] = useState("");
   const [isAdding, setIsAdding] = useState(false);
   const [loadingAction, setLoadingAction] = useState<string | null>(null);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editUrl, setEditUrl] = useState("");
+  const [editLabel, setEditLabel] = useState("");
+  const [editAmount, setEditAmount] = useState("");
+  const [editType, setEditType] = useState<"one_time" | "subscription">("one_time");
+  const [editProjectId, setEditProjectId] = useState("none");
+  const [editNotes, setEditNotes] = useState("");
 
   async function handleAdd(e: React.FormEvent) {
     e.preventDefault();
@@ -138,6 +149,40 @@ export function ClientBillingLinks({
       toast.error(message);
     } finally {
       setIsAdding(false);
+    }
+  }
+
+  function startEditing(link: BillingLink) {
+    setEditingId(link.id);
+    setEditUrl(link.url);
+    setEditLabel(link.label);
+    setEditAmount(link.amount_display || "");
+    setEditType(link.type as "one_time" | "subscription");
+    setEditProjectId(link.project?.id || "none");
+    setEditNotes(link.notes || "");
+  }
+
+  async function handleSaveEdit() {
+    if (!editingId) return;
+    setLoadingAction(editingId);
+    try {
+      await updateBillingLinkAction({
+        linkId: editingId,
+        orgId: organizationId,
+        url: editUrl,
+        label: editLabel,
+        type: editType,
+        amountDisplay: editAmount || null,
+        projectId: editProjectId === "none" ? null : editProjectId,
+        notes: editNotes || null,
+      });
+      toast.success("Payment link updated");
+      setEditingId(null);
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Failed to update link";
+      toast.error(message);
+    } finally {
+      setLoadingAction(null);
     }
   }
 
@@ -295,67 +340,141 @@ export function ClientBillingLinks({
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {billingLinks.map((link) => (
-                  <TableRow key={link.id}>
-                    <TableCell className="font-medium">{link.label}</TableCell>
-                    <TableCell className="text-sm text-stone-600">
-                      {link.project?.name || "—"}
-                    </TableCell>
-                    <TableCell className="text-sm font-medium">
-                      {link.amount_display || "—"}
-                    </TableCell>
-                    <TableCell>{typeBadge(link.type)}</TableCell>
-                    <TableCell>{statusBadge(link.status)}</TableCell>
-                    <TableCell>
-                      <div className="flex items-center gap-1">
-                        <a
-                          href={link.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <Button variant="ghost" size="sm" title="Open link">
-                            <ExternalLink className="h-3 w-3" />
-                          </Button>
-                        </a>
-                        {link.status === "active" && (
+                {billingLinks.map((link) =>
+                  editingId === link.id ? (
+                    <TableRow key={link.id} className="bg-stone-50">
+                      <TableCell>
+                        <Input
+                          value={editLabel}
+                          onChange={(e) => setEditLabel(e.target.value)}
+                          className="h-8 text-sm"
+                        />
+                      </TableCell>
+                      <TableCell>
+                        <Select value={editProjectId} onValueChange={setEditProjectId}>
+                          <SelectTrigger className="h-8 text-sm">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="none">No project</SelectItem>
+                            {projects.map((p) => (
+                              <SelectItem key={p.id} value={p.id}>{p.name}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </TableCell>
+                      <TableCell>
+                        <Input
+                          value={editAmount}
+                          onChange={(e) => setEditAmount(e.target.value)}
+                          placeholder="$0"
+                          className="h-8 text-sm"
+                        />
+                      </TableCell>
+                      <TableCell>
+                        <Select value={editType} onValueChange={(v) => setEditType(v as "one_time" | "subscription")}>
+                          <SelectTrigger className="h-8 text-sm">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="one_time">One-time</SelectItem>
+                            <SelectItem value="subscription">Subscription</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </TableCell>
+                      <TableCell>{statusBadge(link.status)}</TableCell>
+                      <TableCell>
+                        <div className="flex items-center gap-1">
                           <Button
                             variant="ghost"
                             size="sm"
-                            title="Mark paid"
+                            title="Save"
                             disabled={loadingAction === link.id}
-                            onClick={() =>
-                              handleStatusChange(link.id, "paid")
-                            }
+                            onClick={handleSaveEdit}
                           >
-                            <CheckCircle2 className="h-3 w-3 text-green-600" />
+                            <Check className="h-3 w-3 text-green-600" />
                           </Button>
-                        )}
-                        {link.status !== "archived" && (
                           <Button
                             variant="ghost"
                             size="sm"
-                            title="Archive"
-                            disabled={loadingAction === link.id}
-                            onClick={() =>
-                              handleStatusChange(link.id, "archived")
-                            }
+                            title="Cancel"
+                            onClick={() => setEditingId(null)}
                           >
-                            <Archive className="h-3 w-3 text-stone-500" />
+                            <X className="h-3 w-3 text-stone-500" />
                           </Button>
-                        )}
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          title="Delete"
-                          disabled={loadingAction === link.id}
-                          onClick={() => handleDelete(link.id)}
-                        >
-                          <Trash2 className="h-3 w-3 text-red-500" />
-                        </Button>
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                ))}
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ) : (
+                    <TableRow key={link.id}>
+                      <TableCell className="font-medium">{link.label}</TableCell>
+                      <TableCell className="text-sm text-stone-600">
+                        {link.project?.name || "—"}
+                      </TableCell>
+                      <TableCell className="text-sm font-medium">
+                        {link.amount_display || "—"}
+                      </TableCell>
+                      <TableCell>{typeBadge(link.type)}</TableCell>
+                      <TableCell>{statusBadge(link.status)}</TableCell>
+                      <TableCell>
+                        <div className="flex items-center gap-1">
+                          <a
+                            href={link.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <Button variant="ghost" size="sm" title="Open link">
+                              <ExternalLink className="h-3 w-3" />
+                            </Button>
+                          </a>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            title="Edit"
+                            onClick={() => startEditing(link)}
+                          >
+                            <Pencil className="h-3 w-3 text-blue-600" />
+                          </Button>
+                          {link.status === "active" && (
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              title="Mark paid"
+                              disabled={loadingAction === link.id}
+                              onClick={() =>
+                                handleStatusChange(link.id, "paid")
+                              }
+                            >
+                              <CheckCircle2 className="h-3 w-3 text-green-600" />
+                            </Button>
+                          )}
+                          {link.status !== "archived" && (
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              title="Archive"
+                              disabled={loadingAction === link.id}
+                              onClick={() =>
+                                handleStatusChange(link.id, "archived")
+                              }
+                            >
+                              <Archive className="h-3 w-3 text-stone-500" />
+                            </Button>
+                          )}
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            title="Delete"
+                            disabled={loadingAction === link.id}
+                            onClick={() => handleDelete(link.id)}
+                          >
+                            <Trash2 className="h-3 w-3 text-red-500" />
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  )
+                )}
               </TableBody>
             </Table>
           </CardContent>

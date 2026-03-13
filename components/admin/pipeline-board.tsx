@@ -107,7 +107,7 @@ export function PipelineBoard({ initialStages, overdue, catalysts }: Props) {
   const [editingDeal, setEditingDeal] = useState<BDDeal | null>(null);
   const [defaultStage, setDefaultStage] = useState("lead");
   const [celebrating, setCelebrating] = useState(false);
-  const [celebrationDealName, setCelebrationDealName] = useState<string>("");
+  const [celebrationDeal, setCelebrationDeal] = useState<BDDeal | null>(null);
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 8 } })
@@ -157,7 +157,7 @@ export function PipelineBoard({ initialStages, overdue, catalysts }: Props) {
 
       // PARTY TIME — celebrate when a deal is won!
       if (destStageId === "won") {
-        setCelebrationDealName(deal.name);
+        setCelebrationDeal(deal);
         setCelebrating(true);
       }
 
@@ -283,8 +283,24 @@ export function PipelineBoard({ initialStages, overdue, catalysts }: Props) {
 
       <WinCelebration
         active={celebrating}
-        dealName={celebrationDealName}
+        dealName={celebrationDeal?.name}
         onComplete={() => setCelebrating(false)}
+        onStartProject={() => {
+          setCelebrating(false);
+          if (celebrationDeal) {
+            const params = new URLSearchParams();
+            params.set("name", celebrationDeal.company || celebrationDeal.name);
+            if (celebrationDeal.value) {
+              // Map deal value to service tier
+              if (celebrationDeal.value <= 15000) params.set("service_tier", "portal_build");
+              else if (celebrationDeal.value <= 35000) params.set("service_tier", "diagnostic");
+              else params.set("service_tier", "implementation");
+            }
+            router.push(`/admin/projects/new?${params.toString()}`);
+          } else {
+            router.push("/admin/projects/new");
+          }
+        }}
       />
 
       <DealFormDialog

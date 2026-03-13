@@ -3,6 +3,7 @@
 import { requireAdmin } from "@/lib/auth/guards";
 import {
   createBillingLink,
+  updateBillingLink,
   updateBillingLinkStatus,
   deleteBillingLink,
 } from "@/server/repos/billing-links";
@@ -61,6 +62,38 @@ export async function addBillingLinkAction(params: {
   });
 
   revalidatePath(`/admin/clients/${params.organizationId}`);
+  revalidatePath("/billing");
+}
+
+export async function updateBillingLinkAction(params: {
+  linkId: string;
+  orgId: string;
+  url?: string;
+  label?: string;
+  type?: "one_time" | "subscription";
+  amountDisplay?: string | null;
+  projectId?: string | null;
+  notes?: string | null;
+}) {
+  await requireAdmin();
+
+  if (params.url) {
+    const trimmedUrl = params.url.trim();
+    if (!trimmedUrl.startsWith("https://")) {
+      throw new Error("URL must be a valid HTTPS link");
+    }
+  }
+
+  await updateBillingLink(params.linkId, {
+    ...(params.url && { url: params.url.trim() }),
+    ...(params.label && { label: params.label.trim() }),
+    ...(params.type && { type: params.type }),
+    ...(params.amountDisplay !== undefined && { amount_display: params.amountDisplay?.trim() || null }),
+    ...(params.projectId !== undefined && { project_id: params.projectId }),
+    ...(params.notes !== undefined && { notes: params.notes?.trim() || null }),
+  });
+
+  revalidatePath(`/admin/clients/${params.orgId}`);
   revalidatePath("/billing");
 }
 

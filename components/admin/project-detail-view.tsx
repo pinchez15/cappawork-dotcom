@@ -27,7 +27,8 @@ import { getTierInfo } from "@/lib/animations";
 import { deleteProjectAction } from "@/server/actions/projects";
 import { ProjectMeetings } from "./project-meetings";
 import { ProjectQuestionnaireView } from "./project-questionnaire-view";
-import { Kanban, FileText, FolderOpen, Key, Link2, Palette, Lightbulb, Trash2, MessageCircle, Calendar } from "lucide-react";
+import { SowTab } from "./sow-tab";
+import { Kanban, FileText, FolderOpen, Key, Link2, Palette, Lightbulb, Trash2, MessageCircle, Calendar, FileSignature } from "lucide-react";
 
 interface Organization {
   id: string;
@@ -77,6 +78,7 @@ interface ProjectDetailViewProps {
   messages?: Message[];
   meetings?: Meeting[];
   unassignedMeetings?: Meeting[];
+  sowDocuments?: any[];
   currentProfileId?: string;
 }
 
@@ -94,6 +96,7 @@ export function ProjectDetailView({
   messages = [],
   meetings = [],
   unassignedMeetings = [],
+  sowDocuments = [],
   currentProfileId,
 }: ProjectDetailViewProps) {
   const tierInfo = getTierInfo(project.service_tier);
@@ -212,6 +215,10 @@ export function ProjectDetailView({
               </Badge>
             )}
           </TabsTrigger>
+          <TabsTrigger value="sow" className="gap-2">
+            <FileSignature className="h-4 w-4" />
+            SOW
+          </TabsTrigger>
           <TabsTrigger value="meetings" className="gap-2">
             <Calendar className="h-4 w-4" />
             Meetings
@@ -256,6 +263,10 @@ export function ProjectDetailView({
             messages={messages}
             currentProfileId={currentProfileId || ""}
           />
+        </TabsContent>
+
+        <TabsContent value="sow">
+          <SowTab projectId={project.id} sowDocuments={sowDocuments} />
         </TabsContent>
 
         <TabsContent value="meetings">

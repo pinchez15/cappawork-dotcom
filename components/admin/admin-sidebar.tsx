@@ -25,6 +25,7 @@ import {
   Target,
   Handshake,
   Crosshair,
+  CheckSquare,
 } from "lucide-react";
 
 export function AdminSidebar() {
@@ -45,6 +46,11 @@ export function AdminSidebar() {
       title: "Pipeline",
       icon: Target,
       href: "/admin/pipeline",
+    },
+    {
+      title: "Tasks",
+      icon: CheckSquare,
+      href: "/admin/tasks",
     },
     {
       title: "Prospects",

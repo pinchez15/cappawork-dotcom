@@ -7,6 +7,7 @@ type Props = {
   active: boolean;
   dealName?: string;
   onComplete: () => void;
+  onStartProject?: () => void;
 };
 
 // Gold, green, blue, white, amber, pink — victory colors
@@ -121,7 +122,7 @@ const PHASE_TIMINGS: { phase: Phase; startMs: number }[] = [
   { phase: "outro", startMs: 170000 },    // Cool down
 ];
 
-export function WinCelebration({ active, dealName, onComplete }: Props) {
+export function WinCelebration({ active, dealName, onComplete, onStartProject }: Props) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const confettiRef = useRef<confetti.CreateTypes | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -434,7 +435,20 @@ export function WinCelebration({ active, dealName, onComplete }: Props) {
             </div>
           )}
 
-          <div className="mt-8 text-sm text-white/40 animate-fade-in-up">
+          {/* Start Project CTA */}
+          {onStartProject && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onStartProject();
+              }}
+              className="mt-8 px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg rounded-full shadow-lg shadow-blue-500/30 transition-all hover:scale-105 animate-fade-in-up"
+            >
+              Start Project
+            </button>
+          )}
+
+          <div className="mt-4 text-sm text-white/40 animate-fade-in-up">
             Click anywhere to dismiss
           </div>
         </div>

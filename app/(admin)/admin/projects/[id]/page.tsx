@@ -10,6 +10,7 @@ import { getAllOrganizations, getOrganizationById } from "@/server/repos/organiz
 import { getMessagesForProject } from "@/server/repos/messages";
 import { getMeetingsForProject, getUnassignedMeetings } from "@/server/repos/meetings";
 import { getQuestionnaireForProject } from "@/server/repos/questionnaire";
+import { getSowDocumentsForProject } from "@/server/repos/sow";
 import { getProfileByClerkId } from "@/server/repos/profiles";
 import { ProjectDetailView } from "@/components/admin/project-detail-view";
 
@@ -25,7 +26,7 @@ export default async function ProjectDetailPage({
 
   const { userId } = await auth();
 
-  const [project, phases, tasks, secrets, urls, design, questionnaire, attachments, allOrganizations, messages, meetings, unassignedMeetings] = await Promise.all([
+  const [project, phases, tasks, secrets, urls, design, questionnaire, attachments, allOrganizations, messages, meetings, unassignedMeetings, sowDocuments] = await Promise.all([
     getProjectById(id),
     getPhasesForProject(id),
     getTasksForProject(id),
@@ -38,6 +39,7 @@ export default async function ProjectDetailPage({
     getMessagesForProject(id),
     getMeetingsForProject(id),
     getUnassignedMeetings(),
+    getSowDocumentsForProject(id),
   ]);
 
   if (!project) {
@@ -67,6 +69,7 @@ export default async function ProjectDetailPage({
       messages={messages}
       meetings={meetings}
       unassignedMeetings={unassignedMeetings}
+      sowDocuments={sowDocuments}
       currentProfileId={profile?.id}
     />
   );

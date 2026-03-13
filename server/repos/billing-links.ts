@@ -55,6 +55,25 @@ export async function updateBillingLinkStatus(
   if (error) throw error;
 }
 
+export async function updateBillingLink(
+  linkId: string,
+  data: {
+    url?: string;
+    label?: string;
+    type?: "one_time" | "subscription";
+    amount_display?: string | null;
+    project_id?: string | null;
+    notes?: string | null;
+  }
+) {
+  const { error } = await supabaseAdmin
+    .from("billing_links")
+    .update({ ...data, updated_at: new Date().toISOString() })
+    .eq("id", linkId);
+
+  if (error) throw error;
+}
+
 export async function deleteBillingLink(linkId: string) {
   const { error } = await supabaseAdmin
     .from("billing_links")
