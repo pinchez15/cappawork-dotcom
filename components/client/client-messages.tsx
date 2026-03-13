@@ -86,7 +86,7 @@ export function ClientMessages({
       </CardHeader>
       <CardContent>
         {/* Message Thread */}
-        <div className="h-96 overflow-y-auto mb-4 space-y-3 p-2">
+        <div className="h-[50vh] max-h-96 overflow-y-auto mb-4 space-y-3 p-2">
           {messages.length === 0 ? (
             <div className="flex items-center justify-center h-full text-stone-400 text-sm">
               No messages yet. Send a message to your project team.

@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { auth } from "@clerk/nextjs/server";
 import { getProfileByClerkId } from "@/server/repos/profiles";
+import { ForceTheme } from "@/components/client/force-theme";
 
 export const runtime = "nodejs";
 
@@ -23,6 +24,7 @@ export default async function PortalLayout({
 
   return (
     <div className="min-h-screen bg-background">
+      <ForceTheme theme="light" />
       {children}
     </div>
   );

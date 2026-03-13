@@ -10,7 +10,7 @@ import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/s
 import { ClientSidebar } from "@/components/client/client-sidebar";
 import { ActivityTracker } from "@/components/client/activity-tracker";
 import { UserButton } from "@clerk/nextjs";
-import { ThemeToggle } from "@/components/admin/theme-toggle";
+
 import { Separator } from "@/components/ui/separator";
 import { getUnreadCountForProject } from "@/server/repos/messages";
 import { getMeetingsForProject } from "@/server/repos/meetings";
@@ -154,11 +154,10 @@ export default async function ProjectLayout({
         questionnaireSubmitted={!!questionnaire?.submitted_at}
       />
       <SidebarInset>
-        <header className="flex h-14 items-center gap-4 border-b bg-background px-6">
+        <header className="flex h-14 items-center gap-2 sm:gap-4 border-b bg-background px-3 sm:px-6">
           <SidebarTrigger className="-ml-2" />
           <Separator orientation="vertical" className="h-6" />
           <div className="flex-1" />
-          <ThemeToggle />
           <UserButton afterSignOutUrl="/" />
         </header>
         <main className="flex-1 overflow-auto bg-background">{children}</main>

@@ -163,7 +163,7 @@ export function ClientSidebar({
         {/* Current Project Info */}
         <SidebarGroup>
           <SidebarGroupContent className="px-2">
-            <div className="rounded-lg border bg-card p-3">
+            <div className="rounded-lg border border-sidebar-border bg-sidebar-accent p-3">
               <div className="flex items-center gap-2 mb-2">
                 <h3 className="font-medium text-sm truncate flex-1">
                   {project.name}

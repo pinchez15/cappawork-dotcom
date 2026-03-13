@@ -174,7 +174,7 @@ export function ClientKanbanView({ phases, tasks }: ClientKanbanViewProps) {
 
   return (
     <>
-      <div ref={containerRef} className="flex gap-5 overflow-x-auto pb-4 px-1">
+      <div ref={containerRef} className="flex flex-col gap-5 md:flex-row md:overflow-x-auto pb-4 px-1">
         {sortedPhases.map((phase, index) => {
           const phaseTasks = getTasksForPhase(phase.id);
           const completedCount = phaseTasks.filter(
@@ -193,7 +193,7 @@ export function ClientKanbanView({ phases, tasks }: ClientKanbanViewProps) {
               key={phase.id}
               data-column
               style={{ opacity: 0 }}
-              className="w-80 flex-shrink-0"
+              className="w-full md:w-80 md:flex-shrink-0"
             >
               <Card
                 className={`transition-all duration-300 overflow-hidden ${
@@ -245,7 +245,7 @@ export function ClientKanbanView({ phases, tasks }: ClientKanbanViewProps) {
                     />
                   </div>
                 </CardHeader>
-                <CardContent className="space-y-2.5 min-h-[280px] pt-4 bg-card/50">
+                <CardContent className="space-y-2.5 min-h-0 md:min-h-[280px] pt-4 bg-card/50">
                   {phaseTasks.map((task) => (
                     <div
                       key={task.id}
@@ -306,7 +306,7 @@ export function ClientKanbanView({ phases, tasks }: ClientKanbanViewProps) {
           open={!!selectedTask}
           onOpenChange={() => setSelectedTask(null)}
         >
-          <SheetContent side="bottom" className="h-[50vh]">
+          <SheetContent side="bottom" className="max-h-[60vh] overflow-y-auto">
             {selectedTask && (
               <>
                 <SheetHeader>

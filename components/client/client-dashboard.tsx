@@ -120,7 +120,7 @@ export function ClientDashboard({
       {/* Hero Card */}
       <div ref={heroRef} style={{ opacity: 0 }}>
         <Card className="overflow-hidden border-0 shadow-xl bg-gradient-to-br from-white via-warm-white to-card-light">
-          <CardContent className="p-8 lg:p-10">
+          <CardContent className="p-4 sm:p-8 lg:p-10">
             <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
               {/* Radial Progress */}
               <div className="flex-shrink-0">
@@ -189,7 +189,7 @@ export function ClientDashboard({
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div ref={phasesRef} className="flex gap-3 overflow-x-auto pb-2">
+          <div ref={phasesRef} className="grid grid-cols-2 gap-3 sm:flex sm:overflow-x-auto pb-2">
             {sortedPhases.map((phase, index) => {
               const progress = getPhaseProgress(phase.id);
               const isComplete =
@@ -203,7 +203,7 @@ export function ClientDashboard({
                 <div
                   key={phase.id}
                   data-phase
-                  className="flex-1 min-w-[130px]"
+                  className="sm:flex-1 sm:min-w-[130px]"
                   style={{ opacity: 0 }}
                 >
                   <div
