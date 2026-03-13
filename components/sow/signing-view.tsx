@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import SignatureCanvas from "react-signature-canvas";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,7 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Loader2, Check, RotateCcw } from "lucide-react";
+import { Loader2, Check, RotateCcw, Download } from "lucide-react";
 import type { SowDocument } from "@/server/repos/sow";
 
 interface SigningViewProps {
@@ -22,10 +22,29 @@ interface SigningViewProps {
 export function SigningView({ sow, token }: SigningViewProps) {
   const sigPadRef = useRef<SignatureCanvas | null>(null);
   const [signerName, setSignerName] = useState("");
-  const [signerEmail, setSignerEmail] = useState(sow.sow_data.clientEmail || "");
+  const [signerEmail, setSignerEmail] = useState(sow.sow_data?.clientEmail || "");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSigned, setIsSigned] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [pdfUrl, setPdfUrl] = useState<string | null>(null);
+  const [loadingPdf, setLoadingPdf] = useState(true);
+
+  useEffect(() => {
+    async function loadPdf() {
+      try {
+        const res = await fetch(`/api/sow/preview?token=${token}`);
+        if (res.ok) {
+          const data = await res.json();
+          setPdfUrl(data.url);
+        }
+      } catch {
+        // PDF preview optional — signing still works
+      } finally {
+        setLoadingPdf(false);
+      }
+    }
+    loadPdf();
+  }, [token]);
 
   function clearSignature() {
     sigPadRef.current?.clear();
@@ -96,96 +115,40 @@ export function SigningView({ sow, token }: SigningViewProps) {
     );
   }
 
-  const { sow_data } = sow;
-
   return (
     <div className="space-y-6">
-      {/* SOW Summary */}
+      {/* PDF Document Preview */}
       <Card>
         <CardHeader>
           <CardTitle>{sow.title}</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4 text-sm text-stone-700">
-          <div>
-            <p className="font-medium text-stone-900 mb-1">Prepared for</p>
-            <p>
-              {sow_data.clientName}
-              {sow_data.clientCompany && ` — ${sow_data.clientCompany}`}
-            </p>
-          </div>
-
-          <div>
-            <p className="font-medium text-stone-900 mb-1">Scope of Work</p>
-            <p className="whitespace-pre-wrap">{sow_data.scope}</p>
-          </div>
-
-          {sow_data.deliverables.length > 0 && (
-            <div>
-              <p className="font-medium text-stone-900 mb-1">Deliverables</p>
-              <ul className="list-disc list-inside space-y-1">
-                {sow_data.deliverables.map((d, i) => (
-                  <li key={i}>
-                    <span className="font-medium">{d.title}</span>
-                    {d.description && (
-                      <span className="text-stone-500">
-                        {" "}
-                        — {d.description}
-                      </span>
-                    )}
-                  </li>
-                ))}
-              </ul>
+        <CardContent>
+          {loadingPdf ? (
+            <div className="flex items-center justify-center py-12">
+              <Loader2 className="h-6 w-6 animate-spin text-stone-400" />
             </div>
-          )}
-
-          {sow_data.timeline && (
-            <div>
-              <p className="font-medium text-stone-900 mb-1">Timeline</p>
-              <p>{sow_data.timeline}</p>
-            </div>
-          )}
-
-          {sow_data.lineItems.length > 0 && (
-            <div>
-              <p className="font-medium text-stone-900 mb-2">Pricing</p>
-              <div className="border border-stone-200 rounded-lg overflow-hidden">
-                {sow_data.lineItems.map((item, i) => (
-                  <div
-                    key={i}
-                    className="flex justify-between px-4 py-2 border-b border-stone-100 last:border-b-0"
-                  >
-                    <span>{item.description}</span>
-                    <span className="font-medium">{item.amount}</span>
-                  </div>
-                ))}
-                {sow_data.totalAmount && (
-                  <div className="flex justify-between px-4 py-3 bg-stone-50 font-semibold">
-                    <span>Total</span>
-                    <span className="text-blue-600">
-                      {sow_data.totalAmount}
-                    </span>
-                  </div>
-                )}
+          ) : pdfUrl ? (
+            <div className="space-y-3">
+              <iframe
+                src={pdfUrl}
+                className="w-full h-[600px] rounded-lg border border-stone-200"
+                title="Statement of Work"
+              />
+              <div className="flex justify-end">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => window.open(pdfUrl, "_blank")}
+                >
+                  <Download className="h-3.5 w-3.5 mr-1.5" />
+                  Download PDF
+                </Button>
               </div>
             </div>
-          )}
-
-          {sow_data.paymentTerms && (
-            <div>
-              <p className="font-medium text-stone-900 mb-1">Payment Terms</p>
-              <p>{sow_data.paymentTerms}</p>
-            </div>
-          )}
-
-          {sow_data.termsAndConditions && (
-            <div>
-              <p className="font-medium text-stone-900 mb-1">
-                Terms & Conditions
-              </p>
-              <p className="whitespace-pre-wrap text-xs text-stone-500">
-                {sow_data.termsAndConditions}
-              </p>
-            </div>
+          ) : (
+            <p className="text-sm text-stone-500 py-4">
+              Please review the document sent to you before signing below.
+            </p>
           )}
         </CardContent>
       </Card>

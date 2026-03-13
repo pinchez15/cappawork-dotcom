@@ -32,7 +32,6 @@ import {
   Ban,
   Loader2,
   FileSignature,
-  ExternalLink,
 } from "lucide-react";
 import { toast } from "sonner";
 import type { SowDocument } from "@/server/repos/sow";
@@ -212,13 +211,9 @@ export function SowTab({ projectId, sowDocuments }: SowTabProps) {
               <CardContent className="pt-0">
                 <div className="text-sm text-stone-500 space-y-1">
                   <p>
-                    Client: {sow.sow_data.clientName}{" "}
-                    {sow.sow_data.clientCompany &&
-                      `— ${sow.sow_data.clientCompany}`}
+                    Created:{" "}
+                    {new Date(sow.created_at).toLocaleDateString("en-US")}
                   </p>
-                  {sow.sow_data.totalAmount && (
-                    <p>Total: {sow.sow_data.totalAmount}</p>
-                  )}
                   {sow.sent_at && (
                     <p>
                       Sent:{" "}

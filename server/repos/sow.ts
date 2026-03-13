@@ -4,7 +4,7 @@ export interface SowDocument {
   id: string;
   project_id: string;
   title: string;
-  sow_data: SowData;
+  sow_data: SowData | null;
   status: "draft" | "sent" | "signed" | "voided";
   draft_storage_path: string | null;
   signed_storage_path: string | null;
@@ -48,7 +48,7 @@ export interface SowData {
 export async function createSowDocument(data: {
   project_id: string;
   title: string;
-  sow_data: SowData;
+  sow_data?: SowData | null;
   draft_storage_path: string;
   created_by: string;
 }) {

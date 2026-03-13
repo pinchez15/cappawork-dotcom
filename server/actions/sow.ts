@@ -10,30 +10,31 @@ import {
   voidSowDocument as voidSowRepo,
 } from "@/server/repos/sow";
 import { createAttachment } from "@/server/repos/attachments";
-import { renderSowPdf } from "@/lib/sow/render-pdf";
+import { appendSignaturePage } from "@/lib/sow/append-signature";
 import { revalidatePath } from "next/cache";
 import { randomUUID } from "crypto";
-import type { SowData } from "@/server/repos/sow";
 
-export async function createSowAction(params: {
-  projectId: string;
-  title: string;
-  sowData: SowData;
-}) {
+export async function uploadSowAction(formData: FormData) {
   const admin = await requireAdmin();
 
-  if (!params.title.trim()) {
-    throw new Error("Title is required");
+  const projectId = formData.get("projectId") as string;
+  const title = formData.get("title") as string;
+  const file = formData.get("file") as File;
+
+  if (!projectId || !title?.trim()) {
+    throw new Error("Project ID and title are required");
+  }
+  if (!file || file.type !== "application/pdf") {
+    throw new Error("A PDF file is required");
   }
 
-  // Render draft PDF
-  const pdfBuffer = await renderSowPdf(params.sowData);
+  const fileBuffer = Buffer.from(await file.arrayBuffer());
 
   // Upload to Supabase Storage
-  const storagePath = `sow/${params.projectId}/${randomUUID()}-draft.pdf`;
+  const storagePath = `sow/${projectId}/${randomUUID()}-draft.pdf`;
   const { error: uploadError } = await supabaseAdmin.storage
     .from("project-attachments")
-    .upload(storagePath, pdfBuffer, {
+    .upload(storagePath, fileBuffer, {
       contentType: "application/pdf",
       upsert: false,
     });
@@ -41,14 +42,14 @@ export async function createSowAction(params: {
   if (uploadError) throw uploadError;
 
   await createSowDocument({
-    project_id: params.projectId,
-    title: params.title.trim(),
-    sow_data: params.sowData,
+    project_id: projectId,
+    title: title.trim(),
+    sow_data: null,
     draft_storage_path: storagePath,
     created_by: admin.profileId!,
   });
 
-  revalidatePath(`/admin/projects/${params.projectId}`);
+  revalidatePath(`/admin/projects/${projectId}`);
 }
 
 export async function sendSowForSigningAction(sowId: string) {
@@ -126,8 +127,16 @@ export async function signSowAction(params: {
     });
   if (sigUploadError) throw sigUploadError;
 
-  // Re-render PDF with signature
-  const signedPdfBuffer = await renderSowPdf(sow.sow_data, {
+  // Download original draft PDF and append signature page
+  if (!sow.draft_storage_path) throw new Error("No draft PDF found");
+
+  const { data: draftData, error: downloadError } = await supabaseAdmin.storage
+    .from("project-attachments")
+    .download(sow.draft_storage_path);
+  if (downloadError) throw downloadError;
+
+  const originalPdfBytes = new Uint8Array(await draftData.arrayBuffer());
+  const signedPdfBuffer = await appendSignaturePage(originalPdfBytes, {
     signatureDataUrl: params.signatureDataUrl,
     signedByName: params.signerName.trim(),
     signedAt,

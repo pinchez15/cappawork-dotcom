@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import {
   Dialog,
   DialogContent,
@@ -11,129 +11,68 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { createSowAction } from "@/server/actions/sow";
-import { Plus, Trash2, Loader2 } from "lucide-react";
+import { uploadSowAction } from "@/server/actions/sow";
+import { Plus, Upload, Loader2, FileText, X } from "lucide-react";
 import { toast } from "sonner";
-import type { SowData, SowDeliverable, SowLineItem } from "@/server/repos/sow";
 
 interface SowFormProps {
   projectId: string;
 }
 
-const DEFAULT_TERMS = `1. This Statement of Work is governed by the Master Services Agreement between the parties.
-2. Either party may terminate this SOW with 30 days written notice.
-3. All work product created under this SOW is owned by the client upon full payment.
-4. Confidential information shared during this engagement will be protected per the MSA.
-5. Any changes to scope require a written amendment signed by both parties.`;
-
 export function SowForm({ projectId }: SowFormProps) {
   const [open, setOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  // Form state
   const [title, setTitle] = useState("");
-  const [clientName, setClientName] = useState("");
-  const [clientEmail, setClientEmail] = useState("");
-  const [clientCompany, setClientCompany] = useState("");
-  const [scope, setScope] = useState("");
-  const [deliverables, setDeliverables] = useState<SowDeliverable[]>([
-    { title: "", description: "" },
-  ]);
-  const [timeline, setTimeline] = useState("");
-  const [lineItems, setLineItems] = useState<SowLineItem[]>([
-    { description: "", amount: "" },
-  ]);
-  const [totalAmount, setTotalAmount] = useState("");
-  const [paymentTerms, setPaymentTerms] = useState(
-    "50% due upon signing, 50% due upon completion."
-  );
-  const [termsAndConditions, setTermsAndConditions] = useState(DEFAULT_TERMS);
+  const [file, setFile] = useState<File | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   function resetForm() {
     setTitle("");
-    setClientName("");
-    setClientEmail("");
-    setClientCompany("");
-    setScope("");
-    setDeliverables([{ title: "", description: "" }]);
-    setTimeline("");
-    setLineItems([{ description: "", amount: "" }]);
-    setTotalAmount("");
-    setPaymentTerms("50% due upon signing, 50% due upon completion.");
-    setTermsAndConditions(DEFAULT_TERMS);
+    setFile(null);
+    if (fileInputRef.current) fileInputRef.current.value = "";
   }
 
-  function addDeliverable() {
-    setDeliverables([...deliverables, { title: "", description: "" }]);
+  function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const selected = e.target.files?.[0];
+    if (selected && selected.type !== "application/pdf") {
+      toast.error("Please select a PDF file");
+      e.target.value = "";
+      return;
+    }
+    setFile(selected || null);
   }
 
-  function removeDeliverable(index: number) {
-    setDeliverables(deliverables.filter((_, i) => i !== index));
-  }
-
-  function updateDeliverable(
-    index: number,
-    field: keyof SowDeliverable,
-    value: string
-  ) {
-    const updated = [...deliverables];
-    updated[index] = { ...updated[index], [field]: value };
-    setDeliverables(updated);
-  }
-
-  function addLineItem() {
-    setLineItems([...lineItems, { description: "", amount: "" }]);
-  }
-
-  function removeLineItem(index: number) {
-    setLineItems(lineItems.filter((_, i) => i !== index));
-  }
-
-  function updateLineItem(
-    index: number,
-    field: keyof SowLineItem,
-    value: string
-  ) {
-    const updated = [...lineItems];
-    updated[index] = { ...updated[index], [field]: value };
-    setLineItems(updated);
+  function clearFile() {
+    setFile(null);
+    if (fileInputRef.current) fileInputRef.current.value = "";
   }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    if (!title.trim() || !clientName.trim() || !scope.trim()) {
-      toast.error("Title, client name, and scope are required");
+    if (!title.trim()) {
+      toast.error("Title is required");
+      return;
+    }
+    if (!file) {
+      toast.error("Please select a PDF file");
       return;
     }
 
     setIsSubmitting(true);
     try {
-      const sowData: SowData = {
-        clientName: clientName.trim(),
-        clientEmail: clientEmail.trim(),
-        clientCompany: clientCompany.trim(),
-        scope: scope.trim(),
-        deliverables: deliverables.filter((d) => d.title.trim()),
-        timeline: timeline.trim(),
-        lineItems: lineItems.filter((li) => li.description.trim()),
-        totalAmount: totalAmount.trim(),
-        paymentTerms: paymentTerms.trim(),
-        termsAndConditions: termsAndConditions.trim(),
-      };
+      const formData = new FormData();
+      formData.append("projectId", projectId);
+      formData.append("title", title.trim());
+      formData.append("file", file);
 
-      await createSowAction({
-        projectId,
-        title: title.trim(),
-        sowData,
-      });
+      await uploadSowAction(formData);
 
-      toast.success("SOW created");
+      toast.success("SOW uploaded");
       resetForm();
       setOpen(false);
     } catch (err) {
-      const message = err instanceof Error ? err.message : "Failed to create SOW";
+      const message = err instanceof Error ? err.message : "Failed to upload SOW";
       toast.error(message);
     } finally {
       setIsSubmitting(false);
@@ -144,16 +83,15 @@ export function SowForm({ projectId }: SowFormProps) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button>
-          <Plus className="h-4 w-4 mr-2" />
-          Create SOW
+          <Upload className="h-4 w-4 mr-2" />
+          Upload SOW
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">
+      <DialogContent className="max-w-md">
         <DialogHeader>
-          <DialogTitle>Create Statement of Work</DialogTitle>
+          <DialogTitle>Upload Statement of Work</DialogTitle>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Title */}
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="sow-title">SOW Title</Label>
             <Input
@@ -165,213 +103,54 @@ export function SowForm({ projectId }: SowFormProps) {
             />
           </div>
 
-          {/* Client Info */}
           <div className="space-y-2">
-            <Label className="text-xs font-medium uppercase tracking-wider text-stone-500">
-              Client Information
-            </Label>
-            <div className="grid sm:grid-cols-3 gap-3">
-              <div className="space-y-1">
-                <Label htmlFor="sow-client-name" className="text-xs">
-                  Name
-                </Label>
-                <Input
-                  id="sow-client-name"
-                  placeholder="John Smith"
-                  value={clientName}
-                  onChange={(e) => setClientName(e.target.value)}
-                  required
-                />
-              </div>
-              <div className="space-y-1">
-                <Label htmlFor="sow-client-email" className="text-xs">
-                  Email
-                </Label>
-                <Input
-                  id="sow-client-email"
-                  type="email"
-                  placeholder="john@company.com"
-                  value={clientEmail}
-                  onChange={(e) => setClientEmail(e.target.value)}
-                />
-              </div>
-              <div className="space-y-1">
-                <Label htmlFor="sow-client-company" className="text-xs">
-                  Company
-                </Label>
-                <Input
-                  id="sow-client-company"
-                  placeholder="Acme Corp"
-                  value={clientCompany}
-                  onChange={(e) => setClientCompany(e.target.value)}
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Scope */}
-          <div className="space-y-2">
-            <Label htmlFor="sow-scope">Scope of Work</Label>
-            <Textarea
-              id="sow-scope"
-              placeholder="Describe the scope of this engagement..."
-              value={scope}
-              onChange={(e) => setScope(e.target.value)}
-              rows={4}
-              required
-            />
-          </div>
-
-          {/* Deliverables */}
-          <div className="space-y-2">
-            <div className="flex items-center justify-between">
-              <Label>Deliverables</Label>
-              <Button
-                type="button"
-                variant="ghost"
-                size="sm"
-                onClick={addDeliverable}
-              >
-                <Plus className="h-3 w-3 mr-1" />
-                Add
-              </Button>
-            </div>
-            <div className="space-y-3">
-              {deliverables.map((d, i) => (
-                <div key={i} className="flex gap-2 items-start">
-                  <div className="flex-1 space-y-1">
-                    <Input
-                      placeholder="Deliverable title"
-                      value={d.title}
-                      onChange={(e) =>
-                        updateDeliverable(i, "title", e.target.value)
-                      }
-                    />
-                    <Input
-                      placeholder="Description (optional)"
-                      value={d.description}
-                      onChange={(e) =>
-                        updateDeliverable(i, "description", e.target.value)
-                      }
-                      className="text-sm"
-                    />
-                  </div>
-                  {deliverables.length > 1 && (
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => removeDeliverable(i)}
-                    >
-                      <Trash2 className="h-3 w-3 text-red-500" />
-                    </Button>
-                  )}
+            <Label>PDF Document</Label>
+            {file ? (
+              <div className="flex items-center gap-2 p-3 border border-stone-200 rounded-lg bg-stone-50">
+                <FileText className="h-5 w-5 text-blue-600 shrink-0" />
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium text-stone-900 truncate">
+                    {file.name}
+                  </p>
+                  <p className="text-xs text-stone-400">
+                    {(file.size / 1024).toFixed(0)} KB
+                  </p>
                 </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Timeline */}
-          <div className="space-y-2">
-            <Label htmlFor="sow-timeline">Timeline</Label>
-            <Textarea
-              id="sow-timeline"
-              placeholder="e.g., 4-6 weeks from contract signing..."
-              value={timeline}
-              onChange={(e) => setTimeline(e.target.value)}
-              rows={2}
-            />
-          </div>
-
-          {/* Pricing */}
-          <div className="space-y-2">
-            <div className="flex items-center justify-between">
-              <Label>Line Items</Label>
-              <Button
-                type="button"
-                variant="ghost"
-                size="sm"
-                onClick={addLineItem}
+                <button
+                  type="button"
+                  onClick={clearFile}
+                  className="text-stone-400 hover:text-stone-600"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
+            ) : (
+              <div
+                onClick={() => fileInputRef.current?.click()}
+                className="border-2 border-dashed border-stone-200 rounded-lg p-6 text-center cursor-pointer hover:border-stone-300 transition-colors"
               >
-                <Plus className="h-3 w-3 mr-1" />
-                Add
-              </Button>
-            </div>
-            <div className="space-y-2">
-              {lineItems.map((item, i) => (
-                <div key={i} className="flex gap-2 items-center">
-                  <Input
-                    className="flex-1"
-                    placeholder="Description"
-                    value={item.description}
-                    onChange={(e) =>
-                      updateLineItem(i, "description", e.target.value)
-                    }
-                  />
-                  <Input
-                    className="w-32"
-                    placeholder="$30,000"
-                    value={item.amount}
-                    onChange={(e) =>
-                      updateLineItem(i, "amount", e.target.value)
-                    }
-                  />
-                  {lineItems.length > 1 && (
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => removeLineItem(i)}
-                    >
-                      <Trash2 className="h-3 w-3 text-red-500" />
-                    </Button>
-                  )}
-                </div>
-              ))}
-            </div>
-            <div className="flex items-center gap-2 pt-2">
-              <Label htmlFor="sow-total" className="text-sm font-medium">
-                Total Amount
-              </Label>
-              <Input
-                id="sow-total"
-                className="w-40"
-                placeholder="$30,000"
-                value={totalAmount}
-                onChange={(e) => setTotalAmount(e.target.value)}
-              />
-            </div>
-          </div>
-
-          {/* Payment Terms */}
-          <div className="space-y-2">
-            <Label htmlFor="sow-payment">Payment Terms</Label>
-            <Textarea
-              id="sow-payment"
-              value={paymentTerms}
-              onChange={(e) => setPaymentTerms(e.target.value)}
-              rows={2}
+                <Upload className="h-8 w-8 mx-auto mb-2 text-stone-400" />
+                <p className="text-sm text-stone-500">
+                  Click to select a PDF file
+                </p>
+              </div>
+            )}
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="application/pdf"
+              onChange={handleFileChange}
+              className="hidden"
             />
           </div>
 
-          {/* Terms & Conditions */}
-          <div className="space-y-2">
-            <Label htmlFor="sow-terms">Terms & Conditions</Label>
-            <Textarea
-              id="sow-terms"
-              value={termsAndConditions}
-              onChange={(e) => setTermsAndConditions(e.target.value)}
-              rows={5}
-            />
-          </div>
-
-          <Button type="submit" disabled={isSubmitting} className="w-full">
+          <Button type="submit" disabled={isSubmitting || !file} className="w-full">
             {isSubmitting ? (
               <Loader2 className="h-4 w-4 mr-2 animate-spin" />
             ) : (
-              <Plus className="h-4 w-4 mr-2" />
+              <Upload className="h-4 w-4 mr-2" />
             )}
-            Create SOW & Generate PDF
+            Upload SOW
           </Button>
         </form>
       </DialogContent>
