@@ -44,7 +44,7 @@ export async function uploadSowAction(formData: FormData) {
   await createSowDocument({
     project_id: projectId,
     title: title.trim(),
-    sow_data: null,
+    sow_data: {},
     draft_storage_path: storagePath,
     created_by: admin.profileId!,
   });
