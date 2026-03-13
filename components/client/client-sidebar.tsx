@@ -14,12 +14,10 @@ import {
   SidebarMenuItem,
   SidebarFooter,
   SidebarSeparator,
-  useSidebar,
 } from "@/components/ui/sidebar";
 import { Badge } from "@/components/ui/badge";
 import { ProjectSwitcher } from "./project-switcher";
 import { getTierInfo } from "@/lib/animations";
-import { useIsMobile } from "@/hooks/use-mobile";
 import {
   LayoutDashboard,
   Kanban,
@@ -31,7 +29,6 @@ import {
   MessageCircle,
   Calendar,
   CreditCard,
-  X,
 } from "lucide-react";
 
 interface ClientSidebarProps {
@@ -58,8 +55,6 @@ export function ClientSidebar({
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const tierInfo = getTierInfo(project.service_tier);
-  const isMobile = useIsMobile();
-  const { setOpenMobile } = useSidebar();
 
   // Get current tab from URL
   const currentTab = searchParams.get("tab") || "dashboard";
@@ -137,25 +132,15 @@ export function ClientSidebar({
   return (
     <Sidebar>
       <SidebarHeader className="border-b px-4 h-14 flex justify-center">
-        <div className="flex items-center justify-between">
-          <Link href="/projects" className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-              <span className="text-sm font-bold">C</span>
-            </div>
-            <div className="flex flex-col">
-              <span className="text-sm font-semibold">CappaWork</span>
-              <span className="text-xs text-muted-foreground">Client Portal</span>
-            </div>
-          </Link>
-          {isMobile && (
-            <button
-              onClick={() => setOpenMobile(false)}
-              className="p-2 rounded-md text-sidebar-foreground/70 hover:text-sidebar-foreground transition-colors"
-            >
-              <X className="h-5 w-5" />
-            </button>
-          )}
-        </div>
+        <Link href="/projects" className="flex items-center gap-2">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+            <span className="text-sm font-bold">C</span>
+          </div>
+          <div className="flex flex-col">
+            <span className="text-sm font-semibold">CappaWork</span>
+            <span className="text-xs text-muted-foreground">Client Portal</span>
+          </div>
+        </Link>
       </SidebarHeader>
 
       <SidebarContent>
@@ -178,7 +163,7 @@ export function ClientSidebar({
         {/* Current Project Info */}
         <SidebarGroup>
           <SidebarGroupContent className="px-2">
-            <div className="rounded-lg border border-sidebar-border bg-sidebar-accent p-3">
+            <div className="rounded-lg border bg-card p-3">
               <div className="flex items-center gap-2 mb-2">
                 <h3 className="font-medium text-sm truncate flex-1">
                   {project.name}
@@ -214,7 +199,7 @@ export function ClientSidebar({
                 return (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild isActive={isActive}>
-                      <Link href={item.href} onClick={() => isMobile && setOpenMobile(false)}>
+                      <Link href={item.href}>
                         <item.icon className="h-4 w-4" />
                         <span>{item.title}</span>
                         {item.badge && (
