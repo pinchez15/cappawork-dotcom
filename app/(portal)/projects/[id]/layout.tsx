@@ -153,7 +153,7 @@ export default async function ProjectLayout({
         upcomingMeetingsCount={upcomingMeetingsCount}
         questionnaireSubmitted={!!questionnaire?.submitted_at}
       />
-      <SidebarInset>
+      <SidebarInset className="min-w-0 overflow-x-hidden">
         <header className="flex h-14 items-center gap-2 sm:gap-4 border-b bg-background px-3 sm:px-6">
           <SidebarTrigger className="-ml-2" />
           <Separator orientation="vertical" className="h-6" />

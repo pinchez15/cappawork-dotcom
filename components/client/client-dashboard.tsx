@@ -121,21 +121,21 @@ export function ClientDashboard({
       <div ref={heroRef} style={{ opacity: 0 }}>
         <Card className="overflow-hidden border-0 shadow-xl bg-gradient-to-br from-white via-warm-white to-card-light">
           <CardContent className="p-4 sm:p-8 lg:p-10">
-            <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
+            <div className="flex flex-col lg:flex-row items-center gap-6 sm:gap-8 lg:gap-12">
               {/* Radial Progress */}
               <div className="flex-shrink-0">
                 <RadialProgress
                   value={progressPercent}
-                  size={172}
-                  strokeWidth={14}
+                  size={140}
+                  strokeWidth={12}
                   variant={getRadialVariant()}
                 />
               </div>
 
               {/* Project Info */}
-              <div className="flex-1 text-center lg:text-left">
-                <div className="flex items-center justify-center lg:justify-start gap-3 mb-3">
-                  <h2 className="text-2xl lg:text-3xl font-bold text-foreground tracking-tight">
+              <div className="flex-1 min-w-0 text-center lg:text-left">
+                <div className="flex items-center justify-center lg:justify-start gap-2 sm:gap-3 mb-3 flex-wrap">
+                  <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground tracking-tight">
                     {project.name}
                   </h2>
                   <Badge
@@ -151,7 +151,7 @@ export function ClientDashboard({
                 )}
 
                 {/* Key Metrics */}
-                <div className="flex flex-wrap items-center justify-center lg:justify-start gap-6 text-sm">
+                <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 sm:gap-6 text-sm">
                   <div className="flex items-center gap-2.5 bg-card/80 rounded-full px-4 py-2 shadow-sm border border-stone-200/60">
                     <CheckCircle2 className="h-4 w-4 text-phase-completed" />
                     <span className="text-stone-500">
