@@ -32,6 +32,7 @@ import {
   Download,
   Send,
   Link2,
+  ExternalLink,
   Ban,
   Trash2,
   Loader2,
@@ -252,17 +253,29 @@ export function SowTab({ projectId, sowDocuments }: SowTabProps) {
                     </Button>
                   )}
 
-                  {/* Copy Signing Link (sent only) */}
+                  {/* Signing actions (sent only) */}
                   {sow.status === "sent" && sow.signing_token && (
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="text-blue-600 border-blue-200"
-                      onClick={() => handleCopyLink(sow.signing_token!)}
-                    >
-                      <Link2 className="h-3.5 w-3.5 mr-1.5" />
-                      Copy Signing Link
-                    </Button>
+                    <>
+                      <Button
+                        size="sm"
+                        className="bg-blue-600 hover:bg-blue-700 text-white"
+                        onClick={() =>
+                          window.open(`/sign/${sow.signing_token}`, "_blank")
+                        }
+                      >
+                        <ExternalLink className="h-3.5 w-3.5 mr-1.5" />
+                        Open Signing Page
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="text-blue-600 border-blue-200"
+                        onClick={() => handleCopyLink(sow.signing_token!)}
+                      >
+                        <Link2 className="h-3.5 w-3.5 mr-1.5" />
+                        Copy Link
+                      </Button>
+                    </>
                   )}
 
                   {/* Spacer */}
