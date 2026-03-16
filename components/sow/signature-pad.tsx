@@ -19,8 +19,8 @@ export const SignaturePad = forwardRef<SignaturePadRef, SignaturePadProps>(
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [isCapturing, setIsCapturing] = useState(false);
     const [hasSignature, setHasSignature] = useState(false);
-    const isPenDown = useRef(false);
     const lastPoint = useRef<{ x: number; y: number } | null>(null);
+    const liftTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     const getCtx = useCallback(() => {
       const canvas = canvasRef.current;
@@ -68,35 +68,35 @@ export const SignaturePad = forwardRef<SignaturePadRef, SignaturePadProps>(
 
     const finishCapture = useCallback(() => {
       setIsCapturing(false);
-      isPenDown.current = false;
       lastPoint.current = null;
+      if (liftTimer.current) clearTimeout(liftTimer.current);
     }, []);
 
-    // Mouse/touch handlers
+    // Click starts capture session; once capturing, movement alone draws
     const handlePointerDown = useCallback(
       (e: MouseEvent | TouchEvent) => {
         if (!isCapturing) {
-          // First click starts the capture session
           setIsCapturing(true);
         }
-        isPenDown.current = true;
+        if (liftTimer.current) clearTimeout(liftTimer.current);
         lastPoint.current = getPoint(e);
       },
       [isCapturing, getPoint]
     );
 
-    const handlePointerUp = useCallback(() => {
-      // Lift finger/mouse — stop drawing but stay in capture mode
-      isPenDown.current = false;
-      lastPoint.current = null;
-    }, []);
-
     const handleMove = useCallback(
       (e: MouseEvent | TouchEvent) => {
-        if (!isCapturing || !isPenDown.current) return;
+        if (!isCapturing) return;
         e.preventDefault();
         const point = getPoint(e);
         if (!point) return;
+
+        // Reset the lift timer — finger is still moving
+        if (liftTimer.current) clearTimeout(liftTimer.current);
+        liftTimer.current = setTimeout(() => {
+          // No movement for 100ms = finger lifted off trackpad
+          lastPoint.current = null;
+        }, 100);
 
         if (lastPoint.current) {
           drawLine(lastPoint.current, point);
@@ -120,6 +120,11 @@ export const SignaturePad = forwardRef<SignaturePadRef, SignaturePadProps>(
       return () => window.removeEventListener("keydown", handleKey);
     }, [isCapturing, finishCapture]);
 
+    // Touch end — reset lastPoint so next touch starts a new stroke
+    const handleTouchEnd = useCallback(() => {
+      lastPoint.current = null;
+    }, []);
+
     // Canvas event listeners
     useEffect(() => {
       const canvas = canvasRef.current;
@@ -129,18 +134,16 @@ export const SignaturePad = forwardRef<SignaturePadRef, SignaturePadProps>(
       canvas.addEventListener("touchstart", handlePointerDown, { passive: true });
       canvas.addEventListener("mousemove", handleMove);
       canvas.addEventListener("touchmove", handleMove, { passive: false });
-      canvas.addEventListener("mouseup", handlePointerUp);
-      canvas.addEventListener("touchend", handlePointerUp);
+      canvas.addEventListener("touchend", handleTouchEnd);
 
       return () => {
         canvas.removeEventListener("mousedown", handlePointerDown);
         canvas.removeEventListener("touchstart", handlePointerDown);
         canvas.removeEventListener("mousemove", handleMove);
         canvas.removeEventListener("touchmove", handleMove);
-        canvas.removeEventListener("mouseup", handlePointerUp);
-        canvas.removeEventListener("touchend", handlePointerUp);
+        canvas.removeEventListener("touchend", handleTouchEnd);
       };
-    }, [handlePointerDown, handleMove, handlePointerUp]);
+    }, [handlePointerDown, handleMove, handleTouchEnd]);
 
     // Setup canvas resolution
     useEffect(() => {
@@ -158,8 +161,8 @@ export const SignaturePad = forwardRef<SignaturePadRef, SignaturePadProps>(
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       setHasSignature(false);
       setIsCapturing(false);
-      isPenDown.current = false;
       lastPoint.current = null;
+      if (liftTimer.current) clearTimeout(liftTimer.current);
     }
 
     useImperativeHandle(ref, () => ({
