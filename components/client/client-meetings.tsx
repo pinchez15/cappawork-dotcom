@@ -144,7 +144,11 @@ export function ClientMeetings({
     setIsLoadingTypes(true);
     try {
       const types = await fetchEventTypes();
-      setEventTypes(types);
+      // Only show the Product Development meeting type to clients
+      const filtered = types.filter((t) =>
+        t.name.toLowerCase().includes("product dev")
+      );
+      setEventTypes(filtered);
     } catch (err: any) {
       toast.error("Failed to load meeting types");
     } finally {
