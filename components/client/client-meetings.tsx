@@ -94,7 +94,7 @@ export function ClientMeetings({
   const prefillParams = new URLSearchParams();
   if (currentUserName) prefillParams.set("name", currentUserName);
   if (currentUserEmail) prefillParams.set("email", currentUserEmail);
-  const calendlyUrl = `https://calendly.com/cappawork/product-development-meeting${
+  const calendlyUrl = `https://calendly.com/cappawork/product-development-meeting-1${
     prefillParams.toString() ? `?${prefillParams.toString()}` : ""
   }`;
 
