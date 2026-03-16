@@ -21,6 +21,7 @@ export const SignaturePad = forwardRef<SignaturePadRef, SignaturePadProps>(
     const [hasSignature, setHasSignature] = useState(false);
     const lastPoint = useRef<{ x: number; y: number } | null>(null);
     const liftTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const skipCount = useRef(0);
 
     const getCtx = useCallback(() => {
       const canvas = canvasRef.current;
@@ -69,6 +70,7 @@ export const SignaturePad = forwardRef<SignaturePadRef, SignaturePadProps>(
     const finishCapture = useCallback(() => {
       setIsCapturing(false);
       lastPoint.current = null;
+      skipCount.current = 0;
       if (liftTimer.current) clearTimeout(liftTimer.current);
     }, []);
 
@@ -94,9 +96,20 @@ export const SignaturePad = forwardRef<SignaturePadRef, SignaturePadProps>(
         // Reset the lift timer — finger is still moving
         if (liftTimer.current) clearTimeout(liftTimer.current);
         liftTimer.current = setTimeout(() => {
-          // No movement for 100ms = finger lifted off trackpad
+          // No movement for 150ms = finger lifted off trackpad.
+          // Null the last point AND skip the next few move events so
+          // the cursor can travel to its new position before we start
+          // a new stroke (trackpads are relative, not absolute).
           lastPoint.current = null;
-        }, 100);
+          skipCount.current = 3;
+        }, 150);
+
+        // After a lift, skip a few events to let cursor relocate
+        if (skipCount.current > 0) {
+          skipCount.current--;
+          lastPoint.current = null;
+          return;
+        }
 
         if (lastPoint.current) {
           drawLine(lastPoint.current, point);
@@ -162,6 +175,7 @@ export const SignaturePad = forwardRef<SignaturePadRef, SignaturePadProps>(
       setHasSignature(false);
       setIsCapturing(false);
       lastPoint.current = null;
+      skipCount.current = 0;
       if (liftTimer.current) clearTimeout(liftTimer.current);
     }
 
