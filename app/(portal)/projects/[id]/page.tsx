@@ -5,7 +5,6 @@ import { getUrlsForProject } from "@/server/repos/urls";
 import { getDesignForProject } from "@/server/repos/design";
 import { getAttachmentsForProject } from "@/server/repos/attachments";
 import { getMessagesForProject } from "@/server/repos/messages";
-import { getMeetingsForProject } from "@/server/repos/meetings";
 import { getQuestionnaireForProject } from "@/server/repos/questionnaire";
 import { getClientVisibleSowsForProject } from "@/server/repos/sow";
 import { getProfileByClerkId } from "@/server/repos/profiles";
@@ -25,7 +24,7 @@ export default async function ClientProjectPage({
 
   // Fetch all project data
   // Note: Access control is handled in the layout
-  const [project, phases, tasks, urls, design, questionnaire, attachments, messages, meetings, sowDocuments] = await Promise.all([
+  const [project, phases, tasks, urls, design, questionnaire, attachments, messages, sowDocuments] = await Promise.all([
     getProjectById(id),
     getPhasesForProject(id),
     getTasksForProject(id),
@@ -34,7 +33,6 @@ export default async function ClientProjectPage({
     getQuestionnaireForProject(id),
     getAttachmentsForProject(id),
     getMessagesForProject(id),
-    getMeetingsForProject(id),
     getClientVisibleSowsForProject(id),
   ]);
 
@@ -58,12 +56,9 @@ export default async function ClientProjectPage({
       questionnaire={questionnaire}
       attachments={attachments}
       messages={messages}
-      meetings={meetings}
       sowDocuments={sowDocuments}
       billingLinks={billingLinks}
       currentProfileId={profile?.id}
-      currentUserName={profile?.name || ""}
-      currentUserEmail={profile?.email || ""}
     />
   );
 }

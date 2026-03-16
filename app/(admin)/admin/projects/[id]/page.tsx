@@ -8,7 +8,6 @@ import { getDesignForProject } from "@/server/repos/design";
 import { getAttachmentsForProject } from "@/server/repos/attachments";
 import { getAllOrganizations, getOrganizationById } from "@/server/repos/organizations";
 import { getMessagesForProject } from "@/server/repos/messages";
-import { getMeetingsForProject, getUnassignedMeetings } from "@/server/repos/meetings";
 import { getQuestionnaireForProject } from "@/server/repos/questionnaire";
 import { getSowDocumentsForProject } from "@/server/repos/sow";
 import { getProfileByClerkId } from "@/server/repos/profiles";
@@ -26,7 +25,7 @@ export default async function ProjectDetailPage({
 
   const { userId } = await auth();
 
-  const [project, phases, tasks, secrets, urls, design, questionnaire, attachments, allOrganizations, messages, meetings, unassignedMeetings, sowDocuments] = await Promise.all([
+  const [project, phases, tasks, secrets, urls, design, questionnaire, attachments, allOrganizations, messages, sowDocuments] = await Promise.all([
     getProjectById(id),
     getPhasesForProject(id),
     getTasksForProject(id),
@@ -37,8 +36,6 @@ export default async function ProjectDetailPage({
     getAttachmentsForProject(id),
     getAllOrganizations(),
     getMessagesForProject(id),
-    getMeetingsForProject(id),
-    getUnassignedMeetings(),
     getSowDocumentsForProject(id),
   ]);
 
@@ -67,8 +64,6 @@ export default async function ProjectDetailPage({
       currentOrganization={currentOrganization}
       allOrganizations={allOrganizations}
       messages={messages}
-      meetings={meetings}
-      unassignedMeetings={unassignedMeetings}
       sowDocuments={sowDocuments}
       currentProfileId={profile?.id}
     />

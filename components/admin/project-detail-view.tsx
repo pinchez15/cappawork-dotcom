@@ -25,10 +25,9 @@ import {
 } from "@/components/ui/alert-dialog";
 import { getTierInfo } from "@/lib/animations";
 import { deleteProjectAction } from "@/server/actions/projects";
-import { ProjectMeetings } from "./project-meetings";
 import { ProjectQuestionnaireView } from "./project-questionnaire-view";
 import { SowTab } from "./sow-tab";
-import { Kanban, FileText, FolderOpen, Key, Link2, Palette, Lightbulb, Trash2, MessageCircle, Calendar, FileSignature } from "lucide-react";
+import { Kanban, FileText, FolderOpen, Key, Link2, Palette, Lightbulb, Trash2, MessageCircle, FileSignature } from "lucide-react";
 
 interface Organization {
   id: string;
@@ -51,19 +50,6 @@ interface Message {
   };
 }
 
-interface Meeting {
-  id: string;
-  calendly_event_id: string;
-  title: string;
-  start_time: string;
-  end_time: string;
-  location_url: string | null;
-  status: string;
-  invitee_name: string | null;
-  invitee_email: string | null;
-  event_type_name: string | null;
-}
-
 interface ProjectDetailViewProps {
   project: any;
   phases: any[];
@@ -76,8 +62,6 @@ interface ProjectDetailViewProps {
   currentOrganization?: Organization | null;
   allOrganizations?: Organization[];
   messages?: Message[];
-  meetings?: Meeting[];
-  unassignedMeetings?: Meeting[];
   sowDocuments?: any[];
   currentProfileId?: string;
 }
@@ -94,8 +78,6 @@ export function ProjectDetailView({
   currentOrganization,
   allOrganizations,
   messages = [],
-  meetings = [],
-  unassignedMeetings = [],
   sowDocuments = [],
   currentProfileId,
 }: ProjectDetailViewProps) {
@@ -219,10 +201,6 @@ export function ProjectDetailView({
             <FileSignature className="h-4 w-4" />
             SOW
           </TabsTrigger>
-          <TabsTrigger value="meetings" className="gap-2">
-            <Calendar className="h-4 w-4" />
-            Meetings
-          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="kanban">
@@ -269,13 +247,6 @@ export function ProjectDetailView({
           <SowTab projectId={project.id} sowDocuments={sowDocuments} />
         </TabsContent>
 
-        <TabsContent value="meetings">
-          <ProjectMeetings
-            projectId={project.id}
-            meetings={meetings}
-            unassignedMeetings={unassignedMeetings}
-          />
-        </TabsContent>
       </Tabs>
     </div>
   );
