@@ -27,9 +27,11 @@ import {
   voidSowAction,
 } from "@/server/actions/sow";
 import {
-  Send,
+  Eye,
+  EyeOff,
   Download,
-  Copy,
+  Send,
+  Link2,
   Ban,
   Trash2,
   Loader2,
@@ -55,6 +57,47 @@ function statusBadge(status: SowDocument["status"]) {
 
 export function SowTab({ projectId, sowDocuments }: SowTabProps) {
   const [loadingAction, setLoadingAction] = useState<string | null>(null);
+  const [previewSowId, setPreviewSowId] = useState<string | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [loadingPreview, setLoadingPreview] = useState(false);
+
+  async function handlePreview(sowId: string) {
+    if (previewSowId === sowId) {
+      setPreviewSowId(null);
+      setPreviewUrl(null);
+      return;
+    }
+
+    setLoadingPreview(true);
+    setPreviewSowId(sowId);
+    try {
+      const res = await fetch(`/api/sow/${sowId}/pdf`);
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Failed to load PDF");
+      setPreviewUrl(data.url);
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Failed to load preview";
+      toast.error(message);
+      setPreviewSowId(null);
+    } finally {
+      setLoadingPreview(false);
+    }
+  }
+
+  async function handleDownload(sowId: string) {
+    setLoadingAction(`download-${sowId}`);
+    try {
+      const res = await fetch(`/api/sow/${sowId}/pdf`);
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Failed to get PDF");
+      window.open(data.url, "_blank");
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Failed to download";
+      toast.error(message);
+    } finally {
+      setLoadingAction(null);
+    }
+  }
 
   async function handleSend(sowId: string) {
     setLoadingAction(`send-${sowId}`);
@@ -62,7 +105,7 @@ export function SowTab({ projectId, sowDocuments }: SowTabProps) {
       const result = await sendSowForSigningAction(sowId);
       const signingUrl = `${window.location.origin}/sign/${result.token}`;
       await navigator.clipboard.writeText(signingUrl);
-      toast.success("SOW sent for signing — signing link copied to clipboard");
+      toast.success("Signing link copied to clipboard — send it to your client");
     } catch (err) {
       const message = err instanceof Error ? err.message : "Failed to send SOW";
       toast.error(message);
@@ -103,21 +146,6 @@ export function SowTab({ projectId, sowDocuments }: SowTabProps) {
     }
   }
 
-  async function handleDownload(sowId: string) {
-    setLoadingAction(`download-${sowId}`);
-    try {
-      const res = await fetch(`/api/sow/${sowId}/pdf`);
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Failed to get PDF");
-      window.open(data.url, "_blank");
-    } catch (err) {
-      const message = err instanceof Error ? err.message : "Failed to download";
-      toast.error(message);
-    } finally {
-      setLoadingAction(null);
-    }
-  }
-
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -129,7 +157,7 @@ export function SowTab({ projectId, sowDocuments }: SowTabProps) {
         <Card>
           <CardContent className="py-12 text-center text-stone-500">
             <FileSignature className="h-10 w-10 mx-auto mb-3 text-stone-400" />
-            <p>No SOWs yet. Create one to get started.</p>
+            <p>No SOWs yet. Upload one to get started.</p>
           </CardContent>
         </Card>
       ) : (
@@ -137,155 +165,190 @@ export function SowTab({ projectId, sowDocuments }: SowTabProps) {
           {sowDocuments.map((sow) => (
             <Card key={sow.id}>
               <CardHeader className="pb-3">
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-base flex items-center gap-2">
-                    {sow.title}
-                    {statusBadge(sow.status)}
-                  </CardTitle>
-                  <div className="flex items-center gap-1">
-                    {/* Download PDF */}
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      title="Download PDF"
-                      disabled={loadingAction === `download-${sow.id}`}
-                      onClick={() => handleDownload(sow.id)}
-                    >
-                      {loadingAction === `download-${sow.id}` ? (
-                        <Loader2 className="h-4 w-4 animate-spin" />
-                      ) : (
-                        <Download className="h-4 w-4" />
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <CardTitle className="text-base flex items-center gap-2 mb-1">
+                      {sow.title}
+                      {statusBadge(sow.status)}
+                    </CardTitle>
+                    <div className="text-sm text-stone-500 space-y-0.5">
+                      <p>
+                        Created:{" "}
+                        {new Date(sow.created_at).toLocaleDateString("en-US")}
+                      </p>
+                      {sow.sent_at && (
+                        <p>
+                          Sent:{" "}
+                          {new Date(sow.sent_at).toLocaleDateString("en-US")}
+                        </p>
                       )}
+                      {sow.signed_at && (
+                        <p>
+                          Signed by {sow.signed_by_name} on{" "}
+                          {new Date(sow.signed_at).toLocaleDateString("en-US")}
+                        </p>
+                      )}
+                      {sow.status === "sent" && sow.signing_token_expires_at && (
+                        <p className="text-xs text-stone-400">
+                          Signing link expires:{" "}
+                          {new Date(
+                            sow.signing_token_expires_at
+                          ).toLocaleDateString("en-US")}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent className="pt-0 space-y-3">
+                {/* Action buttons — labeled */}
+                <div className="flex flex-wrap items-center gap-2">
+                  {/* Preview PDF */}
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => handlePreview(sow.id)}
+                    disabled={loadingPreview && previewSowId === sow.id}
+                  >
+                    {loadingPreview && previewSowId === sow.id ? (
+                      <Loader2 className="h-3.5 w-3.5 mr-1.5 animate-spin" />
+                    ) : previewSowId === sow.id ? (
+                      <EyeOff className="h-3.5 w-3.5 mr-1.5" />
+                    ) : (
+                      <Eye className="h-3.5 w-3.5 mr-1.5" />
+                    )}
+                    {previewSowId === sow.id ? "Hide Preview" : "Preview PDF"}
+                  </Button>
+
+                  {/* Download */}
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    disabled={loadingAction === `download-${sow.id}`}
+                    onClick={() => handleDownload(sow.id)}
+                  >
+                    {loadingAction === `download-${sow.id}` ? (
+                      <Loader2 className="h-3.5 w-3.5 mr-1.5 animate-spin" />
+                    ) : (
+                      <Download className="h-3.5 w-3.5 mr-1.5" />
+                    )}
+                    Download
+                  </Button>
+
+                  {/* Send for Signing (draft only) */}
+                  {sow.status === "draft" && (
+                    <Button
+                      size="sm"
+                      className="bg-blue-600 hover:bg-blue-700 text-white"
+                      disabled={loadingAction === `send-${sow.id}`}
+                      onClick={() => handleSend(sow.id)}
+                    >
+                      {loadingAction === `send-${sow.id}` ? (
+                        <Loader2 className="h-3.5 w-3.5 mr-1.5 animate-spin" />
+                      ) : (
+                        <Send className="h-3.5 w-3.5 mr-1.5" />
+                      )}
+                      Send for Signing
                     </Button>
+                  )}
 
-                    {/* Send for signing (draft only) */}
-                    {sow.status === "draft" && (
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        title="Send for signing"
-                        disabled={loadingAction === `send-${sow.id}`}
-                        onClick={() => handleSend(sow.id)}
-                      >
-                        {loadingAction === `send-${sow.id}` ? (
-                          <Loader2 className="h-4 w-4 animate-spin" />
-                        ) : (
-                          <Send className="h-4 w-4 text-blue-600" />
-                        )}
-                      </Button>
-                    )}
+                  {/* Copy Signing Link (sent only) */}
+                  {sow.status === "sent" && sow.signing_token && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="text-blue-600 border-blue-200"
+                      onClick={() => handleCopyLink(sow.signing_token!)}
+                    >
+                      <Link2 className="h-3.5 w-3.5 mr-1.5" />
+                      Copy Signing Link
+                    </Button>
+                  )}
 
-                    {/* Copy signing link (sent only) */}
-                    {sow.status === "sent" && sow.signing_token && (
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        title="Copy signing link"
-                        onClick={() => handleCopyLink(sow.signing_token!)}
-                      >
-                        <Copy className="h-4 w-4 text-blue-600" />
-                      </Button>
-                    )}
+                  {/* Spacer */}
+                  <div className="flex-1" />
 
-                    {/* Void (not already voided or signed) */}
-                    {sow.status !== "voided" && sow.status !== "signed" && (
-                      <AlertDialog>
-                        <AlertDialogTrigger asChild>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            title="Void SOW"
-                            disabled={loadingAction === `void-${sow.id}`}
-                          >
-                            <Ban className="h-4 w-4 text-red-500" />
-                          </Button>
-                        </AlertDialogTrigger>
-                        <AlertDialogContent>
-                          <AlertDialogHeader>
-                            <AlertDialogTitle>Void this SOW?</AlertDialogTitle>
-                            <AlertDialogDescription>
-                              This will invalidate any signing links. The SOW
-                              will be marked as voided and cannot be sent again.
-                            </AlertDialogDescription>
-                          </AlertDialogHeader>
-                          <AlertDialogFooter>
-                            <AlertDialogCancel>Cancel</AlertDialogCancel>
-                            <AlertDialogAction
-                              className="bg-red-600 hover:bg-red-700"
-                              onClick={() => handleVoid(sow.id)}
-                            >
-                              Void SOW
-                            </AlertDialogAction>
-                          </AlertDialogFooter>
-                        </AlertDialogContent>
-                      </AlertDialog>
-                    )}
-
-                    {/* Delete */}
+                  {/* Void (draft or sent only) */}
+                  {sow.status !== "voided" && sow.status !== "signed" && (
                     <AlertDialog>
                       <AlertDialogTrigger asChild>
                         <Button
                           variant="ghost"
                           size="sm"
-                          title="Delete SOW"
-                          disabled={loadingAction === `delete-${sow.id}`}
+                          className="text-stone-400 hover:text-red-600"
+                          disabled={loadingAction === `void-${sow.id}`}
                         >
-                          {loadingAction === `delete-${sow.id}` ? (
-                            <Loader2 className="h-4 w-4 animate-spin" />
-                          ) : (
-                            <Trash2 className="h-4 w-4 text-red-500" />
-                          )}
+                          <Ban className="h-3.5 w-3.5 mr-1.5" />
+                          Void
                         </Button>
                       </AlertDialogTrigger>
                       <AlertDialogContent>
                         <AlertDialogHeader>
-                          <AlertDialogTitle>Delete this SOW?</AlertDialogTitle>
+                          <AlertDialogTitle>Void this SOW?</AlertDialogTitle>
                           <AlertDialogDescription>
-                            This will permanently delete the SOW and its PDF
-                            files. This action cannot be undone.
+                            This will invalidate any signing links. The SOW
+                            will be marked as voided and cannot be sent again.
                           </AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter>
                           <AlertDialogCancel>Cancel</AlertDialogCancel>
                           <AlertDialogAction
                             className="bg-red-600 hover:bg-red-700"
-                            onClick={() => handleDelete(sow.id)}
+                            onClick={() => handleVoid(sow.id)}
                           >
-                            Delete SOW
+                            Void SOW
                           </AlertDialogAction>
                         </AlertDialogFooter>
                       </AlertDialogContent>
                     </AlertDialog>
-                  </div>
+                  )}
+
+                  {/* Delete */}
+                  <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="text-stone-400 hover:text-red-600"
+                        disabled={loadingAction === `delete-${sow.id}`}
+                      >
+                        {loadingAction === `delete-${sow.id}` ? (
+                          <Loader2 className="h-3.5 w-3.5 mr-1.5 animate-spin" />
+                        ) : (
+                          <Trash2 className="h-3.5 w-3.5 mr-1.5" />
+                        )}
+                        Delete
+                      </Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>Delete this SOW?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                          This will permanently delete the SOW and its PDF
+                          files. This action cannot be undone.
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction
+                          className="bg-red-600 hover:bg-red-700"
+                          onClick={() => handleDelete(sow.id)}
+                        >
+                          Delete SOW
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
                 </div>
-              </CardHeader>
-              <CardContent className="pt-0">
-                <div className="text-sm text-stone-500 space-y-1">
-                  <p>
-                    Created:{" "}
-                    {new Date(sow.created_at).toLocaleDateString("en-US")}
-                  </p>
-                  {sow.sent_at && (
-                    <p>
-                      Sent:{" "}
-                      {new Date(sow.sent_at).toLocaleDateString("en-US")}
-                    </p>
-                  )}
-                  {sow.signed_at && (
-                    <p>
-                      Signed by {sow.signed_by_name} on{" "}
-                      {new Date(sow.signed_at).toLocaleDateString("en-US")}
-                    </p>
-                  )}
-                  {sow.status === "sent" && sow.signing_token_expires_at && (
-                    <p className="text-xs text-stone-400">
-                      Link expires:{" "}
-                      {new Date(
-                        sow.signing_token_expires_at
-                      ).toLocaleDateString("en-US")}
-                    </p>
-                  )}
-                </div>
+
+                {/* PDF Preview */}
+                {previewSowId === sow.id && previewUrl && (
+                  <iframe
+                    src={previewUrl}
+                    className="w-full h-[500px] rounded-lg border border-stone-200"
+                    title={`Preview: ${sow.title}`}
+                  />
+                )}
               </CardContent>
             </Card>
           ))}
