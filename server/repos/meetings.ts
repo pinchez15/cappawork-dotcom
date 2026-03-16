@@ -90,9 +90,8 @@ export async function cancelMeeting(calendlyEventId: string) {
 }
 
 /**
- * Auto-assign a meeting to an organization by matching invitee email
- * to profiles → organization_members.
- * If the org has exactly one active project, also assign the project.
+ * Auto-assign a meeting to an organization and project by matching
+ * invitee email to profiles → organization_members / project_members.
  */
 export async function autoAssignMeetingByEmail(meeting: {
   id: string;
@@ -109,6 +108,20 @@ export async function autoAssignMeetingByEmail(meeting: {
 
   if (!profile) return;
 
+  const updates: Record<string, any> = {
+    updated_at: new Date().toISOString(),
+  };
+
+  // Check direct project membership first
+  const { data: directProjects } = await supabaseAdmin
+    .from("project_members")
+    .select("project_id")
+    .eq("profile_id", profile.id);
+
+  if (directProjects && directProjects.length === 1) {
+    updates.project_id = directProjects[0].project_id;
+  }
+
   // Find org membership
   const { data: orgMember } = await supabaseAdmin
     .from("organization_members")
@@ -117,28 +130,30 @@ export async function autoAssignMeetingByEmail(meeting: {
     .limit(1)
     .maybeSingle();
 
-  if (!orgMember) return;
+  if (orgMember) {
+    updates.organization_id = orgMember.organization_id;
 
-  const updates: Record<string, any> = {
-    organization_id: orgMember.organization_id,
-    updated_at: new Date().toISOString(),
-  };
+    // If no direct project match, try org's active projects
+    if (!updates.project_id) {
+      const { data: orgProjects } = await supabaseAdmin
+        .from("projects")
+        .select("id")
+        .eq("organization_id", orgMember.organization_id)
+        .eq("status", "active");
 
-  // Check if org has exactly one active project
-  const { data: orgProjects } = await supabaseAdmin
-    .from("projects")
-    .select("id")
-    .eq("organization_id", orgMember.organization_id)
-    .eq("status", "active");
-
-  if (orgProjects && orgProjects.length === 1) {
-    updates.project_id = orgProjects[0].id;
+      if (orgProjects && orgProjects.length === 1) {
+        updates.project_id = orgProjects[0].id;
+      }
+    }
   }
 
-  const { error } = await supabaseAdmin
-    .from("meetings")
-    .update(updates)
-    .eq("id", meeting.id);
+  // Only update if we found something to assign
+  if (updates.organization_id || updates.project_id) {
+    const { error } = await supabaseAdmin
+      .from("meetings")
+      .update(updates)
+      .eq("id", meeting.id);
 
-  if (error) throw error;
+    if (error) throw error;
+  }
 }
