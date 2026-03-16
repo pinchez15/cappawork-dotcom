@@ -24,8 +24,11 @@ export async function GET(
       return NextResponse.json({ error: "Not available" }, { status: 403 });
     }
 
-    // Use signed PDF if available, otherwise draft
-    const storagePath = sow.signed_storage_path || sow.draft_storage_path;
+    // Serve the most appropriate PDF based on status
+    const storagePath =
+      sow.status === "admin_signed"
+        ? sow.admin_signed_storage_path
+        : sow.signed_storage_path || sow.draft_storage_path;
     if (!storagePath) {
       return NextResponse.json({ error: "No PDF available" }, { status: 404 });
     }

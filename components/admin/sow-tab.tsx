@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import {
   Card,
   CardContent,
@@ -9,6 +9,8 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -20,13 +22,22 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { SowForm } from "./sow-form";
+import { SignaturePad, type SignaturePadRef } from "@/components/sow/signature-pad";
 import {
   deleteSowAction,
   publishSowToClientAction,
   unpublishSowFromClientAction,
   sendSowForSigningAction,
   voidSowAction,
+  adminSignSowAction,
 } from "@/server/actions/sow";
 import {
   Eye,
@@ -40,6 +51,7 @@ import {
   Trash2,
   Loader2,
   FileSignature,
+  PenLine,
 } from "lucide-react";
 import { toast } from "sonner";
 import type { SowDocument } from "@/server/repos/sow";
@@ -54,9 +66,19 @@ function statusBadge(status: SowDocument["status"]) {
     draft: "bg-stone-100 text-stone-700",
     sent: "bg-blue-100 text-blue-800",
     signed: "bg-green-100 text-green-800",
+    admin_signed: "bg-blue-100 text-blue-800",
+    countersigned: "bg-green-100 text-green-800",
     voided: "bg-red-100 text-red-700",
   };
-  return <Badge className={styles[status] || ""}>{status}</Badge>;
+  const labels: Record<string, string> = {
+    draft: "Draft",
+    sent: "Sent",
+    signed: "Signed",
+    admin_signed: "Admin Signed",
+    countersigned: "Fully Executed",
+    voided: "Voided",
+  };
+  return <Badge className={styles[status] || ""}>{labels[status] || status}</Badge>;
 }
 
 export function SowTab({ projectId, sowDocuments }: SowTabProps) {
@@ -64,6 +86,9 @@ export function SowTab({ projectId, sowDocuments }: SowTabProps) {
   const [previewSowId, setPreviewSowId] = useState<string | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [loadingPreview, setLoadingPreview] = useState(false);
+  const [signingDialogSowId, setSigningDialogSowId] = useState<string | null>(null);
+  const [adminSignerName, setAdminSignerName] = useState("Nathan Pinches");
+  const signaturePadRef = useRef<SignaturePadRef>(null);
 
   async function handlePreview(sowId: string) {
     if (previewSowId === sowId) {
@@ -168,6 +193,33 @@ export function SowTab({ projectId, sowDocuments }: SowTabProps) {
     }
   }
 
+  async function handleAdminSign(sowId: string) {
+    if (!adminSignerName.trim()) {
+      toast.error("Name is required");
+      return;
+    }
+    if (signaturePadRef.current?.isEmpty()) {
+      toast.error("Please draw your signature");
+      return;
+    }
+
+    setLoadingAction(`admin-sign-${sowId}`);
+    try {
+      await adminSignSowAction({
+        sowId,
+        signerName: adminSignerName.trim(),
+        signatureDataUrl: signaturePadRef.current!.toDataURL(),
+      });
+      setSigningDialogSowId(null);
+      toast.success("SOW signed and published to client portal");
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Failed to sign SOW";
+      toast.error(message);
+    } finally {
+      setLoadingAction(null);
+    }
+  }
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -204,10 +256,21 @@ export function SowTab({ projectId, sowDocuments }: SowTabProps) {
                           {new Date(sow.sent_at).toLocaleDateString("en-US")}
                         </p>
                       )}
+                      {sow.admin_signed_at && (
+                        <p>
+                          Admin signed by {sow.admin_signed_by_name} on{" "}
+                          {new Date(sow.admin_signed_at).toLocaleDateString("en-US")}
+                        </p>
+                      )}
                       {sow.signed_at && (
                         <p>
-                          Signed by {sow.signed_by_name} on{" "}
+                          Client signed by {sow.signed_by_name} on{" "}
                           {new Date(sow.signed_at).toLocaleDateString("en-US")}
+                        </p>
+                      )}
+                      {sow.status === "admin_signed" && (
+                        <p className="text-amber-600 text-xs font-medium">
+                          Awaiting client counter-signature
                         </p>
                       )}
                       {sow.status === "sent" && sow.signing_token_expires_at && (
@@ -257,11 +320,23 @@ export function SowTab({ projectId, sowDocuments }: SowTabProps) {
                     Download
                   </Button>
 
-                  {/* Send for Signing (draft only) */}
+                  {/* Admin Sign (draft only) */}
                   {sow.status === "draft" && (
                     <Button
                       size="sm"
                       className="bg-blue-600 hover:bg-blue-700 text-white"
+                      onClick={() => setSigningDialogSowId(sow.id)}
+                    >
+                      <PenLine className="h-3.5 w-3.5 mr-1.5" />
+                      Admin Sign
+                    </Button>
+                  )}
+
+                  {/* Send for Signing — legacy token flow (draft only) */}
+                  {sow.status === "draft" && (
+                    <Button
+                      variant="outline"
+                      size="sm"
                       disabled={loadingAction === `send-${sow.id}`}
                       onClick={() => handleSend(sow.id)}
                     >
@@ -270,7 +345,7 @@ export function SowTab({ projectId, sowDocuments }: SowTabProps) {
                       ) : (
                         <Send className="h-3.5 w-3.5 mr-1.5" />
                       )}
-                      Send for Signing
+                      Send for Client Signing
                     </Button>
                   )}
 
@@ -323,8 +398,8 @@ export function SowTab({ projectId, sowDocuments }: SowTabProps) {
                   {/* Spacer */}
                   <div className="flex-1" />
 
-                  {/* Void (draft or sent only) */}
-                  {sow.status !== "voided" && sow.status !== "signed" && (
+                  {/* Void (draft, sent, or admin_signed) */}
+                  {["draft", "sent", "admin_signed"].includes(sow.status) && (
                     <AlertDialog>
                       <AlertDialogTrigger asChild>
                         <Button
@@ -410,6 +485,51 @@ export function SowTab({ projectId, sowDocuments }: SowTabProps) {
           ))}
         </div>
       )}
+
+      {/* Admin Signing Dialog */}
+      <Dialog
+        open={!!signingDialogSowId}
+        onOpenChange={(open) => {
+          if (!open) setSigningDialogSowId(null);
+        }}
+      >
+        <DialogContent className="sm:max-w-lg">
+          <DialogHeader>
+            <DialogTitle>Sign as CappaWork</DialogTitle>
+            <DialogDescription>
+              Your signature will be added to the SOW. The document will then be
+              sent to the client portal for their counter-signature.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="admin-signer-name">Your Name</Label>
+              <Input
+                id="admin-signer-name"
+                value={adminSignerName}
+                onChange={(e) => setAdminSignerName(e.target.value)}
+                placeholder="Full name"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label>Signature</Label>
+              <SignaturePad ref={signaturePadRef} />
+            </div>
+            <Button
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+              disabled={loadingAction === `admin-sign-${signingDialogSowId}`}
+              onClick={() => signingDialogSowId && handleAdminSign(signingDialogSowId)}
+            >
+              {loadingAction === `admin-sign-${signingDialogSowId}` ? (
+                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+              ) : (
+                <PenLine className="h-4 w-4 mr-2" />
+              )}
+              Sign & Send to Client
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

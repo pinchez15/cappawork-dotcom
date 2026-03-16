@@ -5,7 +5,7 @@ export interface SowDocument {
   project_id: string;
   title: string;
   sow_data: SowData | null;
-  status: "draft" | "sent" | "signed" | "voided";
+  status: "draft" | "sent" | "signed" | "voided" | "admin_signed" | "countersigned";
   draft_storage_path: string | null;
   signed_storage_path: string | null;
   attachment_id: string | null;
@@ -16,6 +16,10 @@ export interface SowDocument {
   signed_by_ip: string | null;
   signed_at: string | null;
   signature_image_path: string | null;
+  admin_signed_by_name: string | null;
+  admin_signed_at: string | null;
+  admin_signature_image_path: string | null;
+  admin_signed_storage_path: string | null;
   created_by: string | null;
   sent_at: string | null;
   client_visible: boolean;
@@ -115,6 +119,10 @@ export async function updateSowDocument(
       | "signed_by_ip"
       | "signed_at"
       | "signature_image_path"
+      | "admin_signed_by_name"
+      | "admin_signed_at"
+      | "admin_signature_image_path"
+      | "admin_signed_storage_path"
       | "sent_at"
       | "client_visible"
     >
@@ -134,7 +142,7 @@ export async function getClientVisibleSowsForProject(projectId: string) {
     .select("*")
     .eq("project_id", projectId)
     .eq("client_visible", true)
-    .eq("status", "signed")
+    .in("status", ["signed", "admin_signed", "countersigned"])
     .order("created_at", { ascending: false });
 
   if (error) throw error;

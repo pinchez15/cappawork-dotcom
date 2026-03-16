@@ -11,7 +11,7 @@ import {
   voidSowDocument as voidSowRepo,
 } from "@/server/repos/sow";
 import { createAttachment } from "@/server/repos/attachments";
-import { appendSignaturePage } from "@/lib/sow/append-signature";
+import { appendSignaturePage, appendDualSignaturePage } from "@/lib/sow/append-signature";
 import { revalidatePath } from "next/cache";
 import { randomUUID } from "crypto";
 
@@ -98,6 +98,16 @@ export async function deleteSowAction(sowId: string) {
       .from("project-attachments")
       .remove([sow.signature_image_path]);
   }
+  if (sow.admin_signed_storage_path) {
+    await supabaseAdmin.storage
+      .from("project-attachments")
+      .remove([sow.admin_signed_storage_path]);
+  }
+  if (sow.admin_signature_image_path) {
+    await supabaseAdmin.storage
+      .from("project-attachments")
+      .remove([sow.admin_signature_image_path]);
+  }
 
   await deleteSowRepo(sowId);
 
@@ -138,7 +148,13 @@ export async function voidSowAction(sowId: string) {
 
   await voidSowRepo(sowId);
 
+  // If it was published, hide from client
+  if (sow.client_visible) {
+    await updateSowDocument(sowId, { client_visible: false });
+  }
+
   revalidatePath(`/admin/projects/${sow.project_id}`);
+  revalidatePath(`/projects/${sow.project_id}`);
 }
 
 export async function signSowAction(params: {
@@ -233,4 +249,67 @@ export async function signSowAction(params: {
   });
 
   revalidatePath(`/admin/projects/${sow.project_id}`);
+}
+
+export async function adminSignSowAction(params: {
+  sowId: string;
+  signerName: string;
+  signatureDataUrl: string;
+}) {
+  await requireAdmin();
+
+  const sow = await getSowDocumentById(params.sowId);
+  if (!sow) throw new Error("SOW not found");
+  if (sow.status !== "draft") throw new Error("Only draft SOWs can be admin-signed");
+  if (!sow.draft_storage_path) throw new Error("No draft PDF found");
+
+  const signedAt = new Date().toISOString();
+
+  // Store admin signature image
+  const sigPath = `sow/${sow.project_id}/${sow.id}-admin-signature.png`;
+  const sigBuffer = Buffer.from(
+    params.signatureDataUrl.replace(/^data:image\/png;base64,/, ""),
+    "base64"
+  );
+  const { error: sigUploadError } = await supabaseAdmin.storage
+    .from("project-attachments")
+    .upload(sigPath, sigBuffer, { contentType: "image/png", upsert: true });
+  if (sigUploadError) throw sigUploadError;
+
+  // Download draft PDF, append admin-only signature page
+  const { data: draftData, error: downloadError } = await supabaseAdmin.storage
+    .from("project-attachments")
+    .download(sow.draft_storage_path);
+  if (downloadError) throw downloadError;
+
+  const originalPdfBytes = new Uint8Array(await draftData.arrayBuffer());
+  const adminSignedPdf = await appendDualSignaturePage(originalPdfBytes, {
+    adminSignature: {
+      signatureDataUrl: params.signatureDataUrl,
+      signedByName: params.signerName.trim(),
+      signedAt,
+    },
+  });
+
+  // Upload admin-signed PDF
+  const adminSignedPath = `sow/${sow.project_id}/${sow.id}-admin-signed.pdf`;
+  const { error: pdfUploadError } = await supabaseAdmin.storage
+    .from("project-attachments")
+    .upload(adminSignedPath, adminSignedPdf, {
+      contentType: "application/pdf",
+      upsert: true,
+    });
+  if (pdfUploadError) throw pdfUploadError;
+
+  await updateSowDocument(sow.id, {
+    status: "admin_signed",
+    admin_signed_by_name: params.signerName.trim(),
+    admin_signed_at: signedAt,
+    admin_signature_image_path: sigPath,
+    admin_signed_storage_path: adminSignedPath,
+    client_visible: true,
+  });
+
+  revalidatePath(`/admin/projects/${sow.project_id}`);
+  revalidatePath(`/projects/${sow.project_id}`);
 }

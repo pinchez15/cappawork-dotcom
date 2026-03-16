@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import {
   Card,
   CardContent,
@@ -14,7 +14,11 @@ import {
   FileSignature,
   CreditCard,
   Loader2,
+  PenLine,
+  CheckCircle2,
 } from "lucide-react";
+import { SignaturePad, type SignaturePadRef } from "@/components/sow/signature-pad";
+import { toast } from "sonner";
 import type { SowDocument } from "@/server/repos/sow";
 
 interface ClientSowViewProps {
@@ -32,10 +36,11 @@ export function ClientSowView({
 }: ClientSowViewProps) {
   const [loadingPdf, setLoadingPdf] = useState<string | null>(null);
   const [pdfUrls, setPdfUrls] = useState<Record<string, string>>({});
+  const [signingLoading, setSigningLoading] = useState<string | null>(null);
+  const signaturePadRefs = useRef<Record<string, SignaturePadRef | null>>({});
 
   async function handleViewPdf(sowId: string) {
     if (pdfUrls[sowId]) {
-      // Already loaded — toggle off
       setPdfUrls((prev) => {
         const next = { ...prev };
         delete next[sowId];
@@ -57,6 +62,35 @@ export function ClientSowView({
     }
   }
 
+  async function handleCounterSign(sowId: string) {
+    const pad = signaturePadRefs.current[sowId];
+    if (!pad || pad.isEmpty()) {
+      toast.error("Please draw your signature first");
+      return;
+    }
+
+    setSigningLoading(sowId);
+    try {
+      const res = await fetch(`/api/sow/${sowId}/countersign`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          signatureDataUrl: pad.toDataURL(),
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Failed to counter-sign");
+      toast.success("Document signed successfully!");
+      // Reload page to show updated status
+      window.location.reload();
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Failed to sign";
+      toast.error(message);
+    } finally {
+      setSigningLoading(null);
+    }
+  }
+
   const activePaymentLinks = billingLinks.filter(
     (l: any) => l.status === "active"
   );
@@ -72,66 +106,145 @@ export function ClientSowView({
 
   return (
     <div className="space-y-6">
-      {/* Signed SOWs */}
-      {sowDocuments.map((sow) => (
-        <Card key={sow.id}>
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <CardTitle className="text-lg flex items-center gap-2">
-                <FileSignature className="h-5 w-5 text-blue-600" />
-                {sow.title}
-              </CardTitle>
-              <Badge className="bg-green-100 text-green-800">Signed</Badge>
-            </div>
-            {sow.signed_at && (
-              <p className="text-sm text-stone-500">
-                Signed by {sow.signed_by_name} on{" "}
-                {new Date(sow.signed_at).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
-              </p>
-            )}
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="flex items-center gap-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => handleViewPdf(sow.id)}
-                disabled={loadingPdf === sow.id}
-              >
-                {loadingPdf === sow.id ? (
-                  <Loader2 className="h-3.5 w-3.5 mr-1.5 animate-spin" />
-                ) : (
-                  <Download className="h-3.5 w-3.5 mr-1.5" />
+      {sowDocuments.map((sow) => {
+        const isAwaitingSignature = sow.status === "admin_signed";
+        const isFullyExecuted = sow.status === "countersigned";
+        const isLegacySigned = sow.status === "signed";
+
+        return (
+          <Card key={sow.id}>
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <CardTitle className="text-lg flex items-center gap-2">
+                  <FileSignature className="h-5 w-5 text-blue-600" />
+                  {sow.title}
+                </CardTitle>
+                {isAwaitingSignature && (
+                  <Badge className="bg-amber-100 text-amber-800">
+                    Awaiting Your Signature
+                  </Badge>
                 )}
-                {pdfUrls[sow.id] ? "Hide Document" : "View Document"}
-              </Button>
-              {pdfUrls[sow.id] && (
+                {isFullyExecuted && (
+                  <Badge className="bg-green-100 text-green-800">
+                    Fully Executed
+                  </Badge>
+                )}
+                {isLegacySigned && (
+                  <Badge className="bg-green-100 text-green-800">Signed</Badge>
+                )}
+              </div>
+              <div className="text-sm text-stone-500 space-y-0.5">
+                {sow.admin_signed_at && (
+                  <p>
+                    Signed by CappaWork ({sow.admin_signed_by_name}) on{" "}
+                    {new Date(sow.admin_signed_at).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </p>
+                )}
+                {sow.signed_at && (
+                  <p>
+                    {isFullyExecuted ? "Counter-signed" : "Signed"} by{" "}
+                    {sow.signed_by_name} on{" "}
+                    {new Date(sow.signed_at).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </p>
+                )}
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {/* PDF View/Download */}
+              <div className="flex items-center gap-2">
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => window.open(pdfUrls[sow.id], "_blank")}
+                  onClick={() => handleViewPdf(sow.id)}
+                  disabled={loadingPdf === sow.id}
                 >
-                  <Download className="h-3.5 w-3.5 mr-1.5" />
-                  Download
+                  {loadingPdf === sow.id ? (
+                    <Loader2 className="h-3.5 w-3.5 mr-1.5 animate-spin" />
+                  ) : (
+                    <Download className="h-3.5 w-3.5 mr-1.5" />
+                  )}
+                  {pdfUrls[sow.id] ? "Hide Document" : "View Document"}
                 </Button>
-              )}
-            </div>
+                {pdfUrls[sow.id] && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => window.open(pdfUrls[sow.id], "_blank")}
+                  >
+                    <Download className="h-3.5 w-3.5 mr-1.5" />
+                    Download
+                  </Button>
+                )}
+              </div>
 
-            {pdfUrls[sow.id] && (
-              <iframe
-                src={pdfUrls[sow.id]}
-                className="w-full rounded-lg border border-stone-200"
-                style={{ height: "calc(100vh - 120px)" }}
-                title={sow.title}
-              />
-            )}
-          </CardContent>
-        </Card>
-      ))}
+              {pdfUrls[sow.id] && (
+                <iframe
+                  src={pdfUrls[sow.id]}
+                  className="w-full rounded-lg border border-stone-200"
+                  style={{ height: "calc(100vh - 120px)" }}
+                  title={sow.title}
+                />
+              )}
+
+              {/* Counter-signing section (admin_signed only) */}
+              {isAwaitingSignature && (
+                <Card className="border-amber-200 bg-amber-50/50">
+                  <CardHeader className="pb-3">
+                    <CardTitle className="text-base flex items-center gap-2">
+                      <PenLine className="h-4 w-4 text-amber-600" />
+                      Your Signature Required
+                    </CardTitle>
+                    <p className="text-sm text-stone-600">
+                      Please review the document above, then sign below to accept
+                      the terms of this Statement of Work.
+                    </p>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <SignaturePad
+                      ref={(el) => {
+                        signaturePadRefs.current[sow.id] = el;
+                      }}
+                    />
+                    <Button
+                      className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                      disabled={signingLoading === sow.id}
+                      onClick={() => handleCounterSign(sow.id)}
+                    >
+                      {signingLoading === sow.id ? (
+                        <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                      ) : (
+                        <PenLine className="h-4 w-4 mr-2" />
+                      )}
+                      Counter-Sign & Accept
+                    </Button>
+                    <p className="text-xs text-stone-400 text-center">
+                      By signing, you agree to the terms outlined in this Statement of Work.
+                    </p>
+                  </CardContent>
+                </Card>
+              )}
+
+              {/* Fully executed confirmation */}
+              {isFullyExecuted && (
+                <div className="flex items-center gap-2 p-3 rounded-lg bg-green-50 border border-green-200">
+                  <CheckCircle2 className="h-4 w-4 text-green-600 shrink-0" />
+                  <p className="text-sm text-green-800">
+                    This document has been signed by both parties and is fully executed.
+                  </p>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        );
+      })}
 
       {/* Payment Links */}
       {activePaymentLinks.length > 0 && (
