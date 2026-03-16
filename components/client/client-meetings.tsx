@@ -100,65 +100,6 @@ export function ClientMeetings({
 
   return (
     <div className="space-y-6">
-      {/* Upcoming Meetings */}
-      <div>
-        <h2 className="text-lg font-semibold text-stone-900 mb-4 flex items-center gap-2">
-          <Calendar className="h-5 w-5" />
-          Upcoming Meetings
-        </h2>
-
-        {upcoming.length === 0 ? (
-          <Card>
-            <CardContent className="py-8 text-center">
-              <Calendar className="h-8 w-8 text-stone-300 mx-auto mb-3" />
-              <p className="text-stone-500">No upcoming meetings</p>
-            </CardContent>
-          </Card>
-        ) : (
-          <div className="space-y-3">
-            {upcoming.map((m) => (
-              <Card key={m.id}>
-                <CardContent className="pt-6">
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex-1">
-                      <h3 className="font-medium text-stone-900">
-                        {m.title}
-                      </h3>
-                      <p className="text-sm text-stone-500 mt-1">
-                        {formatDateTime(m.start_time)} —{" "}
-                        {formatTime(m.end_time)}
-                      </p>
-                      {m.event_type_name && (
-                        <Badge variant="secondary" className="mt-2 text-xs">
-                          {m.event_type_name}
-                        </Badge>
-                      )}
-                    </div>
-                    <div className="flex items-center gap-2">
-                      {m.location_url && (
-                        <a
-                          href={m.location_url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <Button
-                            size="sm"
-                            className="bg-blue-600 hover:bg-blue-700"
-                          >
-                            <Video className="h-4 w-4 mr-1" />
-                            Join
-                          </Button>
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        )}
-      </div>
-
       {/* Book a Meeting — Calendly Embed */}
       <Card>
         <CardContent className="p-0">

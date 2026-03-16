@@ -173,58 +173,6 @@ export function ProjectMeetings({
         </div>
       </div>
 
-      {/* Upcoming */}
-      {upcoming.length > 0 && (
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-base">Upcoming</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Date & Time</TableHead>
-                  <TableHead>Title</TableHead>
-                  <TableHead>Invitee</TableHead>
-                  <TableHead>Meet Link</TableHead>
-                  <TableHead>Status</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {upcoming.map((m) => (
-                  <TableRow key={m.id}>
-                    <TableCell className="text-sm whitespace-nowrap">
-                      {formatDateTime(m.start_time)}
-                    </TableCell>
-                    <TableCell className="text-sm">{m.title}</TableCell>
-                    <TableCell className="text-sm">
-                      {m.invitee_name || m.invitee_email || "—"}
-                    </TableCell>
-                    <TableCell>
-                      {m.location_url ? (
-                        <a
-                          href={m.location_url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <Button variant="ghost" size="sm">
-                            <Video className="h-3 w-3 mr-1" />
-                            Join
-                          </Button>
-                        </a>
-                      ) : (
-                        "—"
-                      )}
-                    </TableCell>
-                    <TableCell>{meetingStatusBadge(m.status)}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </CardContent>
-        </Card>
-      )}
-
       {/* Past */}
       {past.length > 0 && (
         <Card>
