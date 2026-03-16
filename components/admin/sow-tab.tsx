@@ -345,7 +345,8 @@ export function SowTab({ projectId, sowDocuments }: SowTabProps) {
                 {previewSowId === sow.id && previewUrl && (
                   <iframe
                     src={previewUrl}
-                    className="w-full h-[500px] rounded-lg border border-stone-200"
+                    className="w-full rounded-lg border border-stone-200"
+                    style={{ height: "calc(100vh - 120px)" }}
                     title={`Preview: ${sow.title}`}
                   />
                 )}
