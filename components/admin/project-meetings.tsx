@@ -26,17 +26,12 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import {
-  assignMeetingToProjectAction,
-  syncCalendlyMeetings,
-} from "@/server/actions/meetings";
+import { assignMeetingToProjectAction } from "@/server/actions/meetings";
 import {
   Calendar,
   Video,
-  RefreshCw,
   Plus,
   Loader2,
-  ExternalLink,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -77,7 +72,6 @@ export function ProjectMeetings({
   meetings,
   unassignedMeetings,
 }: ProjectMeetingsProps) {
-  const [isSyncing, setIsSyncing] = useState(false);
   const [assignDialogOpen, setAssignDialogOpen] = useState(false);
   const [isAssigning, setIsAssigning] = useState<string | null>(null);
 
@@ -94,18 +88,6 @@ export function ProjectMeetings({
       (a, b) =>
         new Date(b.start_time).getTime() - new Date(a.start_time).getTime()
     );
-
-  async function handleSync() {
-    setIsSyncing(true);
-    try {
-      await syncCalendlyMeetings();
-      toast.success("Meetings synced from Calendly");
-    } catch (err: any) {
-      toast.error(err.message || "Failed to sync meetings");
-    } finally {
-      setIsSyncing(false);
-    }
-  }
 
   async function handleAssign(meetingId: string) {
     setIsAssigning(meetingId);
@@ -188,14 +170,6 @@ export function ProjectMeetings({
               )}
             </DialogContent>
           </Dialog>
-          <Button variant="outline" size="sm" onClick={handleSync} disabled={isSyncing}>
-            {isSyncing ? (
-              <Loader2 className="h-4 w-4 mr-1 animate-spin" />
-            ) : (
-              <RefreshCw className="h-4 w-4 mr-1" />
-            )}
-            Sync from Calendly
-          </Button>
         </div>
       </div>
 
@@ -292,7 +266,7 @@ export function ProjectMeetings({
             <Calendar className="h-8 w-8 text-stone-400 mx-auto mb-3" />
             <p className="text-stone-500">No meetings for this project yet</p>
             <p className="text-sm text-stone-400 mt-1">
-              Sync from Calendly or assign existing meetings
+              Meetings appear automatically when clients book via the portal
             </p>
           </CardContent>
         </Card>
