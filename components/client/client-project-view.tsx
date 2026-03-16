@@ -9,6 +9,7 @@ import { ClientQuestionnaire } from "./client-questionnaire";
 import { ClientAttachments } from "./client-attachments";
 import { ClientDashboard } from "./client-dashboard";
 import { ClientMessages } from "./client-messages";
+import { ClientMeetings } from "./client-meetings";
 import { ClientSowView } from "./client-sow-view";
 import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
@@ -31,6 +32,19 @@ interface Message {
   };
 }
 
+interface Meeting {
+  id: string;
+  title: string;
+  start_time: string;
+  end_time: string;
+  location_url: string | null;
+  status: string;
+  invitee_name: string | null;
+  invitee_email: string | null;
+  event_type_name: string | null;
+  calendly_cancel_url: string | null;
+}
+
 interface ClientProjectViewProps {
   project: any;
   phases: any[];
@@ -40,9 +54,12 @@ interface ClientProjectViewProps {
   questionnaire: any;
   attachments: any[];
   messages?: Message[];
+  meetings?: Meeting[];
   sowDocuments?: any[];
   billingLinks?: any[];
   currentProfileId?: string;
+  currentUserName?: string;
+  currentUserEmail?: string;
 }
 
 export function ClientProjectView({
@@ -54,9 +71,12 @@ export function ClientProjectView({
   questionnaire,
   attachments,
   messages = [],
+  meetings = [],
   sowDocuments = [],
   billingLinks = [],
   currentProfileId,
+  currentUserName = "",
+  currentUserEmail = "",
 }: ClientProjectViewProps) {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -70,6 +90,7 @@ export function ClientProjectView({
     : tabParam === "vision" ? "vision"
     : tabParam === "design" ? "design"
     : tabParam === "messages" ? "messages"
+    : tabParam === "meetings" ? "meetings"
     : tabParam === "contract" ? "contract"
     : "dashboard";
 
@@ -151,6 +172,15 @@ export function ClientProjectView({
             projectId={project.id}
             messages={messages}
             currentProfileId={currentProfileId || ""}
+          />
+        </TabsContent>
+
+        <TabsContent value="meetings" className="mt-0">
+          <ClientMeetings
+            projectId={project.id}
+            meetings={meetings}
+            currentUserName={currentUserName}
+            currentUserEmail={currentUserEmail}
           />
         </TabsContent>
 

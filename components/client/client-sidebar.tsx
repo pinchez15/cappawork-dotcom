@@ -28,6 +28,7 @@ import {
   Lightbulb,
   Key,
   MessageCircle,
+  Calendar,
   CreditCard,
 } from "lucide-react";
 
@@ -38,6 +39,7 @@ interface ClientSidebarProps {
   urlsCount?: number;
   isHandoffReady?: boolean;
   messagesUnreadCount?: number;
+  upcomingMeetingsCount?: number;
   questionnaireSubmitted?: boolean;
   hasSowDocuments?: boolean;
 }
@@ -49,6 +51,7 @@ export function ClientSidebar({
   urlsCount = 0,
   isHandoffReady = false,
   messagesUnreadCount = 0,
+  upcomingMeetingsCount = 0,
   questionnaireSubmitted = false,
   hasSowDocuments = false,
 }: ClientSidebarProps) {
@@ -108,6 +111,13 @@ export function ClientSidebar({
       href: `/projects/${project.id}?tab=messages`,
       tab: "messages",
       badge: messagesUnreadCount > 0 ? messagesUnreadCount : null,
+    },
+    {
+      title: "Meetings",
+      icon: Calendar,
+      href: `/projects/${project.id}?tab=meetings`,
+      tab: "meetings",
+      badge: upcomingMeetingsCount > 0 ? upcomingMeetingsCount : null,
     },
   ];
 

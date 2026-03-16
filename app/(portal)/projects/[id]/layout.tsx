@@ -13,6 +13,7 @@ import { UserButton } from "@clerk/nextjs";
 
 import { Separator } from "@/components/ui/separator";
 import { getUnreadCountForProject } from "@/server/repos/messages";
+import { getMeetingsForProject } from "@/server/repos/meetings";
 import { getQuestionnaireForProject } from "@/server/repos/questionnaire";
 import { getClientVisibleSowsForProject } from "@/server/repos/sow";
 
@@ -130,11 +131,16 @@ export default async function ProjectLayout({
   );
 
   // Get unread message count, upcoming meetings count, and questionnaire status
-  const [messagesUnreadCount, questionnaire, sowDocuments] = await Promise.all([
+  const [messagesUnreadCount, projectMeetings, questionnaire, sowDocuments] = await Promise.all([
     getUnreadCountForProject(id, profile.id),
+    getMeetingsForProject(id),
     getQuestionnaireForProject(id),
     getClientVisibleSowsForProject(id),
   ]);
+
+  const upcomingMeetingsCount = projectMeetings.filter(
+    (m: any) => m.status === "scheduled" && new Date(m.start_time) >= new Date()
+  ).length;
 
   return (
     <SidebarProvider>
@@ -146,6 +152,7 @@ export default async function ProjectLayout({
         urlsCount={urls.length}
         isHandoffReady={isHandoffReady}
         messagesUnreadCount={messagesUnreadCount}
+        upcomingMeetingsCount={upcomingMeetingsCount}
         questionnaireSubmitted={!!questionnaire?.submitted_at}
         hasSowDocuments={sowDocuments.length > 0}
       />
