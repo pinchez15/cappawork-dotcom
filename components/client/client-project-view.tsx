@@ -10,6 +10,7 @@ import { ClientAttachments } from "./client-attachments";
 import { ClientDashboard } from "./client-dashboard";
 import { ClientMessages } from "./client-messages";
 import { ClientMeetings } from "./client-meetings";
+import { ClientSowView } from "./client-sow-view";
 import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -54,6 +55,8 @@ interface ClientProjectViewProps {
   attachments: any[];
   messages?: Message[];
   meetings?: Meeting[];
+  sowDocuments?: any[];
+  billingLinks?: any[];
   currentProfileId?: string;
   currentUserName?: string;
   currentUserEmail?: string;
@@ -69,6 +72,8 @@ export function ClientProjectView({
   attachments,
   messages = [],
   meetings = [],
+  sowDocuments = [],
+  billingLinks = [],
   currentProfileId,
   currentUserName = "",
   currentUserEmail = "",
@@ -86,6 +91,7 @@ export function ClientProjectView({
     : tabParam === "design" ? "design"
     : tabParam === "messages" ? "messages"
     : tabParam === "meetings" ? "meetings"
+    : tabParam === "contract" ? "contract"
     : "dashboard";
 
   const handoffPhase = phases.find((p) => p.name === "Handoff");
@@ -175,6 +181,15 @@ export function ClientProjectView({
             meetings={meetings}
             currentUserName={currentUserName}
             currentUserEmail={currentUserEmail}
+          />
+        </TabsContent>
+
+        <TabsContent value="contract" className="mt-0">
+          <ClientSowView
+            sowDocuments={sowDocuments}
+            billingLinks={billingLinks}
+            phases={phases}
+            tasks={tasks}
           />
         </TabsContent>
       </Tabs>

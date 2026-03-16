@@ -17,7 +17,12 @@ export async function GET(
       return NextResponse.json({ error: "SOW not found" }, { status: 404 });
     }
 
-    await requireProjectAccess(sow.project_id);
+    const access = await requireProjectAccess(sow.project_id);
+
+    // Clients can only access published SOWs
+    if (!access.isAdmin && !sow.client_visible) {
+      return NextResponse.json({ error: "Not available" }, { status: 403 });
+    }
 
     // Use signed PDF if available, otherwise draft
     const storagePath = sow.signed_storage_path || sow.draft_storage_path;

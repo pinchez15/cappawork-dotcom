@@ -23,6 +23,8 @@ import {
 import { SowForm } from "./sow-form";
 import {
   deleteSowAction,
+  publishSowToClientAction,
+  unpublishSowFromClientAction,
   sendSowForSigningAction,
   voidSowAction,
 } from "@/server/actions/sow";
@@ -33,6 +35,7 @@ import {
   Send,
   Link2,
   ExternalLink,
+  Share2,
   Ban,
   Trash2,
   Loader2,
@@ -82,6 +85,24 @@ export function SowTab({ projectId, sowDocuments }: SowTabProps) {
       setPreviewSowId(null);
     } finally {
       setLoadingPreview(false);
+    }
+  }
+
+  async function handlePublish(sowId: string, publish: boolean) {
+    setLoadingAction(`publish-${sowId}`);
+    try {
+      if (publish) {
+        await publishSowToClientAction(sowId);
+        toast.success("SOW published to client portal");
+      } else {
+        await unpublishSowFromClientAction(sowId);
+        toast.success("SOW hidden from client portal");
+      }
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Failed to update";
+      toast.error(message);
+    } finally {
+      setLoadingAction(null);
     }
   }
 
@@ -276,6 +297,27 @@ export function SowTab({ projectId, sowDocuments }: SowTabProps) {
                         Copy Link
                       </Button>
                     </>
+                  )}
+
+                  {/* Publish to Client (signed only) */}
+                  {sow.status === "signed" && (
+                    <Button
+                      variant={sow.client_visible ? "outline" : "default"}
+                      size="sm"
+                      className={sow.client_visible
+                        ? "text-stone-500 border-stone-200"
+                        : "bg-green-600 hover:bg-green-700 text-white"
+                      }
+                      disabled={loadingAction === `publish-${sow.id}`}
+                      onClick={() => handlePublish(sow.id, !sow.client_visible)}
+                    >
+                      {loadingAction === `publish-${sow.id}` ? (
+                        <Loader2 className="h-3.5 w-3.5 mr-1.5 animate-spin" />
+                      ) : (
+                        <Share2 className="h-3.5 w-3.5 mr-1.5" />
+                      )}
+                      {sow.client_visible ? "Unpublish from Portal" : "Publish to Client"}
+                    </Button>
                   )}
 
                   {/* Spacer */}

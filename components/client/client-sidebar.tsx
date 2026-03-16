@@ -22,6 +22,7 @@ import {
   LayoutDashboard,
   Kanban,
   FileText,
+  FileSignature,
   Link2,
   Palette,
   Lightbulb,
@@ -40,6 +41,7 @@ interface ClientSidebarProps {
   messagesUnreadCount?: number;
   upcomingMeetingsCount?: number;
   questionnaireSubmitted?: boolean;
+  hasSowDocuments?: boolean;
 }
 
 export function ClientSidebar({
@@ -51,6 +53,7 @@ export function ClientSidebar({
   messagesUnreadCount = 0,
   upcomingMeetingsCount = 0,
   questionnaireSubmitted = false,
+  hasSowDocuments = false,
 }: ClientSidebarProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -117,6 +120,17 @@ export function ClientSidebar({
       badge: upcomingMeetingsCount > 0 ? upcomingMeetingsCount : null,
     },
   ];
+
+  // Add contract tab when SOW documents exist
+  if (hasSowDocuments) {
+    navItems.push({
+      title: "Contract",
+      icon: FileSignature,
+      href: `/projects/${project.id}?tab=contract`,
+      tab: "contract",
+      badge: null,
+    });
+  }
 
   // Add handoff when ready
   if (isHandoffReady) {

@@ -18,6 +18,7 @@ export interface SowDocument {
   signature_image_path: string | null;
   created_by: string | null;
   sent_at: string | null;
+  client_visible: boolean;
   created_at: string;
   updated_at: string;
 }
@@ -115,6 +116,7 @@ export async function updateSowDocument(
       | "signed_at"
       | "signature_image_path"
       | "sent_at"
+      | "client_visible"
     >
   >
 ) {
@@ -124,6 +126,19 @@ export async function updateSowDocument(
     .eq("id", sowId);
 
   if (error) throw error;
+}
+
+export async function getClientVisibleSowsForProject(projectId: string) {
+  const { data, error } = await supabaseAdmin
+    .from("sow_documents")
+    .select("*")
+    .eq("project_id", projectId)
+    .eq("client_visible", true)
+    .eq("status", "signed")
+    .order("created_at", { ascending: false });
+
+  if (error) throw error;
+  return (data || []) as SowDocument[];
 }
 
 export async function deleteSowDocument(sowId: string) {

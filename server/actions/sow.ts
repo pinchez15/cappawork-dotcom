@@ -104,6 +104,31 @@ export async function deleteSowAction(sowId: string) {
   revalidatePath(`/admin/projects/${sow.project_id}`);
 }
 
+export async function publishSowToClientAction(sowId: string) {
+  await requireAdmin();
+
+  const sow = await getSowDocumentById(sowId);
+  if (!sow) throw new Error("SOW not found");
+  if (sow.status !== "signed") throw new Error("Only signed SOWs can be published to clients");
+
+  await updateSowDocument(sowId, { client_visible: true });
+
+  revalidatePath(`/admin/projects/${sow.project_id}`);
+  revalidatePath(`/projects/${sow.project_id}`);
+}
+
+export async function unpublishSowFromClientAction(sowId: string) {
+  await requireAdmin();
+
+  const sow = await getSowDocumentById(sowId);
+  if (!sow) throw new Error("SOW not found");
+
+  await updateSowDocument(sowId, { client_visible: false });
+
+  revalidatePath(`/admin/projects/${sow.project_id}`);
+  revalidatePath(`/projects/${sow.project_id}`);
+}
+
 export async function voidSowAction(sowId: string) {
   await requireAdmin();
 

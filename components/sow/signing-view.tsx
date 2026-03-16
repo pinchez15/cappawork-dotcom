@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import SignatureCanvas from "react-signature-canvas";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -11,7 +10,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Loader2, Check, RotateCcw, Download } from "lucide-react";
+import { Loader2, Check, Download } from "lucide-react";
+import { SignaturePad, type SignaturePadRef } from "@/components/sow/signature-pad";
 import type { SowDocument } from "@/server/repos/sow";
 
 interface SigningViewProps {
@@ -20,7 +20,7 @@ interface SigningViewProps {
 }
 
 export function SigningView({ sow, token }: SigningViewProps) {
-  const sigPadRef = useRef<SignatureCanvas | null>(null);
+  const sigPadRef = useRef<SignaturePadRef>(null);
   const [signerName, setSignerName] = useState("");
   const [signerEmail, setSignerEmail] = useState(sow.sow_data?.clientEmail || "");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -38,17 +38,13 @@ export function SigningView({ sow, token }: SigningViewProps) {
           setPdfUrl(data.url);
         }
       } catch {
-        // PDF preview optional — signing still works
+        // PDF preview optional
       } finally {
         setLoadingPdf(false);
       }
     }
     loadPdf();
   }, [token]);
-
-  function clearSignature() {
-    sigPadRef.current?.clear();
-  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -67,7 +63,7 @@ export function SigningView({ sow, token }: SigningViewProps) {
       return;
     }
 
-    const signatureDataUrl = sigPadRef.current?.toDataURL("image/png");
+    const signatureDataUrl = sigPadRef.current?.toDataURL();
     if (!signatureDataUrl) {
       setError("Could not capture signature");
       return;
@@ -131,7 +127,8 @@ export function SigningView({ sow, token }: SigningViewProps) {
             <div className="space-y-3">
               <iframe
                 src={pdfUrl}
-                className="w-full h-[600px] rounded-lg border border-stone-200"
+                className="w-full rounded-lg border border-stone-200"
+                style={{ height: "calc(100vh - 120px)" }}
                 title="Statement of Work"
               />
               <div className="flex justify-end">
@@ -184,35 +181,7 @@ export function SigningView({ sow, token }: SigningViewProps) {
               </div>
             </div>
 
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <Label>Signature</Label>
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="sm"
-                  onClick={clearSignature}
-                >
-                  <RotateCcw className="h-3 w-3 mr-1" />
-                  Clear
-                </Button>
-              </div>
-              <div className="border-2 border-stone-200 rounded-lg bg-white touch-none">
-                <SignatureCanvas
-                  ref={sigPadRef}
-                  canvasProps={{
-                    className: "w-full h-40",
-                    style: { width: "100%", height: "160px" },
-                  }}
-                  penColor="#1c1917"
-                  minWidth={1.5}
-                  maxWidth={3}
-                />
-              </div>
-              <p className="text-xs text-stone-400">
-                Sign in the box above using your mouse or finger
-              </p>
-            </div>
+            <SignaturePad ref={sigPadRef} />
 
             {error && (
               <p className="text-sm text-red-600">{error}</p>
