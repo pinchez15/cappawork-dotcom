@@ -48,7 +48,7 @@ export interface SowData {
 export async function createSowDocument(data: {
   project_id: string;
   title: string;
-  sow_data?: SowData | null;
+  sow_data?: Partial<SowData> | null;
   draft_storage_path: string;
   created_by: string;
 }) {
@@ -121,6 +121,15 @@ export async function updateSowDocument(
   const { error } = await supabaseAdmin
     .from("sow_documents")
     .update({ ...data, updated_at: new Date().toISOString() })
+    .eq("id", sowId);
+
+  if (error) throw error;
+}
+
+export async function deleteSowDocument(sowId: string) {
+  const { error } = await supabaseAdmin
+    .from("sow_documents")
+    .delete()
     .eq("id", sowId);
 
   if (error) throw error;

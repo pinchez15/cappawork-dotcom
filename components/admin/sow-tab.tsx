@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { SowForm } from "./sow-form";
 import {
+  deleteSowAction,
   sendSowForSigningAction,
   voidSowAction,
 } from "@/server/actions/sow";
@@ -30,6 +31,7 @@ import {
   Download,
   Copy,
   Ban,
+  Trash2,
   Loader2,
   FileSignature,
 } from "lucide-react";
@@ -82,6 +84,19 @@ export function SowTab({ projectId, sowDocuments }: SowTabProps) {
       toast.success("SOW voided");
     } catch (err) {
       const message = err instanceof Error ? err.message : "Failed to void SOW";
+      toast.error(message);
+    } finally {
+      setLoadingAction(null);
+    }
+  }
+
+  async function handleDelete(sowId: string) {
+    setLoadingAction(`delete-${sowId}`);
+    try {
+      await deleteSowAction(sowId);
+      toast.success("SOW deleted");
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Failed to delete SOW";
       toast.error(message);
     } finally {
       setLoadingAction(null);
@@ -172,7 +187,7 @@ export function SowTab({ projectId, sowDocuments }: SowTabProps) {
                       </Button>
                     )}
 
-                    {/* Void (not already voided) */}
+                    {/* Void (not already voided or signed) */}
                     {sow.status !== "voided" && sow.status !== "signed" && (
                       <AlertDialog>
                         <AlertDialogTrigger asChild>
@@ -205,6 +220,42 @@ export function SowTab({ projectId, sowDocuments }: SowTabProps) {
                         </AlertDialogContent>
                       </AlertDialog>
                     )}
+
+                    {/* Delete */}
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          title="Delete SOW"
+                          disabled={loadingAction === `delete-${sow.id}`}
+                        >
+                          {loadingAction === `delete-${sow.id}` ? (
+                            <Loader2 className="h-4 w-4 animate-spin" />
+                          ) : (
+                            <Trash2 className="h-4 w-4 text-red-500" />
+                          )}
+                        </Button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>Delete this SOW?</AlertDialogTitle>
+                          <AlertDialogDescription>
+                            This will permanently delete the SOW and its PDF
+                            files. This action cannot be undone.
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Cancel</AlertDialogCancel>
+                          <AlertDialogAction
+                            className="bg-red-600 hover:bg-red-700"
+                            onClick={() => handleDelete(sow.id)}
+                          >
+                            Delete SOW
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
                   </div>
                 </div>
               </CardHeader>

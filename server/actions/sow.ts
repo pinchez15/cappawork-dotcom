@@ -4,6 +4,7 @@ import { requireAdmin } from "@/lib/auth/guards";
 import { supabaseAdmin } from "@/lib/db/client";
 import {
   createSowDocument,
+  deleteSowDocument as deleteSowRepo,
   getSowDocumentById,
   getSowDocumentByToken,
   updateSowDocument,
@@ -73,6 +74,34 @@ export async function sendSowForSigningAction(sowId: string) {
   revalidatePath(`/admin/projects/${sow.project_id}`);
 
   return { token };
+}
+
+export async function deleteSowAction(sowId: string) {
+  await requireAdmin();
+
+  const sow = await getSowDocumentById(sowId);
+  if (!sow) throw new Error("SOW not found");
+
+  // Clean up storage files
+  if (sow.draft_storage_path) {
+    await supabaseAdmin.storage
+      .from("project-attachments")
+      .remove([sow.draft_storage_path]);
+  }
+  if (sow.signed_storage_path) {
+    await supabaseAdmin.storage
+      .from("project-attachments")
+      .remove([sow.signed_storage_path]);
+  }
+  if (sow.signature_image_path) {
+    await supabaseAdmin.storage
+      .from("project-attachments")
+      .remove([sow.signature_image_path]);
+  }
+
+  await deleteSowRepo(sowId);
+
+  revalidatePath(`/admin/projects/${sow.project_id}`);
 }
 
 export async function voidSowAction(sowId: string) {
