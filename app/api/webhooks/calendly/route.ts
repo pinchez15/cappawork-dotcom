@@ -3,36 +3,19 @@ import { upsertMeeting, cancelMeeting, autoAssignMeetingByEmail } from "@/server
 
 export const runtime = "nodejs";
 
-/**
- * Calendly Webhook Handler
- *
- * Receives webhook events from Calendly when meetings are created or canceled.
- * Set up the webhook subscription in the Calendly dashboard:
- *   https://calendly.com/integrations → Webhooks
- *   URL: https://cappawork.com/api/webhooks/calendly
- *   Events: invitee.created, invitee.canceled
- *
- * Optional: Set CALENDLY_WEBHOOK_SIGNING_KEY env var for signature verification.
- */
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
+
+    // Log the full payload for debugging
+    console.log("Calendly webhook received:", JSON.stringify(body, null, 2));
+
     const event = body.event; // "invitee.created" | "invitee.canceled"
     const payload = body.payload;
 
     if (!event || !payload) {
+      console.error("Calendly webhook: missing event or payload");
       return NextResponse.json({ error: "Invalid payload" }, { status: 400 });
-    }
-
-    // Optional: verify webhook signature
-    const signingKey = process.env.CALENDLY_WEBHOOK_SIGNING_KEY;
-    if (signingKey) {
-      const signature = request.headers.get("calendly-webhook-signature");
-      if (!signature) {
-        return NextResponse.json({ error: "Missing signature" }, { status: 401 });
-      }
-      // Calendly uses HMAC SHA256 — for now we accept if key is set but skip verification
-      // Full verification: https://developer.calendly.com/api-docs/docs/webhook-signatures
     }
 
     if (event === "invitee.created") {
@@ -53,42 +36,72 @@ function extractUuid(uri: string): string {
 }
 
 async function handleInviteeCreated(payload: any) {
-  const scheduledEvent = payload.scheduled_event;
-  const invitee = payload;
+  // The payload IS the invitee object
+  // payload.scheduled_event can be a full object or just a URI string
+  const scheduledEvent = payload.scheduled_event || {};
+  const isEventObject = typeof scheduledEvent === "object";
+  const eventUri = isEventObject ? scheduledEvent.uri : scheduledEvent;
 
-  const eventUuid = extractUuid(scheduledEvent.uri);
-  const locationUrl =
-    scheduledEvent.location?.join_url ||
-    scheduledEvent.location?.uri ||
-    null;
+  if (!eventUri) {
+    console.error("Calendly webhook: no scheduled_event URI found", payload);
+    return;
+  }
+
+  const eventUuid = extractUuid(eventUri);
+
+  // Extract meeting details — handle both nested object and flat payload
+  const startTime = isEventObject
+    ? scheduledEvent.start_time
+    : payload.event?.start_time;
+  const endTime = isEventObject
+    ? scheduledEvent.end_time
+    : payload.event?.end_time;
+  const title = isEventObject
+    ? scheduledEvent.name || scheduledEvent.event_type?.name || "Meeting"
+    : payload.event_type?.name || "Meeting";
+
+  const locationUrl = isEventObject
+    ? scheduledEvent.location?.join_url || scheduledEvent.location?.uri || null
+    : null;
 
   const now = new Date();
-  const endTime = new Date(scheduledEvent.end_time);
-  const status = endTime < now ? "completed" : "scheduled";
+  const status = endTime && new Date(endTime) < now ? "completed" : "scheduled";
 
-  const meeting = await upsertMeeting({
+  const meetingData: any = {
     calendly_event_id: eventUuid,
-    title: scheduledEvent.name || scheduledEvent.event_type?.name || "Meeting",
-    start_time: scheduledEvent.start_time,
-    end_time: scheduledEvent.end_time,
+    title,
+    start_time: startTime || new Date().toISOString(),
+    end_time: endTime || new Date().toISOString(),
     location_url: locationUrl,
     status,
-    invitee_name: invitee.name || null,
-    invitee_email: invitee.email || null,
-    calendly_event_url: scheduledEvent.uri || null,
-    calendly_cancel_url: invitee.cancel_url || null,
-    event_type_name:
-      scheduledEvent.event_type?.name ||
-      scheduledEvent.name ||
-      null,
-  });
+    invitee_name: payload.name || null,
+    invitee_email: payload.email || null,
+    calendly_event_url: eventUri,
+    calendly_cancel_url: payload.cancel_url || null,
+    event_type_name: isEventObject
+      ? scheduledEvent.event_type?.name || scheduledEvent.name || null
+      : null,
+  };
+
+  console.log("Calendly webhook: upserting meeting", meetingData);
+
+  const meeting = await upsertMeeting(meetingData);
 
   // Auto-assign to org/project by invitee email
   await autoAssignMeetingByEmail(meeting);
 }
 
 async function handleInviteeCanceled(payload: any) {
-  const scheduledEvent = payload.scheduled_event;
-  const eventUuid = extractUuid(scheduledEvent.uri);
+  const scheduledEvent = payload.scheduled_event || {};
+  const eventUri = typeof scheduledEvent === "object"
+    ? scheduledEvent.uri
+    : scheduledEvent;
+
+  if (!eventUri) {
+    console.error("Calendly webhook cancel: no event URI", payload);
+    return;
+  }
+
+  const eventUuid = extractUuid(eventUri);
   await cancelMeeting(eventUuid);
 }
