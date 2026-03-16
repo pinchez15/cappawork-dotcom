@@ -2,7 +2,7 @@
 
 import { useRef, useState, useEffect, useCallback, forwardRef, useImperativeHandle } from "react";
 import { Button } from "@/components/ui/button";
-import { RotateCcw } from "lucide-react";
+import { RotateCcw, Check } from "lucide-react";
 
 export interface SignaturePadRef {
   isEmpty: () => boolean;
@@ -19,6 +19,7 @@ export const SignaturePad = forwardRef<SignaturePadRef, SignaturePadProps>(
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [isCapturing, setIsCapturing] = useState(false);
     const [hasSignature, setHasSignature] = useState(false);
+    const isPenDown = useRef(false);
     const lastPoint = useRef<{ x: number; y: number } | null>(null);
 
     const getCtx = useCallback(() => {
@@ -34,16 +35,19 @@ export const SignaturePad = forwardRef<SignaturePadRef, SignaturePadProps>(
       const scaleX = canvas.width / rect.width;
       const scaleY = canvas.height / rect.height;
 
-      if ("touches" in e) {
+      if ("touches" in e && e.touches.length > 0) {
         return {
           x: (e.touches[0].clientX - rect.left) * scaleX,
           y: (e.touches[0].clientY - rect.top) * scaleY,
         };
       }
-      return {
-        x: (e.clientX - rect.left) * scaleX,
-        y: (e.clientY - rect.top) * scaleY,
-      };
+      if ("clientX" in e) {
+        return {
+          x: (e.clientX - rect.left) * scaleX,
+          y: (e.clientY - rect.top) * scaleY,
+        };
+      }
+      return null;
     }, []);
 
     const drawLine = useCallback(
@@ -62,9 +66,34 @@ export const SignaturePad = forwardRef<SignaturePadRef, SignaturePadProps>(
       [getCtx, penColor]
     );
 
+    const finishCapture = useCallback(() => {
+      setIsCapturing(false);
+      isPenDown.current = false;
+      lastPoint.current = null;
+    }, []);
+
+    // Mouse/touch handlers
+    const handlePointerDown = useCallback(
+      (e: MouseEvent | TouchEvent) => {
+        if (!isCapturing) {
+          // First click starts the capture session
+          setIsCapturing(true);
+        }
+        isPenDown.current = true;
+        lastPoint.current = getPoint(e);
+      },
+      [isCapturing, getPoint]
+    );
+
+    const handlePointerUp = useCallback(() => {
+      // Lift finger/mouse — stop drawing but stay in capture mode
+      isPenDown.current = false;
+      lastPoint.current = null;
+    }, []);
+
     const handleMove = useCallback(
       (e: MouseEvent | TouchEvent) => {
-        if (!isCapturing) return;
+        if (!isCapturing || !isPenDown.current) return;
         e.preventDefault();
         const point = getPoint(e);
         if (!point) return;
@@ -78,57 +107,40 @@ export const SignaturePad = forwardRef<SignaturePadRef, SignaturePadProps>(
       [isCapturing, getPoint, drawLine]
     );
 
-    const stopCapture = useCallback(() => {
-      if (isCapturing) {
-        setIsCapturing(false);
-        lastPoint.current = null;
-      }
-    }, [isCapturing]);
-
-    const startCapture = useCallback(
-      (e: MouseEvent | TouchEvent) => {
-        if (isCapturing) {
-          stopCapture();
-          return;
-        }
-        setIsCapturing(true);
-        lastPoint.current = getPoint(e);
-      },
-      [isCapturing, stopCapture, getPoint]
-    );
-
-    // Keyboard listener to stop capture
+    // Keyboard listener — any key finishes the capture session
     useEffect(() => {
       if (!isCapturing) return;
 
       const handleKey = (e: KeyboardEvent) => {
         e.preventDefault();
-        stopCapture();
+        finishCapture();
       };
 
       window.addEventListener("keydown", handleKey);
       return () => window.removeEventListener("keydown", handleKey);
-    }, [isCapturing, stopCapture]);
+    }, [isCapturing, finishCapture]);
 
-    // Mouse/touch listeners
+    // Canvas event listeners
     useEffect(() => {
       const canvas = canvasRef.current;
       if (!canvas) return;
 
+      canvas.addEventListener("mousedown", handlePointerDown);
+      canvas.addEventListener("touchstart", handlePointerDown, { passive: true });
       canvas.addEventListener("mousemove", handleMove);
       canvas.addEventListener("touchmove", handleMove, { passive: false });
-      canvas.addEventListener("mouseup", stopCapture);
-      canvas.addEventListener("touchend", stopCapture);
-      canvas.addEventListener("mouseleave", stopCapture);
+      canvas.addEventListener("mouseup", handlePointerUp);
+      canvas.addEventListener("touchend", handlePointerUp);
 
       return () => {
+        canvas.removeEventListener("mousedown", handlePointerDown);
+        canvas.removeEventListener("touchstart", handlePointerDown);
         canvas.removeEventListener("mousemove", handleMove);
         canvas.removeEventListener("touchmove", handleMove);
-        canvas.removeEventListener("mouseup", stopCapture);
-        canvas.removeEventListener("touchend", stopCapture);
-        canvas.removeEventListener("mouseleave", stopCapture);
+        canvas.removeEventListener("mouseup", handlePointerUp);
+        canvas.removeEventListener("touchend", handlePointerUp);
       };
-    }, [handleMove, stopCapture]);
+    }, [handlePointerDown, handleMove, handlePointerUp]);
 
     // Setup canvas resolution
     useEffect(() => {
@@ -146,6 +158,7 @@ export const SignaturePad = forwardRef<SignaturePadRef, SignaturePadProps>(
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       setHasSignature(false);
       setIsCapturing(false);
+      isPenDown.current = false;
       lastPoint.current = null;
     }
 
@@ -161,7 +174,7 @@ export const SignaturePad = forwardRef<SignaturePadRef, SignaturePadProps>(
           <div className="text-sm font-medium">
             {isCapturing ? (
               <span className="text-blue-600">
-                Drawing... press any key or click to finish
+                Signing... press any key or click Done when finished
               </span>
             ) : hasSignature ? (
               <span className="text-green-600">Signature captured</span>
@@ -169,15 +182,29 @@ export const SignaturePad = forwardRef<SignaturePadRef, SignaturePadProps>(
               <span className="text-stone-500">Click the box to start signing</span>
             )}
           </div>
-          <Button
-            type="button"
-            variant="ghost"
-            size="sm"
-            onClick={clear}
-          >
-            <RotateCcw className="h-3 w-3 mr-1" />
-            Clear
-          </Button>
+          <div className="flex items-center gap-1">
+            {isCapturing && (
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                className="text-blue-600 border-blue-200"
+                onClick={finishCapture}
+              >
+                <Check className="h-3 w-3 mr-1" />
+                Done
+              </Button>
+            )}
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              onClick={clear}
+            >
+              <RotateCcw className="h-3 w-3 mr-1" />
+              Clear
+            </Button>
+          </div>
         </div>
         <div
           className={`border-2 rounded-lg bg-white touch-none transition-colors ${
@@ -190,13 +217,11 @@ export const SignaturePad = forwardRef<SignaturePadRef, SignaturePadProps>(
             ref={canvasRef}
             className="w-full h-40 cursor-crosshair"
             style={{ width: "100%", height: "160px" }}
-            onMouseDown={(e) => startCapture(e.nativeEvent)}
-            onTouchStart={(e) => startCapture(e.nativeEvent)}
           />
         </div>
         <p className="text-xs text-stone-400">
-          Click to start drawing, move your mouse or finger to sign, then press
-          any key or click again to finish
+          Click to start, draw your signature (you can lift and continue),
+          then press any key or click Done to finish
         </p>
       </div>
     );
