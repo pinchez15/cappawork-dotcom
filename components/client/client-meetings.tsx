@@ -4,9 +4,6 @@ import { useState, useEffect } from "react";
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -19,18 +16,7 @@ import {
   Calendar,
   Video,
   ChevronDown,
-  ChevronLeft,
-  ChevronRight,
-  Clock,
-  Check,
-  Loader2,
 } from "lucide-react";
-import {
-  fetchEventTypes,
-  fetchAvailableTimes,
-  bookMeetingAction,
-} from "@/server/actions/meetings";
-import { toast } from "sonner";
 
 interface Meeting {
   id: string;
@@ -43,22 +29,6 @@ interface Meeting {
   invitee_email: string | null;
   event_type_name: string | null;
   calendly_cancel_url: string | null;
-}
-
-interface EventType {
-  uri: string;
-  name: string;
-  slug: string;
-  duration: number;
-  description_plain: string | null;
-  active: boolean;
-  color: string;
-}
-
-interface AvailableTime {
-  status: string;
-  start_time: string;
-  invitees_remaining: number;
 }
 
 interface ClientMeetingsProps {
@@ -87,16 +57,6 @@ function formatTime(iso: string) {
   });
 }
 
-function formatDateHeading(iso: string) {
-  return new Date(iso).toLocaleDateString("en-US", {
-    weekday: "long",
-    month: "long",
-    day: "numeric",
-  });
-}
-
-type BookingStep = "select-type" | "select-time" | "confirm" | "done";
-
 export function ClientMeetings({
   projectId,
   meetings,
@@ -105,21 +65,16 @@ export function ClientMeetings({
 }: ClientMeetingsProps) {
   const [pastOpen, setPastOpen] = useState(false);
 
-  // Booking flow state
-  const [bookingStep, setBookingStep] = useState<BookingStep>("select-type");
-  const [eventTypes, setEventTypes] = useState<EventType[]>([]);
-  const [selectedType, setSelectedType] = useState<EventType | null>(null);
-  const [availableTimes, setAvailableTimes] = useState<AvailableTime[]>([]);
-  const [selectedTime, setSelectedTime] = useState<string | null>(null);
-  const [weekStart, setWeekStart] = useState(() => {
-    const d = new Date();
-    d.setHours(0, 0, 0, 0);
-    return d;
-  });
-
-  const [isLoadingTypes, setIsLoadingTypes] = useState(false);
-  const [isLoadingTimes, setIsLoadingTimes] = useState(false);
-  const [isBooking, setIsBooking] = useState(false);
+  // Load Calendly widget script
+  useEffect(() => {
+    if (document.querySelector('script[src*="calendly.com/assets/external/widget.js"]')) {
+      return;
+    }
+    const script = document.createElement("script");
+    script.src = "https://assets.calendly.com/assets/external/widget.js";
+    script.async = true;
+    document.body.appendChild(script);
+  }, []);
 
   const now = new Date();
   const upcoming = meetings
@@ -135,110 +90,13 @@ export function ClientMeetings({
         new Date(b.start_time).getTime() - new Date(a.start_time).getTime()
     );
 
-  // Load event types on mount
-  useEffect(() => {
-    loadEventTypes();
-  }, []);
-
-  async function loadEventTypes() {
-    setIsLoadingTypes(true);
-    try {
-      const types = await fetchEventTypes();
-      // Only show the Product Development meeting type to clients
-      const filtered = types.filter((t) =>
-        t.name.toLowerCase().includes("product dev")
-      );
-      setEventTypes(filtered);
-    } catch (err: any) {
-      toast.error("Failed to load meeting types");
-    } finally {
-      setIsLoadingTypes(false);
-    }
-  }
-
-  async function loadAvailableTimes(eventType: EventType, start: Date) {
-    setIsLoadingTimes(true);
-    try {
-      const end = new Date(start.getTime() + 7 * 24 * 60 * 60 * 1000);
-      const times = await fetchAvailableTimes(
-        eventType.uri,
-        start.toISOString(),
-        end.toISOString()
-      );
-      setAvailableTimes(times.filter((t) => t.status === "available"));
-    } catch (err: any) {
-      toast.error("Failed to load available times");
-    } finally {
-      setIsLoadingTimes(false);
-    }
-  }
-
-  function handleSelectType(eventType: EventType) {
-    setSelectedType(eventType);
-    setBookingStep("select-time");
-    const start = new Date();
-    start.setHours(0, 0, 0, 0);
-    setWeekStart(start);
-    loadAvailableTimes(eventType, start);
-  }
-
-  function handleWeekNav(direction: "prev" | "next") {
-    const newStart = new Date(weekStart);
-    newStart.setDate(newStart.getDate() + (direction === "next" ? 7 : -7));
-    // Don't go into the past
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    if (newStart < today) return;
-    setWeekStart(newStart);
-    if (selectedType) {
-      loadAvailableTimes(selectedType, newStart);
-    }
-  }
-
-  function handleSelectTime(startTime: string) {
-    setSelectedTime(startTime);
-    setBookingStep("confirm");
-  }
-
-  async function handleConfirmBooking() {
-    if (!selectedType || !selectedTime) return;
-
-    setIsBooking(true);
-    try {
-      await bookMeetingAction({
-        projectId,
-        eventTypeUri: selectedType.uri,
-        startTime: selectedTime,
-        inviteeName: currentUserName,
-        inviteeEmail: currentUserEmail,
-        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-      });
-      toast.success("Meeting booked!");
-      setBookingStep("done");
-    } catch (err: any) {
-      toast.error(err.message || "Failed to book meeting");
-    } finally {
-      setIsBooking(false);
-    }
-  }
-
-  function resetBooking() {
-    setBookingStep("select-type");
-    setSelectedType(null);
-    setSelectedTime(null);
-    setAvailableTimes([]);
-  }
-
-  // Group available times by date
-  const timesByDate = availableTimes.reduce<Record<string, AvailableTime[]>>(
-    (acc, slot) => {
-      const dateKey = new Date(slot.start_time).toDateString();
-      if (!acc[dateKey]) acc[dateKey] = [];
-      acc[dateKey].push(slot);
-      return acc;
-    },
-    {}
-  );
+  // Build prefill query params for the Calendly embed
+  const prefillParams = new URLSearchParams();
+  if (currentUserName) prefillParams.set("name", currentUserName);
+  if (currentUserEmail) prefillParams.set("email", currentUserEmail);
+  const calendlyUrl = `https://calendly.com/cappawork/product-development-meeting${
+    prefillParams.toString() ? `?${prefillParams.toString()}` : ""
+  }`;
 
   return (
     <div className="space-y-6">
@@ -301,208 +159,14 @@ export function ClientMeetings({
         )}
       </div>
 
-      {/* Book a Meeting */}
+      {/* Book a Meeting — Calendly Embed */}
       <Card>
-        <CardHeader>
-          <CardTitle>Book a Meeting</CardTitle>
-          <CardDescription>
-            Schedule a time to connect with the CappaWork team
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          {/* Step 1: Select Event Type */}
-          {bookingStep === "select-type" && (
-            <div>
-              {isLoadingTypes ? (
-                <div className="flex items-center justify-center py-8">
-                  <Loader2 className="h-6 w-6 animate-spin text-stone-400" />
-                </div>
-              ) : eventTypes.length === 0 ? (
-                <p className="text-sm text-stone-500 py-4">
-                  No meeting types available at this time.
-                </p>
-              ) : (
-                <div className="grid sm:grid-cols-2 gap-3">
-                  {eventTypes.map((et) => (
-                    <button
-                      key={et.uri}
-                      onClick={() => handleSelectType(et)}
-                      className="flex items-start gap-3 p-4 border rounded-lg hover:border-blue-300 hover:bg-blue-50/50 transition-colors text-left"
-                    >
-                      <div
-                        className="w-2 h-2 rounded-full mt-2 shrink-0"
-                        style={{ backgroundColor: et.color || "#3b82f6" }}
-                      />
-                      <div>
-                        <div className="font-medium text-stone-900">
-                          {et.name}
-                        </div>
-                        <div className="text-sm text-stone-500 flex items-center gap-1 mt-1">
-                          <Clock className="h-3 w-3" />
-                          {et.duration} min
-                        </div>
-                        {et.description_plain && (
-                          <p className="text-xs text-stone-400 mt-1 line-clamp-2">
-                            {et.description_plain}
-                          </p>
-                        )}
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
-
-          {/* Step 2: Select Time */}
-          {bookingStep === "select-time" && selectedType && (
-            <div>
-              <div className="flex items-center justify-between mb-4">
-                <button
-                  onClick={resetBooking}
-                  className="text-sm text-stone-500 hover:text-stone-700 flex items-center gap-1"
-                >
-                  <ChevronLeft className="h-4 w-4" />
-                  Back
-                </button>
-                <div className="text-sm font-medium">
-                  {selectedType.name} — {selectedType.duration} min
-                </div>
-                <div />
-              </div>
-
-              {/* Week navigation */}
-              <div className="flex items-center justify-between mb-4 px-2">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => handleWeekNav("prev")}
-                >
-                  <ChevronLeft className="h-4 w-4" />
-                </Button>
-                <span className="text-sm font-medium">
-                  {weekStart.toLocaleDateString("en-US", {
-                    month: "short",
-                    day: "numeric",
-                  })}{" "}
-                  —{" "}
-                  {new Date(
-                    weekStart.getTime() + 6 * 24 * 60 * 60 * 1000
-                  ).toLocaleDateString("en-US", {
-                    month: "short",
-                    day: "numeric",
-                  })}
-                </span>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => handleWeekNav("next")}
-                >
-                  <ChevronRight className="h-4 w-4" />
-                </Button>
-              </div>
-
-              {isLoadingTimes ? (
-                <div className="flex items-center justify-center py-8">
-                  <Loader2 className="h-6 w-6 animate-spin text-stone-400" />
-                </div>
-              ) : Object.keys(timesByDate).length === 0 ? (
-                <div className="text-center py-8">
-                  <p className="text-stone-500">
-                    No available times this week
-                  </p>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="mt-2"
-                    onClick={() => handleWeekNav("next")}
-                  >
-                    Check next week
-                    <ChevronRight className="h-4 w-4 ml-1" />
-                  </Button>
-                </div>
-              ) : (
-                <div className="space-y-4 max-h-[400px] overflow-y-auto">
-                  {Object.entries(timesByDate).map(([dateKey, slots]) => (
-                    <div key={dateKey}>
-                      <div className="text-sm font-medium text-stone-700 mb-2">
-                        {formatDateHeading(slots[0].start_time)}
-                      </div>
-                      <div className="flex flex-wrap gap-2">
-                        {slots.map((slot) => (
-                          <Button
-                            key={slot.start_time}
-                            variant="outline"
-                            size="sm"
-                            onClick={() => handleSelectTime(slot.start_time)}
-                            className="text-sm"
-                          >
-                            {formatTime(slot.start_time)}
-                          </Button>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
-
-          {/* Step 3: Confirm */}
-          {bookingStep === "confirm" && selectedType && selectedTime && (
-            <div className="space-y-4">
-              <button
-                onClick={() => setBookingStep("select-time")}
-                className="text-sm text-stone-500 hover:text-stone-700 flex items-center gap-1"
-              >
-                <ChevronLeft className="h-4 w-4" />
-                Back
-              </button>
-
-              <div className="p-4 border rounded-lg space-y-2">
-                <div className="font-medium text-stone-900">
-                  {selectedType.name}
-                </div>
-                <div className="text-sm text-stone-500 flex items-center gap-1">
-                  <Clock className="h-3 w-3" />
-                  {selectedType.duration} minutes
-                </div>
-                <div className="text-sm text-stone-500 flex items-center gap-1">
-                  <Calendar className="h-3 w-3" />
-                  {formatDateTime(selectedTime)}
-                </div>
-              </div>
-
-              <Button
-                onClick={handleConfirmBooking}
-                disabled={isBooking}
-                className="w-full bg-blue-600 hover:bg-blue-700"
-              >
-                {isBooking ? (
-                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                ) : (
-                  <Check className="h-4 w-4 mr-2" />
-                )}
-                Confirm Booking
-              </Button>
-            </div>
-          )}
-
-          {/* Step 4: Done */}
-          {bookingStep === "done" && (
-            <div className="text-center py-6 space-y-3">
-              <div className="mx-auto w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                <Check className="h-6 w-6 text-green-600" />
-              </div>
-              <div className="font-medium text-stone-900">Meeting Booked!</div>
-              <p className="text-sm text-stone-500">
-                You&apos;ll receive a calendar invite at {currentUserEmail}
-              </p>
-              <Button variant="outline" onClick={resetBooking}>
-                Book Another
-              </Button>
-            </div>
-          )}
+        <CardContent className="p-0">
+          <div
+            className="calendly-inline-widget"
+            data-url={calendlyUrl}
+            style={{ minWidth: "320px", height: "700px" }}
+          />
         </CardContent>
       </Card>
 
