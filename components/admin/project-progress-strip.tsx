@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import { ExternalLink } from "lucide-react";
 import type { ProjectProgress } from "@/server/repos/projects";
 
 type Props = {
@@ -22,9 +24,12 @@ function CompactCard({ project }: { project: ProjectProgress }) {
   return (
     <div className="border border-stone-200 rounded-xl p-3 min-w-[200px] flex-shrink-0">
       <div className="flex items-center justify-between gap-2 mb-1.5">
-        <span className="text-sm font-medium text-stone-900 truncate">
+        <Link
+          href={`/admin/projects/${project.id}`}
+          className="text-sm font-medium text-stone-900 truncate hover:text-blue-600 transition-colors"
+        >
           {project.name}
-        </span>
+        </Link>
         <span className="text-xs text-stone-400 shrink-0">
           {project.progressPercent}%
         </span>
@@ -43,9 +48,13 @@ function ExpandedCard({ project }: { project: ProjectProgress }) {
   return (
     <div className="border border-stone-200 rounded-xl p-4">
       <div className="flex items-center justify-between mb-3">
-        <span className="text-sm font-semibold text-stone-900">
+        <Link
+          href={`/admin/projects/${project.id}`}
+          className="text-sm font-semibold text-stone-900 hover:text-blue-600 transition-colors inline-flex items-center gap-1.5 group"
+        >
           {project.name}
-        </span>
+          <ExternalLink className="h-3 w-3 text-stone-400 group-hover:text-blue-600 transition-colors" />
+        </Link>
         <span className="text-xs text-stone-400">
           {project.completedTasks}/{project.totalTasks} tasks ({project.progressPercent}%)
         </span>
