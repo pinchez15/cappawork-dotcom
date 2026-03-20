@@ -7,10 +7,11 @@ import {
   PointerSensor,
   useSensor,
   useSensors,
+  useDroppable,
+  useDraggable,
   type DragStartEvent,
   type DragEndEvent,
 } from "@dnd-kit/core";
-import { useDroppable } from "@dnd-kit/core";
 import {
   TASK_STATUSES,
   TASK_PRIORITIES,
@@ -24,13 +25,11 @@ type Props = {
   phaseByProject: Record<string, string | null>;
 };
 
-function TaskCard({
+function TaskCardContent({
   task,
-  onEdit,
   phaseByProject,
 }: {
   task: AdminTaskWithProject;
-  onEdit: (task: AdminTaskWithProject) => void;
   phaseByProject?: Record<string, string | null>;
 }) {
   const priorityDef = TASK_PRIORITIES.find((p) => p.id === task.priority);
@@ -38,10 +37,7 @@ function TaskCard({
   const isOverdue = task.due_date && task.due_date < today && task.status !== "done";
 
   return (
-    <div
-      onClick={() => onEdit(task)}
-      className="bg-white rounded-lg border border-stone-200 p-3 cursor-pointer hover:shadow-sm transition-shadow"
-    >
+    <>
       <div className="flex items-start justify-between gap-2 mb-1">
         <span className="text-sm font-medium text-stone-900 leading-tight">
           {task.title}
@@ -73,6 +69,38 @@ function TaskCard({
           Due {task.due_date}
         </div>
       )}
+    </>
+  );
+}
+
+function TaskCard({
+  task,
+  onEdit,
+  phaseByProject,
+  isDragOverlay,
+}: {
+  task: AdminTaskWithProject;
+  onEdit: (task: AdminTaskWithProject) => void;
+  phaseByProject?: Record<string, string | null>;
+  isDragOverlay?: boolean;
+}) {
+  const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
+    id: task.id,
+  });
+
+  return (
+    <div
+      ref={setNodeRef}
+      {...listeners}
+      {...attributes}
+      onClick={() => {
+        if (!isDragging) onEdit(task);
+      }}
+      className={`bg-white rounded-lg border border-stone-200 p-3 cursor-grab active:cursor-grabbing hover:shadow-sm transition-shadow touch-none ${
+        isDragging && !isDragOverlay ? "opacity-30" : ""
+      }`}
+    >
+      <TaskCardContent task={task} phaseByProject={phaseByProject} />
     </div>
   );
 }
@@ -176,10 +204,10 @@ export function TaskKanbanView({ tasks, onEdit, onStatusChange, phaseByProject }
         ))}
       </div>
 
-      <DragOverlay>
+      <DragOverlay dropAnimation={null}>
         {activeTask ? (
-          <div className="opacity-80 rotate-2">
-            <TaskCard task={activeTask} onEdit={() => {}} phaseByProject={phaseByProject} />
+          <div className="rotate-2 shadow-lg rounded-lg">
+            <TaskCard task={activeTask} onEdit={() => {}} phaseByProject={phaseByProject} isDragOverlay />
           </div>
         ) : null}
       </DragOverlay>
