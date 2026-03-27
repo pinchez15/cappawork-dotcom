@@ -19,13 +19,13 @@ export default function ClosingCTA() {
             Your people deserve better work. Let&apos;s build it that way.
           </h2>
           <p className="text-lg text-white/70 mb-10 leading-relaxed">
-            30 minutes. Your numbers. No pitch deck. We&apos;ll determine whether a diagnostic makes sense for your stage.
+            Whether you need a single advisory hour or a full product build — it starts with a conversation. No pitch deck. Just your situation and what might help.
           </p>
           <button
             onClick={handleBookCall}
             className="bg-gold text-navy px-8 py-3.5 rounded-full font-medium hover:bg-gold/90 transition-all duration-200 inline-flex items-center gap-2 text-lg"
           >
-            Book a Diagnostic Call
+            Start a Conversation
             <ArrowRight size={18} />
           </button>
         </FadeInUp>

@@ -12,18 +12,18 @@ export default function WhoThisIsFor() {
           </span>
 
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl tracking-tight text-white leading-tight mb-8">
-            Founder-led service businesses doing $3M–$10M.
+            Leaders who know AI matters — and want to get it right.
           </h2>
 
           <div className="text-lg text-white/70 leading-relaxed space-y-6 mb-16">
             <p>
-              You have 5–50 employees. Revenue is growing, but margins aren&apos;t keeping pace. Your team is talented, but they&apos;re spending too much time on work that doesn&apos;t require their talent.
+              Founders scaling service businesses. VPs of Engineering modernizing dev teams. Product leaders integrating AI into established products. Executives who need their organization AI-fluent — not just AI-curious.
             </p>
             <p>
-              Consulting firms, agencies, professional services, trades, staffing companies — the industry matters less than the pattern.
+              The industry matters less than the pattern: you have real revenue, a real team, and work that should be done by machines instead of people.
             </p>
             <p className="text-white font-medium">
-              The pattern is: real revenue, real team, hidden inefficiency that compounds as you scale.
+              If your people are buried in busywork that a computer could handle, we can help.
             </p>
           </div>
 

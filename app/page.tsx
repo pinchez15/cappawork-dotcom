@@ -5,7 +5,6 @@ import Footer from "./components/footer"
 import Blog from "./components/blog"
 import ScaleProblem from "./components/scale-problem"
 import WhatWeDo from "./components/what-we-do"
-import EngagementSection from "./components/engagement-section"
 import WhoThisIsFor from "./components/who-this-is-for"
 import WhatsAtStake from "./components/whats-at-stake"
 import ProofPoint from "./components/proof-point"
@@ -44,7 +43,6 @@ export default function HomePage() {
       <WhatWeDo />
       <WhatsAtStake />
       <ProofPoint />
-      <EngagementSection />
       <ServicesSection />
       <WhoThisIsFor />
       <CalculatorCTA />

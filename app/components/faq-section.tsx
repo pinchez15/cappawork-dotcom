@@ -10,34 +10,34 @@ import { FadeInUp } from "./motion-wrapper"
 
 const faqs = [
   {
-    question: "Do I have to commit to all three phases?",
+    question: "Where should I start?",
     answer:
-      "No. Phase 1 is standalone. You receive a full report with quantified opportunities and clear next steps. You can execute internally, work with us, or choose another partner. Each phase builds on the last, but none requires the next.",
+      "It depends on what you need. If you want your team AI-fluent, start with a training or cohort. If you need a strategic plan for AI adoption, the advisory session gives you a written memo in half a day. If you know what you need built, the full build gets you a production product in 12\u201316 weeks. Not sure? That's what the first conversation is for.",
   },
   {
     question: "What kind of AI are we talking about?",
     answer:
-      "Practical, operational AI — not gimmicks. Think automated data entry, intelligent document processing, AI-drafted communications, predictive scheduling, and workflow automation. The kind that saves your team hours every week on work they shouldn't be doing manually.",
+      "Practical, operational AI \u2014 not gimmicks. Think automated data entry, intelligent document processing, AI-drafted communications, predictive scheduling, and workflow automation. The kind that saves your team hours every week on work they shouldn\u2019t be doing manually.",
   },
   {
     question: "Will AI replace my team?",
     answer:
-      "No. The goal is to elevate your team, not reduce it. AI handles the repetitive work so your people can focus on client relationships, strategic thinking, and the high-value work you actually hired them to do.",
+      "No. The goal is to elevate your team, not reduce it. AI handles the repetitive work so your people can focus on client relationships, strategic thinking, and the high-value work you actually hired them to do. Let computers do computer work.",
   },
   {
-    question: "Do you only build custom software?",
+    question: "Do you only work with service businesses?",
     answer:
-      "We implement the most capital-efficient solution for the constraint identified. Sometimes that's custom. Sometimes it's configuring existing tools. Sometimes it's connecting systems that already exist. The goal is profit — not tools.",
+      "Our deepest experience is in service businesses \u2014 consulting, agencies, professional services, staffing, trades. But the AI training, strategy advisory, and dev team workshops apply to any company figuring out how to adopt AI effectively.",
   },
   {
-    question: "What if we're under $3M?",
+    question: "How does pricing work?",
     answer:
-      "You're likely still in growth experimentation mode. This engagement is designed for companies where scale inefficiency is already emerging — where the cost of inaction compounds quarterly.",
+      "Every service has a clear starting price. Advisory starts at $4,000 for a half day. Training and workshops start at $3,500\u2013$5,000. Full builds start at $50,000. No hidden fees. We scope before you commit.",
   },
   {
     question: "How fast do we see results?",
     answer:
-      "Phase 1 (Diagnostic) delivers a prioritized roadmap in 4–6 weeks. Phase 2 implementations typically show measurable impact within 60–90 days. Phase 3 keeps that momentum compounding. We move fast because we use the same AI tools we recommend.",
+      "Advisory sessions deliver a written strategy memo the same week. Training gives your team actionable skills in a single session. Full builds deliver working software every week over 12\u201316 weeks. We move fast because we use the same AI tools we recommend.",
   },
 ]
 

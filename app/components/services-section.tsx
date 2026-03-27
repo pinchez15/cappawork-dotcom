@@ -21,11 +21,14 @@ export default function ServicesSection() {
           <FadeInUp>
             <div className="max-w-3xl mb-12">
               <span className="text-sm font-semibold tracking-widest uppercase text-gold block mb-4">
-                Services
+                Ways to Work Together
               </span>
               <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl tracking-tight text-white leading-tight">
-                AI training, strategy, and builds — scoped to where you are right now.
+                From a single advisory session to a full product build. Start wherever makes sense.
               </h2>
+              <p className="mt-4 text-white/60 text-lg leading-relaxed">
+                Every engagement is built around the same principle: let computers do computer work, so your people can work like people again.
+              </p>
             </div>
           </FadeInUp>
 

@@ -140,7 +140,7 @@ export const SERVICES: Service[] = [
     title: "Organizational AI Training",
     subtitle:
       "Get your entire team to the same baseline in a single session. Stop watching half your org excel at AI while the other half falls behind.",
-    price: "$5,000\u2013$10,000",
+    price: "Starting at $5,000",
     priceNote: "single session \u00b7 10\u201325 people \u00b7 scoped to your org",
     cardDescription:
       "Half-day or full-day hands-on training for 10\u201325 people. Your team leaves with specific action items and a shared AI baseline \u2014 not another lecture.",
@@ -194,7 +194,7 @@ export const SERVICES: Service[] = [
     title: "Dev Team Workshop",
     subtitle:
       "Everything your engineering team believes about process was built for a world where code was expensive to write and slow to fix. That world is over.",
-    price: "$5,000\u2013$10,000",
+    price: "Starting at $5,000",
     priceNote: "workshop \u00b7 mid-market engineering teams",
     cardDescription:
       "Live demonstration of AI-assisted development at production speed. Your engineering team sees firsthand what\u2019s possible when process catches up to tooling.",
@@ -243,7 +243,7 @@ export const SERVICES: Service[] = [
     title: "Full Build",
     subtitle:
       "You know what you need. You don\u2019t have the team to build it. I do this every day \u2014 strategy through shipping \u2014 and the product is in your hands in 12\u201316 weeks.",
-    price: "$50,000\u2013$100,000",
+    price: "Starting at $50,000",
     priceNote: "custom AI product build \u00b7 12\u201316 weeks",
     cardDescription:
       "End-to-end custom AI product build. Strategy through architecture through shipping. Production-deployed and ready for your users in 12\u201316 weeks.",

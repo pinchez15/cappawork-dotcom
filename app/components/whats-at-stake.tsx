@@ -4,11 +4,8 @@ import { ArrowRight } from "lucide-react"
 import { FadeInUp } from "./motion-wrapper"
 
 export default function WhatsAtStake() {
-  const calendlyLink =
-    process.env.NEXT_PUBLIC_CALENDLY_LINK || "https://calendly.com/cappawork/discovery_call"
-
-  const handleBookCall = () => {
-    window.open(calendlyLink, "_blank", "noopener,noreferrer")
+  const scrollToServices = () => {
+    document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })
   }
 
   return (
@@ -33,10 +30,10 @@ export default function WhatsAtStake() {
 
           <div className="text-center">
             <button
-              onClick={handleBookCall}
+              onClick={scrollToServices}
               className="bg-gold text-navy px-8 py-3.5 rounded-full font-medium hover:bg-gold/90 transition-all duration-200 inline-flex items-center gap-2 text-lg"
             >
-              Book a Diagnostic Call
+              See How We Can Help
               <ArrowRight size={18} />
             </button>
           </div>

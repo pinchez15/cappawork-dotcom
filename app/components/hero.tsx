@@ -41,7 +41,7 @@ export default function Hero() {
           className="text-lg text-white/70 max-w-2xl mx-auto mb-12 leading-relaxed space-y-4"
         >
           <p>
-            AI can handle the grunt work — the data entry, the follow-ups, the reporting that eats your team's day. We help you implement it so your people can focus on the work that actually moves the business forward.
+            Let computers do computer work — the data entry, the follow-ups, the reporting that eats your team&apos;s day. We help you implement AI so your people can focus on the work that actually moves the business forward.
           </p>
         </motion.div>
 
@@ -54,7 +54,7 @@ export default function Hero() {
             onClick={handleBookCall}
             className="bg-gold text-navy px-8 py-3.5 rounded-full font-medium hover:bg-gold/90 transition-all duration-200 inline-flex items-center gap-2 text-lg"
           >
-            Book a Diagnostic Call
+            Start a Conversation
             <ArrowRight size={18} />
           </button>
         </motion.div>
