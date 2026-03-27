@@ -17,11 +17,11 @@ import FounderSection from "./components/founder-section"
 export const metadata: Metadata = {
   title: "CappaWork — Make Work Human Again",
   description:
-    "AI transformation for founder-led service businesses doing $3M–$10M. We elevate your people and automate your process.",
+    "We elevate your people and automate your process. AI transformation for businesses ready to scale.",
   keywords: "AI transformation, automation, founder-led businesses, operational efficiency, human-first AI",
   openGraph: {
     title: "CappaWork — Make Work Human Again",
-    description: "AI transformation for founder-led service businesses doing $3M–$10M. We elevate your people and automate your process.",
+    description: "We elevate your people and automate your process. AI transformation for businesses ready to scale.",
     type: "website",
     url: "https://cappawork.com",
     siteName: "CappaWork",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "CappaWork — Make Work Human Again",
-    description: "AI transformation for founder-led service businesses doing $3M–$10M. We elevate your people and automate your process.",
+    description: "We elevate your people and automate your process. AI transformation for businesses ready to scale.",
   },
 }
 

@@ -22,7 +22,7 @@ const instrumentSerif = Instrument_Serif({
 export const metadata: Metadata = {
   title: "CappaWork — Make Work Human Again",
   description:
-    "AI transformation for founder-led service businesses doing $3M–$10M. We elevate your people and automate your process.",
+    "We elevate your people and automate your process. AI transformation for businesses ready to scale.",
   keywords: "AI transformation, automation, founder-led businesses, operational efficiency, human-first AI",
   authors: [{ name: "CappaWork" }],
   creator: "CappaWork",
@@ -37,13 +37,13 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://cappawork.com",
     title: "CappaWork — Make Work Human Again",
-    description: "AI transformation for founder-led service businesses doing $3M–$10M.",
+    description: "We elevate your people and automate your process.",
     siteName: "CappaWork",
   },
   twitter: {
     card: "summary_large_image",
     title: "CappaWork — Make Work Human Again",
-    description: "AI transformation for founder-led service businesses doing $3M–$10M.",
+    description: "We elevate your people and automate your process.",
   },
 }
 

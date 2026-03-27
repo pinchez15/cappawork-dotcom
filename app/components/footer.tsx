@@ -11,7 +11,7 @@ export default function Footer() {
               CappaWork
             </Link>
             <p className="text-white/50 text-sm max-w-md">
-              AI transformation for founder-led businesses doing $3M–$10M.
+              Elevate your people. Automate your process.
             </p>
           </div>
 

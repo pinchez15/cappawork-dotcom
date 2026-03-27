@@ -31,7 +31,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
           className="text-xl md:text-2xl text-gold font-display mb-8"
         >
-          Your AI transformation partner for founder-led businesses.
+          Let computers do computer work. So your people can work like people again.
         </motion.p>
 
         <motion.div
