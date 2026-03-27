@@ -23,6 +23,7 @@ const isPublicRoute = createRouteMatcher([
   '/api/webhooks(.*)',
   '/api/substack(.*)',
   '/api/scorecard-lead',
+  '/api/service-inquiry',
   '/scorecard(.*)',
   '/services(.*)',
   '/fulfillment-policy',
