@@ -12,6 +12,7 @@ import ProofPoint from "./components/proof-point"
 import FAQSection from "./components/faq-section"
 import ClosingCTA from "./components/closing-cta"
 import CalculatorCTA from "./components/calculator-cta"
+import ServicesSection from "./components/services-section"
 import FounderSection from "./components/founder-section"
 
 export const metadata: Metadata = {
@@ -44,6 +45,7 @@ export default function HomePage() {
       <WhatsAtStake />
       <ProofPoint />
       <EngagementSection />
+      <ServicesSection />
       <WhoThisIsFor />
       <CalculatorCTA />
       <FAQSection />

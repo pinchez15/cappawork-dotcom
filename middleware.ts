@@ -24,6 +24,8 @@ const isPublicRoute = createRouteMatcher([
   '/api/substack(.*)',
   '/api/scorecard-lead',
   '/scorecard(.*)',
+  '/services(.*)',
+  '/fulfillment-policy',
   '/studio(.*)',
 ])
 
