@@ -5,6 +5,38 @@ import { ArrowRight, X, Check, Loader2 } from "lucide-react"
 import { FadeInUp, StaggerContainer, StaggerItem } from "./motion-wrapper"
 import { SERVICES, type Service } from "../services/data"
 
+function ServiceCard({
+  service,
+  onClick,
+}: {
+  service: Service
+  onClick: () => void
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className="group flex flex-col h-full w-full text-left p-6 sm:p-8 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300"
+    >
+      <span className="text-sm font-semibold tracking-widest uppercase text-gold mb-3">
+        {service.price}
+      </span>
+      <h3 className="text-xl font-semibold tracking-tight text-white mb-2">
+        {service.title}
+      </h3>
+      <p className="text-sm text-white/60 mb-1">
+        {service.priceNote}
+      </p>
+      <p className="mt-3 text-white/70 text-sm leading-relaxed flex-1">
+        {service.cardDescription}
+      </p>
+      <span className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-gold group-hover:gap-3 transition-all">
+        Learn more
+        <ArrowRight size={14} />
+      </span>
+    </button>
+  )
+}
+
 export default function ServicesSection() {
   const [selectedService, setSelectedService] = useState<Service | null>(null)
   const [showForm, setShowForm] = useState(false)
@@ -14,51 +46,73 @@ export default function ServicesSection() {
     setShowForm(false)
   }
 
+  const coachingServices = SERVICES.filter((s) => s.section === "coaching")
+  const auditBuildServices = SERVICES.filter((s) => s.section === "audit-build")
+  const trainingServices = SERVICES.filter((s) => s.section === "training")
+
   return (
     <>
       <section id="services" className="py-24 bg-navy">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Main Header */}
           <FadeInUp>
-            <div className="max-w-3xl mb-12">
+            <div className="max-w-3xl mb-20">
               <span className="text-sm font-semibold tracking-widest uppercase text-gold block mb-4">
                 Ways to Work Together
               </span>
-              <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl tracking-tight text-white leading-tight">
-                From a single advisory session to a full product build. Start wherever makes sense.
-              </h2>
-              <p className="mt-4 text-white/60 text-lg leading-relaxed">
-                Every engagement is built around the same principle: let computers do computer work, so your people can work like people again.
+              <p className="font-display text-2xl sm:text-3xl text-white leading-relaxed">
+                AI is transforming the world, whether you like it or not. It will upend your business. The question is whether you lead the change or get run over by it.
               </p>
             </div>
           </FadeInUp>
 
-          <StaggerContainer className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {SERVICES.map((service) => (
-              <StaggerItem key={service.slug}>
-                <button
-                  onClick={() => setSelectedService(service)}
-                  className="group flex flex-col h-full w-full text-left p-6 sm:p-8 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300"
-                >
-                  <span className="text-sm font-semibold tracking-widest uppercase text-gold mb-3">
-                    {service.price}
-                  </span>
-                  <h3 className="text-xl font-semibold tracking-tight text-white mb-2">
-                    {service.title}
-                  </h3>
-                  <p className="text-sm text-white/60 mb-1">
-                    {service.priceNote}
-                  </p>
-                  <p className="mt-3 text-white/70 text-sm leading-relaxed flex-1">
-                    {service.cardDescription}
-                  </p>
-                  <span className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-gold group-hover:gap-3 transition-all">
-                    Learn more
-                    <ArrowRight size={14} />
-                  </span>
-                </button>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
+          {/* Section 1: Coaching */}
+          <div className="mb-20">
+            <FadeInUp>
+              <p className="text-lg text-white/70 mb-8 max-w-3xl">
+                As a leader, you need to be fluent in AI from top to bottom — so you can make great decisions quickly. I can coach you.
+              </p>
+            </FadeInUp>
+            <StaggerContainer className="grid md:grid-cols-2 gap-6">
+              {coachingServices.map((service) => (
+                <StaggerItem key={service.slug}>
+                  <ServiceCard service={service} onClick={() => setSelectedService(service)} />
+                </StaggerItem>
+              ))}
+            </StaggerContainer>
+          </div>
+
+          {/* Section 2: Audit & Build */}
+          <div className="mb-20">
+            <FadeInUp>
+              <p className="text-lg text-white/70 mb-8 max-w-3xl">
+                Your workflow will change — either your competitors will do it faster and better with AI, or you will. I can find the leverage and code it for you.
+              </p>
+            </FadeInUp>
+            <StaggerContainer className="grid md:grid-cols-2 gap-6">
+              {auditBuildServices.map((service) => (
+                <StaggerItem key={service.slug}>
+                  <ServiceCard service={service} onClick={() => setSelectedService(service)} />
+                </StaggerItem>
+              ))}
+            </StaggerContainer>
+          </div>
+
+          {/* Section 3: Training */}
+          <div>
+            <FadeInUp>
+              <p className="text-lg text-white/70 mb-8 max-w-3xl">
+                Your team will need to upskill to see new opportunities and use AI well. I can train them.
+              </p>
+            </FadeInUp>
+            <StaggerContainer className="grid md:grid-cols-2 gap-6">
+              {trainingServices.map((service) => (
+                <StaggerItem key={service.slug}>
+                  <ServiceCard service={service} onClick={() => setSelectedService(service)} />
+                </StaggerItem>
+              ))}
+            </StaggerContainer>
+          </div>
         </div>
       </section>
 
