@@ -35,13 +35,13 @@ export default function AboutPage() {
               <div>
                 <h2 className="font-display text-2xl text-navy mb-3">Nate Pinches</h2>
                 <p className="text-stone-600 leading-relaxed mb-4">
-                  MBA. Four years in management consulting. C-suite strategy work up to $2B+ companies. Full-stack AI product builder shipping production systems every day.
+                  MBA. 15 years of experience. 7 years building products. I&apos;ve done C-suite strategy work up to $2B+ companies and I ship production AI systems every&nbsp;day.
                 </p>
                 <p className="text-stone-600 leading-relaxed mb-4">
-                  I&apos;ve spent years working inside founder-led service businesses — mapping workflows, measuring unit economics, building the systems that turn operational chaos into measurable margin.
+                  My own business almost died from poor cashflow — so profitability isn&apos;t an abstract concept for me. It&apos;s the first thing I look at, every time. I&apos;ve spent years inside founder-led service businesses mapping workflows, measuring unit economics, and building the systems that turn operational chaos into measurable&nbsp;margin.
                 </p>
                 <p className="text-stone-600 leading-relaxed">
-                  CappaWork is how I bring that to operators who know they&apos;re leaving money on the table but can&apos;t see exactly where. I diagnose the problem, build the solution, and train your team to own&nbsp;it.
+                  I diagnose the problem, build the solution, and train your team to own&nbsp;it.
                 </p>
               </div>
             </div>

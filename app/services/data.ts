@@ -78,7 +78,7 @@ export const SERVICES: Service[] = [
     whoBlock:
       "You're a CEO or founder making high-stakes decisions about AI — where to invest, what to build, how to position your company. You need someone who builds AI products full-time and has real business strategy experience, not a vendor trying to sell you something. You want objectivity, deep fluency, and someone who will tell you the truth.",
     aboutNate:
-      "Founder of CappaWork. MBA, four years in management consulting, C-suite strategy work up to $2B+. Full-stack AI product builder — not a theorist. Helped a founder go from $1.8M revenue / $250K profit to $2M / $650K profit in one year.",
+      "Founder of CappaWork. MBA, 15 years of experience, 7 years building products. C-suite strategy work up to $2B+. Full-stack AI product builder — not a theorist. Helped a founder go from $1.8M revenue / $250K profit to $2M / $650K profit in one year.",
     termsNote:
       "Advisory engagements are scoped individually based on your needs.",
   },
@@ -130,7 +130,7 @@ export const SERVICES: Service[] = [
     whoBlock:
       "You're a leader who doesn't build but needs to understand what's being built. You know AI is reshaping your industry, but you're not sure what's real and what's noise. You want to learn from someone who builds with these tools every day, in a small group where you can ask the questions you wouldn't ask in a company all-hands.",
     aboutNate:
-      "Founder of CappaWork. MBA, four years in management consulting, C-suite strategy work up to $2B+. Full-stack AI product builder — not a theorist. Helped a founder go from $1.8M revenue / $250K profit to $2M / $650K profit in one year.",
+      "Founder of CappaWork. MBA, 15 years of experience, 7 years building products. C-suite strategy work up to $2B+. Full-stack AI product builder — not a theorist. Helped a founder go from $1.8M revenue / $250K profit to $2M / $650K profit in one year.",
     termsNote:
       "When you enroll, you are holding a spot that another professional could fill.",
   },
@@ -173,7 +173,7 @@ export const SERVICES: Service[] = [
     whoBlock:
       "You're a founder or executive at a $5–10M service business. You know AI should be changing how you operate, but you're not sure where to start or what's actually worth building. You need someone who understands operations and can build the systems to fix them — to give you a clear diagnosis before you spend capital.",
     aboutNate:
-      "Founder of CappaWork. MBA, four years in management consulting, C-suite strategy work up to $2B+. Full-stack AI product builder — not a theorist. Helped a founder go from $1.8M revenue / $250K profit to $2M / $650K profit in one year.",
+      "Founder of CappaWork. MBA, 15 years of experience, 7 years building products. C-suite strategy work up to $2B+. Full-stack AI product builder — not a theorist. Helped a founder go from $1.8M revenue / $250K profit to $2M / $650K profit in one year.",
     termsNote:
       "When you book, you are holding a spot that another business could fill.",
   },
@@ -227,7 +227,7 @@ export const SERVICES: Service[] = [
     whoBlock:
       "You're a founder or executive who needs a custom AI product built — not an off-the-shelf tool configured, but a real product designed for your specific business, your users, and your workflows. Ideally, you've done an Audit & Diagnosis first, so we're building exactly the right thing from day one.",
     aboutNate:
-      "Founder of CappaWork. MBA, four years in management consulting, C-suite strategy work up to $2B+. Full-stack AI product builder shipping production products for clients across wealth management, healthcare, recruiting, and professional services. Helped a founder go from $1.8M revenue / $250K profit to $2M / $650K profit in one year.",
+      "Founder of CappaWork. MBA, 15 years of experience, 7 years building products. C-suite strategy work up to $2B+. Full-stack AI product builder shipping production products for clients across wealth management, healthcare, recruiting, and professional services. Helped a founder go from $1.8M revenue / $250K profit to $2M / $650K profit in one year.",
     termsNote:
       "When you commit to a build, you are reserving dedicated capacity.",
   },
@@ -280,7 +280,7 @@ export const SERVICES: Service[] = [
     whoBlock:
       "You're a head of engineering or CTO who wants your team to adopt AI-assisted development — not through generic training, but by applying it to your actual codebase. You want someone to come in, work in your environment, and train your team on the workflows that matter for your specific work.",
     aboutNate:
-      "Founder of CappaWork. MBA, four years in management consulting, C-suite strategy work up to $2B+. Full-stack AI product builder — not a theorist. Helped a founder go from $1.8M revenue / $250K profit to $2M / $650K profit in one year.",
+      "Founder of CappaWork. MBA, 15 years of experience, 7 years building products. C-suite strategy work up to $2B+. Full-stack AI product builder — not a theorist. Helped a founder go from $1.8M revenue / $250K profit to $2M / $650K profit in one year.",
     termsNote:
       "When you book, you are holding a spot that another team could fill.",
   },
