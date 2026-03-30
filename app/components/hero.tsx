@@ -2,7 +2,6 @@
 
 import { ArrowRight } from "lucide-react"
 import { motion } from "framer-motion"
-import Image from "next/image"
 
 export default function Hero() {
   const calendlyLink =
@@ -14,60 +13,51 @@ export default function Hero() {
 
   return (
     <section id="hero" className="relative min-h-[100svh] flex items-center bg-navy overflow-hidden">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-32">
-        <div className="flex flex-col md:flex-row items-center gap-12 md:gap-16">
-          {/* Photo */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="flex-shrink-0"
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 py-32">
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="font-display text-5xl md:text-6xl lg:text-7xl tracking-tight text-white mb-6 leading-[1.1]"
+        >
+          Elevate your people.{" "}
+          <br className="hidden md:block" />
+          Automate your process.
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
+          className="text-xl md:text-2xl text-gold font-display mb-8"
+        >
+          Let computers do computer work. So your people can work like people again.
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+          className="text-lg text-white/70 max-w-2xl mx-auto mb-12 leading-relaxed space-y-4"
+        >
+          <p>
+            Your team is buried in manual work that machines should handle. We become your AI team — we find where the money is leaking, build the systems that fix it, and train your people to own what we build.
+          </p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.45, ease: "easeOut" }}
+        >
+          <button
+            onClick={handleBookCall}
+            className="bg-gold text-navy px-8 py-3.5 rounded-full font-medium hover:bg-gold/90 transition-all duration-200 inline-flex items-center gap-2 text-lg"
           >
-            <Image
-              src="/nate-headshot.png"
-              alt="Nate Pinches, founder of CappaWork"
-              width={280}
-              height={280}
-              className="rounded-2xl object-cover"
-              priority
-            />
-          </motion.div>
-
-          {/* Copy */}
-          <div>
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className="font-display text-4xl md:text-5xl lg:text-6xl tracking-tight text-white mb-6 leading-[1.1]"
-            >
-              CappaWork becomes your AI&nbsp;team.
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
-              className="text-lg md:text-xl text-white/70 leading-relaxed mb-10 max-w-xl"
-            >
-              We work across your entire business — profitability, operations, product development, training — not one project at a time. We find the opportunity, decide on it with you, scope it, build it, and train your team to own&nbsp;it.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-            >
-              <button
-                onClick={handleBookCall}
-                className="bg-gold text-navy px-8 py-3.5 rounded-full font-medium hover:bg-gold/90 transition-all duration-200 inline-flex items-center gap-2 text-lg"
-              >
-                Book a Call
-                <ArrowRight size={18} />
-              </button>
-            </motion.div>
-          </div>
-        </div>
+            Book a Call
+            <ArrowRight size={18} />
+          </button>
+        </motion.div>
       </div>
     </section>
   )

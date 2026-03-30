@@ -15,7 +15,7 @@ export default function TheMath() {
           </h2>
 
           <p className="text-xl text-navy font-display leading-relaxed mb-12">
-            $90,000 total investment. Six months. You will make at least $1M in profit you wouldn&apos;t have made without this engagement.
+            $90,000 total investment. Six months. A full AI team &mdash; diagnosis, builds, coaching, training &mdash; for less than half the cost of one senior hire.
           </p>
 
           {/* Case study */}
