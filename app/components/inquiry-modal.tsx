@@ -114,10 +114,10 @@ function InquiryModalContent({
                 <Check size={28} className="text-green-600" />
               </div>
               <h2 className="font-display text-2xl sm:text-3xl font-normal tracking-tight mb-3">
-                Got it — I&rsquo;ll be in touch
+                Got it — I&rsquo;ll reach out
               </h2>
               <p className="text-stone-600 mb-8">
-                Expect a LinkedIn message from me shortly.
+                Expect to hear from me shortly.
               </p>
               <button
                 onClick={onClose}
@@ -132,7 +132,7 @@ function InquiryModalContent({
                 Let&rsquo;s talk
               </h2>
               <p className="text-stone-600 mb-8">
-                Drop your details and I&rsquo;ll reach out via LinkedIn.
+                Drop your details and I&rsquo;ll reach out.
               </p>
 
               <form onSubmit={handleSubmit} className="space-y-4">

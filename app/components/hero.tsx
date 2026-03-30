@@ -50,7 +50,7 @@ export default function Hero() {
             onClick={() => open()}
             className="bg-gold text-navy px-8 py-3.5 rounded-full font-medium hover:bg-gold/90 transition-all duration-200 inline-flex items-center gap-2 text-lg"
           >
-            Book a Call
+            Let&apos;s Go
             <ArrowRight size={18} />
           </button>
         </motion.div>

@@ -116,7 +116,7 @@ export default function Navigation() {
               onClick={handleBookCall}
               className="text-sm font-medium bg-gold text-navy px-4 py-2 rounded-full hover:bg-gold/90 transition-colors"
             >
-              Book a Call
+              Get in Touch
             </button>
           </div>
 
@@ -167,7 +167,7 @@ export default function Navigation() {
               onClick={handleBookCall}
               className="block w-full text-center mt-4 font-medium bg-gold text-navy px-4 py-3 rounded-full hover:bg-gold/90 transition-colors"
             >
-              Book a Call
+              Get in Touch
             </button>
           </div>
         )}
