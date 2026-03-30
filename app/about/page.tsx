@@ -1,15 +1,13 @@
 import type { Metadata } from "next"
 import Navigation from "../components/navigation"
 import Footer from "../components/footer"
-import SubstackSection from "../components/substack-section"
 import Image from "next/image"
+import Link from "next/link"
 
 export const metadata: Metadata = {
   title: "About | CappaWork",
-  description: "Learn about CappaWork and our mission to help founder-led service businesses scale profitably through operational analytics and AI transformation.",
+  description: "Meet Nate Pinches — MBA, management consultant, full-stack AI product builder. CappaWork becomes your AI team.",
 }
-
-export const dynamic = "force-dynamic";
 
 export default function AboutPage() {
   return (
@@ -28,72 +26,61 @@ export default function AboutPage() {
                 <Image
                   src="/nate-headshot.png"
                   alt="Nate Pinches, founder of CappaWork"
-                  width={200}
-                  height={200}
+                  width={240}
+                  height={240}
                   className="rounded-2xl object-cover"
                   priority
                 />
               </div>
               <div>
-                <h2 className="font-display text-2xl text-navy mb-3">About Nate</h2>
+                <h2 className="font-display text-2xl text-navy mb-3">Nate Pinches</h2>
                 <p className="text-stone-600 leading-relaxed mb-4">
-                  I&apos;m Nate Pinches, the founder of CappaWork. I&apos;ve spent years working with
-                  founder-led service businesses, and I&apos;ve seen firsthand how the gap between
-                  operational reality and operational potential can quietly drain hundreds of thousands
-                  in profit.
+                  MBA. Four years in management consulting. C-suite strategy work up to $2B+ companies. Full-stack AI product builder shipping production systems every day.
+                </p>
+                <p className="text-stone-600 leading-relaxed mb-4">
+                  I&apos;ve spent years working inside founder-led service businesses — mapping workflows, measuring unit economics, building the systems that turn operational chaos into measurable margin.
                 </p>
                 <p className="text-stone-600 leading-relaxed">
-                  CappaWork is my answer to that problem: analytics-first consulting that helps operators
-                  see where their money actually goes—then automation and AI that gives them the margin back.
+                  CappaWork is how I bring that to operators who know they&apos;re leaving money on the table but can&apos;t see exactly where. I diagnose the problem, build the solution, and train your team to own&nbsp;it.
                 </p>
               </div>
             </div>
           </div>
 
-          {/* Mission */}
+          {/* The model */}
           <div className="space-y-6 mb-10">
+            <h2 className="font-display text-2xl text-navy mb-4">One engagement. One relationship.</h2>
             <p className="text-stone-600 leading-relaxed">
-              CappaWork exists to solve a simple problem: founder-led service businesses are
-              scaling on instinct when they should be scaling on data. They have the revenue,
-              the team, and the ambition—but they can&apos;t see where the margin leaks are,
-              which workflows are costing them the most, or what to automate first.
+              CappaWork isn&apos;t a menu of services. It&apos;s a retained engagement where I become your AI team — finding where you&apos;re leaving money on the table, building the systems that fix it, coaching you on every decision, and training your people to own what I build.
             </p>
             <p className="text-stone-600 leading-relaxed">
-              We work with businesses doing $3M–$10M in revenue who know they&apos;re leaving
-              money on the table but can&apos;t pinpoint where. These aren&apos;t startups looking
-              for funding—they&apos;re operators who need clarity before they invest in change.
+              Six months. $15,000/month. When I leave, you keep everything: the products, the playbooks, and a team that knows what to do with them.
             </p>
           </div>
 
-          <h2 className="font-display text-2xl text-navy mb-4">Our Approach</h2>
-          <div className="space-y-4 mb-10">
-            <p className="text-stone-600 leading-relaxed">
-              We start with a Diagnostic: mapping your workflows, measuring your unit economics,
-              and identifying the specific operational changes that will move your margin the most.
-              No guessing. No generic playbooks. Just your numbers, analyzed and prioritized.
-            </p>
-            <p className="text-stone-600 leading-relaxed">
-              Then we implement—workflow automation, AI integration, and systems that let your
-              people do higher-value work instead of chasing status updates and re-entering data.
-            </p>
-          </div>
-
+          {/* Philosophy */}
           <h2 className="font-display text-2xl text-navy mb-4">The Philosophy</h2>
           <div className="space-y-4 mb-10">
             <p className="text-stone-600 leading-relaxed">
-              Your operations are the most expensive thing you&apos;re not measuring. Every manual
-              handoff, every redundant approval, every hour spent on work that should be automated—it
-              all shows up in your margin, whether you track it or not.
+              Most consultants deliver strategy decks. Most dev shops build what they&apos;re told. Most AI vendors sell chatbots. I do the diagnosis and the implementation — same person, start to finish.
             </p>
             <p className="text-stone-600 leading-relaxed">
-              We believe AI should elevate your people, not replace them. The goal isn&apos;t to
-              cut headcount—it&apos;s to free your team to do the work that actually requires
-              human judgment, creativity, and relationships. The rest should run itself.
+              The promise is transformation, not dependency. I leave the client better than I found them and I leave. You won&apos;t need me to keep the lights on.
             </p>
           </div>
 
-          {/* Substack Section */}
-          <SubstackSection />
+          {/* Link back */}
+          <div className="bg-card-light rounded-2xl p-8 text-center">
+            <p className="text-stone-600 mb-4">
+              See how the engagement works, what&apos;s included, and what the math looks like.
+            </p>
+            <Link
+              href="/#offer"
+              className="inline-flex items-center gap-2 text-navy font-medium hover:text-gold transition-colors"
+            >
+              View the offer &rarr;
+            </Link>
+          </div>
         </div>
       </div>
       <Footer />

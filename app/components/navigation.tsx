@@ -16,13 +16,9 @@ export default function Navigation() {
     const currentPath = window.location.pathname
     if (currentPath === "/blog") {
       setActiveSection("blog")
-    } else if (currentPath === "/transformation") {
-      setActiveSection("transformation")
-    } else if (currentPath === "/calculator") {
-      setActiveSection("calculator")
     } else if (currentPath === "/") {
       const handleScroll = () => {
-        const sections = ["hero", "problem", "approach", "engagement", "faq"]
+        const sections = ["hero", "problem", "offer", "how-it-works", "capabilities", "fit", "math", "about"]
         const scrollPosition = window.scrollY + 100
 
         for (const section of sections) {
@@ -43,13 +39,9 @@ export default function Navigation() {
   }, [])
 
   const navItems = [
-    { id: "transformation", label: "Transformation", href: "/transformation" },
-    { id: "problem", label: "Problem", href: "/#problem" },
-    { id: "approach", label: "Approach", href: "/#approach" },
-    { id: "engagement", label: "Engagement", href: "/#engagement" },
-    { id: "faq", label: "FAQ", href: "/#faq" },
+    { id: "how-it-works", label: "How It Works", href: "/#how-it-works" },
+    { id: "about", label: "About", href: "/#about" },
     { id: "blog", label: "Blog", href: "/blog" },
-    { id: "calculator", label: "Calculator", href: "/calculator" },
   ]
 
   const handleNavClick = (href: string, id: string) => {

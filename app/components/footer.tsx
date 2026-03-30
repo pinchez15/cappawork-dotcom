@@ -11,7 +11,7 @@ export default function Footer() {
               CappaWork
             </Link>
             <p className="text-white/50 text-sm max-w-md">
-              Elevate your people. Automate your process.
+              Your AI team. One engagement. You keep everything we build.
             </p>
           </div>
 
@@ -20,23 +20,23 @@ export default function Footer() {
             <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wide">Company</h3>
             <ul className="space-y-3">
               <li>
-                <Link href="/transformation" className="text-white/50 hover:text-white text-sm transition-colors">
-                  Transformation
+                <Link href="/#how-it-works" className="text-white/50 hover:text-white text-sm transition-colors">
+                  How It Works
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="text-white/50 hover:text-white text-sm transition-colors">
+                <Link href="/#about" className="text-white/50 hover:text-white text-sm transition-colors">
                   About
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="text-white/50 hover:text-white text-sm transition-colors">
-                  Contact
                 </Link>
               </li>
               <li>
                 <Link href="/blog" className="text-white/50 hover:text-white text-sm transition-colors">
                   Blog
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="text-white/50 hover:text-white text-sm transition-colors">
+                  Contact
                 </Link>
               </li>
             </ul>
