@@ -8,7 +8,14 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { email, linkedin, service } = body;
+    const { name, email, linkedin, service } = body;
+
+    if (!name || typeof name !== "string" || name.trim().length === 0) {
+      return NextResponse.json(
+        { error: "Name is required" },
+        { status: 400 }
+      );
+    }
 
     if (!email || typeof email !== "string" || !EMAIL_RE.test(email)) {
       return NextResponse.json(
@@ -38,9 +45,10 @@ export async function POST(request: NextRequest) {
       to: process.env.EMAIL_TO || "nate@cappawork.com",
       subject: `New inquiry: ${service}`,
       text: [
-        `New service inquiry from cappawork.com`,
+        `New inquiry from cappawork.com`,
         ``,
-        `Service: ${service}`,
+        `Name: ${name.trim()}`,
+        `Interested in: ${service}`,
         `Email: ${email.trim()}`,
         `LinkedIn: ${linkedin.trim().startsWith("http") ? linkedin.trim() : `https://linkedin.com/in/${linkedin.trim().replace(/^@/, "")}`}`,
         ``,

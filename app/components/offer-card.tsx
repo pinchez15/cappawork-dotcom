@@ -2,14 +2,10 @@
 
 import { ArrowRight } from "lucide-react"
 import { FadeInUp } from "./motion-wrapper"
+import { useInquiry } from "./inquiry-modal"
 
 export default function OfferCard() {
-  const calendlyLink =
-    process.env.NEXT_PUBLIC_CALENDLY_LINK || "https://calendly.com/cappawork/discovery_call"
-
-  const handleBookCall = () => {
-    window.open(calendlyLink, "_blank", "noopener,noreferrer")
-  }
+  const { open } = useInquiry()
 
   return (
     <section id="offer" className="py-24 bg-warm-white">
@@ -41,7 +37,7 @@ export default function OfferCard() {
             </p>
 
             <button
-              onClick={handleBookCall}
+              onClick={() => open("AI Team")}
               className="bg-gold text-navy px-8 py-3.5 rounded-full font-medium hover:bg-gold/90 transition-all duration-200 inline-flex items-center gap-2 text-lg"
             >
               Book a Call

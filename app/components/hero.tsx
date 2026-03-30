@@ -2,14 +2,10 @@
 
 import { ArrowRight } from "lucide-react"
 import { motion } from "framer-motion"
+import { useInquiry } from "./inquiry-modal"
 
 export default function Hero() {
-  const calendlyLink =
-    process.env.NEXT_PUBLIC_CALENDLY_LINK || "https://calendly.com/cappawork/discovery_call"
-
-  const handleBookCall = () => {
-    window.open(calendlyLink, "_blank", "noopener,noreferrer")
-  }
+  const { open } = useInquiry()
 
   return (
     <section id="hero" className="relative min-h-[100svh] flex items-center bg-navy overflow-hidden">
@@ -51,7 +47,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.45, ease: "easeOut" }}
         >
           <button
-            onClick={handleBookCall}
+            onClick={() => open()}
             className="bg-gold text-navy px-8 py-3.5 rounded-full font-medium hover:bg-gold/90 transition-all duration-200 inline-flex items-center gap-2 text-lg"
           >
             Book a Call

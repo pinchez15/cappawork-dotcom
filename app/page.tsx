@@ -11,6 +11,7 @@ import TheMath from "./components/the-math"
 import CoachingSection from "./components/coaching-section"
 import AboutSection from "./components/about-section"
 import ClosingCTA from "./components/closing-cta"
+import HomepageWrapper from "./components/homepage-wrapper"
 
 export const metadata: Metadata = {
   title: "CappaWork — Your AI Team",
@@ -34,19 +35,21 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen">
-      <Navigation />
-      <Hero />
-      <ProblemSection />
-      <OfferCard />
-      <HowItWorks />
-      <Capabilities />
-      <Qualification />
-      <TheMath />
-      <CoachingSection />
-      <AboutSection />
-      <ClosingCTA />
-      <Footer />
-    </main>
+    <HomepageWrapper>
+      <main className="min-h-screen">
+        <Navigation />
+        <Hero />
+        <ProblemSection />
+        <OfferCard />
+        <HowItWorks />
+        <Capabilities />
+        <Qualification />
+        <TheMath />
+        <CoachingSection />
+        <AboutSection />
+        <ClosingCTA />
+        <Footer />
+      </main>
+    </HomepageWrapper>
   )
 }

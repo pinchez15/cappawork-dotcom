@@ -4,11 +4,12 @@ import { useState, useEffect } from "react"
 import { Menu, X } from "lucide-react"
 import { SignInButton, UserButton, SignedIn, SignedOut } from "@clerk/nextjs"
 import Link from "next/link"
+import { useInquiry } from "./inquiry-modal"
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const [activeSection, setActiveSection] = useState("hero")
-
+  const { open, available } = useInquiry()
   const calendlyLink =
     process.env.NEXT_PUBLIC_CALENDLY_LINK || "https://calendly.com/cappawork/discovery_call"
 
@@ -58,6 +59,15 @@ export default function Navigation() {
     setIsOpen(false)
   }
 
+  const handleBookCall = () => {
+    setIsOpen(false)
+    if (available) {
+      open()
+    } else {
+      window.open(calendlyLink, "_blank", "noopener,noreferrer")
+    }
+  }
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-navy/95 backdrop-blur-sm border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -102,14 +112,12 @@ export default function Navigation() {
                 <UserButton />
               </SignedIn>
             </div>
-            <a
-              href={calendlyLink}
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              onClick={handleBookCall}
               className="text-sm font-medium bg-gold text-navy px-4 py-2 rounded-full hover:bg-gold/90 transition-colors"
             >
               Book a Call
-            </a>
+            </button>
           </div>
 
           {/* Mobile Navigation Button */}
@@ -155,14 +163,12 @@ export default function Navigation() {
                 </div>
               </SignedIn>
             </div>
-            <a
-              href={calendlyLink}
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              onClick={handleBookCall}
               className="block w-full text-center mt-4 font-medium bg-gold text-navy px-4 py-3 rounded-full hover:bg-gold/90 transition-colors"
             >
               Book a Call
-            </a>
+            </button>
           </div>
         )}
       </div>

@@ -2,14 +2,10 @@
 
 import { ArrowRight } from "lucide-react"
 import { FadeInUp } from "./motion-wrapper"
+import { useInquiry } from "./inquiry-modal"
 
 export default function ClosingCTA() {
-  const calendlyLink =
-    process.env.NEXT_PUBLIC_CALENDLY_LINK || "https://calendly.com/cappawork/discovery_call"
-
-  const handleBookCall = () => {
-    window.open(calendlyLink, "_blank", "noopener,noreferrer")
-  }
+  const { open } = useInquiry()
 
   return (
     <section id="cta" className="py-24 bg-navy">
@@ -22,7 +18,7 @@ export default function ClosingCTA() {
             A 30-minute call to figure out where you stand, where the money is, and whether this makes sense for your business.
           </p>
           <button
-            onClick={handleBookCall}
+            onClick={() => open()}
             className="bg-gold text-navy px-8 py-3.5 rounded-full font-medium hover:bg-gold/90 transition-all duration-200 inline-flex items-center gap-2 text-lg"
           >
             Book a Call
