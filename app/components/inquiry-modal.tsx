@@ -16,7 +16,7 @@ export function useInquiry() {
 
 const serviceOptions = [
   { value: "AI Team", label: "Your AI Team — $15K/month, 6 months" },
-  { value: "AI Strategy Advisor", label: "AI Strategy Advisor — $2,000/hour" },
+  { value: "AI Strategy Advisor", label: "1:1 Strategy Call — $2,000/hour" },
   { value: "AI VP Cohort", label: "AI VP Cohort — $3,500, 6 weeks" },
   { value: "Something else", label: "Something else" },
 ]

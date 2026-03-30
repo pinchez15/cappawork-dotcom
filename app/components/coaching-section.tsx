@@ -8,11 +8,11 @@ const coachingOffers = [
   {
     id: "ai-strategy-advisor",
     name: "AI Strategy Advisor",
-    subtitle: "retained · C-suite · under NDA",
+    subtitle: "one-off strategy call · 1 hour",
     price: "$2,000/hour",
     inquiryKey: "AI Strategy Advisor",
     description:
-      "A retained advisor in your corner — behind an NDA, embedded with your leadership team, looking for what you can't see. You get someone who builds AI products full-time and has spent a career in business strategy, with no incentive other than making you right. Typical engagement: 3–6 months.",
+      "A single strategy call with someone who builds AI products full-time and has spent a career in business strategy. Bring your hardest question — where to invest, what to build first, how to evaluate what your competitors are doing. You'll leave with a clear answer and a plan, not a pitch for more work.",
   },
   {
     id: "ai-vp-cohort",
