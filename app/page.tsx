@@ -8,6 +8,7 @@ import HowItWorks from "./components/how-it-works"
 import Capabilities from "./components/capabilities"
 import Qualification from "./components/qualification"
 import TheMath from "./components/the-math"
+import CoachingSection from "./components/coaching-section"
 import AboutSection from "./components/about-section"
 import ClosingCTA from "./components/closing-cta"
 
@@ -42,6 +43,7 @@ export default function HomePage() {
       <Capabilities />
       <Qualification />
       <TheMath />
+      <CoachingSection />
       <AboutSection />
       <ClosingCTA />
       <Footer />
