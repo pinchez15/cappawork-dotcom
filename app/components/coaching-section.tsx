@@ -36,10 +36,10 @@ export default function CoachingSection() {
             Coaching
           </span>
           <h2 className="font-display text-3xl sm:text-4xl tracking-tight text-white leading-tight mb-4">
-            Not ready for the full engagement?
+            Move faster with the right guidance.
           </h2>
           <p className="text-lg text-white/70 leading-relaxed mb-16 max-w-3xl">
-            As a leader, you need to be fluent in AI from top to bottom — so you can make great decisions quickly. I can coach you.
+            As a leader, you need to be fluent in AI from top to bottom — so you can make great decisions quickly. Whether it&apos;s a single strategy call or a six-week cohort, coaching can get you there.
           </p>
         </FadeInUp>
 

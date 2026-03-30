@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
     const resend = new Resend(process.env.RESEND_API_KEY);
 
     const { error } = await resend.emails.send({
-      from: process.env.EMAIL_FROM || "CappaWork <nate@cappawork.com>",
+      from: process.env.EMAIL_FROM || "CappaWork <onboarding@resend.dev>",
       to: process.env.EMAIL_TO || "nate@cappawork.com",
       subject: `New inquiry: ${service}`,
       text: [
