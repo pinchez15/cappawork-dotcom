@@ -24,10 +24,10 @@ export default function TheMath() {
               Case Study
             </p>
             <p className="text-white/80 leading-relaxed mb-4">
-              A service business doing $1.5M in revenue with $45K in annual profit. After one engagement: <span className="text-white font-medium">$1.8M in revenue, $225K in profit. 5&times; improvement in one year.</span>
+              A service business doing $1.8M in revenue with $250K in annual profit. After one engagement: <span className="text-white font-medium">$2M in revenue, $650K in profit. 2.6&times; profit improvement in one year.</span>
             </p>
             <p className="text-white/60 leading-relaxed">
-              At a $5M company with significant manual workflows, the upside is even larger.
+              $400K in new annual profit on a $90K investment. At a $5M company with significant manual workflows, the upside is even larger.
             </p>
           </div>
 
