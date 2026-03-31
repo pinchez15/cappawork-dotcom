@@ -1,9 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
+import { createDeal } from "@/server/repos/bd-deals";
 
 export const runtime = "nodejs";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+const SERVICE_VALUES: Record<string, number> = {
+  "AI Team": 90000,
+  "AI Strategy Advisor": 2000,
+  "AI VP Cohort": 3500,
+  "Something else": 0,
+};
 
 export async function POST(request: NextRequest) {
   try {
@@ -38,6 +46,36 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const linkedinUrl = linkedin.trim().startsWith("http")
+      ? linkedin.trim()
+      : `https://linkedin.com/in/${linkedin.trim().replace(/^@/, "")}`;
+
+    const dealValue = SERVICE_VALUES[service] ?? 0;
+
+    // Create deal in pipeline
+    try {
+      await createDeal({
+        name: `${name.trim()} — ${service}`,
+        company: null,
+        contact_name: name.trim(),
+        contact_title: null,
+        email: email.trim(),
+        linkedin_url: linkedinUrl,
+        value: dealValue || null,
+        stage: "lead",
+        source: "inbound",
+        referral_partner: null,
+        catalyst_id: null,
+        follow_up_date: null,
+        next_action: `Follow up re: ${service}`,
+        notes: `Inbound inquiry from cappawork.com. Interested in: ${service}.`,
+      });
+    } catch (dealError) {
+      console.error("Failed to create deal:", dealError);
+      // Don't fail the request if deal creation fails — still send the email
+    }
+
+    // Send notification email
     const resend = new Resend(process.env.RESEND_API_KEY);
 
     const { error } = await resend.emails.send({
@@ -49,11 +87,11 @@ export async function POST(request: NextRequest) {
         ``,
         `Name: ${name.trim()}`,
         `Interested in: ${service}`,
+        `Deal value: ${dealValue ? `$${dealValue.toLocaleString()}` : "TBD"}`,
         `Email: ${email.trim()}`,
-        `LinkedIn: ${linkedin.trim().startsWith("http") ? linkedin.trim() : `https://linkedin.com/in/${linkedin.trim().replace(/^@/, "")}`}`,
+        `LinkedIn: ${linkedinUrl}`,
         ``,
-        `—`,
-        `Reach out via LinkedIn DM to follow up.`,
+        `Added to pipeline as a lead.`,
       ].join("\n"),
     });
 
