@@ -12,6 +12,7 @@ import {
   type DragStartEvent,
   type DragEndEvent,
 } from "@dnd-kit/core";
+import { Maximize2, Minimize2, ArrowUpDown } from "lucide-react";
 import {
   TASK_STATUSES,
   TASK_PRIORITIES,
@@ -25,6 +26,36 @@ type Props = {
   phaseByProject: Record<string, string | null>;
 };
 
+type SortKey = "priority" | "due_date" | "title" | "project";
+
+const PRIORITY_ORDER: Record<string, number> = {
+  urgent: 0,
+  high: 1,
+  medium: 2,
+  low: 3,
+};
+
+function sortTasks(tasks: AdminTaskWithProject[], sortBy: SortKey): AdminTaskWithProject[] {
+  return [...tasks].sort((a, b) => {
+    switch (sortBy) {
+      case "priority":
+        return (PRIORITY_ORDER[a.priority] ?? 9) - (PRIORITY_ORDER[b.priority] ?? 9);
+      case "due_date": {
+        if (!a.due_date && !b.due_date) return 0;
+        if (!a.due_date) return 1;
+        if (!b.due_date) return -1;
+        return a.due_date.localeCompare(b.due_date);
+      }
+      case "title":
+        return a.title.localeCompare(b.title);
+      case "project":
+        return (a.project_name || "").localeCompare(b.project_name || "");
+      default:
+        return 0;
+    }
+  });
+}
+
 function TaskCardContent({
   task,
   phaseByProject,
@@ -34,7 +65,12 @@ function TaskCardContent({
 }) {
   const priorityDef = TASK_PRIORITIES.find((p) => p.id === task.priority);
   const today = new Date().toISOString().split("T")[0];
-  const isOverdue = task.due_date && task.due_date < today && task.status !== "done";
+  // Only show overdue styling for todo and blocked — not in_progress or done
+  const isOverdue =
+    task.due_date &&
+    task.due_date < today &&
+    task.status !== "done" &&
+    task.status !== "in_progress";
 
   return (
     <>
@@ -111,22 +147,31 @@ function DroppableColumn({
   tasks,
   onEdit,
   phaseByProject,
+  isExpanded,
+  onToggleExpand,
+  sortBy,
+  onSortChange,
 }: {
   statusId: string;
   label: string;
   tasks: AdminTaskWithProject[];
   onEdit: (task: AdminTaskWithProject) => void;
   phaseByProject: Record<string, string | null>;
+  isExpanded: boolean;
+  onToggleExpand: () => void;
+  sortBy: SortKey;
+  onSortChange: (key: SortKey) => void;
 }) {
   const { isOver, setNodeRef } = useDroppable({ id: statusId });
   const statusDef = TASK_STATUSES.find((s) => s.id === statusId);
+  const sortedTasks = sortTasks(tasks, sortBy);
 
   return (
     <div
       ref={setNodeRef}
-      className={`flex flex-col rounded-xl border border-stone-200 bg-stone-50/50 min-w-0 flex-1 transition-shadow ${
-        isOver ? "ring-2 ring-blue-400 shadow-md" : ""
-      }`}
+      className={`flex flex-col rounded-xl border border-stone-200 bg-stone-50/50 transition-all duration-200 ${
+        isExpanded ? "min-w-[480px] flex-[3]" : "min-w-0 flex-1"
+      } ${isOver ? "ring-2 ring-blue-400 shadow-md" : ""}`}
     >
       <div className="px-3 py-3 border-b border-stone-200/60">
         <div className="flex items-center justify-between">
@@ -138,14 +183,44 @@ function DroppableColumn({
             >
               {label}
             </span>
+            <span className="text-xs font-medium text-stone-400">
+              {tasks.length}
+            </span>
           </div>
-          <span className="text-xs font-medium text-stone-400">
-            {tasks.length}
-          </span>
+          <div className="flex items-center gap-1">
+            {isExpanded && (
+              <select
+                value={sortBy}
+                onChange={(e) => onSortChange(e.target.value as SortKey)}
+                className="text-[10px] px-1.5 py-0.5 rounded border border-stone-200 bg-white text-stone-500 cursor-pointer"
+              >
+                <option value="priority">Priority</option>
+                <option value="due_date">Due date</option>
+                <option value="title">Title</option>
+                <option value="project">Project</option>
+              </select>
+            )}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onToggleExpand();
+              }}
+              className="p-1 rounded hover:bg-stone-200/60 text-stone-400 hover:text-stone-600 transition-colors"
+              title={isExpanded ? "Collapse" : "Expand"}
+            >
+              {isExpanded ? (
+                <Minimize2 className="h-3 w-3" />
+              ) : (
+                <Maximize2 className="h-3 w-3" />
+              )}
+            </button>
+          </div>
         </div>
       </div>
-      <div className="flex-1 p-2 space-y-2 min-h-[120px] overflow-y-auto max-h-[calc(100vh-300px)]">
-        {tasks.map((task) => (
+      <div className={`flex-1 p-2 space-y-2 min-h-[120px] overflow-y-auto ${
+        isExpanded ? "max-h-[calc(100vh-260px)]" : "max-h-[calc(100vh-300px)]"
+      }`}>
+        {sortedTasks.map((task) => (
           <TaskCard key={task.id} task={task} onEdit={onEdit} phaseByProject={phaseByProject} />
         ))}
       </div>
@@ -155,6 +230,8 @@ function DroppableColumn({
 
 export function TaskKanbanView({ tasks, onEdit, onStatusChange, phaseByProject }: Props) {
   const [activeId, setActiveId] = useState<string | null>(null);
+  const [expandedColumn, setExpandedColumn] = useState<string | null>(null);
+  const [columnSorts, setColumnSorts] = useState<Record<string, SortKey>>({});
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 8 } })
@@ -200,6 +277,16 @@ export function TaskKanbanView({ tasks, onEdit, onStatusChange, phaseByProject }
             tasks={tasks.filter((t) => t.status === status.id)}
             onEdit={onEdit}
             phaseByProject={phaseByProject}
+            isExpanded={expandedColumn === status.id}
+            onToggleExpand={() =>
+              setExpandedColumn((prev) =>
+                prev === status.id ? null : status.id
+              )
+            }
+            sortBy={columnSorts[status.id] || "priority"}
+            onSortChange={(key) =>
+              setColumnSorts((prev) => ({ ...prev, [status.id]: key }))
+            }
           />
         ))}
       </div>

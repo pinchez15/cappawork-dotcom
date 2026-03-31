@@ -134,7 +134,7 @@ export async function getTaskStats() {
   const blocked = tasks.filter((t) => t.status === "blocked").length;
   const done = tasks.filter((t) => t.status === "done").length;
   const overdue = tasks.filter(
-    (t) => t.due_date && t.due_date < today && t.status !== "done"
+    (t) => t.due_date && t.due_date < today && t.status !== "done" && t.status !== "in_progress"
   ).length;
   const urgent = tasks.filter(
     (t) => t.priority === "urgent" && t.status !== "done"

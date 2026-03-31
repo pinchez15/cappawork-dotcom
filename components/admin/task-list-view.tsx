@@ -59,7 +59,7 @@ export function TaskListView({ tasks, onEdit, phaseByProject }: Props) {
           {tasks.map((task) => {
             const isDone = task.status === "done";
             const isOverdue =
-              task.due_date && task.due_date < today && !isDone;
+              task.due_date && task.due_date < today && !isDone && task.status !== "in_progress";
 
             return (
               <tr

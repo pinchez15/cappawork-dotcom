@@ -43,7 +43,7 @@ type ViewMode = "list" | "kanban";
 export function TaskDashboard({ initialTasks, stats, projects, projectProgress }: Props) {
   const router = useRouter();
   const [tasks, setTasks] = useState(initialTasks);
-  const [view, setView] = useState<ViewMode>("list");
+  const [view, setView] = useState<ViewMode>("kanban");
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingTask, setEditingTask] = useState<AdminTaskWithProject | null>(null);
 
