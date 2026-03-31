@@ -336,8 +336,39 @@ export function DealFormDialog({
 
           {/* Follow-up */}
           <div className="border-t border-stone-100 pt-4">
-            <div className="text-xs font-semibold text-stone-500 uppercase tracking-wider mb-3">
-              Follow-up
+            <div className="flex items-center justify-between mb-3">
+              <div className="text-xs font-semibold text-stone-500 uppercase tracking-wider">
+                Follow-up
+              </div>
+              <div className="flex gap-1">
+                {[
+                  { label: "Tomorrow", days: 1 },
+                  { label: "1 week", days: 7 },
+                  { label: "2 weeks", days: 14 },
+                ].map((preset) => (
+                  <button
+                    key={preset.label}
+                    type="button"
+                    onClick={() => {
+                      const d = new Date();
+                      d.setDate(d.getDate() + preset.days);
+                      set("follow_up_date", d.toISOString().split("T")[0]);
+                    }}
+                    className="text-[10px] px-2 py-0.5 rounded-full border border-stone-200 text-stone-500 hover:bg-stone-100 hover:text-stone-700 transition-colors"
+                  >
+                    {preset.label}
+                  </button>
+                ))}
+                {form.follow_up_date && (
+                  <button
+                    type="button"
+                    onClick={() => set("follow_up_date", "")}
+                    className="text-[10px] px-2 py-0.5 rounded-full border border-red-200 text-red-500 hover:bg-red-50 hover:text-red-700 transition-colors"
+                  >
+                    Clear
+                  </button>
+                )}
+              </div>
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useDraggable } from "@dnd-kit/core";
-import { GripVertical, Linkedin, UserCircle, Clock } from "lucide-react";
+import { GripVertical, Linkedin, UserCircle, Clock, CalendarCheck } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import type { BDDeal } from "@/server/repos/bd-deals";
 
@@ -52,6 +52,16 @@ export function DealCard({ deal, onEdit }: Props) {
   const badge = sourceBadge[deal.source] || sourceBadge.other;
   const aging = isStale(deal);
 
+  const followUpStatus = (() => {
+    if (!deal.follow_up_date) return null;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const fup = new Date(deal.follow_up_date + "T00:00:00");
+    if (fup < today) return "overdue";
+    if (fup.getTime() === today.getTime()) return "today";
+    return "upcoming";
+  })();
+
   return (
     <div
       ref={setNodeRef}
@@ -95,6 +105,20 @@ export function DealCard({ deal, onEdit }: Props) {
               </span>
             )}
           </div>
+          {followUpStatus && (
+            <div className={`flex items-center gap-1 mt-1.5 text-[10px] font-medium ${
+              followUpStatus === "overdue"
+                ? "text-red-600"
+                : followUpStatus === "today"
+                  ? "text-amber-600"
+                  : "text-stone-400"
+            }`}>
+              <CalendarCheck className="h-2.5 w-2.5" />
+              {followUpStatus === "overdue" && `Follow-up overdue`}
+              {followUpStatus === "today" && `Follow-up today`}
+              {followUpStatus === "upcoming" && `Follow-up ${deal.follow_up_date}`}
+            </div>
+          )}
           {(deal.contact_name || deal.referral_partner) && (
             <div className="flex items-center gap-3 mt-2 text-xs text-stone-400">
               {deal.contact_name && (

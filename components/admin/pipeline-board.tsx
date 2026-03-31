@@ -20,7 +20,7 @@ import { useCommandContext } from "@/components/admin/command-panel/use-command-
 import { DealCard } from "@/components/admin/deal-card";
 import { DealFormDialog } from "@/components/admin/deal-form-dialog";
 import { WinCelebration } from "@/components/admin/win-celebration";
-import { AlertTriangle, Clock } from "lucide-react";
+import { AlertTriangle, Clock, Check, CalendarPlus } from "lucide-react";
 
 type Props = {
   initialStages: DealsByStage[];
@@ -213,15 +213,17 @@ export function PipelineBoard({ initialStages, overdue, catalysts }: Props) {
           </div>
           <div className="space-y-1.5">
             {overdue.map((deal) => (
-              <button
+              <div
                 key={deal.id}
-                onClick={() => handleEdit(deal)}
-                className="flex items-center gap-3 w-full text-left text-sm hover:bg-amber-100/50 rounded-lg px-2 py-1.5 transition-colors"
+                className="flex items-center gap-3 w-full text-sm hover:bg-amber-100/50 rounded-lg px-2 py-1.5 transition-colors"
               >
                 <Clock className="h-3.5 w-3.5 text-amber-500 shrink-0" />
-                <span className="font-medium text-stone-900 truncate">
+                <button
+                  onClick={() => handleEdit(deal)}
+                  className="font-medium text-stone-900 truncate text-left hover:underline"
+                >
                   {deal.name}
-                </span>
+                </button>
                 {deal.next_action && (
                   <span className="text-stone-500 truncate flex-1">
                     — {deal.next_action}
@@ -230,7 +232,51 @@ export function PipelineBoard({ initialStages, overdue, catalysts }: Props) {
                 <span className="text-xs text-amber-600 shrink-0">
                   {deal.follow_up_date}
                 </span>
-              </button>
+                <div className="flex items-center gap-1 shrink-0">
+                  <button
+                    onClick={async (e) => {
+                      e.stopPropagation();
+                      const tomorrow = new Date();
+                      tomorrow.setDate(tomorrow.getDate() + 1);
+                      const dateStr = tomorrow.toISOString().split("T")[0];
+                      await fetch(`/api/admin/bd-deals/${deal.id}`, {
+                        method: "PATCH",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ follow_up_date: dateStr }),
+                      });
+                      router.refresh();
+                    }}
+                    className="p-1 rounded hover:bg-amber-200/60 text-amber-600 hover:text-amber-800 transition-colors"
+                    title="Snooze to tomorrow"
+                  >
+                    <CalendarPlus className="h-3.5 w-3.5" />
+                  </button>
+                  <button
+                    onClick={async (e) => {
+                      e.stopPropagation();
+                      const now = new Date().toISOString().split("T")[0];
+                      const logEntry = `[${now}] ${deal.next_action || "Follow-up completed"}`;
+                      const updatedNotes = deal.notes
+                        ? `${logEntry}\n${deal.notes}`
+                        : logEntry;
+                      await fetch(`/api/admin/bd-deals/${deal.id}`, {
+                        method: "PATCH",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                          follow_up_date: null,
+                          next_action: null,
+                          notes: updatedNotes,
+                        }),
+                      });
+                      router.refresh();
+                    }}
+                    className="p-1 rounded hover:bg-green-200/60 text-green-600 hover:text-green-800 transition-colors"
+                    title="Mark complete"
+                  >
+                    <Check className="h-3.5 w-3.5" />
+                  </button>
+                </div>
+              </div>
             ))}
           </div>
         </div>
