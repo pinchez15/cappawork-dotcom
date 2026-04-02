@@ -65,6 +65,7 @@ export function DealFormDialog({
     source: "linkedin",
     referral_partner: "",
     catalyst_id: "",
+    expected_close_date: "",
     follow_up_date: "",
     next_action: "",
     notes: "",
@@ -84,6 +85,7 @@ export function DealFormDialog({
         source: deal.source,
         referral_partner: deal.referral_partner || "",
         catalyst_id: deal.catalyst_id || "",
+        expected_close_date: deal.expected_close_date || "",
         follow_up_date: deal.follow_up_date || "",
         next_action: deal.next_action || "",
         notes: deal.notes || "",
@@ -101,6 +103,7 @@ export function DealFormDialog({
         source: "linkedin",
         referral_partner: "",
         catalyst_id: "",
+        expected_close_date: "",
         follow_up_date: "",
         next_action: "",
         notes: "",
@@ -118,6 +121,7 @@ export function DealFormDialog({
     const payload = {
       ...form,
       catalyst_id: form.catalyst_id || null,
+      expected_close_date: form.expected_close_date || null,
       follow_up_date: form.follow_up_date || null,
       next_action: form.next_action || null,
     };
@@ -332,6 +336,23 @@ export function DealFormDialog({
                 onChange={(e) => set("referral_partner", e.target.value)}
               />
             </div>
+          </div>
+
+          {/* Expected close date */}
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <Label htmlFor="expected_close_date">Expected win date</Label>
+              <Input
+                id="expected_close_date"
+                type="month"
+                value={form.expected_close_date ? form.expected_close_date.slice(0, 7) : ""}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  set("expected_close_date", val ? `${val}-01` : "");
+                }}
+              />
+            </div>
+            <div />
           </div>
 
           {/* Follow-up */}

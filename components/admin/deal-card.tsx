@@ -1,7 +1,7 @@
 "use client";
 
 import { useDraggable } from "@dnd-kit/core";
-import { GripVertical, Linkedin, UserCircle, Clock, CalendarCheck } from "lucide-react";
+import { GripVertical, Linkedin, UserCircle, Clock, CalendarCheck, Target } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import type { BDDeal } from "@/server/repos/bd-deals";
 
@@ -105,6 +105,12 @@ export function DealCard({ deal, onEdit }: Props) {
               </span>
             )}
           </div>
+          {deal.expected_close_date && (
+            <div className="flex items-center gap-1 mt-1.5 text-[10px] font-medium text-stone-400">
+              <Target className="h-2.5 w-2.5" />
+              Close {new Date(deal.expected_close_date + "T00:00:00").toLocaleDateString("en-US", { month: "short", year: "numeric" })}
+            </div>
+          )}
           {followUpStatus && (
             <div className={`flex items-center gap-1 mt-1.5 text-[10px] font-medium ${
               followUpStatus === "overdue"

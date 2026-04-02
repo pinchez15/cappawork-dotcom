@@ -14,6 +14,7 @@ export type BDDeal = {
   source: string;
   referral_partner: string | null;
   catalyst_id: string | null;
+  expected_close_date: string | null;
   follow_up_date: string | null;
   next_action: string | null;
   notes: string | null;

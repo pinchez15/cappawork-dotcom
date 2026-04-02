@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
     await requireAdmin();
     const body = await request.json();
 
-    const { name, company, contact_name, contact_title, email, linkedin_url, value, stage, source, referral_partner, catalyst_id, follow_up_date, next_action, notes } = body;
+    const { name, company, contact_name, contact_title, email, linkedin_url, value, stage, source, referral_partner, catalyst_id, expected_close_date, follow_up_date, next_action, notes } = body;
 
     if (!name || typeof name !== "string") {
       return NextResponse.json({ error: "Name is required" }, { status: 400 });
@@ -37,6 +37,7 @@ export async function POST(request: NextRequest) {
       source: source || "linkedin",
       referral_partner: referral_partner?.trim() || null,
       catalyst_id: catalyst_id || null,
+      expected_close_date: expected_close_date || null,
       follow_up_date: follow_up_date || null,
       next_action: next_action?.trim() || null,
       notes: notes?.trim() || null,

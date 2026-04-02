@@ -87,6 +87,7 @@ export async function POST(request: NextRequest) {
       source: parsed.source || "linkedin",
       referral_partner: parsed.referral_partner || null,
       catalyst_id: null,
+      expected_close_date: null,
       follow_up_date: null,
       next_action: null,
       notes: parsed.notes || null,

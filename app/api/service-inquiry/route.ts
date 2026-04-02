@@ -66,6 +66,7 @@ export async function POST(request: NextRequest) {
         source: "inbound",
         referral_partner: null,
         catalyst_id: null,
+        expected_close_date: null,
         follow_up_date: null,
         next_action: `Follow up re: ${service}`,
         notes: `Inbound inquiry from cappawork.com. Interested in: ${service}.`,

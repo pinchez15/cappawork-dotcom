@@ -438,6 +438,7 @@ async function executeTool(
         source: (input.source as string) || "other",
         referral_partner: (input.referral_partner as string) || null,
         catalyst_id: null,
+        expected_close_date: null,
         follow_up_date: null,
         next_action: null,
         notes: (input.notes as string) || null,
