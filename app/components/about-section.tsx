@@ -26,7 +26,10 @@ export default function AboutSection() {
                 MBA. 15 years of experience. 7 years building products. I&apos;ve done C-suite strategy work up to $2B+ companies and I ship production AI systems every&nbsp;day.
               </p>
               <p>
-                I started CappaWork because I kept seeing the same gap &mdash; businesses know AI matters but can&apos;t find someone who does strategy <em>and</em> builds <em>and</em> trains. That&apos;s what I&nbsp;do.
+                My own business almost died from poor cashflow — so profitability isn&apos;t an abstract concept for me. It&apos;s the first thing I look at, every time. I&apos;ve spent years inside founder-led service businesses mapping workflows, measuring unit economics, and building the systems that turn operational chaos into measurable&nbsp;margin.
+              </p>
+              <p>
+                I&apos;m not a strategist who hands you a deck. I&apos;m not a dev shop that builds what you tell them. I diagnose the problem, build the solution, and train your team to own&nbsp;it.
               </p>
               <p className="text-navy font-medium">
                 One person. Full stack. Business strategy through production&nbsp;code.

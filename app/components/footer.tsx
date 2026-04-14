@@ -11,7 +11,7 @@ export default function Footer() {
               CappaWork
             </Link>
             <p className="text-white/50 text-sm max-w-md">
-              Your AI team. Fractional AI leads to help you set and execute your AI strategy at startup speed.
+              Your AI team. One engagement. You keep everything we build.
             </p>
           </div>
 

@@ -1,44 +1,44 @@
 "use client"
 
 import { FadeInUp, StaggerContainer, StaggerItem } from "./motion-wrapper"
-import { Compass, Code2, UserCheck, GraduationCap, Search, RefreshCw } from "lucide-react"
+import { Search, Compass, Code2, UserCheck, GraduationCap, RefreshCw } from "lucide-react"
 
 const capabilities = [
+  {
+    icon: Search,
+    title: "Profit Diagnostics",
+    description:
+      "We find where you're leaving money on the table. Full workflow audit, margin analysis, opportunity mapping tied to your actual P&L.",
+  },
   {
     icon: Compass,
     title: "AI Strategy",
     description:
-      "We figure out where AI actually matters for your business and build a roadmap prioritized by impact.",
-  },
-  {
-    icon: Search,
-    title: "Workflow Audit",
-    description:
-      "We find the manual work that's costing you the most and identify where automation will move the needle.",
+      "We decide what to build and in what order. Prioritized by profit impact, not novelty. You'll never build the wrong thing first.",
   },
   {
     icon: Code2,
     title: "Product Development",
     description:
-      "We build custom AI products and automation. Full-stack, production-ready, shipped monthly.",
+      "We build custom AI products and workflow automation. Full-stack — architecture through deployment. Production-ready, not prototypes.",
   },
   {
     icon: UserCheck,
     title: "Executive Coaching",
     description:
-      "We help you make informed AI decisions — what's real, what's hype, and what matters for your business.",
+      "We coach you on AI decisions so you move fast and stay informed. You'll know what's hype, what's real, and what matters for your business.",
   },
   {
     icon: GraduationCap,
     title: "Team Training",
     description:
-      "We train your people to use and maintain what we build. Hands-on, in their actual workflow.",
+      "We train your people to use and maintain what we build. Hands-on, in their actual codebase, with their actual work — not a generic workshop.",
   },
   {
     icon: RefreshCw,
     title: "Change Management",
     description:
-      "New tools fail when nobody changes the process. We change the process.",
+      "We help your organization actually adopt the new way of working. New tools fail when nobody changes the process. We change the process.",
   },
 ]
 
@@ -48,10 +48,10 @@ export default function Capabilities() {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <FadeInUp>
           <span className="text-sm font-semibold tracking-widest uppercase text-gold block mb-4">
-            What We Do
+            Inside the Engagement
           </span>
           <h2 className="font-display text-3xl sm:text-4xl tracking-tight text-navy leading-tight mb-16">
-            Strategy, build, and training &mdash; all in one team.
+            What your AI team does.
           </h2>
         </FadeInUp>
 

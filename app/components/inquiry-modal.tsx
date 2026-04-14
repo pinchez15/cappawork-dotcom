@@ -15,9 +15,9 @@ export function useInquiry() {
 }
 
 const serviceOptions = [
-  { value: "Fractional AI Lead", label: "Fractional AI Lead" },
-  { value: "AI Strategy Session", label: "AI Strategy Session" },
-  { value: "Team Training", label: "Team Training" },
+  { value: "AI Team", label: "Your AI Team — $15K/month, 6 months" },
+  { value: "AI Strategy Advisor", label: "1:1 Strategy Call — $2,000/hour" },
+  { value: "AI VP Cohort", label: "AI VP Cohort — $3,500, 6 weeks" },
   { value: "Something else", label: "Something else" },
 ]
 
@@ -56,7 +56,7 @@ function InquiryModalContent({
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [linkedin, setLinkedin] = useState("")
-  const [service, setService] = useState(preselectedService || "Fractional AI Lead")
+  const [service, setService] = useState(preselectedService || "AI Team")
   const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [error, setError] = useState("")
