@@ -1,72 +1,73 @@
 "use client"
 
+import { ArrowRight } from "lucide-react"
 import { FadeInUp, StaggerContainer, StaggerItem } from "./motion-wrapper"
+import { useInquiry } from "./inquiry-modal"
 
 const timeline = [
   {
     phase: "Month 1",
-    title: "Find the money",
-    description:
-      "Full profit diagnostic. I audit your workflows, map where margin is leaking, and identify the highest-leverage AI opportunities. You get a written diagnosis with exactly what to build, in what order, and the expected P&L impact. This isn't a strategy deck — it's a build plan with dollar signs on it.",
+    title: "We audit your workflows and build the roadmap.",
   },
   {
-    phase: "Months 2–5",
-    title: "Build and ship",
-    description:
-      "One initiative per month. Custom AI products, workflow automation, process redesign — whatever the diagnosis says will move the most profit. Each build ships to production. Working software, not presentations.",
-  },
-  {
-    phase: "Throughout",
-    title: "Coach and train",
-    description:
-      "Ongoing coaching for you on AI decisions — what to invest in, what to skip, how to evaluate what your competitors are doing. Team training woven into each build cycle so your people learn by doing, not by sitting through lectures.",
+    phase: "Months 2\u20135",
+    title: "One AI build shipped every month. Working software, not decks.",
   },
   {
     phase: "Month 6",
-    title: "Transition and handoff",
-    description:
-      "Final builds ship, documentation complete, team trained. I hand you the keys. Optional $1K/month maintenance retainer available if you want ongoing support, but you won't need me to keep the lights on.",
+    title: "Handoff. You own everything.",
   },
 ]
 
 export default function HowItWorks() {
+  const { open } = useInquiry()
+
   return (
-    <section id="how-it-works" className="py-24 bg-navy">
+    <section id="how-it-works" className="py-24 bg-warm-white">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <FadeInUp>
           <span className="text-sm font-semibold tracking-widest uppercase text-gold block mb-4">
             How It Works
           </span>
-          <h2 className="font-display text-3xl sm:text-4xl tracking-tight text-white leading-tight mb-16">
-            Six months. Start to finish.
+          <h2 className="font-display text-3xl sm:text-4xl tracking-tight text-navy leading-tight mb-16">
+            Six months. Strategy, build, and training &mdash; one team.
           </h2>
         </FadeInUp>
 
         <StaggerContainer className="relative">
           {/* Timeline line */}
-          <div className="absolute left-4 md:left-6 top-0 bottom-0 w-px bg-white/10" />
+          <div className="absolute left-4 md:left-6 top-0 bottom-0 w-px bg-stone-200" />
 
           <div className="space-y-12">
-            {timeline.map((item, i) => (
+            {timeline.map((item) => (
               <StaggerItem key={item.phase}>
                 <div className="relative pl-12 md:pl-16">
                   {/* Timeline dot */}
-                  <div className="absolute left-2 md:left-4 top-1 w-4 h-4 rounded-full bg-gold border-2 border-navy" />
+                  <div className="absolute left-2 md:left-4 top-1 w-4 h-4 rounded-full bg-gold border-2 border-warm-white" />
 
                   <p className="text-sm font-semibold tracking-widest uppercase text-gold mb-2">
                     {item.phase}
                   </p>
-                  <h3 className="font-display text-2xl text-white mb-3">
+                  <h3 className="font-display text-xl text-navy">
                     {item.title}
                   </h3>
-                  <p className="text-white/70 leading-relaxed">
-                    {item.description}
-                  </p>
                 </div>
               </StaggerItem>
             ))}
           </div>
         </StaggerContainer>
+
+        <FadeInUp>
+          <div className="mt-16">
+            <button
+              onClick={() => open()}
+              className="bg-gold text-navy px-8 py-3.5 rounded-full font-medium hover:bg-gold/90 transition-all duration-200 inline-flex items-center gap-2 text-lg"
+            >
+              Get in Touch
+              <ArrowRight size={18} />
+            </button>
+          </div>
+        </FadeInUp>
       </div>
     </section>
   )

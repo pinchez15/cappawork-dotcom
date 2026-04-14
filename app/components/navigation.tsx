@@ -19,7 +19,7 @@ export default function Navigation() {
       setActiveSection("blog")
     } else if (currentPath === "/") {
       const handleScroll = () => {
-        const sections = ["hero", "problem", "offer", "how-it-works", "capabilities", "fit", "math", "coaching", "about"]
+        const sections = ["hero", "problem", "how-it-works", "about"]
         const scrollPosition = window.scrollY + 100
 
         for (const section of sections) {
@@ -41,7 +41,6 @@ export default function Navigation() {
 
   const navItems = [
     { id: "how-it-works", label: "How It Works", href: "/#how-it-works" },
-    { id: "coaching", label: "Coaching", href: "/#coaching" },
     { id: "about", label: "About", href: "/#about" },
     { id: "blog", label: "Blog", href: "/blog" },
   ]

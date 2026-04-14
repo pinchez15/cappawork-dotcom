@@ -3,12 +3,7 @@ import Hero from "./components/hero"
 import Navigation from "./components/navigation"
 import Footer from "./components/footer"
 import ProblemSection from "./components/problem-section"
-import OfferCard from "./components/offer-card"
 import HowItWorks from "./components/how-it-works"
-import Capabilities from "./components/capabilities"
-import Qualification from "./components/qualification"
-import TheMath from "./components/the-math"
-import CoachingSection from "./components/coaching-section"
 import AboutSection from "./components/about-section"
 import ClosingCTA from "./components/closing-cta"
 import HomepageWrapper from "./components/homepage-wrapper"
@@ -40,12 +35,7 @@ export default function HomePage() {
         <Navigation />
         <Hero />
         <ProblemSection />
-        <OfferCard />
         <HowItWorks />
-        <Capabilities />
-        <Qualification />
-        <TheMath />
-        <CoachingSection />
         <AboutSection />
         <ClosingCTA />
         <Footer />

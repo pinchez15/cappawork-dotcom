@@ -3,12 +3,57 @@
 import { ArrowRight } from "lucide-react"
 import { motion } from "framer-motion"
 import { useInquiry } from "./inquiry-modal"
+import { useRef, useEffect } from "react"
 
 export default function Hero() {
   const { open } = useInquiry()
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const hasPlayedRef = useRef(false)
+
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video) return
+
+    video.playbackRate = 0.6
+
+    const handleScroll = () => {
+      if (window.scrollY === 0 && hasPlayedRef.current) {
+        hasPlayedRef.current = false
+        video.currentTime = 0
+        video.play()
+      }
+    }
+
+    const handleEnded = () => {
+      hasPlayedRef.current = true
+    }
+
+    video.addEventListener("ended", handleEnded)
+    window.addEventListener("scroll", handleScroll)
+    return () => {
+      video.removeEventListener("ended", handleEnded)
+      window.removeEventListener("scroll", handleScroll)
+    }
+  }, [])
 
   return (
     <section id="hero" className="relative min-h-[100svh] flex items-center bg-navy overflow-hidden">
+      {/* Background video — bottom cropped to hide watermark */}
+      <div className="absolute inset-0 overflow-hidden">
+        <video
+          ref={videoRef}
+          autoPlay
+          muted
+          playsInline
+          preload="auto"
+          className="absolute top-0 left-0 w-full h-[110%] object-cover"
+        >
+          <source src="/CappaWork_video.mp4" type="video/mp4" />
+        </video>
+        {/* Overlay for text legibility */}
+        <div className="absolute inset-0 bg-navy/60" />
+      </div>
+
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 py-32">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}

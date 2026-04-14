@@ -12,10 +12,10 @@ export default function ClosingCTA() {
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <FadeInUp>
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl tracking-tight text-white mb-6 leading-tight">
-            Worth a conversation?
+            Ready to move?
           </h2>
           <p className="text-lg text-white/70 mb-10 leading-relaxed">
-            A 30-minute call to figure out where you stand, where the money is, and whether this makes sense for your business.
+            30 minutes to figure out whether we can help.
           </p>
           <button
             onClick={() => open()}
@@ -24,9 +24,6 @@ export default function ClosingCTA() {
             Get in Touch
             <ArrowRight size={18} />
           </button>
-          <p className="text-sm text-white/40 mt-6">
-            No pitch deck. No pressure. Just clarity.
-          </p>
         </FadeInUp>
       </div>
     </section>
