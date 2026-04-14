@@ -16,9 +16,7 @@ export default function Hero() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="font-display text-5xl md:text-6xl lg:text-7xl tracking-tight text-white mb-6 leading-[1.1]"
         >
-          Elevate your people.{" "}
-          <br className="hidden md:block" />
-          Automate your process.
+          Your AI team.
         </motion.h1>
 
         <motion.p
@@ -27,19 +25,17 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
           className="text-xl md:text-2xl text-gold font-display mb-8"
         >
-          Let computers do computer work. So your people can work like people again.
+          Fractional AI leads to help you set and execute your AI strategy at startup speed.
         </motion.p>
 
-        <motion.div
+        <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-          className="text-lg text-white/70 max-w-2xl mx-auto mb-12 leading-relaxed space-y-4"
+          className="text-lg text-white/70 max-w-2xl mx-auto mb-12 leading-relaxed"
         >
-          <p>
-            Your team is buried in manual work that machines should handle. We become your AI team — we find where the money is leaking, build the systems that fix it, and train your people to own what we build.
-          </p>
-        </motion.div>
+          You have a day job. You can&apos;t also be your company&apos;s AI strategist. We can.
+        </motion.p>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -50,7 +46,7 @@ export default function Hero() {
             onClick={() => open()}
             className="bg-gold text-navy px-8 py-3.5 rounded-full font-medium hover:bg-gold/90 transition-all duration-200 inline-flex items-center gap-2 text-lg"
           >
-            Let&apos;s Go
+            Let&apos;s Talk
             <ArrowRight size={18} />
           </button>
         </motion.div>
