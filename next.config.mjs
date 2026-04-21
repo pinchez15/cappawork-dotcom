@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://cappawork.com').replace(/\/$/, '')
+
 const nextConfig = {
   eslint: {
     // Re-enable ESLint for security
@@ -14,6 +16,21 @@ const nextConfig = {
   },
   async headers() {
     return [
+      {
+        source: '/',
+        headers: [
+          {
+            key: 'Link',
+            value: [
+              `<${siteUrl}/.well-known/api-catalog>; rel="api-catalog"`,
+              `<${siteUrl}/.well-known/agent-skills/index.json>; rel="item"`,
+              `<${siteUrl}/sitemap.xml>; rel="sitemap"`,
+              `<${siteUrl}/.well-known/oauth-protected-resource>; rel="oauth-protected-resource"`,
+              `<${siteUrl}/.well-known/openid-configuration>; rel="openid-configuration"`,
+            ].join(', '),
+          },
+        ],
+      },
       {
         source: '/(.*)',
         headers: [

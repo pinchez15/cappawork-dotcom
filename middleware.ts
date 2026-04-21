@@ -1,5 +1,6 @@
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
 import { NextResponse } from 'next/server'
+import { isMarkdownNegotiationPath, prefersMarkdown } from '@/lib/agents/accept'
 
 // Routes that require authentication
 const isProtectedRoute = createRouteMatcher([
@@ -31,6 +32,22 @@ const isPublicRoute = createRouteMatcher([
 ])
 
 export default clerkMiddleware(async (auth, req) => {
+  const url = req.nextUrl
+
+  if (url.pathname === '/api/agents/markdown') {
+    return NextResponse.next()
+  }
+
+  if (
+    req.method === 'GET' &&
+    prefersMarkdown(req.headers.get('accept')) &&
+    isMarkdownNegotiationPath(url.pathname)
+  ) {
+    const rewrite = new URL('/api/agents/markdown', url.origin)
+    rewrite.searchParams.set('path', url.pathname)
+    return NextResponse.rewrite(rewrite)
+  }
+
   const { userId, redirectToSignIn } = await auth()
   
   // If trying to access protected route without auth, redirect to sign-in
