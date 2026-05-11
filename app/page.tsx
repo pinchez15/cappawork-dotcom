@@ -4,6 +4,7 @@ import Navigation from "./components/navigation"
 import Footer from "./components/footer"
 import ProblemSection from "./components/problem-section"
 import HowItWorks from "./components/how-it-works"
+import SoftwareWeBuild from "./components/software-we-build"
 import AboutSection from "./components/about-section"
 import ClosingCTA from "./components/closing-cta"
 import HomepageWrapper from "./components/homepage-wrapper"
@@ -36,6 +37,7 @@ export default function HomePage() {
         <Hero />
         <ProblemSection />
         <HowItWorks />
+        <SoftwareWeBuild />
         <AboutSection />
         <ClosingCTA />
         <Footer />
