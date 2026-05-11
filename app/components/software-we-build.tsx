@@ -2,54 +2,18 @@
 
 import { FadeInUp, StaggerContainer, StaggerItem } from "./motion-wrapper"
 
-const softwareOptions = [
+const systemAdvantages = [
   {
-    title: "Custom CRM",
-    text: "Built around your real customer journey.",
+    title: "Built around your workflow",
+    text: "Your process becomes the product, not a workaround.",
   },
   {
-    title: "Sales Pipeline System",
-    text: "Forecast, follow up, and close more deals.",
+    title: "Agents inside the system",
+    text: "Research, draft, route, summarize, and follow up where work already happens.",
   },
   {
-    title: "Business Development Platform",
-    text: "Turn outreach and referrals into a repeatable engine.",
-  },
-  {
-    title: "AI Agent System",
-    text: "Automate repetitive knowledge work.",
-  },
-  {
-    title: "Time Tracking & Job Costing",
-    text: "See labor, capacity, and profitability clearly.",
-  },
-  {
-    title: "Operations Dashboard",
-    text: "One executive view of the business.",
-  },
-  {
-    title: "Client Portal",
-    text: "Status, documents, requests, and approvals in one place.",
-  },
-  {
-    title: "Field Team Mobile App",
-    text: "iOS and Android tools for teams on the move.",
-  },
-  {
-    title: "Workflow Management System",
-    text: "Replace spreadsheets, handoffs, and status chasing.",
-  },
-  {
-    title: "Inventory & Asset Tracking",
-    text: "Know what you have, where it is, and what it costs.",
-  },
-  {
-    title: "Reporting & Analytics Platform",
-    text: "Automate the reports leaders actually use.",
-  },
-  {
-    title: "Customer Service System",
-    text: "Track requests, issues, SLAs, and resolution.",
+    title: "People doing human work",
+    text: "Less copying, chasing, and updating. More judgment, service, and sales.",
   },
 ]
 
@@ -59,32 +23,40 @@ export default function SoftwareWeBuild() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <FadeInUp>
           <span className="text-sm font-semibold tracking-widest uppercase text-gold block mb-4">
-            Software We Build
+            Custom Systems + Agents
           </span>
-          <div className="max-w-4xl">
+          <div className="max-w-5xl">
             <h2 className="font-display text-3xl sm:text-4xl tracking-tight text-navy leading-tight mb-6">
-              One or two custom systems can replace the tools holding your business together.
+              Replace the software that almost works.
             </h2>
-            <p className="text-lg text-stone-600 leading-relaxed mb-14">
-              Most $5M-$50M businesses do not need more software subscriptions. They need custom systems that replace expensive tools, remove bottlenecks, and increase revenue by expanding team capacity. CappaWork builds each system to return at least 10x value over two years.
+            <p className="text-lg text-stone-600 leading-relaxed mb-10">
+              Most $5M-$50M businesses are paying $30K-$50K a year for software that still needs spreadsheets, manual handoffs, and workarounds. CappaWork builds the system around how your business actually runs, then builds the agents that work inside it.
             </p>
           </div>
         </FadeInUp>
 
-        <StaggerContainer className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {softwareOptions.map((option) => (
-            <StaggerItem key={option.title}>
-              <div className="h-full rounded-2xl border border-stone-200 bg-warm-white p-6">
+        <StaggerContainer className="grid gap-4 md:grid-cols-3">
+          {systemAdvantages.map((advantage) => (
+            <StaggerItem key={advantage.title}>
+              <div className="h-full rounded-2xl border border-stone-200 bg-warm-white p-6 shadow-sm">
                 <h3 className="font-display text-xl text-navy mb-3">
-                  {option.title}
+                  {advantage.title}
                 </h3>
-                <p className="text-sm leading-relaxed text-stone-600">
-                  {option.text}
+                <p className="leading-relaxed text-stone-600">
+                  {advantage.text}
                 </p>
               </div>
             </StaggerItem>
           ))}
         </StaggerContainer>
+
+        <FadeInUp delay={0.2}>
+          <div className="mt-8 rounded-2xl border border-gold/30 bg-warm-white p-6">
+            <p className="text-lg font-medium leading-relaxed text-navy">
+              The target: replace two or three high-cost subscriptions, remove the busywork around them, and create 10x value over two years.
+            </p>
+          </div>
+        </FadeInUp>
       </div>
     </section>
   )
