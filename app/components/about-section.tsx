@@ -19,14 +19,14 @@ export default function AboutSection() {
               About
             </span>
             <h2 className="font-display text-2xl sm:text-3xl tracking-tight text-navy mb-6">
-              Nate Pinches
+              Built for serious operators.
             </h2>
             <div className="text-stone-600 leading-relaxed space-y-4">
               <p>
-                MBA. C-suite strategy work at companies up to $2B+. I ship production AI every&nbsp;day.
+                CappaWork exists for American business owners who are done forcing their company through tools that were never designed for them.
               </p>
               <p>
-                I started CappaWork because businesses know AI matters but can&apos;t find someone who does strategy <em>and</em> builds <em>and</em> trains. That&apos;s what I&nbsp;do.
+                We bring strategy, software development, AI, hosting, and training into one engagement, so the system is not just planned. It gets built, adopted, and owned.
               </p>
             </div>
           </div>

@@ -20,10 +20,10 @@ const instrumentSerif = Instrument_Serif({
 })
 
 export const metadata: Metadata = {
-  title: "CappaWork — Your AI Team",
+  title: "CappaWork — Custom Software for American Businesses",
   description:
-    "CappaWork becomes your AI team. One engagement. Six months. You keep everything we build.",
-  keywords: "AI team, AI consulting, AI transformation, founder-led businesses, operational efficiency, profit improvement",
+    "CappaWork designs, builds, hosts, and maintains custom software for $5M-$50M American businesses.",
+  keywords: "custom software, American businesses, small business software, operational software, business automation",
   authors: [{ name: "CappaWork" }],
   creator: "CappaWork",
   publisher: "CappaWork",
@@ -36,14 +36,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://cappawork.com",
-    title: "CappaWork — Your AI Team",
-    description: "CappaWork becomes your AI team. One engagement. Six months. You keep everything we build.",
+    title: "CappaWork — Custom Software for American Businesses",
+    description: "Custom software for $5M-$50M businesses. You own the IP. CappaWork builds, hosts, secures, and maintains it.",
     siteName: "CappaWork",
   },
   twitter: {
     card: "summary_large_image",
-    title: "CappaWork — Your AI Team",
-    description: "CappaWork becomes your AI team. One engagement. Six months. You keep everything we build.",
+    title: "CappaWork — Custom Software for American Businesses",
+    description: "Custom software for $5M-$50M businesses. You own the IP. CappaWork builds, hosts, secures, and maintains it.",
   },
 }
 

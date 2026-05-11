@@ -61,9 +61,9 @@ export default function Hero() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="font-display text-5xl md:text-6xl lg:text-7xl tracking-tight text-white mb-6 leading-[1.1]"
         >
-          Elevate your people.{" "}
+          Custom software for the businesses{" "}
           <br className="hidden md:block" />
-          Automate your process.
+          that keep America moving.
         </motion.h1>
 
         <motion.p
@@ -72,7 +72,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
           className="text-xl md:text-2xl text-gold font-display mb-8"
         >
-          Let computers do computer work. So your people can work like people again.
+          Small businesses are the backbone of America. They deserve software built around how they actually work.
         </motion.p>
 
         <motion.div
@@ -82,7 +82,7 @@ export default function Hero() {
           className="text-lg text-white/70 max-w-2xl mx-auto mb-12 leading-relaxed space-y-4"
         >
           <p>
-            Your team is buried in manual work that machines should handle. We become your AI team — we find where the money is leaking, build the systems that fix it, and train your people to own what we build.
+            CappaWork designs, builds, and hosts custom software for $5M-$50M American businesses, helping teams eliminate bottlenecks, elevate their people, and serve customers with less friction.
           </p>
         </motion.div>
 
@@ -95,7 +95,7 @@ export default function Hero() {
             onClick={() => open()}
             className="bg-gold text-navy px-8 py-3.5 rounded-full font-medium hover:bg-gold/90 transition-all duration-200 inline-flex items-center gap-2 text-lg"
           >
-            Let&apos;s Go
+            Build What Your Business Needs
             <ArrowRight size={18} />
           </button>
         </motion.div>

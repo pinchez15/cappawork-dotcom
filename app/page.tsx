@@ -9,13 +9,13 @@ import ClosingCTA from "./components/closing-cta"
 import HomepageWrapper from "./components/homepage-wrapper"
 
 export const metadata: Metadata = {
-  title: "CappaWork — Your AI Team",
+  title: "CappaWork — Custom Software for American Businesses",
   description:
-    "CappaWork becomes your AI team. We find the profit lever, build the solution, coach you through the decisions, and train your team to own it. $15K/month, 6 months.",
-  keywords: "AI team, AI consulting, AI transformation, founder-led businesses, operational efficiency, profit improvement",
+    "CappaWork designs, builds, hosts, and maintains custom software for $5M-$50M American businesses.",
+  keywords: "custom software, American businesses, small business software, operational software, business automation",
   openGraph: {
-    title: "CappaWork — Your AI Team",
-    description: "CappaWork becomes your AI team. One engagement. Six months. You keep everything we build.",
+    title: "CappaWork — Custom Software for American Businesses",
+    description: "Custom software for $5M-$50M businesses. You own the IP. CappaWork builds, hosts, secures, and maintains it.",
     type: "website",
     url: "https://cappawork.com",
     siteName: "CappaWork",
@@ -23,8 +23,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "CappaWork — Your AI Team",
-    description: "CappaWork becomes your AI team. One engagement. Six months. You keep everything we build.",
+    title: "CappaWork — Custom Software for American Businesses",
+    description: "Custom software for $5M-$50M businesses. You own the IP. CappaWork builds, hosts, secures, and maintains it.",
   },
 }
 

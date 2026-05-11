@@ -7,15 +7,19 @@ import { useInquiry } from "./inquiry-modal"
 const timeline = [
   {
     phase: "Month 1",
-    title: "We audit your workflows and build the roadmap.",
+    title: "Map the work, find the bottlenecks, and define the system worth building.",
   },
   {
     phase: "Months 2\u20135",
-    title: "One AI build shipped every month. Working software, not decks.",
+    title: "Ship working software in focused releases, with your team using it as it improves.",
   },
   {
     phase: "Month 6",
-    title: "Handoff. You own everything.",
+    title: "Stabilize, train, and hand off the operating system your business now owns.",
+  },
+  {
+    phase: "Ongoing",
+    title: "Host, secure, maintain, and improve the software. You own the IP. CappaWork keeps it working.",
   },
 ]
 
@@ -30,7 +34,7 @@ export default function HowItWorks() {
             How It Works
           </span>
           <h2 className="font-display text-3xl sm:text-4xl tracking-tight text-navy leading-tight mb-16">
-            Six months. Strategy, build, and training &mdash; one team.
+            We design, build, and host the software your business actually needs.
           </h2>
         </FadeInUp>
 

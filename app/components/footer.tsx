@@ -11,7 +11,7 @@ export default function Footer() {
               CappaWork
             </Link>
             <p className="text-white/50 text-sm max-w-md">
-              Your AI team. One engagement. You keep everything we build.
+              Custom software for American businesses. You own the IP. We keep it working.
             </p>
           </div>
 

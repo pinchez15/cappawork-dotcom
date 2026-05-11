@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "CappaWork — Elevate your people. Automate your process.";
+export const alt = "CappaWork — Custom software for American businesses.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -87,8 +87,8 @@ export default async function OGImage() {
               alignItems: "center",
             }}
           >
-            <span>Elevate your people.</span>
-            <span>Automate your process.</span>
+            <span>Custom software for</span>
+            <span>American businesses.</span>
           </div>
 
           {/* Subheadline */}
@@ -101,7 +101,7 @@ export default async function OGImage() {
               display: "flex",
             }}
           >
-            AI transformation for founder-led service businesses doing $3M-$10M.
+            Designed, built, hosted, and maintained for $5M-$50M operators.
           </div>
         </div>
 
