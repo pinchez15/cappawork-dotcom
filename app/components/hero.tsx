@@ -72,7 +72,9 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
           className="text-xl md:text-2xl text-gold font-display mb-8"
         >
-          Small businesses are the backbone of America. They deserve software built around how they actually work.
+          Small businesses are the backbone of America.
+          <br />
+          They deserve software built around how they actually work.
         </motion.p>
 
         <motion.div
