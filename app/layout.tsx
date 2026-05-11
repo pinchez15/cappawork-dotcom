@@ -20,6 +20,7 @@ const instrumentSerif = Instrument_Serif({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://cappawork.com"),
   title: "CappaWork — Custom Software for American Businesses",
   description:
     "CappaWork designs, builds, hosts, and maintains custom software for $5M-$50M American businesses.",
@@ -39,11 +40,20 @@ export const metadata: Metadata = {
     title: "CappaWork — Custom Software for American Businesses",
     description: "Custom software for $5M-$50M businesses. You own the IP. CappaWork builds, hosts, secures, and maintains it.",
     siteName: "CappaWork",
+    images: [
+      {
+        url: "/linkedin-preview.jpg",
+        width: 1200,
+        height: 630,
+        alt: "CappaWork homepage hero for custom software for American businesses",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "CappaWork — Custom Software for American Businesses",
     description: "Custom software for $5M-$50M businesses. You own the IP. CappaWork builds, hosts, secures, and maintains it.",
+    images: ["/linkedin-preview.jpg"],
   },
 }
 

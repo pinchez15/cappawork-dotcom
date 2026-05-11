@@ -21,11 +21,20 @@ export const metadata: Metadata = {
     url: "https://cappawork.com",
     siteName: "CappaWork",
     locale: "en_US",
+    images: [
+      {
+        url: "/linkedin-preview.jpg",
+        width: 1200,
+        height: 630,
+        alt: "CappaWork homepage hero for custom software for American businesses",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "CappaWork — Custom Software for American Businesses",
     description: "Custom software for $5M-$50M businesses. You own the IP. CappaWork builds, hosts, secures, and maintains it.",
+    images: ["/linkedin-preview.jpg"],
   },
 }
 
