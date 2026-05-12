@@ -6,7 +6,7 @@ import Link from "next/link"
 
 export const metadata: Metadata = {
   title: "About | CappaWork",
-  description: "Meet Nate Pinches — MBA, management consultant, full-stack AI product builder. CappaWork becomes your AI team.",
+  description: "Meet Nate Pinches — MBA, management consultant, and full-stack AI product builder. CappaWork builds custom software for American businesses.",
 }
 
 export default function AboutPage() {
@@ -51,10 +51,10 @@ export default function AboutPage() {
           <div className="space-y-6 mb-10">
             <h2 className="font-display text-2xl text-navy mb-4">One engagement. One relationship.</h2>
             <p className="text-stone-600 leading-relaxed">
-              CappaWork isn&apos;t a menu of services. It&apos;s a retained engagement where I become your AI team — finding where you&apos;re leaving money on the table, building the systems that fix it, coaching you on every decision, and training your people to own what I build.
+              CappaWork isn&apos;t a menu of services. It&apos;s a retained engagement where I design, build, host, and maintain the custom system your business needs, with AI agents working inside it to remove busywork and increase team capacity.
             </p>
             <p className="text-stone-600 leading-relaxed">
-              Six months. $15,000/month. When I leave, you keep everything: the products, the playbooks, and a team that knows what to do with them.
+              You own the IP. CappaWork keeps the system running, secure, and improving over time.
             </p>
           </div>
 

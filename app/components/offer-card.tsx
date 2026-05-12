@@ -18,26 +18,26 @@ export default function OfferCard() {
           {/* Single dominant card */}
           <div className="bg-navy text-white rounded-2xl p-8 sm:p-12 lg:p-16">
             <p className="text-sm font-semibold tracking-widest uppercase text-gold mb-4">
-              Your AI Team
+              Custom Software Build
             </p>
             <p className="text-white/60 text-sm mb-6">
-              audit &middot; build &middot; coach &middot; train &middot; 6 months
+              design &middot; build &middot; host &middot; secure &middot; maintain
             </p>
 
             <div className="font-display text-5xl md:text-6xl tracking-tight text-white mb-8">
-              $15,000<span className="text-2xl md:text-3xl text-white/60">/month</span>
+              $100K<span className="text-2xl md:text-3xl text-white/60"> build target</span>
             </div>
 
             <p className="text-lg text-white/80 leading-relaxed mb-8 max-w-2xl">
-              One engagement. Six months. I come alongside your business and operate as your AI team — finding where you&apos;re leaving money on the table, building the systems that fix it, coaching you on every decision, and training your people to own what I build.
+              One custom system built around how your business actually works, with AI agents inside it to remove repetitive work and increase team capacity.
             </p>
 
             <p className="text-lg text-white/80 leading-relaxed mb-10 max-w-2xl">
-              When I leave, you keep everything: the products, the playbooks, and a team that knows what to do with them. <span className="text-white font-medium">$90K total. You&apos;ll make back ten times that.</span>
+              You own the IP. CappaWork hosts, secures, and maintains the software. <span className="text-white font-medium">The target is 10x value over two years.</span>
             </p>
 
             <button
-              onClick={() => open("AI Team")}
+              onClick={() => open("Custom Software Build")}
               className="bg-gold text-navy px-8 py-3.5 rounded-full font-medium hover:bg-gold/90 transition-all duration-200 inline-flex items-center gap-2 text-lg"
             >
               Get in Touch

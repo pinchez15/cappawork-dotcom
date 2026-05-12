@@ -16,7 +16,7 @@ function parseAcceptHeader(header: string): ParsedAccept[] {
   })
 }
 
-/** True when the client prefers text/markdown at least as much as text/html. */
+/** True only when the client explicitly prefers Markdown over HTML. */
 export function prefersMarkdown(accept: string | null): boolean {
   if (!accept) return false
   const entries = parseAcceptHeader(accept)
@@ -27,12 +27,8 @@ export function prefersMarkdown(accept: string | null): boolean {
     if (e.type === "text" && (e.sub === "markdown" || e.sub === "x-markdown")) {
       bestMd = Math.max(bestMd, e.q)
     }
-    if (e.type === "*" && e.sub === "*") {
-      bestHtml = Math.max(bestHtml, e.q * 0.02)
-      bestMd = Math.max(bestMd, e.q * 0.02)
-    }
   }
-  return bestMd > 0 && bestMd >= bestHtml
+  return bestMd > 0 && bestMd > bestHtml
 }
 
 const MARKDOWN_STATIC = new Set([

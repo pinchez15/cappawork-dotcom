@@ -7,6 +7,7 @@ export const runtime = "nodejs"
 
 const STATIC_PATHS = [
   "/",
+  "/llms.txt",
   "/about",
   "/blog",
   "/calculator",

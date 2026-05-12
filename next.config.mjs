@@ -22,6 +22,7 @@ const nextConfig = {
           {
             key: 'Link',
             value: [
+              `<${siteUrl}/llms.txt>; rel="alternate"; type="text/plain"; title="LLMs summary"`,
               `<${siteUrl}/.well-known/api-catalog>; rel="api-catalog"`,
               `<${siteUrl}/.well-known/agent-skills/index.json>; rel="item"`,
               `<${siteUrl}/sitemap.xml>; rel="sitemap"`,

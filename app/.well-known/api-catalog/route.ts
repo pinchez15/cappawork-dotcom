@@ -21,6 +21,10 @@ export async function GET() {
             href: `${base}/contact`,
             type: "text/html",
           },
+          {
+            href: `${base}/llms.txt`,
+            type: "text/plain",
+          },
         ],
         status: [
           {
