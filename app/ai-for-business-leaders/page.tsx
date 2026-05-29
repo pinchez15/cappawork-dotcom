@@ -13,7 +13,7 @@ import {
 export const metadata: Metadata = {
   title: "AI for Business Leaders | CappaWork Cohort",
   description:
-    "Ship one AI workflow that moves your business — in one month. A 3-session cohort for directors, VPs, and CXOs. Frameworks first, then build. $1,500.",
+    "Ship one AI workflow that moves your business — in one month. A 3-session cohort for directors, VPs, and CXOs. Frameworks first, then build. $2,500.",
   openGraph: {
     title: "AI for Business Leaders | CappaWork Cohort",
     description:
@@ -29,8 +29,8 @@ export const dynamic = "force-dynamic"
 
 const leaveWith = [
   {
-    title: "A declared AI workflow with a ship date.",
-    body: "Chosen in session 1, scoped against frameworks that filter shiny objects, with the build pattern taught in sessions 2 and 3.",
+    title: "A working AI agent — not just a plan.",
+    body: "You leave with a functioning agent built around your real workflow, dialed in through dedicated one-on-one time with Nate. The cohort isn't finished until yours works.",
   },
   {
     title: "Two build patterns you can reuse forever.",
@@ -144,20 +144,21 @@ const frameworks = [
 ]
 
 const faqs = [
-  ["Do I need to be technical?", "No. There's no code in this cohort. If you can use Gmail and a web browser, you can build everything we cover."],
+  ["Do I need to be technical?", "No. There's no code in this cohort. If you can use Gmail and a web browser, you can build everything we cover — and Nate works through the technical parts with you one-on-one."],
+  ["How much one-on-one time do I get with Nate?", "A lot — it's the core of the cohort. Beyond the live group sessions, you work directly with Nate to dial in your specific workflow: scoping it, building the agent, and debugging it until it runs. The group sessions teach the patterns; the one-on-one time is where your agent actually gets built."],
   ["What if I miss a session?", "Every session is recorded. You'll have 90 days of access to all recordings, materials, and the AI Basics video library. Most participants miss at least one live session; the cohort is built for that."],
-  ["What if I don't ship a workflow by the end?", "Most participants don't ship by session 3 — they ship in the 2–4 weeks after. The cohort teaches the build pattern; you do the building back at your desk. The 90-day access window exists for exactly this reason."],
+  ["Will I actually leave with a working agent?", "Yes — that's the whole point. This isn't a lecture series. You get a lot of one-on-one time with Nate to dial in your specific workflow, and we keep building and debugging until your agent actually works. You leave with a functioning agent, not a plan to build one — the 90-day access is for refining it afterward, not finishing it."],
   ["Can my company buy multiple seats?", "Yes. For groups of 5 or more, reach out directly — pricing improves with scale. Mention it on the request form or in your LinkedIn DM with Nate."],
   ["What tools will I use?", "Primarily Claude (Pro or Team). For automations, we'll cover native connectors and Zapier/Make. If your company is standardized on ChatGPT, the patterns transfer — Custom GPTs are functionally equivalent to Claude Projects for cohort purposes."],
   ["What's the refund policy?", "No refunds. Seats are capped at 15 per cohort and reserving yours means someone else didn't get one. If you're not sure this is the right fit, that's what the LinkedIn DM with Nate is for — get to certainty before you pay."],
-  ["When does the next cohort run?", "The next cohort runs Tuesday June 10, Tuesday June 17, and Tuesday June 24, 2026 — 7:00 to 8:30pm ET. If the dates don't work, request a seat anyway and note it — we'll let you know when the next cohort fits."],
+  ["When does the next cohort run?", "The next cohort runs Tuesday June 9, Tuesday June 16, and Tuesday June 23, 2026 — 7:00 to 8:30pm ET. If the dates don't work, request a seat anyway and note it — we'll let you know when the next cohort fits."],
   ["How does the “request a seat” process work?", "You drop your LinkedIn and email on the request form. Nate reviews and reaches out via LinkedIn DM within 24 hours to see if you're a fit. If you are, you get the checkout link. If you're not a fit, Nate will tell you why and where to look instead."],
 ]
 
 const products = [
-  ["KnockRecruit", "https://knockrecruit.io", "Recruiting platform with ranked match matrix and culture-fit scoring"],
-  ["ArborKey", "https://arborkey.com", "Practice management for community association management businesses"],
-  ["Karibu Health", "https://karibuhealth.org", "Voice-first clinical documentation for rural Ugandan clinics"],
+  ["KnockRecruit", "https://www.knockrecruit.io", "Recruiting platform with ranked match matrix and culture-fit scoring"],
+  ["ArborKey", "https://www.arborkeysoftware.com", "Practice management for community association management businesses"],
+  ["Karibu Health", "https://karibu.health", "Voice-first clinical documentation for rural Ugandan clinics"],
   ["HealthcareAIO", "https://healthcareaio.com", "AI optimization audit tool for healthcare practices"],
 ]
 
@@ -194,13 +195,13 @@ export default function AiForBusinessLeadersPage() {
             AI for Business Leaders
           </h1>
           <p className="font-display text-xl md:text-2xl text-gold mb-6">
-            Ship one AI workflow that moves your business. In one month.
+            Leave with a working AI agent that moves your business. In one month.
           </p>
           <p className="text-sm font-medium tracking-widest uppercase text-white/50 mb-6">
-            3 sessions · 90 minutes each · $1,500
+            3 sessions · 90 minutes each · $2,500
           </p>
           <p className="text-lg text-white/70 leading-relaxed mb-10 max-w-xl mx-auto">
-            For directors, VPs, and CXOs who are tired of AI training that's either too basic or too technical.
+            For directors, VPs, and CXOs who want hands-on help, not another lecture. You'll work one-on-one with Nate to dial in your workflow — and leave with a working AI agent you actually use.
           </p>
 
           <Link
@@ -212,7 +213,7 @@ export default function AiForBusinessLeadersPage() {
           </Link>
 
           <p className="mt-6 text-sm text-white/40">
-            Next cohort: Tuesdays, June 10 / 17 / 24, 2026. 7:00–8:30pm ET.
+            Next cohort: Tuesdays, June 9 / 16 / 23, 2026. 7:00–8:30pm ET.
           </p>
         </div>
       </section>
@@ -284,7 +285,7 @@ export default function AiForBusinessLeadersPage() {
           <h2 className="font-display text-3xl sm:text-4xl tracking-tight text-navy leading-tight mb-3">
             Three sessions, one month
           </h2>
-          <p className="text-lg text-stone-600 mb-10">90 minutes each, once a week.</p>
+          <p className="text-lg text-stone-600 mb-10">90 minutes each, once a week — plus dedicated one-on-one time with Nate to get your agent working.</p>
           <Accordion type="single" collapsible className="w-full space-y-4">
             {sessions.map((session, i) => (
               <AccordionItem
@@ -350,7 +351,7 @@ export default function AiForBusinessLeadersPage() {
           </span>
           <h2 className="font-display text-3xl sm:text-4xl tracking-tight text-white mb-8">About Nate</h2>
           <p className="text-lg text-white/70 leading-relaxed mb-10">
-            I'm Nate Pinches. I run CappaWork, an AI build consultancy serving founder-led businesses.
+            I'm Nate Pinches. I run CappaWork, an AI development agency that builds and ships production software for founder-led businesses.
           </p>
 
           <h3 className="text-sm font-semibold uppercase tracking-widest text-gold mb-4">
@@ -360,7 +361,7 @@ export default function AiForBusinessLeadersPage() {
             <li className="flex items-start gap-3"><div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-gold shrink-0" /><span>MBA + 4 years in management consulting</span></li>
             <li className="flex items-start gap-3"><div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-gold shrink-0" /><span>C-suite strategy at companies up to $2B+ in revenue, including Michaels</span></li>
             <li className="flex items-start gap-3"><div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-gold shrink-0" /><span>Product development at CVS Health (corporate strategy, a $4B subsidiary, 10K institutional customers)</span></li>
-            <li className="flex items-start gap-3"><div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-gold shrink-0" /><span>12-month paid apprenticeship in agentic coding — from non-coder to shipping production AI products in a year</span></li>
+            <li className="flex items-start gap-3"><div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-gold shrink-0" /><span>A hands-on builder, not a theorist — the production AI products below are ones I've designed and shipped.</span></li>
           </ul>
 
           <div className="rounded-2xl bg-card-dark border border-white/10 p-6 mb-10">
@@ -442,7 +443,7 @@ export default function AiForBusinessLeadersPage() {
             <CohortLeadForm cohortType="build" />
           </div>
           <p className="mt-6 text-center text-sm text-white/40">
-            Limited to 15 seats per cohort. Next cohort: Tuesdays, June 10 / 17 / 24, 2026. 7:00–8:30pm ET.
+            Limited to 15 seats per cohort. Next cohort: Tuesdays, June 9 / 16 / 23, 2026. 7:00–8:30pm ET.
           </p>
           <p className="mt-4 text-center text-sm text-white/60">
             Not sure where to build yet?{" "}

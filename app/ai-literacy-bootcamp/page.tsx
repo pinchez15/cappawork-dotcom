@@ -34,7 +34,7 @@ const leaveWith = [
   },
   {
     title: "A working mental model of the AI landscape.",
-    body: "Frontier models, agents, MCP, vertical vs horizontal, economics, governance. Not a textbook. A working map you can navigate from.",
+    body: "How today's frontier models compare (the “GPT-5.5 vs Claude Opus 4.8” question everyone asks), agents, MCP, vertical vs horizontal, economics, governance. Not a textbook — a working map you can navigate from.",
   },
   {
     title: "A 90-day personal AI strategy.",
@@ -62,34 +62,23 @@ const sessions = [
       "By the end, you can evaluate any AI capability or vendor pitch through three frameworks and have a clear-eyed view of the frontier model landscape.",
     blocks: [
       ["The frameworks as an evaluation lens (35 min)", "Profit Formula, AI Rules, Groundwork/Teamwork/Lifework — deployed as a lens. When a vendor pitches you, which lever are they claiming to move? Which category of work does it unlock? Bring a real vendor pitch; we run it through all three."],
-      ["The frontier model landscape (35 min)", "The honest comparison. Claude, ChatGPT, Gemini, and open source — what each is actually good at, and the trap of treating them as substitutes. Then the strategic question: which platform should we standardize on?"],
+      ["The frontier model landscape (35 min)", "The honest comparison of the current frontier — Claude Opus 4.8, GPT-5.5, Gemini, and the open-source options — what each is actually best at right now, and the trap of treating them as substitutes. Then the strategic question: which platform should we standardize on?"],
       ["Discussion (20 min)", "The vendor pitches everyone brought become the working material. We learn to read AI marketing language together."],
     ],
   },
   {
-    title: "Session 2 — Agents and what they actually are",
-    subtitle: "90 minutes. The most-marketed, least-understood AI category.",
+    title: "Session 2 — Agents, MCP, and the new data layer",
+    subtitle: "90 minutes. The most-marketed, least-understood corner of AI.",
     intro:
-      "The session that prevents the most expensive enterprise mistake of 2026 — buying an “agent platform” that doesn't actually work for the use case being pitched.",
+      "The session that prevents the most expensive enterprise mistakes of 2026 — buying an “agent platform” that doesn't work, or betting your stack on the wrong layer.",
     blocks: [
-      ["What an agent actually is (25 min)", "The technical definition stripped of marketing — tool use, memory, planning, and verification (where most agents fail). Walked through end to end with a real example."],
-      ["Where agents work and where they don't (30 min)", "The honest map of agent capability today. What's working, what's marketed but not working reliably, and the rule that separates them: bounded task, structured verification, visible failure mode."],
-      ["How to read an agent vendor pitch (25 min)", "The five questions to ask any vendor selling agents. Pair off and run them on a real pitch."],
+      ["What agents actually are — and how to vet one (35 min)", "The technical definition stripped of marketing — tool use, memory, planning, and verification (where most agents fail) — plus the five questions to ask any vendor selling “agents,” and an honest map of where they work today and where they don't."],
+      ["MCP and the new data layer (25 min)", "What MCP is, what it unlocks, and what it disrupts. Vendors whose moat was “we integrate with X” now compete on actual product — and your data becomes addressable by AI without custom integration."],
+      ["Vertical AI and your tech stack (30 min)", "Vertical vs horizontal AI — why purpose-built tools displace general ones in regulated and specialized industries, which of your current tools are at risk, and which of your data just became more valuable, or a liability, now that AI can read it."],
     ],
   },
   {
-    title: "Session 3 — MCP, connectors, and the new data layer",
-    subtitle: "90 minutes. The most strategically important session — and the one nobody else is teaching.",
-    intro:
-      "MCP turns every SaaS tool you use into something AI can address directly. That changes vendor evaluation, security posture, and what “AI strategy” even means for your company.",
-    blocks: [
-      ["What MCP is and why it matters (25 min)", "The technical concept made strategic — what it unlocks, and what it disrupts. Vendors whose moat was “we integrate with X” now compete on actual product."],
-      ["The vertical AI thesis (25 min)", "Vertical vs horizontal AI — the biggest strategic question for the next two years. Why purpose-built tools displace general ones in regulated and specialized industries, and what that means for your stack."],
-      ["What to do about your tech stack (25 min)", "Which of your tools are AI-native vs “has AI,” which are at risk of displacement, where MCP lets you collapse tools, and which of your data became more valuable — or a liability — now that AI can read it."],
-    ],
-  },
-  {
-    title: "Session 4 — Economics, governance, and what to do Monday",
+    title: "Session 3 — Economics, governance, and what to do Monday",
     subtitle: "90 minutes. The closing session that turns understanding into action.",
     intro:
       "Why some AI vendors will fail and which won't — and how to build a 90-day plan you can act on immediately.",
@@ -146,18 +135,19 @@ const frameworks = [
 const faqs = [
   ["Is this the build cohort?", "No. This is the literacy cohort — it's for understanding the landscape and making better strategic decisions. If you already know what you want to build and need to ship it, take AI for Business Leaders instead. Many people take literacy first, then build."],
   ["Do I need to be technical?", "No. This is not a coding cohort — no JavaScript, no tools you have to install. It's a strategic foundation, not a tutorial."],
+  ["Do you cover the latest models and tools?", "Yes — covering the current frontier is part of it. We compare the leading models head-to-head (the “GPT-5.5 vs Claude Opus 4.8” question everyone asks) and refresh the tool and vendor examples every cohort. The frameworks are what keep that comparison useful a year out — but the comparison itself is always current."],
   ["What if I miss a session?", "Every session is recorded. You'll have 90 days of access to all recordings and materials, including the AI Basics video library."],
   ["Is the curriculum current, or recycled?", "Every cohort reflects the current state of the field. Roughly 30% of the curriculum is rewritten each run — the frameworks survive, the examples don't. You're not getting what was true 12 months ago."],
   ["Are you vendor-aligned? Any sponsorships?", "No. No sponsorships, no affiliate deals, no referral fees from any AI vendor named in the curriculum. The credibility of this cohort depends entirely on independence."],
   ["Can my company buy multiple seats?", "Yes. For groups of 5 or more, reach out directly — there's an optional 30-minute onboarding call, and pricing improves with scale. Mention it on the request form or in your LinkedIn DM with Nate."],
   ["What's the refund policy?", "All sales are final. Seats are capped per cohort and reserving yours means someone else didn't get one. If you're unsure it's the right fit, that's what the LinkedIn DM with Nate is for — get to certainty before you pay."],
-  ["When does the next cohort run?", "The next literacy cohort runs in July 2026 — exact dates announced soon. Request a seat and Nate will confirm the schedule with you directly."],
+  ["When does the next cohort run?", "The next literacy cohort runs Wednesday June 10, Wednesday June 17, and Wednesday June 24, 2026 — 7:00 to 8:30pm ET. Request a seat and Nate will confirm your spot."],
 ]
 
 const products = [
-  ["KnockRecruit", "https://knockrecruit.io", "Recruiting platform with ranked match matrix and culture-fit scoring"],
-  ["ArborKey", "https://arborkey.com", "Practice management for community association management businesses"],
-  ["Karibu Health", "https://karibuhealth.org", "Voice-first clinical documentation for rural Ugandan clinics"],
+  ["KnockRecruit", "https://www.knockrecruit.io", "Recruiting platform with ranked match matrix and culture-fit scoring"],
+  ["ArborKey", "https://www.arborkeysoftware.com", "Practice management for community association management businesses"],
+  ["Karibu Health", "https://karibu.health", "Voice-first clinical documentation for rural Ugandan clinics"],
   ["HealthcareAIO", "https://healthcareaio.com", "AI optimization audit tool for healthcare practices"],
 ]
 
@@ -187,7 +177,7 @@ export default function AiLiteracyBootcampPage() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-gold"></span>
             </span>
-            Enrolling for July
+            Enrolling for June
           </div>
 
           <h1 className="font-display text-5xl md:text-7xl tracking-tight leading-[1.1] mb-6 text-white">
@@ -197,7 +187,7 @@ export default function AiLiteracyBootcampPage() {
             Stop nodding through AI conversations you don't actually understand.
           </p>
           <p className="text-sm font-medium tracking-widest uppercase text-white/50 mb-6">
-            4 sessions · 90 minutes each · $1,500
+            3 sessions · 90 minutes each · $1,500
           </p>
           <p className="text-lg text-white/70 leading-relaxed mb-10 max-w-xl mx-auto">
             For directors, VPs, and CXOs who need to be conversant in AI — because it now sits inside every
@@ -212,7 +202,7 @@ export default function AiLiteracyBootcampPage() {
             <ArrowRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
           </Link>
 
-          <p className="mt-6 text-sm text-white/40">Next cohort: July 2026 — dates announced soon.</p>
+          <p className="mt-6 text-sm text-white/40">Next cohort: Wednesdays, June 10 / 17 / 24, 2026. 7:00–8:30pm ET.</p>
         </div>
       </section>
 
@@ -236,7 +226,7 @@ export default function AiLiteracyBootcampPage() {
               "You need to be conversant in AI for the vendor pitch, the budget cycle, the board update, the org-design conversation",
               "You want to evaluate vendors and make build-vs-buy calls with confidence",
               "You want clarity from someone who builds with these tools every day — not a theorist",
-              "You want a strategic foundation that survives the next year of churn, not a tour of this month's tools",
+              "You want a straight answer when someone asks “GPT-5.5 or Claude Opus 4.8?” — what's actually best right now, and why",
             ].map((item, i) => (
               <li key={i} className="flex items-start gap-3 text-stone-700">
                 <Check size={20} className="text-gold shrink-0 mt-0.5" />
@@ -298,7 +288,7 @@ export default function AiLiteracyBootcampPage() {
             The curriculum
           </span>
           <h2 className="font-display text-3xl sm:text-4xl tracking-tight text-navy leading-tight mb-3">
-            Four sessions, one month
+            Three sessions, one month
           </h2>
           <p className="text-lg text-stone-600 mb-10">90 minutes each, once a week.</p>
           <Accordion type="single" collapsible className="w-full space-y-4">
@@ -368,7 +358,7 @@ export default function AiLiteracyBootcampPage() {
           </span>
           <h2 className="font-display text-3xl sm:text-4xl tracking-tight text-white mb-8">About Nate</h2>
           <p className="text-lg text-white/70 leading-relaxed mb-10">
-            I'm Nate Pinches. I run CappaWork, an AI build consultancy serving founder-led businesses.
+            I'm Nate Pinches. I run CappaWork, an AI development agency that builds and ships production software for founder-led businesses.
           </p>
 
           <h3 className="text-sm font-semibold uppercase tracking-widest text-gold mb-4">
@@ -378,7 +368,7 @@ export default function AiLiteracyBootcampPage() {
             <li className="flex items-start gap-3"><div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-gold shrink-0" /><span>MBA + 4 years in management consulting</span></li>
             <li className="flex items-start gap-3"><div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-gold shrink-0" /><span>C-suite strategy at companies up to $2B+ in revenue, including Michaels</span></li>
             <li className="flex items-start gap-3"><div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-gold shrink-0" /><span>Product development at CVS Health (corporate strategy, a $4B subsidiary, 10K institutional customers)</span></li>
-            <li className="flex items-start gap-3"><div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-gold shrink-0" /><span>12-month paid apprenticeship in agentic coding — from non-coder to shipping production AI products in a year</span></li>
+            <li className="flex items-start gap-3"><div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-gold shrink-0" /><span>A hands-on builder, not a theorist — the production AI products below are ones I've designed and shipped.</span></li>
           </ul>
 
           <h3 className="text-sm font-semibold uppercase tracking-widest text-gold mb-4">
@@ -449,7 +439,7 @@ export default function AiLiteracyBootcampPage() {
             <CohortLeadForm cohortType="literacy" />
           </div>
           <p className="mt-6 text-center text-sm text-white/40">
-            Cohorts run with 10–15 people. Next cohort: July 2026 — dates announced soon.
+            Cohorts run with 10–15 people. Next cohort: Wednesdays, June 10 / 17 / 24, 2026. 7:00–8:30pm ET.
           </p>
           <p className="mt-4 text-center text-sm text-white/60">
             Already know what you want to build?{" "}
