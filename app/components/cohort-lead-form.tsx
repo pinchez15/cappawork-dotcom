@@ -51,11 +51,11 @@ export default function CohortLeadForm({
 
   if (status === "success") {
     return (
-      <div className="rounded-2xl border border-green-200 bg-green-50 p-8 text-center">
-        <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-green-500 text-white">
+      <div className="rounded-2xl border border-gold/30 bg-warm-white p-8 text-center">
+        <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-gold text-navy">
           <Check size={24} />
         </div>
-        <p className="text-lg font-medium text-stone-900">Thanks — request received.</p>
+        <p className="font-display text-xl text-navy">Thanks — request received.</p>
         <p className="mt-2 text-stone-600">
           Nate will be in touch within 24 hours to see if you qualify for this cohort.
         </p>
@@ -66,7 +66,7 @@ export default function CohortLeadForm({
   return (
     <form onSubmit={handleSubmit} className="space-y-4 text-left">
       <div className="space-y-2">
-        <label htmlFor="linkedin" className="block text-sm font-medium text-stone-700">
+        <label htmlFor="linkedin" className="block text-sm font-medium text-navy">
           LinkedIn URL
         </label>
         <input
@@ -75,12 +75,12 @@ export default function CohortLeadForm({
           type="text"
           required
           placeholder="linkedin.com/in/your-name"
-          className="w-full rounded-xl border border-stone-300 bg-white px-4 py-3 text-stone-900 placeholder:text-stone-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+          className="w-full rounded-xl border border-card-border bg-white px-4 py-3 text-navy placeholder:text-stone-400 focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/25"
         />
       </div>
 
       <div className="space-y-2">
-        <label htmlFor="email" className="block text-sm font-medium text-stone-700">
+        <label htmlFor="email" className="block text-sm font-medium text-navy">
           Email
         </label>
         <input
@@ -89,7 +89,7 @@ export default function CohortLeadForm({
           type="email"
           required
           placeholder="you@company.com"
-          className="w-full rounded-xl border border-stone-300 bg-white px-4 py-3 text-stone-900 placeholder:text-stone-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+          className="w-full rounded-xl border border-card-border bg-white px-4 py-3 text-navy placeholder:text-stone-400 focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/25"
         />
       </div>
 
@@ -100,7 +100,7 @@ export default function CohortLeadForm({
       <button
         type="submit"
         disabled={status === "submitting"}
-        className="inline-flex w-full items-center justify-center rounded-full bg-blue-600 px-8 py-4 font-medium text-white shadow-lg shadow-blue-500/20 transition-all duration-200 hover:bg-blue-700 hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100"
+        className="inline-flex w-full items-center justify-center rounded-full bg-gold px-8 py-3.5 font-medium text-navy transition-all duration-200 hover:bg-gold/90 disabled:cursor-not-allowed disabled:opacity-60"
       >
         {status === "submitting" ? (
           <>

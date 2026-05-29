@@ -17,11 +17,11 @@ export default async function CohortPortalLayout({
   }
 
   return (
-    <div className="min-h-screen bg-stone-50">
+    <div className="min-h-screen bg-warm-white">
       <ForceTheme theme="light" />
-      <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-stone-200">
+      <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-card-border">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
-          <Link href="/" className="text-lg font-semibold tracking-tight text-stone-900">
+          <Link href="/" className="text-xl font-display tracking-tight text-navy">
             CappaWork
           </Link>
           <UserButton afterSignOutUrl="/" />

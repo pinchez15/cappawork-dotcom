@@ -59,7 +59,7 @@ export default async function MaterialPage({
         Back to portal
       </Link>
 
-      <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight text-stone-900">
+      <h1 className="font-display text-2xl sm:text-3xl tracking-tight text-navy">
         {material.title}
       </h1>
       {material.description && (
@@ -105,7 +105,7 @@ export default async function MaterialPage({
               <a
                 href={material.url}
                 download
-                className="inline-flex items-center gap-2 rounded-full bg-blue-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-700 transition-colors"
+                className="inline-flex items-center gap-2 rounded-full bg-gold px-5 py-2.5 text-sm font-medium text-navy hover:bg-gold/90 transition-colors"
               >
                 <Download size={16} />
                 Download

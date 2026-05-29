@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { Check, X, ArrowRight } from "lucide-react"
+import { Check, ArrowRight } from "lucide-react"
 import Footer from "../components/footer"
 import CohortLeadForm from "../components/cohort-lead-form"
 import {
@@ -97,7 +97,7 @@ const frameworks = [
     title: "The Profit Formula",
     body: (
       <>
-        <p className="font-medium text-stone-900">Profit = Customers × AOV × Frequency × Margin</p>
+        <p className="font-medium text-navy">Profit = Customers × AOV × Frequency × Margin</p>
         <p className="mt-3">
           Four levers. Every business runs on them. Every AI workflow worth building moves one of them.
         </p>
@@ -113,8 +113,8 @@ const frameworks = [
     title: "The AI Rules",
     body: (
       <>
-        <p className="font-medium text-stone-900">Use AI for: Speed, Scale, Capability.</p>
-        <p className="font-medium text-stone-900">Do not use AI for: Relationships, Truth, Joy.</p>
+        <p className="font-medium text-navy">Use AI for: Speed, Scale, Capability.</p>
+        <p className="font-medium text-navy">Do not use AI for: Relationships, Truth, Joy.</p>
         <p className="mt-3">AI does the work that produces the artifact. Humans do the work that signs the artifact.</p>
         <p className="mt-3">
           AI for any communication whose recipient is a market. Humans for any communication whose recipient is a
@@ -130,9 +130,9 @@ const frameworks = [
       <>
         <p>Three categories of work in any role.</p>
         <ul className="mt-3 space-y-2">
-          <li><span className="font-medium text-stone-900">Groundwork</span> — what AI does for you. Reconciliation, enrichment, drafting, summarization. The work that has to get done but doesn't have your name on it.</li>
-          <li><span className="font-medium text-stone-900">Teamwork</span> — what AI does with you. AI offers three options; you take the at-bat. Strategy, analysis, judgment calls where you keep the pen.</li>
-          <li><span className="font-medium text-stone-900">Lifework</span> — what only you can do. The signature, the hard conversation, the testimony. The work where the recipient is a person, not a market.</li>
+          <li><span className="font-medium text-navy">Groundwork</span> — what AI does for you. Reconciliation, enrichment, drafting, summarization. The work that has to get done but doesn't have your name on it.</li>
+          <li><span className="font-medium text-navy">Teamwork</span> — what AI does with you. AI offers three options; you take the at-bat. Strategy, analysis, judgment calls where you keep the pen.</li>
+          <li><span className="font-medium text-navy">Lifework</span> — what only you can do. The signature, the hard conversation, the testimony. The work where the recipient is a person, not a market.</li>
         </ul>
         <p className="mt-3">
           If the whole task is Lifework, AI doesn't belong there. If it's Groundwork, build an automation. If it's
@@ -163,62 +163,69 @@ const products = [
 
 export default function AiForBusinessLeadersPage() {
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-navy font-sans">
       {/* Nav */}
-      <nav className="fixed top-0 left-0 right-0 z-50 py-4 bg-white/80 backdrop-blur-md border-b border-stone-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-          <a href="/" className="text-xl font-semibold tracking-tight text-stone-900">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-navy/95 backdrop-blur-sm border-b border-white/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex justify-between items-center">
+          <a href="/" className="text-xl font-display tracking-tight text-white">
             CappaWork
           </a>
-          <Link href="#request" className="text-sm font-medium text-stone-600 hover:text-stone-900">
+          <Link
+            href="#request"
+            className="bg-gold text-navy text-sm font-medium px-4 py-2 rounded-full hover:bg-gold/90 transition-colors"
+          >
             Request my seat
           </Link>
         </div>
       </nav>
 
       {/* Hero */}
-      <section className="pt-32 pb-20 md:pt-40 md:pb-24">
+      <section className="bg-navy pt-36 pb-24 md:pt-44">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-stone-100 border border-stone-200 text-stone-600 text-xs font-medium mb-8 uppercase tracking-wide">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-gold/30 bg-gold/10 text-gold text-xs font-semibold mb-8 uppercase tracking-widest">
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-gold"></span>
             </span>
             Enrolling for June
           </div>
 
-          <h1 className="text-5xl sm:text-7xl font-semibold tracking-tight leading-[1.05] mb-6 text-stone-900">
+          <h1 className="font-display text-5xl md:text-7xl tracking-tight leading-[1.1] mb-6 text-white">
             AI for Business Leaders
           </h1>
-          <p className="text-xl sm:text-2xl text-stone-700 leading-relaxed mb-6 max-w-2xl mx-auto">
+          <p className="font-display text-xl md:text-2xl text-gold mb-6">
             Ship one AI workflow that moves your business. In one month.
           </p>
-          <p className="text-base font-medium text-stone-500 mb-2">3 sessions · 90 minutes each · $1,500</p>
-          <p className="text-base text-stone-500 leading-relaxed mb-10 max-w-xl mx-auto">
+          <p className="text-sm font-medium tracking-widest uppercase text-white/50 mb-6">
+            3 sessions · 90 minutes each · $1,500
+          </p>
+          <p className="text-lg text-white/70 leading-relaxed mb-10 max-w-xl mx-auto">
             For directors, VPs, and CXOs who are tired of AI training that's either too basic or too technical.
           </p>
 
           <Link
             href="#request"
-            className="inline-flex items-center justify-center bg-stone-900 text-white px-8 py-4 rounded-full font-medium hover:bg-stone-800 transition-all duration-200 group"
+            className="inline-flex items-center justify-center bg-gold text-navy px-8 py-3.5 rounded-full font-medium hover:bg-gold/90 transition-all duration-200 text-lg group"
           >
             Request my seat
             <ArrowRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
           </Link>
 
-          <p className="mt-6 text-sm text-stone-400">
+          <p className="mt-6 text-sm text-white/40">
             Next cohort: Tuesdays, June 10 / 17 / 24, 2026. 7:00–8:30pm ET.
           </p>
         </div>
       </section>
 
-      {/* Section 1 — Who this is for */}
-      <section className="py-24 bg-stone-50">
+      {/* Who this is for */}
+      <section className="py-24 bg-card-light">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-stone-900 mb-10">
-            Who this is for
+          <span className="text-sm font-semibold tracking-widest uppercase text-gold block mb-4">
+            Who it's for
+          </span>
+          <h2 className="font-display text-3xl sm:text-4xl tracking-tight text-navy leading-tight mb-10">
+            This cohort is built for you if…
           </h2>
-          <p className="text-lg text-stone-600 mb-6">This cohort is built for you if:</p>
           <ul className="space-y-4 mb-12">
             {[
               "You're a director, VP, or C-suite leader at a mid-sized business",
@@ -228,36 +235,39 @@ export default function AiForBusinessLeadersPage() {
               "You want a workflow you've built, not a certificate you've collected",
             ].map((item, i) => (
               <li key={i} className="flex items-start gap-3 text-stone-700">
-                <Check size={20} className="text-green-500 shrink-0 mt-0.5" />
+                <Check size={20} className="text-gold shrink-0 mt-0.5" />
                 <span>{item}</span>
               </li>
             ))}
           </ul>
-          <div className="rounded-2xl border border-stone-200 bg-white p-6">
+          <div className="rounded-2xl border border-gold/30 bg-warm-white p-6">
             <p className="text-stone-600 leading-relaxed">
-              This cohort is <span className="font-medium text-stone-900">not</span> for you if you're looking for a
-              tour of every AI tool on the market, or if you want to learn to code, or if you need a 12-week
-              immersion. This is fast, focused, and ends with one thing shipped.
+              This cohort is <span className="font-medium text-navy">not</span> for you if you're looking for a tour
+              of every AI tool on the market, or if you want to learn to code, or if you need a 12-week immersion.
+              This is fast, focused, and ends with one thing shipped.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Section 2 — What you'll leave with */}
-      <section className="py-24 bg-white">
+      {/* What you'll leave with */}
+      <section className="py-24 bg-navy">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-stone-900 mb-12">
+          <span className="text-sm font-semibold tracking-widest uppercase text-gold block mb-4">
+            The outcome
+          </span>
+          <h2 className="font-display text-3xl sm:text-4xl tracking-tight text-white leading-tight mb-12">
             What you'll leave with
           </h2>
           <div className="space-y-8">
             {leaveWith.map((item, i) => (
               <div key={i} className="flex gap-5">
-                <div className="shrink-0 w-9 h-9 rounded-full bg-blue-600 text-white flex items-center justify-center font-semibold text-sm">
+                <div className="shrink-0 w-9 h-9 rounded-full bg-gold text-navy flex items-center justify-center font-semibold text-sm">
                   {i + 1}
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-stone-900 mb-1">{item.title}</h3>
-                  <p className="text-stone-600 leading-relaxed">{item.body}</p>
+                  <h3 className="font-semibold text-white mb-1">{item.title}</h3>
+                  <p className="text-white/70 leading-relaxed">{item.body}</p>
                 </div>
               </div>
             ))}
@@ -265,21 +275,24 @@ export default function AiForBusinessLeadersPage() {
         </div>
       </section>
 
-      {/* Section 3 — The three sessions */}
-      <section className="py-24 bg-stone-50">
+      {/* The three sessions */}
+      <section className="py-24 bg-warm-white">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-stone-900 mb-4">
-            The three sessions
+          <span className="text-sm font-semibold tracking-widest uppercase text-gold block mb-4">
+            The curriculum
+          </span>
+          <h2 className="font-display text-3xl sm:text-4xl tracking-tight text-navy leading-tight mb-3">
+            Three sessions, one month
           </h2>
-          <p className="text-lg text-stone-600 mb-10">Three 90-minute sessions, once a week, over one month.</p>
+          <p className="text-lg text-stone-600 mb-10">90 minutes each, once a week.</p>
           <Accordion type="single" collapsible className="w-full space-y-4">
             {sessions.map((session, i) => (
               <AccordionItem
                 key={i}
                 value={`session-${i}`}
-                className="bg-white border border-stone-200 rounded-xl px-6"
+                className="bg-card-light border border-card-border rounded-xl px-6"
               >
-                <AccordionTrigger className="hover:no-underline py-6 text-left font-semibold text-stone-900">
+                <AccordionTrigger className="hover:no-underline py-6 text-left font-display text-lg text-navy">
                   {session.title}
                 </AccordionTrigger>
                 <AccordionContent className="pb-6">
@@ -287,8 +300,8 @@ export default function AiForBusinessLeadersPage() {
                   <p className="text-stone-600 mb-6">{session.intro}</p>
                   <ul className="space-y-4">
                     {session.blocks.map(([label, body], j) => (
-                      <li key={j} className="border-l-2 border-blue-500 pl-4">
-                        <span className="font-medium text-stone-900">{label}.</span>{" "}
+                      <li key={j} className="border-l-2 border-gold/50 pl-4">
+                        <span className="font-medium text-navy">{label}.</span>{" "}
                         <span className="text-stone-600">{body}</span>
                       </li>
                     ))}
@@ -300,10 +313,13 @@ export default function AiForBusinessLeadersPage() {
         </div>
       </section>
 
-      {/* Section 4 — The three frameworks */}
-      <section className="py-24 bg-white">
+      {/* The three frameworks */}
+      <section className="py-24 bg-card-light">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-stone-900 mb-4">
+          <span className="text-sm font-semibold tracking-widest uppercase text-gold block mb-4">
+            The differentiator
+          </span>
+          <h2 className="font-display text-3xl sm:text-4xl tracking-tight text-navy leading-tight mb-3">
             The three frameworks
           </h2>
           <p className="text-lg text-stone-600 mb-10">The questions you'll ask before building anything with AI.</p>
@@ -312,9 +328,9 @@ export default function AiForBusinessLeadersPage() {
               <AccordionItem
                 key={i}
                 value={`framework-${i}`}
-                className="bg-stone-50 border border-stone-200 rounded-xl px-6"
+                className="bg-warm-white border border-card-border rounded-xl px-6"
               >
-                <AccordionTrigger className="hover:no-underline py-6 text-left font-semibold text-stone-900">
+                <AccordionTrigger className="hover:no-underline py-6 text-left font-display text-lg text-navy">
                   {fw.title}
                 </AccordionTrigger>
                 <AccordionContent className="pb-6 text-stone-600 leading-relaxed">
@@ -326,36 +342,39 @@ export default function AiForBusinessLeadersPage() {
         </div>
       </section>
 
-      {/* Section 5 — About Nate */}
-      <section className="py-24 bg-stone-900 text-white">
+      {/* About Nate */}
+      <section className="py-24 bg-navy">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight mb-8">About Nate</h2>
-          <p className="text-lg text-stone-300 leading-relaxed mb-8">
+          <span className="text-sm font-semibold tracking-widest uppercase text-gold block mb-4">
+            Your instructor
+          </span>
+          <h2 className="font-display text-3xl sm:text-4xl tracking-tight text-white mb-8">About Nate</h2>
+          <p className="text-lg text-white/70 leading-relaxed mb-10">
             I'm Nate Pinches. I run CappaWork, an AI build consultancy serving founder-led businesses.
           </p>
 
-          <h3 className="text-sm font-semibold uppercase tracking-wider text-stone-400 mb-4">
+          <h3 className="text-sm font-semibold uppercase tracking-widest text-gold mb-4">
             Background that matters for this cohort
           </h3>
-          <ul className="space-y-3 mb-10 text-stone-300">
-            <li className="flex items-start gap-3"><div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0" /><span>MBA + 4 years in management consulting</span></li>
-            <li className="flex items-start gap-3"><div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0" /><span>C-suite strategy at companies up to $2B+ in revenue, including Michaels</span></li>
-            <li className="flex items-start gap-3"><div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0" /><span>Product development at CVS Health (corporate strategy, a $4B subsidiary, 10K institutional customers)</span></li>
-            <li className="flex items-start gap-3"><div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0" /><span>12-month paid apprenticeship in agentic coding — from non-coder to shipping production AI products in a year</span></li>
+          <ul className="space-y-3 mb-10 text-white/70">
+            <li className="flex items-start gap-3"><div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-gold shrink-0" /><span>MBA + 4 years in management consulting</span></li>
+            <li className="flex items-start gap-3"><div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-gold shrink-0" /><span>C-suite strategy at companies up to $2B+ in revenue, including Michaels</span></li>
+            <li className="flex items-start gap-3"><div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-gold shrink-0" /><span>Product development at CVS Health (corporate strategy, a $4B subsidiary, 10K institutional customers)</span></li>
+            <li className="flex items-start gap-3"><div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-gold shrink-0" /><span>12-month paid apprenticeship in agentic coding — from non-coder to shipping production AI products in a year</span></li>
           </ul>
 
-          <div className="rounded-2xl bg-stone-800 border border-stone-700 p-6 mb-10">
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-stone-400 mb-3">
+          <div className="rounded-2xl bg-card-dark border border-white/10 p-6 mb-10">
+            <h3 className="text-sm font-semibold uppercase tracking-widest text-gold mb-3">
               A profitability case I'm proud of
             </h3>
-            <p className="text-stone-300 leading-relaxed">
+            <p className="text-white/80 leading-relaxed">
               I worked with a founder whose business was doing $1.5M in revenue and $45K in profit. One year later
               — $1.8M in revenue and $225K in profit. That's a 5x profit improvement on a 20% revenue lift. The
               frameworks I teach in this cohort are the same frameworks I used with that founder.
             </p>
           </div>
 
-          <h3 className="text-sm font-semibold uppercase tracking-wider text-stone-400 mb-4">
+          <h3 className="text-sm font-semibold uppercase tracking-widest text-gold mb-4">
             Products I've built with these patterns
           </h3>
           <div className="grid sm:grid-cols-2 gap-4">
@@ -365,29 +384,29 @@ export default function AiForBusinessLeadersPage() {
                 href={url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group rounded-xl bg-stone-800 border border-stone-700 p-5 hover:border-stone-500 transition-colors"
+                className="group rounded-xl bg-card-dark border border-white/10 p-5 hover:border-gold/40 transition-colors"
               >
                 <div className="flex items-center justify-between mb-1">
-                  <span className="font-semibold text-white">{name}</span>
-                  <ArrowRight size={16} className="text-stone-500 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+                  <span className="font-display text-lg text-white">{name}</span>
+                  <ArrowRight size={16} className="text-white/40 group-hover:text-gold group-hover:translate-x-0.5 transition-all" />
                 </div>
-                <p className="text-sm text-stone-400">{desc}</p>
+                <p className="text-sm text-white/60">{desc}</p>
               </a>
             ))}
           </div>
-          <p className="mt-8 text-sm text-stone-400">
+          <p className="mt-8 text-sm text-white/50">
             More on me:{" "}
-            <a href="https://natepinches.com" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 underline">
+            <a href="https://natepinches.com" target="_blank" rel="noopener noreferrer" className="text-gold hover:text-gold/80 underline">
               natepinches.com
             </a>
           </p>
         </div>
       </section>
 
-      {/* Section 6 — FAQ */}
-      <section className="py-24 bg-white">
+      {/* FAQ */}
+      <section className="py-24 bg-warm-white">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-stone-900 mb-10 text-center">
+          <h2 className="font-display text-3xl sm:text-4xl tracking-tight text-navy mb-10 text-center">
             Common Questions
           </h2>
           <Accordion type="single" collapsible className="w-full space-y-4">
@@ -395,9 +414,9 @@ export default function AiForBusinessLeadersPage() {
               <AccordionItem
                 key={i}
                 value={`faq-${i}`}
-                className="bg-stone-50 border border-stone-200 rounded-xl px-6"
+                className="bg-card-light border border-card-border rounded-xl px-6"
               >
-                <AccordionTrigger className="hover:no-underline py-6 text-left font-medium text-stone-900">
+                <AccordionTrigger className="hover:no-underline py-6 text-left font-medium text-navy">
                   {q}
                 </AccordionTrigger>
                 <AccordionContent className="pb-6 text-stone-600 text-base leading-relaxed">
@@ -409,25 +428,25 @@ export default function AiForBusinessLeadersPage() {
         </div>
       </section>
 
-      {/* Section 7 — CTA / request form */}
-      <section id="request" className="py-24 bg-stone-50 scroll-mt-20">
+      {/* CTA / request form */}
+      <section id="request" className="py-24 bg-navy scroll-mt-20">
         <div className="max-w-xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-3xl shadow-xl border border-stone-100 p-8 sm:p-12">
-            <h2 className="text-3xl font-semibold tracking-tight text-stone-900 mb-3 text-center">
-              Ready to build?
-            </h2>
-            <p className="text-stone-600 mb-8 text-center leading-relaxed">
-              Drop your LinkedIn and email. Nate will be in touch within 24 hours to see if you qualify for this
-              cohort.
-            </p>
+          <h2 className="font-display text-3xl sm:text-4xl tracking-tight text-white mb-3 text-center">
+            Ready to build?
+          </h2>
+          <p className="text-white/70 mb-8 text-center leading-relaxed">
+            Drop your LinkedIn and email. Nate will be in touch within 24 hours to see if you qualify for this
+            cohort.
+          </p>
+          <div className="bg-warm-white rounded-3xl shadow-xl p-8 sm:p-10">
             <CohortLeadForm cohortType="build" />
           </div>
-          <p className="mt-6 text-center text-sm text-stone-400">
+          <p className="mt-6 text-center text-sm text-white/40">
             Limited to 15 seats per cohort. Next cohort: Tuesdays, June 10 / 17 / 24, 2026. 7:00–8:30pm ET.
           </p>
-          <p className="mt-4 text-center text-sm text-stone-500">
+          <p className="mt-4 text-center text-sm text-white/60">
             Not sure where to build yet?{" "}
-            <Link href="/ai-literacy-bootcamp" className="text-blue-600 hover:text-blue-700 underline">
+            <Link href="/ai-literacy-bootcamp" className="text-gold hover:text-gold/80 underline">
               Start with the AI Literacy Bootcamp →
             </Link>
           </p>

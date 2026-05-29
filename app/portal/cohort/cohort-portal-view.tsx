@@ -78,10 +78,10 @@ export default async function CohortPortalView({
 
       {/* Header */}
       <header className="rounded-2xl border border-stone-200 bg-white p-6 sm:p-8 shadow-sm">
-        <p className="text-xs font-semibold uppercase tracking-wider text-blue-600 mb-2">
+        <p className="text-xs font-semibold uppercase tracking-widest text-gold mb-2">
           {COHORT_TYPE_LABELS[cohort.type]}
         </p>
-        <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight text-stone-900">
+        <h1 className="font-display text-2xl sm:text-3xl tracking-tight text-navy">
           {cohort.name}
         </h1>
         <p className="mt-2 text-stone-500">
@@ -108,7 +108,7 @@ export default async function CohortPortalView({
               href={cohort.zoom_link}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-blue-600 px-6 py-3 font-medium text-white shadow-lg shadow-blue-500/20 transition-all hover:bg-blue-700 hover:scale-[1.02] sm:ml-auto"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-gold px-6 py-3 font-medium text-navy transition-all hover:bg-gold/90 hover:scale-[1.02] sm:ml-auto"
             >
               <Video size={18} />
               Join live session
@@ -119,7 +119,7 @@ export default async function CohortPortalView({
 
       {/* Materials library */}
       <section className="mt-10">
-        <h2 className="text-xl font-semibold tracking-tight text-stone-900 mb-6">Materials library</h2>
+        <h2 className="font-display text-xl tracking-tight text-navy mb-6">Materials library</h2>
 
         {sections.length === 0 ? (
           <div className="rounded-2xl border border-dashed border-stone-300 bg-white p-10 text-center text-stone-500">
@@ -141,7 +141,7 @@ export default async function CohortPortalView({
                         href={`/portal/cohort/materials/${m.id}`}
                         className="flex items-center gap-4 px-5 py-4 hover:bg-stone-50 transition-colors group"
                       >
-                        <div className="shrink-0 flex h-10 w-10 items-center justify-center rounded-lg bg-stone-100 text-stone-500 group-hover:bg-blue-50 group-hover:text-blue-600 transition-colors">
+                        <div className="shrink-0 flex h-10 w-10 items-center justify-center rounded-lg bg-stone-100 text-stone-500 group-hover:bg-gold/10 group-hover:text-gold transition-colors">
                           <Icon size={20} />
                         </div>
                         <div className="min-w-0 flex-1">
@@ -169,14 +169,14 @@ export default async function CohortPortalView({
           <p>
             Access expires on{" "}
             <span className="font-medium text-stone-700">{formatShort(accessExpiresAt)}</span>. Want more time?{" "}
-            <a href="mailto:nate@cappawork.com?subject=Extend%20cohort%20access" className="text-blue-600 hover:text-blue-700 underline">
+            <a href="mailto:nate@cappawork.com?subject=Extend%20cohort%20access" className="text-gold hover:text-gold/80 underline">
               Email Nate to extend
             </a>
             .
           </p>
         )}
         <p>
-          <Link href={COHORT_TYPE_LANDING[otherType]} className="text-blue-600 hover:text-blue-700 underline inline-flex items-center gap-1">
+          <Link href={COHORT_TYPE_LANDING[otherType]} className="text-gold hover:text-gold/80 underline inline-flex items-center gap-1">
             Check out {COHORT_TYPE_LABELS[otherType]}
             <ExternalLink size={13} />
           </Link>
