@@ -170,7 +170,7 @@ export default function AiLiteracyBootcampPage() {
       </nav>
 
       {/* Hero */}
-      <section className="bg-navy pt-36 pb-24 md:pt-44">
+      <section className="bg-warm-white pt-36 pb-24 md:pt-44">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-gold/30 bg-gold/10 text-gold text-xs font-semibold mb-8 uppercase tracking-widest">
             <span className="relative flex h-2 w-2">
@@ -180,16 +180,16 @@ export default function AiLiteracyBootcampPage() {
             Enrolling for June
           </div>
 
-          <h1 className="font-display text-5xl md:text-7xl tracking-tight leading-[1.1] mb-6 text-white">
+          <h1 className="font-display text-5xl md:text-7xl tracking-tight leading-[1.1] mb-6 text-navy">
             AI Literacy Bootcamp
           </h1>
           <p className="font-display text-xl md:text-2xl text-gold mb-6">
             Stop nodding through AI conversations you don't actually understand.
           </p>
-          <p className="text-sm font-medium tracking-widest uppercase text-white/50 mb-6">
+          <p className="text-sm font-medium tracking-widest uppercase text-stone-500 mb-6">
             3 sessions · 90 minutes each · $1,500
           </p>
-          <p className="text-lg text-white/70 leading-relaxed mb-10 max-w-xl mx-auto">
+          <p className="text-lg text-stone-600 leading-relaxed mb-10 max-w-xl mx-auto">
             For directors, VPs, and CXOs who need to be conversant in AI — because it now sits inside every
             strategic decision they make.
           </p>
@@ -202,7 +202,7 @@ export default function AiLiteracyBootcampPage() {
             <ArrowRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
           </Link>
 
-          <p className="mt-6 text-sm text-white/40">Next cohort: Wednesdays, June 10 / 17 / 24, 2026. 7:00–8:30pm ET.</p>
+          <p className="mt-6 text-sm text-stone-500">Next cohort: Wednesdays, June 10 / 17 / 24, 2026. 7:00–8:30pm ET.</p>
         </div>
       </section>
 
