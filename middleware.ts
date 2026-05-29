@@ -7,6 +7,7 @@ const isProtectedRoute = createRouteMatcher([
   '/admin(.*)',
   '/projects(.*)',
   '/dashboard(.*)',
+  '/portal(.*)',
 ])
 
 // Routes that are public (marketing pages)

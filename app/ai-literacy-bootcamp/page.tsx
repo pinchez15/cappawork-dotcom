@@ -1,0 +1,446 @@
+import type { Metadata } from "next"
+import Link from "next/link"
+import { Check, ArrowRight } from "lucide-react"
+import Footer from "../components/footer"
+import CohortLeadForm from "../components/cohort-lead-form"
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
+
+export const metadata: Metadata = {
+  title: "AI Literacy Bootcamp | CappaWork Cohort",
+  description:
+    "Four weeks to strategic fluency in AI — evaluate vendors, make build-vs-buy calls, and stop nodding through AI conversations you don't actually understand. For directors, VPs, and CXOs. $1,500.",
+  openGraph: {
+    title: "AI Literacy Bootcamp | CappaWork Cohort",
+    description:
+      "Four weeks to strategic fluency in AI. Evaluate vendors, make build-vs-buy calls, and lead AI conversations with confidence.",
+    type: "website",
+    url: "https://cappawork.com/ai-literacy-bootcamp",
+    siteName: "CappaWork",
+    locale: "en_US",
+  },
+}
+
+export const dynamic = "force-dynamic"
+
+const leaveWith = [
+  {
+    title: "The three frameworks — as an evaluation lens.",
+    body: "Profit Formula, AI Rules, Groundwork/Teamwork/Lifework. The language you use to read every AI conversation you'll be in for the next two years. When a vendor pitches you, you'll know which lever they're claiming to move.",
+  },
+  {
+    title: "A working mental model of the AI landscape.",
+    body: "Frontier models, agents, MCP, vertical vs horizontal, economics, governance. Not a textbook. A working map you can navigate from.",
+  },
+  {
+    title: "A 90-day personal AI strategy.",
+    body: "Do / Watch / Avoid / Revisit. Specific. Yours. Built in the final session, ready to act on Monday.",
+  },
+  {
+    title: "A governance checklist.",
+    body: "One page. The questions that matter for AI use in your company — and the ones that don't.",
+  },
+  {
+    title: "All session recordings and materials, for 90 days.",
+    body: "Including the AI Basics video library. Revisit when a vendor pitch lands and you want to re-check it against the frameworks.",
+  },
+  {
+    title: "A network of 10–15 peers.",
+    body: "People you can text when something confusing lands in your inbox and you're not sure what to think.",
+  },
+]
+
+const sessions = [
+  {
+    title: "Session 1 — The frameworks and the model landscape",
+    subtitle: "90 minutes. Foundation session.",
+    intro:
+      "By the end, you can evaluate any AI capability or vendor pitch through three frameworks and have a clear-eyed view of the frontier model landscape.",
+    blocks: [
+      ["The frameworks as an evaluation lens (35 min)", "Profit Formula, AI Rules, Groundwork/Teamwork/Lifework — deployed as a lens. When a vendor pitches you, which lever are they claiming to move? Which category of work does it unlock? Bring a real vendor pitch; we run it through all three."],
+      ["The frontier model landscape (35 min)", "The honest comparison. Claude, ChatGPT, Gemini, and open source — what each is actually good at, and the trap of treating them as substitutes. Then the strategic question: which platform should we standardize on?"],
+      ["Discussion (20 min)", "The vendor pitches everyone brought become the working material. We learn to read AI marketing language together."],
+    ],
+  },
+  {
+    title: "Session 2 — Agents and what they actually are",
+    subtitle: "90 minutes. The most-marketed, least-understood AI category.",
+    intro:
+      "The session that prevents the most expensive enterprise mistake of 2026 — buying an “agent platform” that doesn't actually work for the use case being pitched.",
+    blocks: [
+      ["What an agent actually is (25 min)", "The technical definition stripped of marketing — tool use, memory, planning, and verification (where most agents fail). Walked through end to end with a real example."],
+      ["Where agents work and where they don't (30 min)", "The honest map of agent capability today. What's working, what's marketed but not working reliably, and the rule that separates them: bounded task, structured verification, visible failure mode."],
+      ["How to read an agent vendor pitch (25 min)", "The five questions to ask any vendor selling agents. Pair off and run them on a real pitch."],
+    ],
+  },
+  {
+    title: "Session 3 — MCP, connectors, and the new data layer",
+    subtitle: "90 minutes. The most strategically important session — and the one nobody else is teaching.",
+    intro:
+      "MCP turns every SaaS tool you use into something AI can address directly. That changes vendor evaluation, security posture, and what “AI strategy” even means for your company.",
+    blocks: [
+      ["What MCP is and why it matters (25 min)", "The technical concept made strategic — what it unlocks, and what it disrupts. Vendors whose moat was “we integrate with X” now compete on actual product."],
+      ["The vertical AI thesis (25 min)", "Vertical vs horizontal AI — the biggest strategic question for the next two years. Why purpose-built tools displace general ones in regulated and specialized industries, and what that means for your stack."],
+      ["What to do about your tech stack (25 min)", "Which of your tools are AI-native vs “has AI,” which are at risk of displacement, where MCP lets you collapse tools, and which of your data became more valuable — or a liability — now that AI can read it."],
+    ],
+  },
+  {
+    title: "Session 4 — Economics, governance, and what to do Monday",
+    subtitle: "90 minutes. The closing session that turns understanding into action.",
+    intro:
+      "Why some AI vendors will fail and which won't — and how to build a 90-day plan you can act on immediately.",
+    blocks: [
+      ["The economics of AI (25 min)", "Token economics, the unit economics of agents, the acceleration curve, and where the moats actually are (distribution, data, integration depth, trust — not the model). Be careful what you sign multi-year contracts for."],
+      ["Governance and risk: what actually matters (25 min)", "What enterprises waste time on vs what actually matters — data handling, model selection, audit trails, failure modes, compliance fit. You leave with a one-page checklist."],
+      ["Your personal AI strategy (30 min)", "Build your own 90-day plan across four buckets: Do, Watch, Avoid, Revisit. Specific and yours, written in real time."],
+      ["What's next (10 min)", "How to stay literate as the field moves — a short list of who to follow, a monthly literacy ritual, and the alumni channel."],
+    ],
+  },
+]
+
+const frameworks = [
+  {
+    title: "The Profit Formula",
+    body: (
+      <>
+        <p className="font-medium text-stone-900">Profit = Customers × AOV × Frequency × Margin</p>
+        <p className="mt-3">
+          Every AI capability worth caring about moves one of these. As a lens: when a vendor pitches you, which
+          lever are they claiming to move? If they can't answer cleanly, they don't understand their own product —
+          or you're not seeing the real claim.
+        </p>
+      </>
+    ),
+  },
+  {
+    title: "The AI Rules",
+    body: (
+      <>
+        <p className="font-medium text-stone-900">Use AI for: Speed, Scale, Capability.</p>
+        <p className="font-medium text-stone-900">Do not use AI for: Relationships, Truth, Joy.</p>
+        <p className="mt-3">
+          The rule that screens vendor claims. When someone says “AI handles your customer relationships,” that's
+          not a feature — that's a warning.
+        </p>
+      </>
+    ),
+  },
+  {
+    title: "Groundwork, Teamwork, Lifework",
+    body: (
+      <>
+        <p>The three categories of work. AI sits in Groundwork and Teamwork. Lifework is yours.</p>
+        <p className="mt-3">
+          As a lens: when a capability comes up, which category of work does it unlock? The frameworks become the
+          language you use in your own meetings.
+        </p>
+      </>
+    ),
+  },
+]
+
+const faqs = [
+  ["Is this the build cohort?", "No. This is the literacy cohort — it's for understanding the landscape and making better strategic decisions. If you already know what you want to build and need to ship it, take AI for Business Leaders instead. Many people take literacy first, then build."],
+  ["Do I need to be technical?", "No. This is not a coding cohort — no JavaScript, no tools you have to install. It's a strategic foundation, not a tutorial."],
+  ["What if I miss a session?", "Every session is recorded. You'll have 90 days of access to all recordings and materials, including the AI Basics video library."],
+  ["Is the curriculum current, or recycled?", "Every cohort reflects the current state of the field. Roughly 30% of the curriculum is rewritten each run — the frameworks survive, the examples don't. You're not getting what was true 12 months ago."],
+  ["Are you vendor-aligned? Any sponsorships?", "No. No sponsorships, no affiliate deals, no referral fees from any AI vendor named in the curriculum. The credibility of this cohort depends entirely on independence."],
+  ["Can my company buy multiple seats?", "Yes. For groups of 5 or more, reach out directly — there's an optional 30-minute onboarding call, and pricing improves with scale. Mention it on the request form or in your LinkedIn DM with Nate."],
+  ["What's the refund policy?", "All sales are final. Seats are capped per cohort and reserving yours means someone else didn't get one. If you're unsure it's the right fit, that's what the LinkedIn DM with Nate is for — get to certainty before you pay."],
+  ["When does the next cohort run?", "The next literacy cohort runs in July 2026 — exact dates announced soon. Request a seat and Nate will confirm the schedule with you directly."],
+]
+
+const products = [
+  ["KnockRecruit", "https://knockrecruit.io", "Recruiting platform with ranked match matrix and culture-fit scoring"],
+  ["ArborKey", "https://arborkey.com", "Practice management for community association management businesses"],
+  ["Karibu Health", "https://karibuhealth.org", "Voice-first clinical documentation for rural Ugandan clinics"],
+  ["HealthcareAIO", "https://healthcareaio.com", "AI optimization audit tool for healthcare practices"],
+]
+
+export default function AiLiteracyBootcampPage() {
+  return (
+    <main className="min-h-screen bg-white">
+      {/* Nav */}
+      <nav className="fixed top-0 left-0 right-0 z-50 py-4 bg-white/80 backdrop-blur-md border-b border-stone-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+          <a href="/" className="text-xl font-semibold tracking-tight text-stone-900">
+            CappaWork
+          </a>
+          <Link href="#request" className="text-sm font-medium text-stone-600 hover:text-stone-900">
+            Request my seat
+          </Link>
+        </div>
+      </nav>
+
+      {/* Hero */}
+      <section className="pt-32 pb-20 md:pt-40 md:pb-24">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-stone-100 border border-stone-200 text-stone-600 text-xs font-medium mb-8 uppercase tracking-wide">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+            </span>
+            Enrolling for July
+          </div>
+
+          <h1 className="text-5xl sm:text-7xl font-semibold tracking-tight leading-[1.05] mb-6 text-stone-900">
+            AI Literacy Bootcamp
+          </h1>
+          <p className="text-xl sm:text-2xl text-stone-700 leading-relaxed mb-6 max-w-2xl mx-auto">
+            Stop nodding through AI conversations you don't actually understand.
+          </p>
+          <p className="text-base font-medium text-stone-500 mb-2">4 sessions · 90 minutes each · $1,500</p>
+          <p className="text-base text-stone-500 leading-relaxed mb-10 max-w-xl mx-auto">
+            For directors, VPs, and CXOs who need to be conversant in AI — because it now sits inside every
+            strategic decision they make.
+          </p>
+
+          <Link
+            href="#request"
+            className="inline-flex items-center justify-center bg-stone-900 text-white px-8 py-4 rounded-full font-medium hover:bg-stone-800 transition-all duration-200 group"
+          >
+            Request my seat
+            <ArrowRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
+          </Link>
+
+          <p className="mt-6 text-sm text-stone-400">Next cohort: July 2026 — dates announced soon.</p>
+        </div>
+      </section>
+
+      {/* Section 1 — Who this is for */}
+      <section className="py-24 bg-stone-50">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-stone-900 mb-8">
+            Who this is for
+          </h2>
+          <p className="text-lg text-stone-600 leading-relaxed mb-8">
+            You're mid-career — director, VP, CXO — and you know AI is reshaping your industry, but you're not sure
+            what's real and what's noise. You're not sitting on a workflow you're ready to ship. You're sitting in a
+            meeting where someone said “we should be using MCP for that” and you don't know whether to agree or push
+            back.
+          </p>
+          <ul className="space-y-4 mb-10">
+            {[
+              "You need to be conversant in AI for the vendor pitch, the budget cycle, the board update, the org-design conversation",
+              "You want to evaluate vendors and make build-vs-buy calls with confidence",
+              "You want clarity from someone who builds with these tools every day — not a theorist",
+              "You want a strategic foundation that survives the next year of churn, not a tour of this month's tools",
+            ].map((item, i) => (
+              <li key={i} className="flex items-start gap-3 text-stone-700">
+                <Check size={20} className="text-green-500 shrink-0 mt-0.5" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+
+          {/* Positioning callout */}
+          <div className="rounded-2xl border border-stone-200 bg-white p-6">
+            <p className="text-sm font-semibold uppercase tracking-wider text-stone-400 mb-3">Which cohort?</p>
+            <div className="space-y-3 text-stone-700">
+              <p>
+                <span className="font-medium text-stone-900">Don't know what to build yet?</span> Want to understand
+                the landscape and make better strategic decisions? This is the one.
+              </p>
+              <p>
+                <span className="font-medium text-stone-900">Already know what you want to build?</span> Need the
+                frameworks and patterns to ship it? Take{" "}
+                <Link href="/ai-for-business-leaders" className="text-blue-600 hover:text-blue-700 underline">
+                  AI for Business Leaders
+                </Link>{" "}
+                instead.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 2 — What you'll leave with */}
+      <section className="py-24 bg-white">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-stone-900 mb-12">
+            What you'll leave with
+          </h2>
+          <div className="space-y-8">
+            {leaveWith.map((item, i) => (
+              <div key={i} className="flex gap-5">
+                <div className="shrink-0 w-9 h-9 rounded-full bg-blue-600 text-white flex items-center justify-center font-semibold text-sm">
+                  {i + 1}
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-stone-900 mb-1">{item.title}</h3>
+                  <p className="text-stone-600 leading-relaxed">{item.body}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Section 3 — The four sessions */}
+      <section className="py-24 bg-stone-50">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-stone-900 mb-4">
+            The four sessions
+          </h2>
+          <p className="text-lg text-stone-600 mb-10">Four 90-minute sessions, once a week, over one month.</p>
+          <Accordion type="single" collapsible className="w-full space-y-4">
+            {sessions.map((session, i) => (
+              <AccordionItem
+                key={i}
+                value={`session-${i}`}
+                className="bg-white border border-stone-200 rounded-xl px-6"
+              >
+                <AccordionTrigger className="hover:no-underline py-6 text-left font-semibold text-stone-900">
+                  {session.title}
+                </AccordionTrigger>
+                <AccordionContent className="pb-6">
+                  <p className="text-sm font-medium text-stone-500 mb-2">{session.subtitle}</p>
+                  <p className="text-stone-600 mb-6">{session.intro}</p>
+                  <ul className="space-y-4">
+                    {session.blocks.map(([label, body], j) => (
+                      <li key={j} className="border-l-2 border-blue-500 pl-4">
+                        <span className="font-medium text-stone-900">{label}.</span>{" "}
+                        <span className="text-stone-600">{body}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      </section>
+
+      {/* Section 4 — The frameworks as a lens */}
+      <section className="py-24 bg-white">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-stone-900 mb-4">
+            The frameworks as an evaluation lens
+          </h2>
+          <p className="text-lg text-stone-600 mb-10">
+            The same three frameworks from the build cohort — here, the language you use to read every AI pitch.
+          </p>
+          <Accordion type="single" collapsible className="w-full space-y-4">
+            {frameworks.map((fw, i) => (
+              <AccordionItem
+                key={i}
+                value={`framework-${i}`}
+                className="bg-stone-50 border border-stone-200 rounded-xl px-6"
+              >
+                <AccordionTrigger className="hover:no-underline py-6 text-left font-semibold text-stone-900">
+                  {fw.title}
+                </AccordionTrigger>
+                <AccordionContent className="pb-6 text-stone-600 leading-relaxed">
+                  {fw.body}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      </section>
+
+      {/* Section 5 — About Nate */}
+      <section className="py-24 bg-stone-900 text-white">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight mb-8">About Nate</h2>
+          <p className="text-lg text-stone-300 leading-relaxed mb-8">
+            I'm Nate Pinches. I run CappaWork, an AI build consultancy serving founder-led businesses.
+          </p>
+
+          <h3 className="text-sm font-semibold uppercase tracking-wider text-stone-400 mb-4">
+            Background that matters for this cohort
+          </h3>
+          <ul className="space-y-3 mb-10 text-stone-300">
+            <li className="flex items-start gap-3"><div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0" /><span>MBA + 4 years in management consulting</span></li>
+            <li className="flex items-start gap-3"><div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0" /><span>C-suite strategy at companies up to $2B+ in revenue, including Michaels</span></li>
+            <li className="flex items-start gap-3"><div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0" /><span>Product development at CVS Health (corporate strategy, a $4B subsidiary, 10K institutional customers)</span></li>
+            <li className="flex items-start gap-3"><div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0" /><span>12-month paid apprenticeship in agentic coding — from non-coder to shipping production AI products in a year</span></li>
+          </ul>
+
+          <h3 className="text-sm font-semibold uppercase tracking-wider text-stone-400 mb-4">
+            Products I've built with these patterns
+          </h3>
+          <div className="grid sm:grid-cols-2 gap-4">
+            {products.map(([name, url, desc]) => (
+              <a
+                key={name}
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group rounded-xl bg-stone-800 border border-stone-700 p-5 hover:border-stone-500 transition-colors"
+              >
+                <div className="flex items-center justify-between mb-1">
+                  <span className="font-semibold text-white">{name}</span>
+                  <ArrowRight size={16} className="text-stone-500 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+                </div>
+                <p className="text-sm text-stone-400">{desc}</p>
+              </a>
+            ))}
+          </div>
+          <p className="mt-8 text-sm text-stone-400">
+            More on me:{" "}
+            <a href="https://natepinches.com" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 underline">
+              natepinches.com
+            </a>
+          </p>
+        </div>
+      </section>
+
+      {/* Section 6 — FAQ */}
+      <section className="py-24 bg-white">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-stone-900 mb-10 text-center">
+            Common Questions
+          </h2>
+          <Accordion type="single" collapsible className="w-full space-y-4">
+            {faqs.map(([q, a], i) => (
+              <AccordionItem
+                key={i}
+                value={`faq-${i}`}
+                className="bg-stone-50 border border-stone-200 rounded-xl px-6"
+              >
+                <AccordionTrigger className="hover:no-underline py-6 text-left font-medium text-stone-900">
+                  {q}
+                </AccordionTrigger>
+                <AccordionContent className="pb-6 text-stone-600 text-base leading-relaxed">
+                  {a}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      </section>
+
+      {/* Section 7 — CTA / request form */}
+      <section id="request" className="py-24 bg-stone-50 scroll-mt-20">
+        <div className="max-w-xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-white rounded-3xl shadow-xl border border-stone-100 p-8 sm:p-12">
+            <h2 className="text-3xl font-semibold tracking-tight text-stone-900 mb-3 text-center">
+              Get strategically fluent.
+            </h2>
+            <p className="text-stone-600 mb-8 text-center leading-relaxed">
+              Drop your LinkedIn and email. Nate will be in touch within 24 hours to see if you qualify for this
+              cohort.
+            </p>
+            <CohortLeadForm cohortType="literacy" />
+          </div>
+          <p className="mt-6 text-center text-sm text-stone-400">
+            Cohorts run with 10–15 people. Next cohort: July 2026 — dates announced soon.
+          </p>
+          <p className="mt-4 text-center text-sm text-stone-500">
+            Already know what you want to build?{" "}
+            <Link href="/ai-for-business-leaders" className="text-blue-600 hover:text-blue-700 underline">
+              Check out AI for Business Leaders →
+            </Link>
+          </p>
+        </div>
+      </section>
+
+      <Footer />
+    </main>
+  )
+}

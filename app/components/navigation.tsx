@@ -42,6 +42,7 @@ export default function Navigation() {
   const navItems = [
     { id: "how-it-works", label: "How It Works", href: "/#how-it-works" },
     { id: "about", label: "About", href: "/#about" },
+    { id: "cohorts", label: "Cohorts", href: "/cohorts" },
     { id: "blog", label: "Blog", href: "/blog" },
   ]
 

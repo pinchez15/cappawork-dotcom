@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer className="bg-navy text-white/50 border-t border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
           {/* Brand */}
           <div className="col-span-1 md:col-span-2">
             <Link href="/" className="text-xl font-display tracking-tight text-white mb-4 inline-block">
@@ -37,6 +37,27 @@ export default function Footer() {
               <li>
                 <Link href="/contact" className="text-white/50 hover:text-white text-sm transition-colors">
                   Contact
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wide">Cohorts</h3>
+            <ul className="space-y-3">
+              <li>
+                <Link href="/ai-for-business-leaders" className="text-white/50 hover:text-white text-sm transition-colors">
+                  AI for Business Leaders
+                </Link>
+              </li>
+              <li>
+                <Link href="/ai-literacy-bootcamp" className="text-white/50 hover:text-white text-sm transition-colors">
+                  AI Literacy Bootcamp
+                </Link>
+              </li>
+              <li>
+                <Link href="/cohorts" className="text-white/50 hover:text-white text-sm transition-colors">
+                  Compare cohorts
                 </Link>
               </li>
             </ul>
