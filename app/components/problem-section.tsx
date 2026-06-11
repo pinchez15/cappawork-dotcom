@@ -1,17 +1,6 @@
 "use client"
 
-import { FadeInUp, StaggerContainer, StaggerItem } from "./motion-wrapper"
-
-const problems = [
-  {
-    title: "Your team has outgrown the workaround.",
-    text: "The spreadsheet, the duplicate entry, the manual handoff, the \u201cjust ask Sarah\u201d process. These are not small annoyances. They are the bottlenecks limiting growth.",
-  },
-  {
-    title: "Generic tools create generic operations.",
-    text: "Most software asks your business to adapt to it. CappaWork builds the system around your people, your customers, and the way value actually moves through your company.",
-  },
-]
+import { FadeInUp } from "./motion-wrapper"
 
 export default function ProblemSection() {
   return (
@@ -19,28 +8,25 @@ export default function ProblemSection() {
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <FadeInUp>
           <span className="text-sm font-semibold tracking-widest uppercase text-gold block mb-8">
-            The Opportunity
+            The Problem
           </span>
 
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl tracking-tight text-white leading-tight mb-16">
-            Off-the-shelf software was not built for your business.
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl tracking-tight text-white leading-tight mb-10">
+            The villain isn&rsquo;t your team. It&rsquo;s the workaround.
           </h2>
-        </FadeInUp>
 
-        <StaggerContainer className="space-y-10">
-          {problems.map((problem) => (
-            <StaggerItem key={problem.title}>
-              <div className="border-l-2 border-gold/40 pl-6">
-                <h3 className="text-lg font-semibold text-white mb-2">
-                  {problem.title}
-                </h3>
-                <p className="text-white/70 leading-relaxed">
-                  {problem.text}
-                </p>
-              </div>
-            </StaggerItem>
-          ))}
-        </StaggerContainer>
+          <div className="space-y-6 text-white/70 leading-relaxed text-lg">
+            <p>
+              Off-the-shelf tools cover 70% of how you work. The other 30% lives in spreadsheets, duplicate entry, manual handoffs, and &ldquo;just ask Sarah.&rdquo; You pay $30K&ndash;$50K a year for software you still have to work around.
+            </p>
+            <p>
+              You didn&rsquo;t build this company to spend your week chasing status updates and reconciling systems that don&rsquo;t talk. Somewhere along the way, the business started running you.
+            </p>
+            <p className="text-white font-medium">
+              Software should adapt to the business — not the other way around. The businesses that keep America moving deserve systems built around how they actually work.
+            </p>
+          </div>
+        </FadeInUp>
       </div>
     </section>
   )

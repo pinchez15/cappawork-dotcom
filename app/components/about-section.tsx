@@ -1,8 +1,9 @@
 import Image from "next/image"
+import { FadeInUp } from "./motion-wrapper"
 
 export default function AboutSection() {
   return (
-    <section id="about" className="py-24 bg-card-light">
+    <section id="guide" className="py-24 bg-warm-white">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row items-start gap-10 md:gap-16">
           <div className="flex-shrink-0">
@@ -14,22 +15,22 @@ export default function AboutSection() {
               className="rounded-2xl object-cover"
             />
           </div>
-          <div>
+          <FadeInUp>
             <span className="text-sm font-semibold tracking-widest uppercase text-gold block mb-3">
-              About
+              The Guide
             </span>
             <h2 className="font-display text-2xl sm:text-3xl tracking-tight text-navy mb-6">
-              Built for serious operators.
+              You don&rsquo;t need another tool. You need someone who&rsquo;s done this.
             </h2>
             <div className="text-stone-600 leading-relaxed space-y-4">
               <p>
-                CappaWork exists for American business owners who are done forcing their company through tools that were never designed for them.
+                I&rsquo;ve sat on both sides of this problem — selling operational software into Apollo and General Atlantic portfolio companies, and building production systems with my own hands. CappaWork ships real systems, live today in property management, data consulting, wealth management, healthcare AI, and a clinical EHR running in rural clinics.
               </p>
               <p>
-                We bring strategy, software development, AI, hosting, and training into one engagement, so the system is not just planned. It gets built, adopted, and owned.
+                No agency. No handoffs. No markup. The person you talk to is the person who builds it.
               </p>
             </div>
-          </div>
+          </FadeInUp>
         </div>
       </div>
     </section>
