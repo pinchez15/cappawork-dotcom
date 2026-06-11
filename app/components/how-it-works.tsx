@@ -8,12 +8,12 @@ const steps = [
   {
     number: "1",
     title: "Embed.",
-    body: "We work inside your operation for the first month — mapping how value actually moves, not how the org chart says it does. You get a build plan with ROI and success metrics in writing before anything gets built.",
+    body: "We spend the first week working inside your operation — riding along, serving your customers, doing the job your team does. Then we spend the rest of the month turning what we learned into a build plan with ROI and success metrics, in writing, before anything gets built.",
   },
   {
     number: "2",
     title: "Build.",
-    body: "Months two through six, working software ships in focused releases while your team uses it. Not a prototype. The production system, version one — with AI working invisibly inside it: drafting, routing, summarizing, following up where the work already happens.",
+    body: "The first version goes live in weeks, not quarters — then we harden it against the real world your team actually lives in: the customer who texts instead of emails, the document that arrives as a link instead of an upload. Not a prototype. The production system, version one — with AI working invisibly inside it: drafting, routing, summarizing, following up where the work already happens.",
   },
   {
     number: "3",

@@ -6,19 +6,19 @@ import { useInquiry } from "./inquiry-modal"
 
 const steps = [
   {
-    number: "1",
-    title: "Embed (weeks 1–4):",
-    body: "Map how the business actually operates — not how the CIM said it did. Your investors get a modernization strategy with ROI and success metrics they can put in a board deck.",
+    range: "Days 1–30",
+    title: "Embed and freeze the plan.",
+    body: "A week working inside the business, then the modernization strategy: ROI, success metrics, board-deck ready — delivered inside your 100-day reporting window. The founder's-head process, mapped — not how the CIM said it worked.",
   },
   {
-    number: "2",
-    title: "Build (months 2–6):",
-    body: "The founder's tribal knowledge becomes software. The duct tape becomes an operating platform. Key-person risk becomes owned IP.",
+    range: "Days 30–100",
+    title: "Ship the change while change is expected.",
+    body: "Core system live by day 100. Tribal knowledge becomes software. Duct tape becomes an operating platform.",
   },
   {
-    number: "3",
-    title: "Own:",
-    body: "Clean handoff, trained team, maintained system — an asset at exit instead of a diligence finding.",
+    range: "Days 100–180",
+    title: "Refreeze around the new system.",
+    body: "Harden against the edge cases, train the team, stabilize. Key-person risk becomes owned IP — an asset at exit instead of a diligence finding.",
   },
 ]
 
@@ -35,23 +35,30 @@ export default function PathwayAcquirers() {
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl tracking-tight text-navy leading-tight mb-6">
             Just bought a business? The first 100 days decide the next five years.
           </h2>
-          <p className="text-stone-600 leading-relaxed text-lg mb-10">
-            You acquired a company that runs on the founder&rsquo;s memory and a stack of duct-taped tools. The value-creation plan is on the clock, and the systems can&rsquo;t carry it.
-          </p>
+          <div className="space-y-5 text-stone-600 leading-relaxed text-lg mb-8">
+            <p>
+              You acquired a company that runs on the founder&rsquo;s memory and a stack of duct-taped tools. The value-creation plan is on the clock, and the systems can&rsquo;t carry it.
+            </p>
+            <p>
+              Here&rsquo;s what most buyers miss: the acquisition itself is the unfreeze. Day one post-close, everything is fluid &mdash; habits are loose, the team expects change. That window decays fast. By day 90, the old workarounds have refrozen under new ownership. The decisive work has to happen while the organization still expects change.
+            </p>
+          </div>
 
           <div className="rounded-2xl border border-gold/30 bg-card-light p-6 mb-10">
             <p className="text-navy font-semibold text-lg">
-              The First 100 Days Build &mdash; $15K/month, six months
+              The First 100 Days Build &mdash; $15K/month, six months, mapped to your clock
             </p>
           </div>
         </FadeInUp>
 
         <StaggerContainer className="space-y-8 mb-12">
           {steps.map((step) => (
-            <StaggerItem key={step.number}>
+            <StaggerItem key={step.range}>
               <div className="flex gap-6">
-                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gold flex items-center justify-center">
-                  <span className="text-navy font-semibold text-sm">{step.number}</span>
+                <div className="flex-shrink-0 pt-1">
+                  <span className="inline-block bg-gold text-navy text-xs font-semibold px-3 py-1 rounded-full whitespace-nowrap">
+                    {step.range}
+                  </span>
                 </div>
                 <div>
                   <h3 className="font-display text-xl text-navy mb-2">{step.title}</h3>
@@ -63,6 +70,9 @@ export default function PathwayAcquirers() {
         </StaggerContainer>
 
         <FadeInUp>
+          <p className="text-stone-600 leading-relaxed text-lg mb-10">
+            By day 100, the core system is live. By day 180, it&rsquo;s yours.
+          </p>
           <button
             onClick={() => open()}
             className="bg-gold text-navy px-8 py-3.5 rounded-full font-medium hover:bg-gold/90 transition-all duration-200 inline-flex items-center gap-2 text-lg"

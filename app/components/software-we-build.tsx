@@ -34,7 +34,7 @@ export default function SoftwareWeBuild() {
               Forward-deployed engineering, for Main Street.
             </h2>
             <p className="text-lg text-white/70 leading-relaxed">
-              The big AI labs figured out that great software gets built by engineers who embed inside the customer&rsquo;s business &mdash; they call it forward-deployed engineering. Fortune 500s pay millions for it. CappaWork brings the same model to the businesses that actually keep the country running.
+              The big AI labs figured out that great software gets built by engineers who embed inside the customer&rsquo;s business &mdash; they call it forward-deployed engineering. Fortune 500s pay $300K a year per engineer for it. CappaWork brings the same model to the businesses that actually keep the country running &mdash; embed, work alongside the team, map the real process, build, stabilize, then build the next thing &mdash; for $90K, outcome included.
             </p>
           </div>
         </FadeInUp>

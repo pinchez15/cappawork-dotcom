@@ -16,11 +16,11 @@ import HomepageWrapper from "./components/homepage-wrapper"
 export const metadata: Metadata = {
   title: "CappaWork — AI for Main Street",
   description:
-    "CappaWork embeds with your team and builds the operating system your business actually needs — and you own it.",
-  keywords: "custom software, AI, Main Street businesses, forward-deployed engineering, operational software, business automation",
+    "CappaWork embeds with $5M–$50M businesses and builds the operating systems they run on. You own the IP. We host and maintain it.",
+  keywords: "AI for Main Street, forward-deployed engineering, custom operational software, first 100 days, operational software, business automation",
   openGraph: {
     title: "CappaWork — AI for Main Street",
-    description: "Your business shouldn't bend to fit its software. CappaWork builds the operating system your business actually needs — and you own it.",
+    description: "CappaWork embeds with $5M–$50M businesses and builds the operating systems they run on. You own the IP. We host and maintain it.",
     type: "website",
     url: "https://cappawork.com",
     siteName: "CappaWork",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "CappaWork — AI for Main Street",
-    description: "Your business shouldn't bend to fit its software. CappaWork builds the operating system your business actually needs — and you own it.",
+    description: "CappaWork embeds with $5M–$50M businesses and builds the operating systems they run on. You own the IP. We host and maintain it.",
     images: ["/linkedin-preview.jpg"],
   },
 }
