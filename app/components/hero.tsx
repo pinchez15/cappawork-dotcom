@@ -60,7 +60,7 @@ export default function Hero() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="text-sm font-semibold tracking-widest uppercase text-gold mb-6"
         >
-          AI for Main Street
+          AI Modernization for Founder-Led Businesses
         </motion.p>
 
         <motion.h1
@@ -76,18 +76,9 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-          className="text-lg text-white/70 max-w-2xl mx-auto mb-4 leading-relaxed"
+          className="text-lg text-white/70 max-w-2xl mx-auto mb-12 leading-relaxed"
         >
-          We help founder-led businesses become AI-native with custom software and embedded engineering that moves the busywork to machines and the judgment back to your team.
-        </motion.p>
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.28, ease: "easeOut" }}
-          className="text-base text-white/50 max-w-xl mx-auto mb-12 leading-relaxed"
-        >
-          Discover. Build. Modernize.
+          CappaWork modernizes founder-led businesses with AI, custom software, and embedded engineering that removes busywork, captures tribal knowledge, and moves judgment back to your team.
         </motion.p>
 
         <motion.div
@@ -100,14 +91,14 @@ export default function Hero() {
             onClick={() => open()}
             className="bg-gold text-navy px-8 py-3.5 rounded-full font-medium hover:bg-gold/90 transition-all duration-200 inline-flex items-center gap-2 text-lg"
           >
-            Book a Free Working Session
+            Book a Free Computer Work Audit
             <ArrowRight size={18} />
           </button>
           <Link
-            href="/#services"
+            href="/#how-it-works"
             className="text-white/80 hover:text-white transition-colors duration-200 inline-flex items-center gap-1.5 text-base font-medium"
           >
-            See how we work
+            See how modernization works
             <ArrowRight size={16} />
           </Link>
         </motion.div>

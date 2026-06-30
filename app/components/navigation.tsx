@@ -19,7 +19,7 @@ export default function Navigation() {
       setActiveSection("blog")
     } else if (currentPath === "/") {
       const handleScroll = () => {
-        const sections = ["hero", "philosophy", "services", "how-it-works", "about"]
+        const sections = ["hero", "audit", "philosophy", "how-it-works", "services", "how-we-work", "work"]
         const scrollPosition = window.scrollY + 100
 
         for (const section of sections) {
@@ -40,9 +40,10 @@ export default function Navigation() {
   }, [])
 
   const navItems = [
+    { id: "audit", label: "The Audit", href: "/#audit" },
     { id: "services", label: "Services", href: "/#services" },
     { id: "how-it-works", label: "The Journey", href: "/#how-it-works" },
-    { id: "about", label: "About", href: "/#about" },
+    { id: "about", label: "About", href: "/about" },
     { id: "cohorts", label: "Cohorts", href: "/cohorts" },
     { id: "blog", label: "Blog", href: "/blog" },
   ]
@@ -117,7 +118,7 @@ export default function Navigation() {
               onClick={handleBookCall}
               className="text-sm font-medium bg-gold text-navy px-4 py-2 rounded-full hover:bg-gold/90 transition-colors"
             >
-              Get in Touch
+              Book Audit
             </button>
           </div>
 
@@ -168,7 +169,7 @@ export default function Navigation() {
               onClick={handleBookCall}
               className="block w-full text-center mt-4 font-medium bg-gold text-navy px-4 py-3 rounded-full hover:bg-gold/90 transition-colors"
             >
-              Get in Touch
+              Book Audit
             </button>
           </div>
         )}

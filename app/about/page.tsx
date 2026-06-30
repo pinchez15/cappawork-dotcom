@@ -51,7 +51,7 @@ export default function AboutPage() {
           <div className="space-y-6 mb-10">
             <h2 className="font-display text-2xl text-navy mb-4">One engagement. One relationship.</h2>
             <p className="text-stone-600 mb-4">
-              CappaWork isn&apos;t a menu of disconnected services. It&apos;s a journey — Discover what to build, Build what matters, or Modernize how your business operates — with one partner from strategy through shipping.
+              CappaWork is a modernization partner for founder-led businesses: audit, roadmap, build, and embed with one partner from strategy through shipping.
             </p>
             <p className="text-stone-600 leading-relaxed">
               You own the IP. CappaWork keeps the system running, secure, and improving over time.
@@ -59,13 +59,13 @@ export default function AboutPage() {
           </div>
 
           {/* Philosophy */}
-          <h2 className="font-display text-2xl text-navy mb-4">The Philosophy</h2>
+          <h2 className="font-display text-2xl text-navy mb-4">Why We Exist</h2>
           <div className="space-y-4 mb-10">
             <p className="text-stone-600 leading-relaxed">
-              Most consultants deliver strategy decks. Most dev shops build what they&apos;re told. Most AI vendors sell chatbots. I do the diagnosis and the implementation — same person, start to finish.
+              For decades, custom software was too expensive for most businesses. So people became the middleware between disconnected systems: copying, checking, forwarding, reconciling, and chasing information from one place to another.
             </p>
             <p className="text-stone-600 leading-relaxed">
-              The promise is transformation, not dependency. I leave the client better than I found them and I leave. You won&apos;t need me to keep the lights on.
+              AI didn&rsquo;t change what software is for. It changed what businesses can afford to build. CappaWork exists to help founder-led companies use that leverage wisely: not to replace people, but to eliminate the work that never belonged to people in the first place.
             </p>
           </div>
 

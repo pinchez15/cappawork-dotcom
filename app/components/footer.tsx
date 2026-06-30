@@ -11,7 +11,7 @@ export default function Footer() {
               CappaWork
             </Link>
             <p className="text-white/50 text-sm max-w-md">
-              We help founder-led businesses become AI-native. You own the IP. We keep it working.
+              We remove computer work so your team can do more human work. You own the IP. We keep it working.
             </p>
           </div>
 
@@ -42,7 +42,12 @@ export default function Footer() {
             <ul className="space-y-3">
               <li>
                 <Link href="/#services" className="text-white/50 hover:text-white text-sm transition-colors">
-                  Services
+                  All Services
+                </Link>
+              </li>
+              <li>
+                <Link href="/#audit" className="text-white/50 hover:text-white text-sm transition-colors">
+                  The Audit
                 </Link>
               </li>
               <li>
@@ -51,7 +56,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/#about" className="text-white/50 hover:text-white text-sm transition-colors">
+                <Link href="/about" className="text-white/50 hover:text-white text-sm transition-colors">
                   About
                 </Link>
               </li>

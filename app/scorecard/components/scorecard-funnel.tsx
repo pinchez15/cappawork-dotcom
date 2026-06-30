@@ -513,7 +513,7 @@ export function ScorecardFunnel() {
                     rel="noopener noreferrer"
                     className="mt-4 inline-flex items-center gap-2 rounded-full bg-blue-600 px-6 py-3 font-medium text-white shadow-md shadow-blue-600/20 transition-all hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-600/30"
                   >
-                    Book a Free Working Session
+                    Book a Free Computer Work Audit
                     <ChevronRight className="h-4 w-4" />
                   </a>
                 </div>

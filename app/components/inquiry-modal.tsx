@@ -18,7 +18,7 @@ const serviceOptions = [
   { value: "Discover", label: "Discover (from $10,000)" },
   { value: "Build", label: "Build (from $35,000)" },
   { value: "Modernize", label: "Modernize ($15,000/month)" },
-  { value: "Free Working Session", label: "Free Working Session (not sure yet)" },
+  { value: "Free Computer Work Audit", label: "Free Computer Work Audit" },
   { value: "Something else", label: "Something else" },
 ]
 
@@ -57,7 +57,7 @@ function InquiryModalContent({
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [linkedin, setLinkedin] = useState("")
-  const [service, setService] = useState(preselectedService || "Free Working Session")
+  const [service, setService] = useState(preselectedService || "Free Computer Work Audit")
   const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [error, setError] = useState("")
@@ -133,7 +133,7 @@ function InquiryModalContent({
                 Let&rsquo;s talk
               </h2>
               <p className="text-stone-600 mb-8">
-                Tell me what you&rsquo;re working on. I&rsquo;ll reach out to schedule a free working session.
+                Tell me about the workflow. I&rsquo;ll reach out to schedule your free Computer Work Audit.
               </p>
 
               <form onSubmit={handleSubmit} className="space-y-4">

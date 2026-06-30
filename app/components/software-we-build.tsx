@@ -5,22 +5,22 @@ import { FadeInUp, StaggerContainer, StaggerItem } from "./motion-wrapper"
 const pillars = [
   {
     title: "We come to you.",
-    body: "We join your team and watch how work actually gets done before we design anything.",
+    body: "We watch how work actually gets done before designing anything.",
     note: "The best systems come from doing the job.",
   },
   {
     title: "Strategy and shipping, same person.",
-    body: "The person who maps your operations builds the software, from diagnosis through launch.",
-    note: "No handoffs. No deck-and-disappear.",
+    body: "The person who maps your operations builds the software from diagnosis through launch.",
+    note: "No handoff from strategist to developer.",
   },
   {
     title: "AI where the work already happens.",
-    body: "We build automation into your systems so drafting, routing, and follow-up happen where your team already works.",
+    body: "We build AI into your existing workflows so drafting, routing, follow-up, and summaries happen inside the system.",
     note: "Your people stay in the loop for what matters.",
   },
   {
     title: "You own it. We keep it running.",
-    body: "Production software, trained users, and full IP transfer, with CappaWork hosting and maintaining what we ship.",
+    body: "Production software, trained users, full IP transfer, with CappaWork available to maintain and improve what we ship.",
     note: "The system keeps improving instead of rotting.",
   },
 ]
@@ -35,13 +35,13 @@ export default function SoftwareWeBuild() {
           </span>
           <div className="max-w-3xl mb-16">
             <h2 className="font-display text-3xl sm:text-4xl tracking-tight text-navy leading-tight mb-6">
-              An embed partner who ships.
+              The person who maps the work builds the system.
             </h2>
-            <p className="text-lg text-stone-600 leading-relaxed">
-              Fortune 500s pay $300K a year for embedded engineers; we bring that model to founder-led companies.
+            <p className="text-lg text-stone-600 leading-relaxed mb-2">
+              No handoff from strategist to designer to developer. We come inside the business, understand how work actually happens, and ship software that fits the way your team operates.
             </p>
-            <p className="text-base text-stone-500 mt-2">
-              Operations fluency. Production AI systems. Adoption that sticks.
+            <p className="text-base text-stone-500">
+              Every founder has a spreadsheet that&rsquo;s secretly running the company.
             </p>
           </div>
         </FadeInUp>

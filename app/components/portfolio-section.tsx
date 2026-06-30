@@ -15,17 +15,17 @@ export default function PortfolioSection() {
           <span className="text-sm font-semibold tracking-widest uppercase text-gold block mb-4">
             The Work
           </span>
-          <div className="max-w-3xl mb-16">
+          <div className="max-w-3xl mb-6">
             <h2 className="font-display text-3xl sm:text-4xl tracking-tight text-white leading-tight mb-6">
               Production systems, live today.
             </h2>
             <p className="text-lg text-white/70 leading-relaxed">
               Live software in healthcare, property management, data consulting, and clinical settings.
             </p>
-            <p className="text-base text-white/50 mt-2">
-              Click through to see what we build.
-            </p>
           </div>
+          <p className="text-base text-white/50 mb-16 max-w-3xl">
+            These are not mockups, pitch decks, or prototypes. They are production systems built to run real work.
+          </p>
         </FadeInUp>
 
         <StaggerContainer className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-12">

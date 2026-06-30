@@ -97,7 +97,7 @@ export const OFFERINGS: Offering[] = [
     whoBlock:
       "You know AI should change how you operate but are unsure what to build first, what to buy, or what is worth the investment.",
     inquiryKey: "Discover",
-    ctaText: "Book a Free Working Session",
+    ctaText: "Book a Free Computer Work Audit",
     ctaSub: "No charge. We will scope Sprint or Deep on the call if Discover is the right fit.",
     termsNote:
       "When you book Discover, you are holding dedicated capacity that another business could fill.",
@@ -164,7 +164,7 @@ export const OFFERINGS: Offering[] = [
     whoBlock:
       "You know what needs to be built and want one senior partner from architecture through launch, without an agency handoff.",
     inquiryKey: "Build",
-    ctaText: "Book a Free Working Session",
+    ctaText: "Book a Free Computer Work Audit",
     ctaSub: "We align on scope and timeline before any commitment.",
     termsNote:
       "When you commit to a build, you are reserving dedicated capacity.",
@@ -227,7 +227,7 @@ export const OFFERINGS: Offering[] = [
     whoBlock:
       "You have an existing stack, a team that needs capacity, and multiple problems to solve over six months.",
     inquiryKey: "Modernize",
-    ctaText: "Book a Free Working Session",
+    ctaText: "Book a Free Computer Work Audit",
     ctaSub: "We will talk through your timeline and whether embedded engineering is the right model.",
     termsNote:
       "Modernize engagements require a six-month commitment. Capacity is limited.",
