@@ -7,10 +7,11 @@ export const metadata: Metadata = {
   description: "Your Profit Formula guide is on its way.",
 };
 
-export default function ThankYouPage() {
-  const callPaymentLink =
-    process.env.NEXT_PUBLIC_STRIPE_CALL_PAYMENT_LINK || "#";
+const calendlyLink =
+  process.env.NEXT_PUBLIC_CALENDLY_LINK ||
+  "https://calendly.com/cappawork/discovery_call";
 
+export default function ThankYouPage() {
   return (
     <div className="flex min-h-[calc(100vh-3.5rem)] items-center justify-center px-4 py-16">
       <div className="mx-auto max-w-md text-center">
@@ -29,18 +30,20 @@ export default function ThankYouPage() {
 
         <div className="mt-10 rounded-2xl border border-stone-200 bg-white p-6 text-left">
           <h2 className="font-medium text-stone-900">
-            Want someone to run these numbers with you?
+            Want to talk through it?
           </h2>
           <p className="mt-2 text-sm text-stone-600">
-            Book a 60-minute Profit Leak Diagnostic Call. We&rsquo;ll walk
-            through your scorecard results, identify the root causes, and build
-            a prioritized action plan.
+            Book a free working session with Nate. We&rsquo;ll map where your
+            business is leaking profit and whether Discover, Build, or Modernize
+            is the right next step.
           </p>
           <a
-            href={callPaymentLink}
+            href={calendlyLink}
+            target="_blank"
+            rel="noopener noreferrer"
             className="mt-4 inline-flex items-center gap-2 rounded-full bg-blue-600 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-700"
           >
-            Book the Call — $297
+            Book a Free Working Session
             <ChevronRight className="h-4 w-4" />
           </a>
         </div>

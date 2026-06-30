@@ -15,9 +15,10 @@ export function useInquiry() {
 }
 
 const serviceOptions = [
-  { value: "Custom Software Build", label: "Custom Software Build — ~$100K" },
-  { value: "AI Strategy Advisor", label: "1:1 Strategy Call — $2,000/hour" },
-  { value: "AI VP Cohort", label: "AI VP Cohort — $3,500, 6 weeks" },
+  { value: "Discover", label: "Discover (from $10,000)" },
+  { value: "Build", label: "Build (from $35,000)" },
+  { value: "Modernize", label: "Modernize ($15,000/month)" },
+  { value: "Free Working Session", label: "Free Working Session (not sure yet)" },
   { value: "Something else", label: "Something else" },
 ]
 
@@ -56,7 +57,7 @@ function InquiryModalContent({
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [linkedin, setLinkedin] = useState("")
-  const [service, setService] = useState(preselectedService || "Custom Software Build")
+  const [service, setService] = useState(preselectedService || "Free Working Session")
   const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [error, setError] = useState("")
@@ -132,7 +133,7 @@ function InquiryModalContent({
                 Let&rsquo;s talk
               </h2>
               <p className="text-stone-600 mb-8">
-                Drop your details and I&rsquo;ll reach out.
+                Tell me what you&rsquo;re working on. I&rsquo;ll reach out to schedule a free working session.
               </p>
 
               <form onSubmit={handleSubmit} className="space-y-4">

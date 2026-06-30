@@ -50,8 +50,8 @@ export default function AboutPage() {
           {/* The model */}
           <div className="space-y-6 mb-10">
             <h2 className="font-display text-2xl text-navy mb-4">One engagement. One relationship.</h2>
-            <p className="text-stone-600 leading-relaxed">
-              CappaWork isn&apos;t a menu of services. It&apos;s a retained engagement where I design, build, host, and maintain the custom system your business needs, with AI agents working inside it to remove busywork and increase team capacity.
+            <p className="text-stone-600 mb-4">
+              CappaWork isn&apos;t a menu of disconnected services. It&apos;s a journey — Discover what to build, Build what matters, or Modernize how your business operates — with one partner from strategy through shipping.
             </p>
             <p className="text-stone-600 leading-relaxed">
               You own the IP. CappaWork keeps the system running, secure, and improving over time.
@@ -75,10 +75,10 @@ export default function AboutPage() {
               See how the engagement works, what&apos;s included, and what the math looks like.
             </p>
             <Link
-              href="/#offer"
+              href="/#services"
               className="inline-flex items-center gap-2 text-navy font-medium hover:text-gold transition-colors"
             >
-              View the offer &rarr;
+              View our services &rarr;
             </Link>
           </div>
         </div>

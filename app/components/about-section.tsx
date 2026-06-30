@@ -3,7 +3,7 @@ import { FadeInUp } from "./motion-wrapper"
 
 export default function AboutSection() {
   return (
-    <section id="guide" className="py-24 bg-warm-white">
+    <section id="about" className="py-24 bg-warm-white">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row items-start gap-10 md:gap-16">
           <div className="flex-shrink-0">
@@ -20,14 +20,14 @@ export default function AboutSection() {
               The Guide
             </span>
             <h2 className="font-display text-2xl sm:text-3xl tracking-tight text-navy mb-6">
-              You don&rsquo;t need another tool. You need someone who&rsquo;s done this.
+              Someone who has done this before.
             </h2>
             <div className="text-stone-600 leading-relaxed space-y-4">
               <p>
-                I&rsquo;ve sat on both sides of this problem — selling operational software into Apollo and General Atlantic portfolio companies, and building production systems with my own hands. CappaWork ships real systems, live today in property management, data consulting, wealth management, healthcare AI, and a clinical EHR running in rural clinics.
+                I have sold operational software into Apollo and General Atlantic portfolio companies and built production systems with my own hands, live today in healthcare, property management, wealth management, and rural clinical settings.
               </p>
-              <p>
-                No agency. No handoffs. No markup. The person you talk to is the person who builds it.
+              <p className="text-stone-500 text-base">
+                The person you talk to maps your operations and builds the software.
               </p>
             </div>
           </FadeInUp>

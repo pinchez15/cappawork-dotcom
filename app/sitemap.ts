@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next"
 import { getSiteUrl } from "@/lib/site"
 import { getAllBlogPosts } from "@/server/repos/blog"
-import { SERVICES } from "@/app/services/data"
+import { OFFERINGS } from "@/lib/offerings/data"
 
 export const runtime = "nodejs"
 
@@ -17,6 +17,10 @@ const STATIC_PATHS = [
   "/ai-for-business-leaders",
   "/ai-literacy-bootcamp",
   "/contact",
+  "/discover",
+  "/build",
+  "/modernize",
+  "/first-100-days",
   "/fulfillment-policy",
   "/linkedin-carousel",
   "/privacy",
@@ -37,11 +41,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: path === "/" ? 1 : 0.7,
   }))
 
-  const serviceEntries: MetadataRoute.Sitemap = SERVICES.map((s) => ({
-    url: `${base}/services/${s.slug}`,
+  const serviceEntries: MetadataRoute.Sitemap = OFFERINGS.map((o) => ({
+    url: `${base}/${o.slug}`,
     lastModified: now,
     changeFrequency: "monthly",
-    priority: 0.65,
+    priority: 0.8,
   }))
 
   let blogEntries: MetadataRoute.Sitemap = []

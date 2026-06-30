@@ -3,24 +3,25 @@ import Hero from "./components/hero"
 import Navigation from "./components/navigation"
 import Footer from "./components/footer"
 import ProblemSection from "./components/problem-section"
-import AboutSection from "./components/about-section"
+import PhilosophySection from "./components/philosophy-section"
+import ServiceLines from "./components/service-lines"
 import HowItWorks from "./components/how-it-works"
 import SoftwareWeBuild from "./components/software-we-build"
-import StakesSection from "./components/stakes-section"
+import AboutSection from "./components/about-section"
+import PortfolioSection from "./components/portfolio-section"
 import SuccessSection from "./components/success-section"
-import PathwayCapacity from "./components/pathway-capacity"
-import PathwayAcquirers from "./components/pathway-acquirers"
 import ClosingCTA from "./components/closing-cta"
 import HomepageWrapper from "./components/homepage-wrapper"
 
 export const metadata: Metadata = {
   title: "CappaWork — AI for Main Street",
   description:
-    "CappaWork embeds with $5M–$50M businesses and builds the operating systems they run on. You own the IP. We host and maintain it.",
-  keywords: "AI for Main Street, forward-deployed engineering, custom operational software, first 100 days, operational software, business automation",
+    "CappaWork helps founder-led businesses become AI-native. Custom software and embedded engineering so computers do the computer work and your team can do the human work.",
+  keywords: "AI-native, forward-deployed engineering, custom operational software, AI modernization, business automation, founder-led",
   openGraph: {
     title: "CappaWork — AI for Main Street",
-    description: "CappaWork embeds with $5M–$50M businesses and builds the operating systems they run on. You own the IP. We host and maintain it.",
+    description:
+      "CappaWork helps founder-led businesses become AI-native. Custom software and embedded engineering so computers do the computer work and your team can do the human work.",
     type: "website",
     url: "https://cappawork.com",
     siteName: "CappaWork",
@@ -37,7 +38,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "CappaWork — AI for Main Street",
-    description: "CappaWork embeds with $5M–$50M businesses and builds the operating systems they run on. You own the IP. We host and maintain it.",
+    description:
+      "CappaWork helps founder-led businesses become AI-native. Custom software and embedded engineering so computers do the computer work and your team can do the human work.",
     images: ["/linkedin-preview.jpg"],
   },
 }
@@ -48,14 +50,14 @@ export default function HomePage() {
       <main className="min-h-screen">
         <Navigation />
         <Hero />
+        <PhilosophySection />
         <ProblemSection />
-        <AboutSection />
+        <ServiceLines />
         <HowItWorks />
         <SoftwareWeBuild />
-        <StakesSection />
+        <AboutSection />
+        <PortfolioSection />
         <SuccessSection />
-        <PathwayCapacity />
-        <PathwayAcquirers />
         <ClosingCTA />
         <Footer />
       </main>

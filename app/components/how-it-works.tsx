@@ -7,18 +7,21 @@ import { useInquiry } from "./inquiry-modal"
 const steps = [
   {
     number: "1",
-    title: "Embed.",
-    body: "We spend the first week working inside your operation — riding along, serving your customers, doing the job your team does. Then we spend the rest of the month turning what we learned into a build plan with ROI and success metrics, in writing, before anything gets built.",
+    title: "Discover.",
+    body: "We map where time is lost, which workflows deserve AI, and what to build vs. buy before any code gets written.",
+    note: "Sprint in two weeks. Deep when the stakes are higher.",
   },
   {
     number: "2",
     title: "Build.",
-    body: "The first version goes live in weeks, not quarters — then we harden it against the real world your team actually lives in: the customer who texts instead of emails, the document that arrives as a link instead of an upload. Not a prototype. The production system, version one — with AI working invisibly inside it: drafting, routing, summarizing, following up where the work already happens.",
+    body: "We design and ship production software around how your team already works, with AI handling drafting, routing, and follow-up inside the system.",
+    note: "Software you own. Users trained. Ready for the real world.",
   },
   {
     number: "3",
-    title: "Own.",
-    body: "Your team is trained, the system is stable, and the IP is yours. CappaWork hosts, secures, and maintains it so it keeps getting better.",
+    title: "Modernize.",
+    body: "We embed with your leadership team for six months, finding opportunities and shipping inside your environment as the business evolves.",
+    note: "For transformations that outgrow a single project.",
   },
 ]
 
@@ -26,15 +29,18 @@ export default function HowItWorks() {
   const { open } = useInquiry()
 
   return (
-    <section id="the-plan" className="py-24 bg-card-light">
+    <section id="how-it-works" className="py-24 bg-navy">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <FadeInUp>
           <span className="text-sm font-semibold tracking-widest uppercase text-gold block mb-4">
-            The Plan
+            The Journey
           </span>
-          <h2 className="font-display text-3xl sm:text-4xl tracking-tight text-navy leading-tight mb-16">
-            Three steps to a system you own.
+          <h2 className="font-display text-3xl sm:text-4xl tracking-tight text-white leading-tight mb-4">
+            Discover. Build. Modernize.
           </h2>
+          <p className="text-lg text-white/60 leading-relaxed mb-16 max-w-2xl">
+            One path to becoming AI-native, with a clear next step at every stage.
+          </p>
         </FadeInUp>
 
         <StaggerContainer className="space-y-10 mb-16">
@@ -45,8 +51,9 @@ export default function HowItWorks() {
                   <span className="text-navy font-semibold text-sm">{step.number}</span>
                 </div>
                 <div>
-                  <h3 className="font-display text-xl text-navy mb-2">{step.title}</h3>
-                  <p className="text-stone-600 leading-relaxed">{step.body}</p>
+                  <h3 className="font-display text-xl text-white mb-2">{step.title}</h3>
+                  <p className="text-white/70 leading-relaxed">{step.body}</p>
+                  <p className="text-white/45 text-sm mt-2">{step.note}</p>
                 </div>
               </div>
             </StaggerItem>
@@ -58,7 +65,7 @@ export default function HowItWorks() {
             onClick={() => open()}
             className="bg-gold text-navy px-8 py-3.5 rounded-full font-medium hover:bg-gold/90 transition-all duration-200 inline-flex items-center gap-2 text-lg"
           >
-            Book a Working Session
+            Book a Free Working Session
             <ArrowRight size={18} />
           </button>
         </FadeInUp>

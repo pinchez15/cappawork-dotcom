@@ -11,16 +11,19 @@ export default function SuccessSection() {
             What Changes
           </span>
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl tracking-tight text-navy leading-tight mb-10">
-            What changes when the system fits.
+            Work becomes more human.
           </h2>
-          <div className="space-y-5 text-stone-600 leading-relaxed text-lg mb-10">
+          <div className="space-y-4 text-stone-600 leading-relaxed text-lg mb-10">
             <p>
-              Your team stops feeding the tools and starts using judgment. Status lives on a screen instead of in a meeting. The knowledge that lived in Sarah&rsquo;s head lives in software you own. And when you grow — or sell — the operating system comes with the business, as an asset instead of an apology.
+              Your team stops feeding the tools and starts using judgment, with status on a screen instead of in a meeting and tribal knowledge captured in software you own.
+            </p>
+            <p className="text-stone-500 text-base">
+              AI handles the repetitive work where it already happens.
             </p>
           </div>
           <div className="rounded-2xl border border-gold/30 bg-warm-white p-6">
             <p className="text-lg font-medium leading-relaxed text-navy">
-              The target, in plain numbers: replace two or three high-cost subscriptions, remove the busywork around them, and create 10x the engagement cost in value over two years.
+              Replace two or three expensive subscriptions, cut the busywork around them, and target 10x the engagement cost in value over two years.
             </p>
           </div>
         </FadeInUp>

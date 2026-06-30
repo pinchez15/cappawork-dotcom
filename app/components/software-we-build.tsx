@@ -5,36 +5,43 @@ import { FadeInUp, StaggerContainer, StaggerItem } from "./motion-wrapper"
 const pillars = [
   {
     title: "We come to you.",
-    text: "We join your team for a week. If you shovel dirt, we shovel dirt. We ride along to job sites, help your customers, and watch the work get done — because the best tools come from doing the job, not hearing about it in a kickoff call.",
+    body: "We join your team and watch how work actually gets done before we design anything.",
+    note: "The best systems come from doing the job.",
   },
   {
-    title: "Tool agnostic, never opinion agnostic.",
-    text: "We’re not married to any vendor or stack. We are opinionated about what works: different jobs deserve different models, and we’ll build with whatever serves your business best — then tell you why.",
+    title: "Strategy and shipping, same person.",
+    body: "The person who maps your operations builds the software, from diagnosis through launch.",
+    note: "No handoffs. No deck-and-disappear.",
   },
   {
-    title: "We keep no secrets from you.",
-    text: "Consulting and operating backgrounds mean we see more than the software. If we spot an opportunity outside scope, we call it out. Clients have told us the conversations alone were worth the fee.",
+    title: "AI where the work already happens.",
+    body: "We build automation into your systems so drafting, routing, and follow-up happen where your team already works.",
+    note: "Your people stay in the loop for what matters.",
   },
   {
-    title: "We’re in it for the long haul.",
-    text: "We build, test, and deploy. You own it. We host and maintain it — so the system keeps getting better instead of quietly rotting.",
+    title: "You own it. We keep it running.",
+    body: "Production software, trained users, and full IP transfer, with CappaWork hosting and maintaining what we ship.",
+    note: "The system keeps improving instead of rotting.",
   },
 ]
 
 export default function SoftwareWeBuild() {
   return (
-    <section id="how-we-work" className="py-24 bg-navy">
+    <section id="how-we-work" className="py-24 bg-warm-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <FadeInUp>
           <span className="text-sm font-semibold tracking-widest uppercase text-gold block mb-4">
-            How We Work
+            Why CappaWork
           </span>
           <div className="max-w-3xl mb-16">
-            <h2 className="font-display text-3xl sm:text-4xl tracking-tight text-white leading-tight mb-6">
-              Forward-deployed engineering, for Main Street.
+            <h2 className="font-display text-3xl sm:text-4xl tracking-tight text-navy leading-tight mb-6">
+              An embed partner who ships.
             </h2>
-            <p className="text-lg text-white/70 leading-relaxed">
-              The big AI labs figured out that great software gets built by engineers who embed inside the customer&rsquo;s business &mdash; they call it forward-deployed engineering. Fortune 500s pay $300K a year per engineer for it. CappaWork brings the same model to the businesses that actually keep the country running &mdash; embed, work alongside the team, map the real process, build, stabilize, then build the next thing &mdash; for $90K, outcome included.
+            <p className="text-lg text-stone-600 leading-relaxed">
+              Fortune 500s pay $300K a year for embedded engineers; we bring that model to founder-led companies.
+            </p>
+            <p className="text-base text-stone-500 mt-2">
+              Operations fluency. Production AI systems. Adoption that sticks.
             </p>
           </div>
         </FadeInUp>
@@ -42,12 +49,15 @@ export default function SoftwareWeBuild() {
         <StaggerContainer className="grid gap-4 md:grid-cols-2">
           {pillars.map((pillar) => (
             <StaggerItem key={pillar.title}>
-              <div className="h-full rounded-2xl border border-white/10 bg-card-dark p-6">
-                <h3 className="font-display text-xl text-white mb-3">
+              <div className="h-full rounded-2xl border border-card-border bg-card-light p-6">
+                <h3 className="font-display text-xl text-navy mb-3">
                   {pillar.title}
                 </h3>
-                <p className="leading-relaxed text-white/70">
-                  {pillar.text}
+                <p className="leading-relaxed text-stone-600 mb-2">
+                  {pillar.body}
+                </p>
+                <p className="text-sm text-stone-500">
+                  {pillar.note}
                 </p>
               </div>
             </StaggerItem>

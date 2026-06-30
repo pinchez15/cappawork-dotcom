@@ -12,18 +12,16 @@ export default function ProblemSection() {
           </span>
 
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl tracking-tight text-white leading-tight mb-10">
-            The villain isn&rsquo;t your team. It&rsquo;s the workaround.
+            Your best people are doing computer work.
           </h2>
 
           <div className="space-y-6 text-white/70 leading-relaxed text-lg">
             <p>
-              Off-the-shelf tools cover 70% of how you work. The other 30% lives in spreadsheets, duplicate entry, manual handoffs, and &ldquo;just ask Sarah.&rdquo; You pay $30K&ndash;$50K a year for software you still have to work around.
-            </p>
-            <p>
-              You didn&rsquo;t build this company to spend your week chasing status updates and reconciling systems that don&rsquo;t talk. Somewhere along the way, the business started running you.
+              Off-the-shelf tools cover most of how you work; the rest lives in spreadsheets, duplicate entry, and &ldquo;just ask Sarah.&rdquo;
+              <span className="block mt-2 text-white/50 text-base">Your team spends the week on busywork instead of judgment and relationships.</span>
             </p>
             <p className="text-white font-medium">
-              Software should adapt to the business — not the other way around. The businesses that keep America moving deserve systems built around how they actually work.
+              Modernization frees your team for the human work your customers actually pay for.
             </p>
           </div>
         </FadeInUp>

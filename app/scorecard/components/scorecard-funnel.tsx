@@ -143,8 +143,6 @@ export function ScorecardFunnel() {
     }
   }, [answers, email]);
 
-  const callPaymentLink =
-    process.env.NEXT_PUBLIC_STRIPE_CALL_PAYMENT_LINK || "#";
   const pdfPaymentLink =
     process.env.NEXT_PUBLIC_STRIPE_PDF_PAYMENT_LINK || "#";
 
@@ -479,40 +477,43 @@ export function ScorecardFunnel() {
 
           {/* CTAs */}
           <div className="mt-10 space-y-4">
-            {/* Primary: $297 call */}
             <div className="rounded-2xl border-2 border-blue-500 bg-white p-6 shadow-lg">
               <div className="flex items-start gap-3">
                 <TrendingDown className="mt-1 h-6 w-6 flex-shrink-0 text-blue-600" />
                 <div className="flex-1">
                   <h3 className="text-lg font-medium text-stone-900">
-                    Get a Profit Recovery Plan
+                    Talk through your results with Nate
                   </h3>
                   <p className="mt-1 text-sm text-stone-600">
-                    60-minute call with Nate. We&rsquo;ll walk through your
-                    scorecard results, diagnose the root causes behind your
-                    lowest-scoring dimensions, and build a prioritized action
-                    plan to recover lost profit.
+                    Book a free working session. We&rsquo;ll walk through your
+                    scorecard, map where computer work is eating human work, and
+                    figure out whether Discover, Build, or Modernize is the right
+                    next step.
                   </p>
                   <ul className="mt-3 space-y-1 text-sm text-stone-600">
                     <li className="flex items-center gap-2">
                       <CheckCircle2 className="h-4 w-4 text-green-500" />
-                      Deep-dive into your specific numbers
+                      Deep-dive into your lowest-scoring dimensions
                     </li>
                     <li className="flex items-center gap-2">
                       <CheckCircle2 className="h-4 w-4 text-green-500" />
-                      Custom action plan you can implement immediately
+                      Honest read on what&rsquo;s worth building
                     </li>
                     <li className="flex items-center gap-2">
                       <CheckCircle2 className="h-4 w-4 text-green-500" />
-                      Recording + summary delivered after the call
+                      No pitch deck — real value on the call
                     </li>
                   </ul>
                   <a
-                    href={appendEmail(callPaymentLink)}
-                    onClick={() => trackInitiateCheckout(297)}
+                    href={
+                      process.env.NEXT_PUBLIC_CALENDLY_LINK ||
+                      "https://calendly.com/cappawork/discovery_call"
+                    }
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="mt-4 inline-flex items-center gap-2 rounded-full bg-blue-600 px-6 py-3 font-medium text-white shadow-md shadow-blue-600/20 transition-all hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-600/30"
                   >
-                    Book the Diagnostic Call — $297
+                    Book a Free Working Session
                     <ChevronRight className="h-4 w-4" />
                   </a>
                 </div>
