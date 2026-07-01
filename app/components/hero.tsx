@@ -4,6 +4,7 @@ import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { motion } from "framer-motion"
 import { useInquiry } from "./inquiry-modal"
+import { HumanWorkTerm } from "./work-term"
 import { useRef, useEffect } from "react"
 
 export default function Hero() {
@@ -53,12 +54,12 @@ export default function Hero() {
         <div className="absolute inset-0 bg-navy/60" />
       </div>
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 py-32">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 py-24 sm:py-28 lg:py-32">
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-sm font-semibold tracking-widest uppercase text-gold mb-6"
+          className="text-[11px] sm:text-sm font-semibold tracking-[0.15em] sm:tracking-widest uppercase text-gold mb-5 sm:mb-6 leading-snug"
         >
           AI Modernization for Founder-Led Businesses
         </motion.p>
@@ -67,38 +68,38 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
-          className="font-display text-5xl md:text-6xl lg:text-7xl tracking-tight text-white mb-8 leading-[1.1]"
+          className="font-display text-[2.35rem] sm:text-5xl md:text-6xl lg:text-7xl tracking-tight text-white mb-6 sm:mb-8 leading-[1.08] text-balance"
         >
-          Help your team do more human work.
+          Help your team do more <HumanWorkTerm />.
         </motion.h1>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-          className="text-lg text-white/70 max-w-2xl mx-auto mb-12 leading-relaxed"
+          className="text-base sm:text-lg text-white/70 max-w-xl mx-auto mb-8 sm:mb-12 leading-relaxed"
         >
-          CappaWork modernizes founder-led businesses with AI, custom software, and embedded engineering that removes busywork, captures tribal knowledge, and moves judgment back to your team.
+          We guide founder-led businesses through modernization. You bring the workflow. We map the path forward.
         </motion.p>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.35, ease: "easeOut" }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 max-w-md sm:max-w-none mx-auto"
         >
           <button
             onClick={() => open()}
-            className="bg-gold text-navy px-8 py-3.5 rounded-full font-medium hover:bg-gold/90 transition-all duration-200 inline-flex items-center gap-2 text-lg"
+            className="bg-gold text-navy px-6 sm:px-8 py-3.5 rounded-full font-medium hover:bg-gold/90 transition-all duration-200 inline-flex items-center justify-center gap-2 text-base sm:text-lg"
           >
             Book a Free Computer Work Audit
-            <ArrowRight size={18} />
+            <ArrowRight size={18} className="flex-shrink-0" />
           </button>
           <Link
             href="/#how-it-works"
-            className="text-white/80 hover:text-white transition-colors duration-200 inline-flex items-center gap-1.5 text-base font-medium"
+            className="text-white/80 hover:text-white transition-colors duration-200 inline-flex items-center justify-center gap-1.5 text-sm sm:text-base font-medium py-2"
           >
-            See how modernization works
+            See the journey
             <ArrowRight size={16} />
           </Link>
         </motion.div>

@@ -28,6 +28,7 @@ import {
   CheckSquare,
   GraduationCap,
   Inbox,
+  ListFilter,
 } from "lucide-react";
 
 export function AdminSidebar() {
@@ -55,9 +56,14 @@ export function AdminSidebar() {
       href: "/admin/tasks",
     },
     {
-      title: "Prospects",
+      title: "CRM",
       icon: Crosshair,
-      href: "/admin/prospects",
+      href: "/admin/crm",
+    },
+    {
+      title: "List Builder",
+      icon: ListFilter,
+      href: "/admin/list-builder",
     },
     {
       title: "Catalysts",

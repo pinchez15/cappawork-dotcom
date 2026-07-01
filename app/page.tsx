@@ -14,12 +14,12 @@ import HomepageWrapper from "./components/homepage-wrapper"
 export const metadata: Metadata = {
   title: "CappaWork — AI Modernization for Founder-Led Businesses",
   description:
-    "CappaWork removes computer work so your team can do more human work. AI modernization, custom software, and embedded engineering for founder-led businesses.",
+    "Remove Computer Work so your team can do more Human Work. Modernization for founder-led businesses.",
   keywords: "AI modernization, computer work audit, custom operational software, embedded engineering, founder-led",
   openGraph: {
     title: "CappaWork — AI Modernization for Founder-Led Businesses",
     description:
-      "CappaWork removes computer work so your team can do more human work. AI modernization, custom software, and embedded engineering for founder-led businesses.",
+      "Remove Computer Work so your team can do more Human Work. Modernization for founder-led businesses.",
     type: "website",
     url: "https://cappawork.com",
     siteName: "CappaWork",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "CappaWork — AI Modernization for Founder-Led Businesses",
     description:
-      "CappaWork removes computer work so your team can do more human work. AI modernization, custom software, and embedded engineering for founder-led businesses.",
+      "Remove Computer Work so your team can do more Human Work. Modernization for founder-led businesses.",
     images: ["/linkedin-preview.jpg"],
   },
 }

@@ -73,7 +73,23 @@ export async function POST(request: NextRequest) {
       });
     } catch (dealError) {
       console.error("Failed to create deal:", dealError);
-      // Don't fail the request if deal creation fails — still send the email
+    }
+
+    // Bridge to List Builder for enrichment + scoring (non-blocking)
+    if (process.env.SUPABASE_SERVICE_ROLE_KEY) {
+      import("@/server/services/list-builder/inbound-bridge")
+        .then(({ processInboundLead }) =>
+          processInboundLead({
+            source: "service_inquiry",
+            company_name: name.trim(),
+            contact_name: name.trim(),
+            contact_email: email.trim(),
+            linkedin_url: linkedinUrl,
+            created_by: "system",
+            metadata: { service, deal_value: dealValue },
+          })
+        )
+        .catch((err) => console.error("List Builder inbound bridge failed:", err));
     }
 
     // Send notification email

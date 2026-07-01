@@ -1,88 +1,66 @@
 "use client"
 
 import { FadeInUp } from "./motion-wrapper"
+import {
+  ComputerWorkTerm,
+  HumanWorkTerm,
+  WorkTermCard,
+} from "./work-term"
 
-const humanWork = [
-  "Judgment calls with clients",
-  "Relationships that win the next deal",
-  "Operational decisions only your team can make",
-  "Service that requires empathy",
-  "Leadership that cannot be automated",
+const computerWorkExamples = [
+  "Copying data between systems",
+  "Chasing status and rebuilding reports",
+  "Routing work that should run overnight",
 ]
 
-const computerWork = [
-  "Copying data between systems that do not talk",
-  "Chasing status updates",
-  "Drafting, routing, and summarizing by hand",
-  "Rebuilding the same reports every week",
-  "Asking the same person where everything lives",
+const humanWorkExamples = [
+  "Truth with clients when judgment matters",
+  "Relationships that win the next deal",
+  "Leadership your team trusts",
 ]
 
 export default function PhilosophySection() {
   return (
-    <section id="philosophy" className="py-24 bg-navy">
+    <section id="philosophy" className="py-16 sm:py-20 lg:py-24 bg-navy">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <FadeInUp>
-          <span className="text-sm font-semibold tracking-widest uppercase text-gold block mb-8">
+          <span className="text-xs sm:text-sm font-semibold tracking-widest uppercase text-gold block mb-5 sm:mb-8">
             The Belief
           </span>
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl tracking-tight text-white leading-tight mb-8">
-            Let computers do the computer work, so humans can do the human work.
+          <h2 className="font-display text-[1.65rem] sm:text-3xl md:text-4xl lg:text-5xl tracking-tight text-white leading-[1.15] sm:leading-tight mb-6 sm:mb-8 text-balance">
+            Let computers do the <ComputerWorkTerm />, so humans can do the{" "}
+            <HumanWorkTerm />.
           </h2>
-          <p className="text-white/70 leading-relaxed text-lg mb-2 max-w-3xl">
-            Most founder-led businesses are full of capable people feeding disconnected tools. AI should not replace their judgment.
-          </p>
-          <p className="text-white/50 text-base mb-12 max-w-3xl">
-            It should remove the repetitive work crowding it out.
+          <p className="text-white/60 text-base sm:text-lg mb-8 sm:mb-12 max-w-2xl leading-relaxed">
+            AI should not replace your team&rsquo;s judgment. It should clear the path for it.
           </p>
         </FadeInUp>
 
-        <div className="grid md:grid-cols-2 gap-6 mb-12">
+        <div className="grid gap-4 sm:gap-6 md:grid-cols-2 mb-10 sm:mb-12">
           <FadeInUp>
-            <div className="h-full rounded-2xl border border-white/10 bg-card-dark p-8">
-              <p className="text-xs font-semibold tracking-widest uppercase text-gold mb-4">
-                Computer work
-              </p>
-              <p className="text-white/50 text-sm mb-6 leading-relaxed">
-                Repetitive work that drains your best people.
-              </p>
-              <ul className="space-y-3">
-                {computerWork.map((item) => (
-                  <li key={item} className="flex items-start gap-3 text-white/70 leading-relaxed">
-                    <span className="mt-2 flex-shrink-0 w-1.5 h-1.5 rounded-full bg-stone-500" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <WorkTermCard
+              term="computer"
+              variant="computer"
+              pillars={["Speed", "Scale", "Capability"]}
+              tagline="What software does best."
+              examples={computerWorkExamples}
+            />
           </FadeInUp>
 
           <FadeInUp>
-            <div className="h-full rounded-2xl border border-gold/30 bg-warm-white p-8">
-              <p className="text-xs font-semibold tracking-widest uppercase text-gold mb-4">
-                Human work
-              </p>
-              <p className="text-stone-500 text-sm mb-6 leading-relaxed">
-                The work your customers actually pay for.
-              </p>
-              <ul className="space-y-3">
-                {humanWork.map((item) => (
-                  <li key={item} className="flex items-start gap-3 text-stone-600 leading-relaxed">
-                    <span className="mt-2 flex-shrink-0 w-1.5 h-1.5 rounded-full bg-gold" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <WorkTermCard
+              term="human"
+              variant="human"
+              pillars={["Joy", "Truth", "Relationships"]}
+              tagline="What only your people can do."
+              examples={humanWorkExamples}
+            />
           </FadeInUp>
         </div>
 
         <FadeInUp>
-          <p className="font-display text-xl sm:text-2xl text-white/90 leading-snug max-w-3xl">
+          <p className="font-display text-lg sm:text-xl text-white/90 leading-snug max-w-2xl text-balance">
             Most software records work. Great software removes it.
-          </p>
-          <p className="text-white/45 text-sm mt-4 max-w-2xl">
-            Every business has computer work hiding inside human jobs. We help you find it.
           </p>
         </FadeInUp>
       </div>

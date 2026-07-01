@@ -10,8 +10,8 @@ export default function Footer() {
             <Link href="/" className="text-xl font-display tracking-tight text-white mb-4 inline-block">
               CappaWork
             </Link>
-            <p className="text-white/50 text-sm max-w-md">
-              We remove computer work so your team can do more human work. You own the IP. We keep it working.
+            <p className="text-white/50 text-sm max-w-sm leading-relaxed">
+              Less Computer Work. More Human Work. You own the IP.
             </p>
           </div>
 

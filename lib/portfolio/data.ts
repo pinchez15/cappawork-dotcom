@@ -18,15 +18,13 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
   {
     name: "HealthcareAIO",
     url: "https://healthcareaio.com",
-    description:
-      "AI optimization audit platform for healthcare practices with built-in CRM and practice workflow tooling.",
+    description: "AI audit platform with CRM for healthcare practices.",
     industry: "Healthcare",
   },
   {
     name: "ArborKey",
     url: "https://www.arborkeysoftware.com",
-    description:
-      "Practice management software for community association management businesses.",
+    description: "Practice management for community association firms.",
     industry: "Property management",
   },
   {
@@ -39,15 +37,14 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
   {
     name: "Horizon Data Partners",
     url: "https://www.horizondatapartners.com",
-    description:
-      "Custom analytics and client delivery platform for a boutique data strategy consultancy.",
+    description: "Analytics and client delivery for a data consultancy.",
     industry: "Data consulting",
   },
 ];
 
 export const FEATURED_TESTIMONIAL: PortfolioTestimonial = {
   quote:
-    "CappaWork was a pleasure to work with, and Nate went above and beyond to help us with a GTM strategy. When we approached CappaWork about building HealthcareAIO, we had a very specific vision. During our initial discovery session, Nate identified some gaps in this vision and helped bring our solution to a viable state, including an added built-in CRM! We plan to continue to work with Nate and CappaWork in the future and highly recommend them!",
+    "Nate identified gaps in our vision and helped bring HealthcareAIO to a viable state. We highly recommend CappaWork.",
   name: "Stephen Fogg",
   title: "Founder",
   company: "Fogg Media",

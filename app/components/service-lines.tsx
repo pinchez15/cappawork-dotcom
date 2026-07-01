@@ -9,47 +9,39 @@ const services = [
   {
     key: "Discover",
     href: "/discover",
-    headline: "Build the right roadmap before you build the wrong software.",
+    headline: "Get the roadmap right first.",
     price: "From $10,000",
-    priceNote: "Sprint: 2 weeks · Deep: $30,000 · 4–6 weeks",
-    copy: "We uncover where your business is paying people to do computer work and identify the highest-return opportunities for AI, automation, and custom software.",
+    priceNote: "2-week Sprint · 4–6 week Deep",
     includes: [
-      "Map the workflows where time is lost",
-      "Rank AI opportunities by ROI and adoption risk",
-      "Decide what to buy, customize, or build",
-      "Produce a modernization roadmap your team can execute",
+      "Map where time is lost",
+      "Rank opportunities by ROI",
+      "Decide what to buy, build, or automate",
     ],
     inquiryKey: "Discover",
   },
   {
     key: "Build",
     href: "/build",
-    headline: "Production software your team actually wants to use.",
+    headline: "Software your team wants to use.",
     price: "From $35,000",
     priceNote: "8–16 weeks · you own the IP",
-    copy: "We design and build production systems around how your business already works, with AI handling drafting, routing, summarizing, and follow-up inside the workflow.",
     includes: [
-      "Product strategy and UX design",
-      "AI workflow design",
-      "Full-stack software development",
-      "Launch, training, and handoff",
-      "Source code, documentation, and IP transferred",
+      "Designed around how you work",
+      "AI inside the workflow",
+      "Launch, training, full handoff",
     ],
     inquiryKey: "Build",
   },
   {
     key: "Modernize",
     href: "/modernize",
-    headline: "An embedded modernization partner who ships.",
+    headline: "An embedded partner who ships.",
     price: "$15,000/month",
-    priceNote: "Six-month engagement · $90,000 total",
-    copy: "For transformations that outgrow a single project, we embed a senior AI product engineer inside your business to identify opportunities, build solutions, and help adoption stick.",
+    priceNote: "6 months · $90,000 total",
     includes: [
-      "Continuous opportunity identification",
-      "Legacy system modernization",
-      "AI implementation inside existing workflows",
+      "Continuous opportunity finding",
       "Built inside your environment",
-      "Technical leadership, training, and adoption",
+      "Adoption that actually sticks",
     ],
     inquiryKey: "Modernize",
     featured: true,
@@ -60,53 +52,48 @@ export default function ServiceLines() {
   const { open } = useInquiry()
 
   return (
-    <section id="services" className="py-24 bg-card-light">
+    <section id="services" className="py-16 sm:py-20 lg:py-24 bg-card-light">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <FadeInUp>
-          <span className="text-sm font-semibold tracking-widest uppercase text-gold block mb-4">
-            Three Ways to Modernize
+          <span className="text-xs sm:text-sm font-semibold tracking-widest uppercase text-gold block mb-3 sm:mb-4">
+            Choose Your Stage
           </span>
-          <div className="max-w-3xl mb-6">
-            <h2 className="font-display text-3xl sm:text-4xl tracking-tight text-navy leading-tight mb-4">
-              Choose the right level of engagement.
-            </h2>
-            <p className="text-stone-500 text-base">
-              AI didn&rsquo;t make repetitive work automatable. It made custom software affordable.
-            </p>
-          </div>
+          <h2 className="font-display text-[1.65rem] sm:text-3xl md:text-4xl tracking-tight text-navy leading-[1.15] sm:leading-tight mb-8 sm:mb-12 max-w-xl text-balance">
+            Three ways to modernize.
+          </h2>
         </FadeInUp>
 
-        <StaggerContainer className="grid gap-6 lg:grid-cols-3 mt-12">
+        <StaggerContainer className="grid gap-4 sm:gap-6 lg:grid-cols-3">
           {services.map((service) => (
             <StaggerItem key={service.key}>
               <div
-                className={`h-full flex flex-col rounded-2xl p-8 ${
+                className={`h-full flex flex-col rounded-2xl p-5 sm:p-7 lg:p-8 ${
                   service.featured
                     ? "bg-navy text-white ring-2 ring-gold/40"
                     : "bg-warm-white border border-card-border"
                 }`}
               >
-                <p className="text-xs font-semibold tracking-widest uppercase text-gold mb-3">
+                <p className="text-[11px] sm:text-xs font-semibold tracking-widest uppercase text-gold mb-2 sm:mb-3">
                   {service.key}
                 </p>
                 <h3
-                  className={`font-display text-xl mb-4 leading-snug ${
+                  className={`font-display text-lg sm:text-xl mb-3 sm:mb-4 leading-snug ${
                     service.featured ? "text-white" : "text-navy"
                   }`}
                 >
                   {service.headline}
                 </h3>
 
-                <div className="mb-4">
+                <div className="mb-4 sm:mb-5">
                   <p
-                    className={`font-display text-3xl tracking-tight ${
+                    className={`font-display text-2xl sm:text-3xl tracking-tight ${
                       service.featured ? "text-white" : "text-navy"
                     }`}
                   >
                     {service.price}
                   </p>
                   <p
-                    className={`text-sm mt-1 ${
+                    className={`text-xs sm:text-sm mt-1 ${
                       service.featured ? "text-white/50" : "text-stone-500"
                     }`}
                   >
@@ -114,19 +101,11 @@ export default function ServiceLines() {
                   </p>
                 </div>
 
-                <p
-                  className={`text-sm leading-relaxed mb-5 ${
-                    service.featured ? "text-white/70" : "text-stone-600"
-                  }`}
-                >
-                  {service.copy}
-                </p>
-
-                <ul className="space-y-2 mb-6 flex-1">
+                <ul className="space-y-2 mb-5 sm:mb-6 flex-1">
                   {service.includes.map((item) => (
                     <li
                       key={item}
-                      className={`flex items-start gap-2 text-sm leading-relaxed ${
+                      className={`flex items-start gap-2 text-sm ${
                         service.featured ? "text-white/70" : "text-stone-600"
                       }`}
                     >
@@ -136,7 +115,7 @@ export default function ServiceLines() {
                   ))}
                 </ul>
 
-                <div className="flex flex-col gap-3 mt-auto">
+                <div className="flex flex-col gap-2.5 mt-auto">
                   <button
                     onClick={() => open(service.inquiryKey)}
                     className={`inline-flex items-center gap-2 text-sm font-semibold transition-colors ${
@@ -165,16 +144,9 @@ export default function ServiceLines() {
         </StaggerContainer>
 
         <FadeInUp>
-          <div className="mt-10 rounded-2xl border border-gold/30 bg-warm-white p-6 text-center">
-            <p className="text-stone-600 leading-relaxed">
-              <span className="font-medium text-navy">Discover Sprint</span> credits $5,000 toward Build or Modernize.
-              {" "}
-              <span className="font-medium text-navy">Discover Deep</span> credits $10,000 within 90 days.
-            </p>
-            <p className="text-stone-500 text-sm mt-3">
-              The most expensive software project is the one that solves the wrong problem.
-            </p>
-          </div>
+          <p className="mt-8 sm:mt-10 text-center text-sm text-stone-500">
+            Discover Sprint credits $5K · Discover Deep credits $10K toward Build or Modernize within 90 days.
+          </p>
         </FadeInUp>
       </div>
     </section>
