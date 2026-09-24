@@ -1,8 +1,7 @@
 "use client"
 
 import { useLayoutEffect, useRef } from "react"
-import gsap from "gsap"
-import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { isLiteMotion } from "@/lib/motion"
 
 const PATHS = [
   "M36 64 C160 80 250 150 392 180",
@@ -21,13 +20,11 @@ export default function WorkflowMesh() {
   const svgRef = useRef<SVGSVGElement>(null)
 
   useLayoutEffect(() => {
-    gsap.registerPlugin(ScrollTrigger)
     const svg = svgRef.current
     if (!svg) return
 
     const paths = Array.from(svg.querySelectorAll<SVGPathElement>("[data-outcome-path]"))
     const travelers = Array.from(svg.querySelectorAll<SVGCircleElement>("[data-outcome-agent]"))
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches
 
     const resolved = () => {
       paths.forEach((path, i) => {
@@ -36,7 +33,7 @@ export default function WorkflowMesh() {
       })
     }
 
-    if (reduce) {
+    if (isLiteMotion()) {
       resolved()
       return
     }
@@ -46,28 +43,41 @@ export default function WorkflowMesh() {
       if (traveler) placeOnPath(path, traveler, 0.08)
     })
 
-    const ctx = gsap.context(() => {
-      const progress = { t: 0 }
-      gsap.to(progress, {
-        t: 1,
-        ease: "none",
-        scrollTrigger: {
-          trigger: "#outcomes",
-          start: "top 75%",
-          end: "center 45%",
-          scrub: 0.7,
-        },
-        onUpdate: () => {
-          paths.forEach((path, i) => {
-            const traveler = travelers[i]
-            if (!traveler) return
-            placeOnPath(path, traveler, 0.08 + progress.t * 0.78)
-          })
-        },
-      })
-    }, svg)
+    let cancelled = false
+    let revert = () => {}
 
-    return () => ctx.revert()
+    Promise.all([import("gsap"), import("gsap/ScrollTrigger")]).then(([{ default: gsap }, { ScrollTrigger }]) => {
+      if (cancelled || !svgRef.current) return
+      gsap.registerPlugin(ScrollTrigger)
+
+      const ctx = gsap.context(() => {
+        const progress = { t: 0 }
+        gsap.to(progress, {
+          t: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: "#outcomes",
+            start: "top 75%",
+            end: "center 45%",
+            scrub: 0.7,
+          },
+          onUpdate: () => {
+            paths.forEach((path, i) => {
+              const traveler = travelers[i]
+              if (!traveler) return
+              placeOnPath(path, traveler, 0.08 + progress.t * 0.78)
+            })
+          },
+        })
+      }, svg)
+
+      revert = () => ctx.revert()
+    })
+
+    return () => {
+      cancelled = true
+      revert()
+    }
   }, [])
 
   return (

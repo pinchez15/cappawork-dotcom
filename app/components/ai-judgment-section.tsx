@@ -1,7 +1,7 @@
 "use client"
 
 import { FadeInUp } from "./motion-wrapper"
-import { OrbStation } from "./process-orb"
+import { OrbStation } from "./glyphs"
 
 const useAgent = [
   "The steps are known, and the same work happens every day.",

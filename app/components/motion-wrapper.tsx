@@ -2,6 +2,7 @@
 
 import { motion, useInView } from "framer-motion"
 import { useRef, useEffect, useState } from "react"
+import { useLiteMotion } from "@/lib/motion"
 
 export function FadeInUp({
   children,
@@ -12,6 +13,11 @@ export function FadeInUp({
   className?: string
   delay?: number
 }) {
+  const lite = useLiteMotion()
+  if (lite) {
+    return <div className={className}>{children}</div>
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -32,6 +38,11 @@ export function StaggerContainer({
   children: React.ReactNode
   className?: string
 }) {
+  const lite = useLiteMotion()
+  if (lite) {
+    return <div className={className}>{children}</div>
+  }
+
   return (
     <motion.div
       initial="hidden"
@@ -59,6 +70,11 @@ export function StaggerItem({
   children: React.ReactNode
   className?: string
 }) {
+  const lite = useLiteMotion()
+  if (lite) {
+    return <div className={className}>{children}</div>
+  }
+
   return (
     <motion.div
       variants={{

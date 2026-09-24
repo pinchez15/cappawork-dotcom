@@ -4,7 +4,7 @@ import Footer from "../components/footer"
 import Image from "next/image"
 import Link from "next/link"
 import MarketingShell from "../components/marketing-shell"
-import { GlyphKey, OrbStation } from "../components/process-orb"
+import { GlyphKey, OrbStation } from "../components/glyphs"
 
 export const metadata: Metadata = {
   title: "About | CappaWork",

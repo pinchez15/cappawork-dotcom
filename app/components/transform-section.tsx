@@ -1,7 +1,7 @@
 "use client"
 
 import { FadeInUp } from "./motion-wrapper"
-import { GlyphPath, OrbStation } from "./process-orb"
+import { GlyphPath, OrbStation } from "./glyphs"
 import { ComputerWorkTerm, HumanWorkTerm } from "./work-term"
 
 export default function TransformSection() {

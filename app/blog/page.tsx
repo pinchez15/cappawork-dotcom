@@ -3,7 +3,7 @@ import Navigation from "../components/navigation";
 import Footer from "../components/footer";
 import Link from "next/link";
 import MarketingShell from "../components/marketing-shell";
-import { GlyphKey, OrbStation } from "../components/process-orb";
+import { GlyphKey, OrbStation } from "../components/glyphs";
 import { getAllBlogPosts } from "@/server/repos/blog";
 
 export const dynamic = "force-dynamic";

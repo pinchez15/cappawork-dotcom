@@ -1,7 +1,7 @@
 "use client";
 
 import type { Service } from "../data";
-import { GlyphKey, OrbStation } from "@/app/components/process-orb";
+import { GlyphKey, OrbStation } from "@/app/components/glyphs";
 
 export function ServiceContent({
   service,

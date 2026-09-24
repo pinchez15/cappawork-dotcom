@@ -6,7 +6,7 @@ import { ArrowRight, ArrowLeft, CheckCircle2, AlertTriangle, TrendingDown, Chevr
 import { QUESTIONS, DIMENSION_LABELS, type Dimension } from "./questions";
 import { computeScores, type ScorecardResult } from "./scoring";
 import { trackLead, trackCompleteRegistration } from "./fb-pixel";
-import { GlyphKey, OrbStation } from "@/app/components/process-orb";
+import { GlyphKey, OrbStation } from "@/app/components/glyphs";
 
 const GRADE_COLORS: Record<string, string> = {
   A: "text-green-600 bg-green-50 border-green-200",

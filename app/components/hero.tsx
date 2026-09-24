@@ -3,7 +3,7 @@
 import { ArrowRight } from "lucide-react"
 import HeroField from "./hero-field"
 import { ComputerWorkTerm, HumanWorkTerm } from "./work-term"
-import { GlyphKey, OrbStation } from "./process-orb"
+import { GlyphKey, OrbStation } from "./glyphs"
 
 export default function Hero() {
   return (

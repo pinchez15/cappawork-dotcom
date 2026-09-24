@@ -235,3 +235,40 @@
 .blog-content img {
   @apply rounded-sm my-6 max-w-full;
 }
+
+@media (max-width: 767px) {
+  .hero-thread-draw {
+    stroke-dasharray: 1400;
+    stroke-dashoffset: 1400;
+    animation: hero-thread-in 1.15s ease-out 0.12s forwards;
+  }
+
+  .hero-thread-agent {
+    opacity: 0;
+    animation: hero-agent-in 0.4s ease-out 0.85s forwards;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-thread-draw {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+
+  .hero-thread-agent {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+@keyframes hero-thread-in {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes hero-agent-in {
+  to {
+    opacity: 1;
+  }
+}

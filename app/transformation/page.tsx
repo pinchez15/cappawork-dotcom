@@ -3,7 +3,7 @@ import Link from "next/link"
 import Navigation from "../components/navigation"
 import Footer from "../components/footer"
 import MarketingShell from "../components/marketing-shell"
-import { GlyphKey, OrbStation } from "../components/process-orb"
+import { GlyphKey, OrbStation } from "../components/glyphs"
 
 export const metadata: Metadata = {
   title: "Transformation — CappaWork",

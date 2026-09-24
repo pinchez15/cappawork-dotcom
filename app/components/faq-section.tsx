@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { Minus, Plus } from "lucide-react"
-import { OrbStation } from "./process-orb"
+import { OrbStation } from "./glyphs"
 
 const faqs = [
   {

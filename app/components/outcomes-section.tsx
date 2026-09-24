@@ -1,6 +1,6 @@
 "use client"
 
-import { OrbStation } from "./process-orb"
+import { OrbStation } from "./glyphs"
 import WorkflowMesh from "./workflow-mesh"
 
 const outcomes = [

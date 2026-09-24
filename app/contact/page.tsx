@@ -4,7 +4,7 @@ import Navigation from "../components/navigation"
 import Footer from "../components/footer"
 import { DiscoveryForm } from "../components/inquiry-modal"
 import MarketingShell from "../components/marketing-shell"
-import { GlyphKey, OrbStation } from "../components/process-orb"
+import { GlyphKey, OrbStation } from "../components/glyphs"
 
 export default function ContactPage() {
   return (

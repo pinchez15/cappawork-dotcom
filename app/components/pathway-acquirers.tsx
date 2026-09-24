@@ -3,7 +3,7 @@
 import { ArrowRight } from "lucide-react"
 import { FadeInUp, StaggerContainer, StaggerItem } from "./motion-wrapper"
 import { useInquiry } from "./inquiry-modal"
-import { GlyphKey, OrbStation } from "./process-orb"
+import { GlyphKey, OrbStation } from "./glyphs"
 
 const steps = [
   {

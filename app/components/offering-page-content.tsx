@@ -5,7 +5,7 @@ import { ArrowRight, ArrowLeft } from "lucide-react";
 import type { Offering } from "@/lib/offerings/data";
 import { FEATURED_TESTIMONIAL, PORTFOLIO_PROJECTS } from "@/lib/portfolio/data";
 import { useInquiry } from "@/app/components/inquiry-modal";
-import { GlyphKey, OrbStation } from "@/app/components/process-orb";
+import { GlyphKey, OrbStation } from "@/app/components/glyphs";
 
 export function OfferingPageContent({ offering }: { offering: Offering }) {
   const { open } = useInquiry();

@@ -4,7 +4,7 @@ import Navigation from "../../components/navigation";
 import Footer from "../../components/footer";
 import Link from "next/link";
 import MarketingShell from "../../components/marketing-shell";
-import { GlyphKey, OrbStation } from "../../components/process-orb";
+import { GlyphKey, OrbStation } from "../../components/glyphs";
 import { getBlogPostBySlug } from "@/server/repos/blog";
 import { renderTipTapContent } from "@/lib/blog/tiptap-renderer";
 import CodeBlockWithCopy from "../../components/code-block-with-copy";

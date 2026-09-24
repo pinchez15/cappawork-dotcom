@@ -3,7 +3,8 @@ import Link from "next/link"
 import { Check, ArrowRight } from "lucide-react"
 import Footer from "../components/footer"
 import CohortLeadForm from "../components/cohort-lead-form"
-import ProcessOrb, { GlyphKey, OrbStation } from "../components/process-orb"
+import DesktopProcessOrb from "../components/desktop-process-orb"
+import { GlyphKey, OrbStation } from "../components/glyphs"
 import {
   Accordion,
   AccordionContent,
@@ -166,7 +167,7 @@ const products = [
 export default function AiForBusinessLeadersPage() {
   return (
     <main className="min-h-screen bg-navy font-sans">
-      <ProcessOrb />
+      <DesktopProcessOrb />
       {/* Nav */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-navy/95 backdrop-blur-sm border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex justify-between items-center">

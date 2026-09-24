@@ -1,7 +1,7 @@
 "use client"
 
 import { DiscoveryForm } from "./inquiry-modal"
-import { GlyphPath, OrbStation } from "./process-orb"
+import { GlyphPath, OrbStation } from "./glyphs"
 
 export default function DiscoverySection() {
   return (

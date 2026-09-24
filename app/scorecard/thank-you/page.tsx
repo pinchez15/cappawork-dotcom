@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CheckCircle2, ChevronRight } from "lucide-react";
-import { OrbStation } from "@/app/components/process-orb";
+import { OrbStation } from "@/app/components/glyphs";
 
 export const metadata: Metadata = {
   title: "Thank You — CappaWork",

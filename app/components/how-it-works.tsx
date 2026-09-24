@@ -1,11 +1,10 @@
 "use client"
 
 import { useEffect, useRef } from "react"
-import gsap from "gsap"
-import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { FadeInUp } from "./motion-wrapper"
 import { ComputerWorkTerm, HumanWorkTerm } from "./work-term"
-import { GlyphPath, OrbStation } from "./process-orb"
+import { isLiteMotion } from "@/lib/motion"
+import { GlyphPath, OrbStation } from "./glyphs"
 
 const steps = [
   {
@@ -40,32 +39,41 @@ export default function HowItWorks() {
   const listRef = useRef<HTMLOListElement>(null)
 
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger)
     const list = listRef.current
-    if (!list) return
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
+    if (!list || isLiteMotion()) return
 
-    const cards = list.querySelectorAll("[data-step-card]")
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        cards,
-        { opacity: 0, y: 28 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.7,
-          stagger: 0.12,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: list,
-            start: "top 80%",
-            once: true,
-          },
-        }
-      )
-    }, list)
+    let cancelled = false
+    let revert = () => {}
 
-    return () => ctx.revert()
+    Promise.all([import("gsap"), import("gsap/ScrollTrigger")]).then(([{ default: gsap }, { ScrollTrigger }]) => {
+      if (cancelled || !listRef.current) return
+      gsap.registerPlugin(ScrollTrigger)
+      const cards = list.querySelectorAll("[data-step-card]")
+      const ctx = gsap.context(() => {
+        gsap.fromTo(
+          cards,
+          { opacity: 0, y: 28 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.7,
+            stagger: 0.12,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: list,
+              start: "top 80%",
+              once: true,
+            },
+          }
+        )
+      }, list)
+      revert = () => ctx.revert()
+    })
+
+    return () => {
+      cancelled = true
+      revert()
+    }
   }, [])
 
   return (

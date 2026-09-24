@@ -6,7 +6,7 @@ import {
   HumanWorkTerm,
   WorkTermCard,
 } from "./work-term"
-import { GlyphPath, OrbStation } from "./process-orb"
+import { GlyphPath, OrbStation } from "./glyphs"
 
 const computerWorkExamples = [
   "Copying data between systems",
