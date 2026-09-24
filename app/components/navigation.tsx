@@ -71,16 +71,13 @@ export default function Navigation() {
   }
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#F7F8FA]/90 backdrop-blur-md border-b border-black/5">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-warm-white/90 backdrop-blur-md border-b border-card-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <a
             href="/"
-            className="flex items-center gap-2 text-[15px] font-semibold tracking-tight text-navy"
+            className="font-display text-xl tracking-tight text-navy"
           >
-            <span className="flex h-6 w-6 items-center justify-center bg-[#2450E6] text-[11px] font-semibold text-white">
-              C
-            </span>
             CappaWork
           </a>
 
@@ -118,10 +115,9 @@ export default function Navigation() {
             </div>
             <button
               onClick={handleBookCall}
-              className="text-[13px] font-medium bg-[#2450E6] text-white px-4 py-2 hover:bg-[#1D45D4] transition-colors inline-flex items-center gap-1.5"
+              className="text-[13px] font-medium bg-gold text-navy px-4 py-2 rounded-full hover:bg-gold/90 transition-colors"
             >
               Book a Call
-              <span aria-hidden>↗</span>
             </button>
           </div>
 
@@ -159,7 +155,7 @@ export default function Navigation() {
             </div>
             <button
               onClick={handleBookCall}
-              className="mt-3 w-full bg-[#2450E6] text-white py-3 text-sm font-medium"
+              className="mt-3 w-full bg-gold text-navy py-3 text-sm font-medium rounded-full"
             >
               Book a Call
             </button>

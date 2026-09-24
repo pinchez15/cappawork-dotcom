@@ -46,7 +46,7 @@ export function DiscoveryForm({ idPrefix = "discovery" }: { idPrefix?: string })
   const [error, setError] = useState("")
 
   const fieldClass =
-    "w-full rounded-md border border-stone-300 bg-white px-4 py-3 text-navy placeholder:text-stone-400 focus:border-[#2450E6] focus:outline-none focus:ring-2 focus:ring-[#2450E6]/20"
+    "w-full rounded-md border border-stone-300 bg-white px-4 py-3 text-navy placeholder:text-stone-400 focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/20"
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -164,7 +164,7 @@ export function DiscoveryForm({ idPrefix = "discovery" }: { idPrefix?: string })
       <button
         type="submit"
         disabled={submitting}
-        className="w-full bg-navy text-white py-3.5 text-sm font-medium hover:bg-[#141A2E] transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full bg-gold text-navy py-3.5 text-sm font-medium rounded-full hover:bg-gold/90 transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {submitting ? (
           <>
@@ -209,7 +209,7 @@ function InquiryModalContent({ onClose }: { onClose: () => void }) {
         if (e.target === e.currentTarget) onClose()
       }}
     >
-      <div className="relative w-full max-w-lg bg-warm-white text-navy shadow-2xl">
+      <div className="relative w-full max-w-lg rounded-2xl bg-warm-white text-navy shadow-2xl">
         <button
           onClick={onClose}
           className="absolute top-4 right-4 p-2 rounded-full hover:bg-stone-200 transition-colors z-10"
@@ -218,7 +218,7 @@ function InquiryModalContent({ onClose }: { onClose: () => void }) {
           <X size={20} className="text-stone-500" />
         </button>
         <div className="p-8 sm:p-10">
-          <p className="text-xs font-semibold tracking-[0.16em] uppercase text-[#2450E6] mb-3">
+          <p className="text-xs font-semibold tracking-[0.16em] uppercase text-gold mb-3">
             Discovery
           </p>
           <h2 className="font-display text-3xl tracking-tight mb-2">Book a discovery call</h2>

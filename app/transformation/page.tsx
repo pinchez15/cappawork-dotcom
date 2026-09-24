@@ -15,7 +15,7 @@ export default function TransformationPage() {
       <Navigation />
       <article className="pt-28 pb-20">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-xs font-semibold tracking-[0.18em] uppercase text-[#2450E6] mb-4">
+          <p className="text-xs font-semibold tracking-[0.18em] uppercase text-gold mb-4">
             Transformation
           </p>
           <h1 className="font-display text-4xl sm:text-5xl tracking-tight text-navy leading-[1.05]">
@@ -35,13 +35,13 @@ export default function TransformationPage() {
           <div className="mt-10 flex flex-wrap gap-3">
             <Link
               href="/#discovery"
-              className="inline-flex items-center bg-[#2450E6] text-white px-5 py-3 text-sm font-medium hover:bg-[#1D45D4] transition-colors"
+              className="inline-flex items-center bg-gold text-navy px-6 py-3 text-sm font-medium rounded-full hover:bg-gold/90 transition-colors"
             >
               Book a Discovery Call
             </Link>
             <Link
               href="/#work"
-              className="inline-flex items-center border border-card-border px-5 py-3 text-sm font-medium text-navy hover:border-[#2450E6] transition-colors"
+              className="inline-flex items-center border border-card-border px-6 py-3 text-sm font-medium rounded-full text-navy hover:border-gold transition-colors"
             >
               See the work
             </Link>

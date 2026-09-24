@@ -6,6 +6,7 @@ import {
   HumanWorkTerm,
   WorkTermCard,
 } from "./work-term"
+import { GlyphPath, OrbStation } from "./process-orb"
 
 const computerWorkExamples = [
   "Copying data between systems",
@@ -36,26 +37,43 @@ export default function PhilosophySection() {
           </p>
         </FadeInUp>
 
-        <div className="grid gap-4 sm:gap-6 md:grid-cols-2 mb-10 sm:mb-12">
-          <FadeInUp>
-            <WorkTermCard
-              term="computer"
-              variant="computer"
-              pillars={["Speed", "Scale", "Capability"]}
-              tagline="What software does best."
-              examples={computerWorkExamples}
-            />
-          </FadeInUp>
+        <div className="relative mb-10 sm:mb-12">
+          <GlyphPath
+            d="M200 6 V26 M200 26 C200 48 70 58 40 58 M200 26 C200 48 330 58 360 58"
+            viewBox="0 0 400 72"
+            className="mx-auto mb-5 h-14 w-full max-w-md"
+          />
+          <div className="grid gap-4 sm:gap-6 md:grid-cols-2">
+            <FadeInUp>
+              <div>
+                <div className="mb-3">
+                  <OrbStation kind="agent" label="Computer work" />
+                </div>
+                <WorkTermCard
+                  term="computer"
+                  variant="computer"
+                  pillars={["Speed", "Scale", "Capability"]}
+                  tagline="What software does best."
+                  examples={computerWorkExamples}
+                />
+              </div>
+            </FadeInUp>
 
-          <FadeInUp>
-            <WorkTermCard
-              term="human"
-              variant="human"
-              pillars={["Joy", "Truth", "Relationships"]}
-              tagline="What only your people can do."
-              examples={humanWorkExamples}
-            />
-          </FadeInUp>
+            <FadeInUp>
+              <div>
+                <div className="mb-3">
+                  <OrbStation kind="human" label="Human work" />
+                </div>
+                <WorkTermCard
+                  term="human"
+                  variant="human"
+                  pillars={["Joy", "Truth", "Relationships"]}
+                  tagline="What only your people can do."
+                  examples={humanWorkExamples}
+                />
+              </div>
+            </FadeInUp>
+          </div>
         </div>
 
         <FadeInUp>

@@ -74,6 +74,18 @@
       animation: none;
     }
   }
+
+  [data-orb-kind="agent"].orb-station-active {
+    background-color: transparent;
+    border-color: #d4a853;
+    box-shadow: 0 0 0 6px rgba(212, 168, 83, 0.18);
+  }
+
+  [data-orb-kind="human"].orb-station-active {
+    background-color: #d4a853;
+    border-color: #d4a853;
+    box-shadow: 0 0 0 6px rgba(212, 168, 83, 0.22), 0 0 18px rgba(212, 168, 83, 0.4);
+  }
 }
 
 @layer base {

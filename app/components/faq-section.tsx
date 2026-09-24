@@ -80,7 +80,7 @@ export default function FaqSection() {
         <div className="mt-10 text-center">
           <a
             href="#discovery"
-            className="inline-flex items-center bg-[#2450E6] text-white px-5 py-3 text-sm font-medium hover:bg-[#1D45D4] transition-colors"
+            className="inline-flex items-center bg-gold text-navy px-6 py-3 text-sm font-medium rounded-full hover:bg-gold/90 transition-colors"
           >
             Book a Discovery Call
           </a>
