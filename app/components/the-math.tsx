@@ -1,7 +1,6 @@
 "use client"
 
 import { FadeInUp } from "./motion-wrapper"
-import { PRICING_AFTER_AUDIT } from "@/lib/offerings/data"
 
 export default function TheMath() {
   return (
@@ -16,19 +15,23 @@ export default function TheMath() {
           </h2>
 
           <p className="text-xl text-navy font-display leading-relaxed mb-12">
-            Six weeks. One department, 2–4 production workflows — scoped after a Computer Work Audit, with client-owned IP at go-live.
+            One engagement. Diagnosis, the build, and a system that stays on call &mdash; for less than the cost of adding another layer of people.
           </p>
 
+          {/* Case study */}
           <div className="bg-navy text-white rounded-2xl p-8 sm:p-10 mb-12">
             <p className="text-sm font-semibold tracking-widest uppercase text-gold mb-4">
-              How to read it
+              Case Study
             </p>
             <p className="text-white/80 leading-relaxed mb-4">
-              The engagement is designed for ROI within about six months on high-leverage Computer Work — directional, not a guaranteed-savings promise. We baseline hours, cycle time, and rework in Week 0 so go-live has a number to beat.
+              After one engagement, the same team ran a larger book of work. Profit followed the change in how the work ran, not a new hire.
             </p>
-            <p className="text-white/60 leading-relaxed">{PRICING_AFTER_AUDIT}</p>
+            <p className="text-white/60 leading-relaxed">
+              The upside is the operation carrying more without a new layer of coordination.
+            </p>
           </div>
 
+          {/* Comparison table */}
           <div className="overflow-x-auto -mx-4 px-4">
             <table className="w-full text-sm">
               <thead>
@@ -41,40 +44,40 @@ export default function TheMath() {
               </thead>
               <tbody className="text-stone-600">
                 <tr className="border-b border-stone-100">
-                  <td className="py-3 pr-4 font-medium text-navy">Investment</td>
-                  <td className="py-3 px-4">Quoted on a build SOW</td>
-                  <td className="py-3 px-4">Seats and tokens monthly</td>
-                  <td className="py-3 px-4 text-navy font-medium">Scoped after audit · six weeks</td>
+                  <td className="py-3 pr-4 font-medium text-navy">Engagement</td>
+                  <td className="py-3 px-4">A build, scoped by a spec</td>
+                  <td className="py-3 px-4">A tool, configured by you</td>
+                  <td className="py-3 px-4 text-navy font-medium">A change in how the work runs</td>
                 </tr>
                 <tr className="border-b border-stone-100">
                   <td className="py-3 pr-4 font-medium text-navy">Diagnosis</td>
                   <td className="py-3 px-4">None — they build what you tell them</td>
                   <td className="py-3 px-4">None — you figure it out</td>
-                  <td className="py-3 px-4 text-navy font-medium">Week 0 audit with baselines</td>
+                  <td className="py-3 px-4 text-navy font-medium">Full profit diagnostic in month 1</td>
                 </tr>
                 <tr className="border-b border-stone-100">
-                  <td className="py-3 pr-4 font-medium text-navy">Scope</td>
-                  <td className="py-3 px-4">Whatever fits the SOW</td>
-                  <td className="py-3 px-4">Scattered pilots</td>
-                  <td className="py-3 px-4 text-navy font-medium">One department · 2–4 workflows</td>
+                  <td className="py-3 pr-4 font-medium text-navy">Strategy</td>
+                  <td className="py-3 px-4">None</td>
+                  <td className="py-3 px-4">None</td>
+                  <td className="py-3 px-4 text-navy font-medium">Ongoing executive coaching</td>
                 </tr>
                 <tr className="border-b border-stone-100">
                   <td className="py-3 pr-4 font-medium text-navy">Build</td>
                   <td className="py-3 px-4">Yes, but spec risk is yours</td>
                   <td className="py-3 px-4">No — tools, not products</td>
-                  <td className="py-3 px-4 text-navy font-medium">Production in your stack · parallel run</td>
+                  <td className="py-3 px-4 text-navy font-medium">Custom products, one per month</td>
                 </tr>
                 <tr className="border-b border-stone-100">
-                  <td className="py-3 pr-4 font-medium text-navy">Ownership</td>
-                  <td className="py-3 px-4">Often shared / unclear</td>
-                  <td className="py-3 px-4">Vendor lock-in</td>
-                  <td className="py-3 px-4 text-navy font-medium">You own the IP at go-live</td>
+                  <td className="py-3 pr-4 font-medium text-navy">Training</td>
+                  <td className="py-3 px-4">None</td>
+                  <td className="py-3 px-4">Self-service docs</td>
+                  <td className="py-3 px-4 text-navy font-medium">Hands-on, in your codebase</td>
                 </tr>
                 <tr>
-                  <td className="py-3 pr-4 font-medium text-navy">Aftercare</td>
-                  <td className="py-3 px-4">Change orders</td>
-                  <td className="py-3 px-4">Self-service docs</td>
-                  <td className="py-3 px-4 text-navy font-medium">12-month narrow fix guarantee · optional retainer</td>
+                  <td className="py-3 pr-4 font-medium text-navy">Outcome</td>
+                  <td className="py-3 px-4">A product (maybe the right one)</td>
+                  <td className="py-3 px-4">Scattered adoption</td>
+                  <td className="py-3 px-4 text-navy font-medium">The team trained, you own everything</td>
                 </tr>
               </tbody>
             </table>

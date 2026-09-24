@@ -13,7 +13,7 @@ import {
 export const metadata: Metadata = {
   title: "AI Literacy Bootcamp | CappaWork Cohort",
   description:
-    "Four weeks to strategic fluency in AI — evaluate vendors, make build-vs-buy calls, and stop nodding through AI conversations you don't actually understand. For directors, VPs, and CXOs. $1,500.",
+    "Four weeks to strategic fluency in AI — evaluate vendors, make build-vs-buy calls, and stop nodding through AI conversations you don't actually understand. For directors, VPs, and CXOs.",
   openGraph: {
     title: "AI Literacy Bootcamp | CappaWork Cohort",
     description:
@@ -187,7 +187,7 @@ export default function AiLiteracyBootcampPage() {
             Stop nodding through AI conversations you don't actually understand.
           </p>
           <p className="text-sm font-medium tracking-widest uppercase text-stone-500 mb-6">
-            3 sessions · 90 minutes each · $1,500
+            3 sessions · 90 minutes each
           </p>
           <p className="text-lg text-stone-600 leading-relaxed mb-10 max-w-xl mx-auto">
             For directors, VPs, and CXOs who need to be conversant in AI — because it now sits inside every
@@ -358,7 +358,7 @@ export default function AiLiteracyBootcampPage() {
           </span>
           <h2 className="font-display text-3xl sm:text-4xl tracking-tight text-white mb-8">About Nate</h2>
           <p className="text-lg text-white/70 leading-relaxed mb-10">
-            I'm Nate Pinches. I run CappaWork, an AI development agency that builds and ships production software for founder-led businesses.
+            I'm Nate Pinches. I run CappaWork. We change how operational work gets done, and we use agents where the work calls for them.
           </p>
 
           <h3 className="text-sm font-semibold uppercase tracking-widest text-gold mb-4">
@@ -366,8 +366,8 @@ export default function AiLiteracyBootcampPage() {
           </h3>
           <ul className="space-y-3 mb-10 text-white/70">
             <li className="flex items-start gap-3"><div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-gold shrink-0" /><span>MBA + 4 years in management consulting</span></li>
-            <li className="flex items-start gap-3"><div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-gold shrink-0" /><span>C-suite strategy at companies up to $2B+ in revenue, including Michaels</span></li>
-            <li className="flex items-start gap-3"><div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-gold shrink-0" /><span>Product development at CVS Health (corporate strategy, a $4B subsidiary, 10K institutional customers)</span></li>
+            <li className="flex items-start gap-3"><div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-gold shrink-0" /><span>C-suite strategy, including Michaels</span></li>
+            <li className="flex items-start gap-3"><div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-gold shrink-0" /><span>Product development at CVS Health, across corporate strategy and a large subsidiary</span></li>
             <li className="flex items-start gap-3"><div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-gold shrink-0" /><span>A hands-on builder, not a theorist — the production AI products below are ones I've designed and shipped.</span></li>
           </ul>
 

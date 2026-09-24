@@ -5,15 +5,11 @@ import { ArrowRight, Check } from "lucide-react"
 import Link from "next/link"
 
 export default function EnrollmentCard({ className = "" }: { className?: string }) {
-  const price = "$1,000"
   const nextCohortDate = "March 2026"
 
   return (
     <div className={`bg-white rounded-2xl shadow-xl border border-stone-200 p-8 ${className}`}>
       <div className="mb-6 text-center">
-        <div className="flex items-center justify-center gap-3 mb-2">
-           <span className="text-4xl font-semibold tracking-tight text-stone-900">{price}</span>
-        </div>
         <p className="text-sm text-stone-500 mb-6">
           Limited to 10 committed builders
         </p>

@@ -18,7 +18,7 @@ export default function ContactPage() {
               Let's Talk
             </h1>
             <p className="text-lg text-stone-600 mb-12">
-              Send the tool you're fighting with. Describe the workflow that breaks. Show the MVP you're embarrassed to demo. We'll quickly tell you what's possible—and how fast we can get you there.
+              Tell us where the operation is slow. We will tell you whether the work should change, and whether an agent belongs in it.
             </p>
 
             <div className="bg-white rounded-2xl border border-stone-200 shadow-sm p-8">

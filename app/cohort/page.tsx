@@ -48,7 +48,6 @@ const techLogos = [
 ]
 
 export default function CohortPage() {
-  const price = "$1,000"
   const duplicatedTechLogos = [...techLogos, ...techLogos]
   const stripePaymentLink = "https://buy.stripe.com/00w14nbhMfvF2zid6Xd3i00"
 
@@ -437,13 +436,13 @@ export default function CohortPage() {
                      March 2026 Cohort
                   </div>
                   <div className="mb-6">
-                     <h2 className="text-5xl sm:text-7xl font-semibold tracking-tight text-stone-900 mb-2">
-                        {price}
+                     <h2 className="text-4xl sm:text-5xl font-semibold tracking-tight text-stone-900 mb-2">
+                        Apply for the cohort
                      </h2>
                      <p className="text-sm text-stone-500 mt-2">Limited to 10 committed builders</p>
                   </div>
                   <p className="text-stone-500 mb-10 text-lg">
-                     One-time payment. Lifetime access to materials.
+                     Lifetime access to materials.
                   </p>
 
                   <div className="bg-stone-50 rounded-xl p-4 mb-8 border border-stone-100">

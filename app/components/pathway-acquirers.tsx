@@ -44,11 +44,9 @@ export default function PathwayAcquirers() {
             </p>
           </div>
 
-          <div className="rounded-2xl border border-gold/30 bg-card-light p-6 mb-10">
-            <p className="text-navy font-semibold text-lg">
-              Mapped to your clock — typically a 6-Week AI Transformation scoped to the acquired operating system, with optional Modernize retainer after go-live. Investment quoted after the Computer Work Audit.
-            </p>
-          </div>
+          <p className="text-navy font-medium text-lg mb-10">
+            The work is mapped to the reporting window. Scope is set on a discovery call.
+          </p>
         </FadeInUp>
 
         <StaggerContainer className="space-y-8 mb-12">
@@ -74,7 +72,7 @@ export default function PathwayAcquirers() {
             By day 100, the core system is live. By day 180, it&rsquo;s yours.
           </p>
           <button
-            onClick={() => open("6-Week AI Transformation")}
+            onClick={() => open()}
             className="bg-gold text-navy px-8 py-3.5 rounded-full font-medium hover:bg-gold/90 transition-all duration-200 inline-flex items-center gap-2 text-lg"
           >
             Talk About Your Acquisition

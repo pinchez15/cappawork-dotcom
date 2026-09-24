@@ -6,7 +6,7 @@ import Footer from "../components/footer"
 export const metadata: Metadata = {
   title: "AI Cohorts for Business Leaders | CappaWork",
   description:
-    "Two live cohorts to make you genuinely effective with AI. AI Literacy Bootcamp ($1,500) for strategic fluency, AI for Business Leaders ($2,500) to ship a real workflow.",
+    "Two live cohorts for directors, VPs, and CXOs. AI Literacy Bootcamp for strategic fluency. AI for Business Leaders to ship a real workflow.",
   openGraph: {
     title: "AI Cohorts for Business Leaders | CappaWork",
     description:
@@ -27,7 +27,7 @@ const cohorts = [
     eyebrow: "Start here if you're not sure what to build",
     title: "AI Literacy Bootcamp",
     tagline: "Get strategically fluent — and stop nodding through AI conversations you don't understand.",
-    meta: "3 sessions · 90 min each · $1,500",
+    meta: "3 sessions · 90 min each",
     bullets: [
       "The three frameworks as a vendor-evaluation lens",
       "The model landscape, agents, and MCP — demystified",
@@ -42,7 +42,7 @@ const cohorts = [
     eyebrow: "Take this when you know what you want to build",
     title: "AI for Business Leaders",
     tagline: "Ship one AI workflow that moves your business — in one month.",
-    meta: "3 sessions · 90 min each · $2,500",
+    meta: "3 sessions · 90 min each",
     bullets: [
       "Frameworks to pick the one workflow worth building",
       "Claude Projects & Custom GPTs for judgment work",

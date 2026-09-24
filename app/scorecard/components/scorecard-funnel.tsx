@@ -5,15 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { ArrowRight, ArrowLeft, CheckCircle2, AlertTriangle, TrendingDown, ChevronRight } from "lucide-react";
 import { QUESTIONS, DIMENSION_LABELS, type Dimension } from "./questions";
 import { computeScores, type ScorecardResult } from "./scoring";
-import { trackLead, trackCompleteRegistration, trackInitiateCheckout } from "./fb-pixel";
-
-const REVENUE_RANGES = [
-  "$10M–$25M",
-  "$25M–$50M",
-  "$50M–$100M",
-  "$100M–$250M",
-  "$250M+",
-];
+import { trackLead, trackCompleteRegistration } from "./fb-pixel";
 
 const GRADE_COLORS: Record<string, string> = {
   A: "text-green-600 bg-green-50 border-green-200",
@@ -47,7 +39,6 @@ export function ScorecardFunnel() {
   const [step, setStep] = useState<FunnelStep>("hero");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [revenueRange, setRevenueRange] = useState("");
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [result, setResult] = useState<ScorecardResult | null>(null);
@@ -79,7 +70,6 @@ export function ScorecardFunnel() {
           body: JSON.stringify({
             name: name.trim(),
             email: email.trim(),
-            revenue_range: revenueRange,
             ...utmParams,
           }),
         });
@@ -97,7 +87,7 @@ export function ScorecardFunnel() {
         setSubmitting(false);
       }
     },
-    [name, email, revenueRange, utmParams]
+    [name, email, utmParams]
   );
 
   const handleSelectOption = useCallback(
@@ -143,16 +133,6 @@ export function ScorecardFunnel() {
     }
   }, [answers, email]);
 
-  const pdfPaymentLink =
-    process.env.NEXT_PUBLIC_STRIPE_PDF_PAYMENT_LINK || "#";
-
-  // Append email as client_reference_id to payment links
-  const appendEmail = (url: string) => {
-    if (url === "#" || !email) return url;
-    const sep = url.includes("?") ? "&" : "?";
-    return `${url}${sep}client_reference_id=${encodeURIComponent(email.trim())}`;
-  };
-
   // --- HERO ---
   if (step === "hero") {
     return (
@@ -171,10 +151,6 @@ export function ScorecardFunnel() {
             Answer 12 quick questions. Get a personalized grade across 6 profit
             dimensions — and find out exactly where money is slipping through the
             cracks.
-          </p>
-
-          <p className="mt-4 text-sm text-stone-500">
-            Built for operators at businesses over ~$50M revenue
           </p>
 
           <button
@@ -251,31 +227,6 @@ export function ScorecardFunnel() {
                   placeholder="jane@company.com"
                   className="w-full rounded-lg border border-stone-300 bg-white px-4 py-3 text-stone-900 placeholder:text-stone-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
                 />
-              </div>
-
-              <div>
-                <label
-                  htmlFor="revenue"
-                  className="mb-1 block text-sm font-medium text-stone-700"
-                >
-                  Annual revenue
-                </label>
-                <select
-                  id="revenue"
-                  required
-                  value={revenueRange}
-                  onChange={(e) => setRevenueRange(e.target.value)}
-                  className="w-full rounded-lg border border-stone-300 bg-white px-4 py-3 text-stone-900 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
-                >
-                  <option value="" disabled>
-                    Select range
-                  </option>
-                  {REVENUE_RANGES.map((range) => (
-                    <option key={range} value={range}>
-                      {range}
-                    </option>
-                  ))}
-                </select>
               </div>
 
               {error && (
@@ -485,10 +436,7 @@ export function ScorecardFunnel() {
                     Talk through your results with Nate
                   </h3>
                   <p className="mt-1 text-sm text-stone-600">
-                    Book a Computer Work Audit. We&rsquo;ll walk through your
-                    scorecard, map where Computer Work is eating Human Work, and
-                    figure out whether Transformation, Discover, or Build is the right
-                    next step.
+                    A working session on your scorecard: where computer work is crowding out human work, and whether the next step is a change in the system, an agent, or both.
                   </p>
                   <ul className="mt-3 space-y-1 text-sm text-stone-600">
                     <li className="flex items-center gap-2">
@@ -513,32 +461,13 @@ export function ScorecardFunnel() {
                     rel="noopener noreferrer"
                     className="mt-4 inline-flex items-center gap-2 rounded-full bg-blue-600 px-6 py-3 font-medium text-white shadow-md shadow-blue-600/20 transition-all hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-600/30"
                   >
-                    Book a Computer Work Audit
+                    Book a Discovery Call
                     <ChevronRight className="h-4 w-4" />
                   </a>
                 </div>
               </div>
             </div>
 
-            {/* Secondary: $27 PDF */}
-            <div className="rounded-2xl border border-stone-200 bg-white p-6">
-              <h3 className="font-medium text-stone-900">
-                Want to fix it yourself?
-              </h3>
-              <p className="mt-1 text-sm text-stone-600">
-                The Profit Formula is a step-by-step guide covering all 6 profit
-                dimensions, with worksheets and benchmarks for service businesses
-                at your stage.
-              </p>
-              <a
-                href={appendEmail(pdfPaymentLink)}
-                onClick={() => trackInitiateCheckout(27)}
-                className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-blue-600 hover:text-blue-700"
-              >
-                Get the Profit Formula Guide — $27
-                <ChevronRight className="h-4 w-4" />
-              </a>
-            </div>
           </div>
 
           {/* Footer note */}

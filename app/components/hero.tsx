@@ -1,108 +1,48 @@
 "use client"
 
-import Link from "next/link"
-import { ArrowRight } from "lucide-react"
-import { motion } from "framer-motion"
-import { useInquiry } from "./inquiry-modal"
-import { HumanWorkTerm } from "./work-term"
-import { useRef, useEffect } from "react"
+import { ArrowUpRight } from "lucide-react"
+import HeroField from "./hero-field"
 
 export default function Hero() {
-  const { open } = useInquiry()
-  const videoRef = useRef<HTMLVideoElement>(null)
-  const hasPlayedRef = useRef(false)
-
-  useEffect(() => {
-    const video = videoRef.current
-    if (!video) return
-
-    video.playbackRate = 0.6
-
-    const handleScroll = () => {
-      if (window.scrollY === 0 && hasPlayedRef.current) {
-        hasPlayedRef.current = false
-        video.currentTime = 0
-        video.play()
-      }
-    }
-
-    const handleEnded = () => {
-      hasPlayedRef.current = true
-    }
-
-    video.addEventListener("ended", handleEnded)
-    window.addEventListener("scroll", handleScroll)
-    return () => {
-      video.removeEventListener("ended", handleEnded)
-      window.removeEventListener("scroll", handleScroll)
-    }
-  }, [])
-
   return (
-    <section id="hero" className="relative min-h-[100svh] flex items-center bg-navy overflow-hidden">
-      <div className="absolute inset-0 overflow-hidden">
-        <video
-          ref={videoRef}
-          autoPlay
-          muted
-          playsInline
-          preload="auto"
-          className="absolute top-0 left-0 w-full h-[110%] object-cover"
-        >
-          <source src="/CappaWork_video.mp4" type="video/mp4" />
-        </video>
-        <div className="absolute inset-0 bg-navy/60" />
-      </div>
+    <section id="hero" className="relative min-h-[100svh] flex flex-col bg-[#F7F8FA] overflow-hidden pt-16">
+      <div
+        className="absolute inset-0 pointer-events-none"
+        aria-hidden
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, rgba(10,15,28,0.045) 1px, transparent 1px), linear-gradient(to bottom, rgba(10,15,28,0.045) 1px, transparent 1px)",
+          backgroundSize: "80px 80px",
+        }}
+      />
+      <HeroField />
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 py-24 sm:py-28 lg:py-32">
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-[11px] sm:text-sm font-semibold tracking-[0.15em] sm:tracking-widest uppercase text-gold mb-5 sm:mb-6 leading-snug"
-        >
-          6-Week AI Transformation for businesses over ~$50M
-        </motion.p>
+      <div className="relative z-10 flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-16 sm:pt-24 lg:pt-28 pb-10">
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+          <h1 className="lg:col-span-7 font-display text-[2.75rem] sm:text-6xl lg:text-[4.5rem] tracking-tight text-navy leading-[0.98] text-balance">
+            Transform how your enterprise works.
+          </h1>
+          <p className="lg:col-span-5 lg:pt-4 text-base sm:text-lg text-stone-600 leading-relaxed max-w-md lg:ml-auto">
+            Custom AI systems for the operations that run the company. We redesign the workflow from the inside, and we put an agent in only where the work calls for one. No generalized software that does half the job. No 18-month timelines.
+          </p>
+        </div>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
-          className="font-display text-[2.35rem] sm:text-5xl md:text-6xl lg:text-7xl tracking-tight text-white mb-6 sm:mb-8 leading-[1.08] text-balance"
-        >
-          Help your team do more <HumanWorkTerm />.
-        </motion.h1>
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-          className="text-base sm:text-lg text-white/70 max-w-xl mx-auto mb-8 sm:mb-12 leading-relaxed"
-        >
-          One department. 2–4 workflows. Production agents in six weeks. You bring the workflow. We remove the Computer Work.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.35, ease: "easeOut" }}
-          className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 max-w-md sm:max-w-none mx-auto"
-        >
-          <button
-            onClick={() => open()}
-            className="bg-gold text-navy px-6 sm:px-8 py-3.5 rounded-full font-medium hover:bg-gold/90 transition-all duration-200 inline-flex items-center justify-center gap-2 text-base sm:text-lg"
+        <div className="mt-16 sm:mt-24 lg:mt-36 flex flex-col sm:flex-row gap-3 sm:justify-end">
+          <a
+            href="#discovery"
+            className="group flex items-start justify-between gap-6 w-full sm:w-72 min-h-36 bg-[#2450E6] text-white px-6 py-5 hover:bg-[#1D45D4] transition-colors"
           >
-            Book a Computer Work Audit
-            <ArrowRight size={18} className="flex-shrink-0" />
-          </button>
-          <Link
-            href="/transformation"
-            className="text-white/80 hover:text-white transition-colors duration-200 inline-flex items-center justify-center gap-1.5 text-sm sm:text-base font-medium py-2"
+            <span className="text-base font-medium">Book a Discovery Call</span>
+            <ArrowUpRight size={18} className="mt-0.5 shrink-0 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </a>
+          <a
+            href="#work"
+            className="group flex items-start justify-between gap-6 w-full sm:w-72 min-h-36 bg-navy text-white px-6 py-5 hover:bg-[#141A2E] transition-colors"
           >
-            See the 6-week path
-            <ArrowRight size={16} />
-          </Link>
-        </motion.div>
+            <span className="text-base font-medium">See the work</span>
+            <ArrowUpRight size={18} className="mt-0.5 shrink-0 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </a>
+        </div>
       </div>
     </section>
   )

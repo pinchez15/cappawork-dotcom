@@ -5,11 +5,11 @@ import { ScorecardFunnel } from "./components/scorecard-funnel";
 export const metadata: Metadata = {
   title: "Profit Leak Scorecard — CappaWork",
   description:
-    "Find where Computer Work is crowding out Human Work. Free 2-minute assessment for operators at businesses over ~$50M revenue.",
+    "A short look at where operational work is leaking time. For leadership teams deciding what to change.",
   openGraph: {
     title: "Profit Leak Scorecard — CappaWork",
     description:
-      "Find where Computer Work is crowding out Human Work. Free 2-minute assessment for ~$50M+ businesses.",
+      "Find the hidden profit leaks in your service business. Free 2-minute assessment.",
   },
 };
 

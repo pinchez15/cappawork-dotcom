@@ -7,15 +7,15 @@ import { getAllBlogPosts } from "@/server/repos/blog";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Insights — Workflow, Automation & Profitability | CappaWork",
+  title: "Insights — How Work Gets Done | CappaWork",
   description:
-    "Short, practical articles on workflow mapping, automation, AI integration, and the four levers of profitability for founder-led service businesses.",
+    "Notes on operational work, where an agent belongs, and how a workflow changes once the copying is taken off the team.",
   keywords:
     "workflow mapping, automation, AI integration, profitability, unit economics, service business, operations, margin improvement",
   openGraph: {
-    title: "Insights — Workflow, Automation & Profitability | CappaWork",
+    title: "Insights — How Work Gets Done | CappaWork",
     description:
-      "Short, practical articles on workflow mapping, automation, AI integration, and the four levers of profitability for founder-led service businesses.",
+      "Notes on operational work, where an agent belongs, and how a workflow changes once the copying is taken off the team.",
     type: "website",
     url: "https://cappawork.com/blog",
     siteName: "CappaWork",
@@ -31,9 +31,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Insights — Workflow, Automation & Profitability | CappaWork",
+    title: "Insights — How Work Gets Done | CappaWork",
     description:
-      "Short, practical articles on workflow mapping, automation, AI integration, and the four levers of profitability for founder-led service businesses.",
+      "Notes on operational work, where an agent belongs, and how a workflow changes once the copying is taken off the team.",
     images: ["https://cappawork.com/og-image.png"],
   },
 };
@@ -69,7 +69,7 @@ export default async function BlogPage() {
     "@type": "Blog",
     name: "CappaWork Insights",
     description:
-      "Short, practical articles on workflow mapping, automation, AI integration, and the four levers of profitability for founder-led service businesses.",
+      "Notes on operational work, where an agent belongs, and how a workflow changes once the copying is taken off the team.",
     url: "https://cappawork.com/blog",
     publisher: {
       "@type": "Organization",
@@ -94,8 +94,7 @@ export default async function BlogPage() {
                 Insights
               </h1>
               <p className="text-lg text-stone-600 max-w-2xl mx-auto">
-                Practical thinking on workflow mapping, automation, AI integration, and the
-                unit economics that actually drive profitability in service businesses.
+                How operational work changes, and where an agent belongs in that change.
               </p>
             </div>
 

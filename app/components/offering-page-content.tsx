@@ -14,11 +14,11 @@ export function OfferingPageContent({ offering }: { offering: Offering }) {
       <section className="pt-28 pb-16 bg-navy">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <Link
-            href="/#services"
+            href="/#how-it-works"
             className="inline-flex items-center gap-1.5 text-sm text-white/50 hover:text-white transition-colors mb-8"
           >
             <ArrowLeft size={16} />
-            All services
+            How it works
           </Link>
 
           <span className="text-sm font-semibold tracking-widest uppercase text-gold block mb-4">
@@ -28,15 +28,8 @@ export function OfferingPageContent({ offering }: { offering: Offering }) {
             {offering.subtitle}
           </h1>
           {offering.subtitleNote && (
-            <p className="text-lg text-white/70 leading-relaxed mb-10">{offering.subtitleNote}</p>
+            <p className="text-lg text-white/70 leading-relaxed">{offering.subtitleNote}</p>
           )}
-
-          <div className="flex flex-wrap items-baseline gap-3 pb-10 border-b border-white/10">
-            <span className="font-display text-4xl sm:text-5xl text-white">
-              {offering.price}
-            </span>
-            <span className="text-sm text-white/50">{offering.priceNote}</span>
-          </div>
         </div>
       </section>
 
@@ -63,13 +56,9 @@ export function OfferingPageContent({ offering }: { offering: Offering }) {
                   key={tier.name}
                   className="rounded-2xl border border-card-border bg-warm-white p-8"
                 >
-                  <div className="flex flex-wrap items-baseline justify-between gap-2 mb-4">
-                    <h3 className="font-display text-xl text-navy">{tier.name}</h3>
-                    <span className="font-display text-2xl text-navy">{tier.price}</span>
-                  </div>
+                  <h3 className="font-display text-xl text-navy mb-4">{tier.name}</h3>
                   <p className="text-sm text-stone-500 mb-4">{tier.timeline}</p>
-                  <p className="text-stone-600 leading-relaxed mb-4">{tier.bestFor}</p>
-                  <p className="text-sm font-medium text-gold">{tier.credit}</p>
+                  <p className="text-stone-600 leading-relaxed">{tier.bestFor}</p>
                 </div>
               ))}
             </div>
@@ -139,7 +128,7 @@ export function OfferingPageContent({ offering }: { offering: Offering }) {
               Recent build
             </span>
             <div className="rounded-2xl border border-gold/30 bg-card-light p-8 space-y-6">
-              {offering.proof.map((item) => (
+              {offering.proof.filter((item) => !item.stat.includes("$") && !item.label.includes("$")).map((item) => (
                 <div
                   key={item.stat}
                   className="border-b border-card-border last:border-0 pb-6 last:pb-0"
@@ -291,10 +280,12 @@ export function OfferingPageContent({ offering }: { offering: Offering }) {
             onClick={() => open(offering.inquiryKey)}
             className="bg-gold text-navy px-8 py-3.5 rounded-full font-medium hover:bg-gold/90 transition-all duration-200 inline-flex items-center gap-2 text-lg"
           >
-            {offering.ctaText}
+            Book a Discovery Call
             <ArrowRight size={18} />
           </button>
-          <p className="mt-4 text-sm text-stone-500">{offering.ctaSub}</p>
+          <p className="mt-4 text-sm text-stone-500">
+            A working session on how the operation runs, and where a change would matter first.
+          </p>
 
           <p className="mt-10 pt-8 border-t border-card-border text-xs text-stone-500 leading-relaxed">
             <strong className="text-stone-700">All sales are final.</strong>{" "}

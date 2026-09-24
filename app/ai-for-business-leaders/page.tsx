@@ -13,7 +13,7 @@ import {
 export const metadata: Metadata = {
   title: "AI for Business Leaders | CappaWork Cohort",
   description:
-    "Ship one AI workflow that moves your business — in one month. A 3-session cohort for directors, VPs, and CXOs. Frameworks first, then build. $2,500.",
+    "Ship one AI workflow that moves your business — in one month. A 3-session cohort for directors, VPs, and CXOs. Frameworks first, then build.",
   openGraph: {
     title: "AI for Business Leaders | CappaWork Cohort",
     description:
@@ -198,7 +198,7 @@ export default function AiForBusinessLeadersPage() {
             Leave with a working AI agent that moves your business. In one month.
           </p>
           <p className="text-sm font-medium tracking-widest uppercase text-white/50 mb-6">
-            3 sessions · 90 minutes each · $2,500
+            3 sessions · 90 minutes each
           </p>
           <p className="text-lg text-white/70 leading-relaxed mb-10 max-w-xl mx-auto">
             For directors, VPs, and CXOs who want hands-on help, not another lecture. You'll work one-on-one with Nate to dial in your workflow — and leave with a working AI agent you actually use.
@@ -232,7 +232,7 @@ export default function AiForBusinessLeadersPage() {
               "You're a director, VP, or C-suite leader at a mid-sized business",
               "You know AI is changing how work gets done, and you're done watching from the sidelines",
               "You've tried a “ChatGPT for Executives” course and left with nothing you actually use",
-              "You can name three tasks in your week you'd pay $200 to never do again",
+              "You can name three tasks in your week that should not require you",
               "You want a workflow you've built, not a certificate you've collected",
             ].map((item, i) => (
               <li key={i} className="flex items-start gap-3 text-stone-700">
@@ -351,7 +351,7 @@ export default function AiForBusinessLeadersPage() {
           </span>
           <h2 className="font-display text-3xl sm:text-4xl tracking-tight text-white mb-8">About Nate</h2>
           <p className="text-lg text-white/70 leading-relaxed mb-10">
-            I'm Nate Pinches. I run CappaWork, an AI development agency that builds and ships production software for founder-led businesses.
+            I'm Nate Pinches. I run CappaWork. We change how operational work gets done, and we use agents where the work calls for them.
           </p>
 
           <h3 className="text-sm font-semibold uppercase tracking-widest text-gold mb-4">
@@ -359,8 +359,8 @@ export default function AiForBusinessLeadersPage() {
           </h3>
           <ul className="space-y-3 mb-10 text-white/70">
             <li className="flex items-start gap-3"><div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-gold shrink-0" /><span>MBA + 4 years in management consulting</span></li>
-            <li className="flex items-start gap-3"><div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-gold shrink-0" /><span>C-suite strategy at companies up to $2B+ in revenue, including Michaels</span></li>
-            <li className="flex items-start gap-3"><div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-gold shrink-0" /><span>Product development at CVS Health (corporate strategy, a $4B subsidiary, 10K institutional customers)</span></li>
+            <li className="flex items-start gap-3"><div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-gold shrink-0" /><span>C-suite strategy, including Michaels</span></li>
+            <li className="flex items-start gap-3"><div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-gold shrink-0" /><span>Product development at CVS Health, across corporate strategy and a large subsidiary</span></li>
             <li className="flex items-start gap-3"><div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-gold shrink-0" /><span>A hands-on builder, not a theorist — the production AI products below are ones I've designed and shipped.</span></li>
           </ul>
 
@@ -369,9 +369,7 @@ export default function AiForBusinessLeadersPage() {
               A profitability case I'm proud of
             </h3>
             <p className="text-white/80 leading-relaxed">
-              I worked with a founder whose business was doing $1.5M in revenue and $45K in profit. One year later
-              — $1.8M in revenue and $225K in profit. That's a 5x profit improvement on a 20% revenue lift. The
-              frameworks I teach in this cohort are the same frameworks I used with that founder.
+              The frameworks in this cohort are the same ones used when a workflow has to change: what stays with people, what the system should carry, and where an agent belongs.
             </p>
           </div>
 

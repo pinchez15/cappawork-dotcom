@@ -41,7 +41,7 @@ const TOOLS: Anthropic.Tool[] = [
         company_name: { type: "string", description: "Company name" },
         estimated_revenue: {
           type: "string",
-          description: "$3M-$5M, $5M-$10M, $10M+, or null",
+          description: "$50M-$100M, $100M-$250M, $250M-$1B, $1B+, or null",
         },
         location: { type: "string", description: "City, State" },
         website: { type: "string", description: "Company website URL" },
@@ -284,7 +284,7 @@ function buildSystemPrompt(context: {
     contextBlock = `\n\nCurrent page: ${context.page}\nPage summary: ${context.summary}\nAvailable capabilities on this page: ${context.capabilities.join(", ")}`;
   }
 
-  return `You are a BD operations assistant for CappaWork, an AI transformation consultancy targeting founder-led service businesses ($3M-$10M revenue).
+  return `You are a BD operations assistant for CappaWork, an AI consultancy that changes how operational work gets done for mid-to-large companies. The buyer is typically a CEO or COO.
 
 You help manage the BD pipeline through natural language commands. Use the provided tools to create, query, and update records. For questions or explanations, respond with plain text.${contextBlock}
 

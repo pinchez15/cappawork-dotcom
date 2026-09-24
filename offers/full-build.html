@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Full Build — CappaWork</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0A0F1C;
+    --white: #FAFAF8;
+    --gold: #D4A853;
+    --text-secondary: #6B7280;
+    --border: #E5E5E3;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--navy); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  .page { max-width: 680px; margin: 0 auto; padding: 80px 24px; }
+  .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+  h1 { font-family: 'Instrument Serif', serif; font-size: 48px; font-weight: 400; line-height: 1.15; margin-bottom: 24px; letter-spacing: -0.5px; }
+  .subtitle { font-size: 18px; color: var(--text-secondary); margin-bottom: 48px; max-width: 540px; }
+  .price-block { display: flex; align-items: baseline; gap: 12px; margin-bottom: 48px; padding-bottom: 48px; border-bottom: 1px solid var(--border); }
+  .price { font-family: 'Instrument Serif', serif; font-size: 48px; font-weight: 400; }
+  .price-note { font-size: 15px; color: var(--text-secondary); }
+  .section-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+  .details { margin-bottom: 48px; }
+  .detail-item { padding: 16px 0; border-bottom: 1px solid var(--border); font-size: 16px; line-height: 1.5; }
+  .detail-item:first-child { border-top: 1px solid var(--border); }
+  .detail-item strong { font-weight: 600; }
+  .who-block { background: var(--navy); color: var(--white); padding: 40px; margin: 48px -24px; border-radius: 0; }
+  @media (min-width: 728px) { .who-block { margin: 48px 0; border-radius: 4px; } }
+  .who-block .section-label { color: var(--gold); }
+  .who-block p { font-size: 16px; line-height: 1.7; opacity: 0.9; }
+  .proof-block { background: #F5F0E8; padding: 32px; margin: 48px 0; }
+  .proof-block .section-label { margin-bottom: 16px; }
+  .proof-item { padding: 16px 0; font-size: 15px; line-height: 1.6; }
+  .proof-item + .proof-item { border-top: 1px solid #E0D9CC; }
+  .proof-item strong { font-weight: 600; }
+  .proof-stat { font-family: 'Instrument Serif', serif; font-size: 24px; color: var(--gold); display: block; margin-bottom: 4px; }
+  .terms { margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--border); }
+  .terms p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+  .cta-block { margin-top: 48px; }
+  .cta-button { display: inline-block; background: var(--navy); color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; padding: 16px 40px; border: none; text-decoration: none; letter-spacing: 0.5px; cursor: pointer; transition: background 0.2s; }
+  .cta-button:hover { background: #1a2035; }
+  .cta-sub { margin-top: 12px; font-size: 13px; color: var(--text-secondary); }
+  .footer { margin-top: 80px; padding-top: 24px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  .footer-brand { font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 1px; }
+  .footer-link { font-size: 13px; color: var(--text-secondary); text-decoration: none; }
+  .footer-link:hover { color: var(--navy); }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="eyebrow">CappaWork</div>
+  <h1>Full Build</h1>
+  <p class="subtitle">You know what you need. You don't have the team to build it. I do this every day — strategy through shipping — and the product is in your hands in 12–16 weeks.</p>
+
+  <div class="price-block">
+    <span class="price">$50,000–$100,000</span>
+    <span class="price-note">custom AI product build · 12–16 weeks</span>
+  </div>
+
+  <div class="details">
+    <div class="section-label">How it works</div>
+    <div class="detail-item"><strong>We scope it together.</strong> I work with you to define exactly what gets built, what order it ships in, and what success looks like. Strategy, architecture, and product decisions — not just code.</div>
+    <div class="detail-item"><strong>I build it.</strong> Full-stack: Next.js, Supabase, Clerk, Vercel. AI agents, client portals, CRMs, research engines, automation systems — whatever the product requires. You see working software every week.</div>
+    <div class="detail-item"><strong>You own it.</strong> Production-deployed, fully functional, ready for your users. Not a prototype. Not a demo. A real product.</div>
+  </div>
+
+  <div class="proof-block">
+    <div class="section-label">Recent build</div>
+    <div class="proof-item">
+      <strong>SEC-compliant CRM + AI research engine for a wealth management firm</strong>
+    </div>
+    <div class="proof-item">
+      <span class="proof-stat">$85,000</span>
+      Full engagement value
+    </div>
+    <div class="proof-item">
+      <span class="proof-stat">16 weeks</span>
+      From scoping to production deployment
+    </div>
+    <div class="proof-item">
+      <span class="proof-stat">Complete platform</span>
+      Advisor CRM, client portal, research engine with AI-powered EPS revision signal monitoring — built for a firm managing $21M in AUM
+    </div>
+  </div>
+
+  <div class="who-block">
+    <div class="section-label">This is for you if</div>
+    <p>You're a founder or executive who needs a custom AI product built — not an off-the-shelf tool configured, but a real product designed for your specific business, your users, and your workflows. You need someone who understands both the business strategy and the technical build, and can own the entire process from first conversation to production deployment.</p>
+  </div>
+
+  <div class="details">
+    <div class="section-label">About Nate Pinches</div>
+    <div class="detail-item">Founder of CappaWork. MBA, four years in management consulting, C-suite strategy work up to $2B+. Full-stack AI product builder shipping production products for clients across wealth management, healthcare, recruiting, and professional services. Helped a founder go from $1.5M revenue / $45K profit to $1.8M / $225K profit in one year.</div>
+  </div>
+
+  <div class="cta-block">
+    <a href="https://calendly.com/cappawork/discovery_call" class="cta-button">Start a Conversation</a>
+    <p class="cta-sub">Builds are scoped on a discovery call before any commitment.</p>
+  </div>
+
+  <div class="terms">
+    <p><strong>All sales are final.</strong> This engagement is non-refundable and non-reschedulable. When you commit to a build, you are reserving dedicated capacity. This policy reflects the seriousness of the work and the value of the time.</p>
+  </div>
+
+  <div class="footer">
+    <span class="footer-brand">CAPPAWORK</span>
+    <a href="https://calendly.com/cappawork/discovery_call" class="footer-link">calendly.com/cappawork</a>
+  </div>
+
+</div>
+</body>
+</html>

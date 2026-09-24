@@ -4,48 +4,47 @@ import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { FadeInUp, StaggerContainer, StaggerItem } from "./motion-wrapper"
 import { useInquiry } from "./inquiry-modal"
-import { PRICING_AFTER_AUDIT } from "@/lib/offerings/data"
 
 const services = [
   {
     key: "Discover",
     href: "/discover",
-    headline: "Baseline before you build.",
-    price: "$2,500",
-    priceNote: "Computer Work Audit · credited to Transformation",
+    headline: "Get the roadmap right first.",
+    price: "Sprint or Deep",
+    priceNote: "2-week Sprint · 4–6 week Deep",
     includes: [
-      "Map Computer Work vs Human Work",
-      "Baseline hours, cycle time, rework",
-      "Decide what to fix first",
+      "Map where time is lost",
+      "Rank opportunities by ROI",
+      "Decide what to buy, build, or automate",
     ],
     inquiryKey: "Discover",
   },
   {
-    key: "Transformation",
-    href: "/transformation",
-    headline: "Production in one department — six weeks.",
-    price: "Scoped after audit",
-    priceNote: "2–4 workflows · you own the IP",
-    includes: [
-      "Week 0 audit credited to the engagement",
-      "Signed scope before anything is built",
-      "Go-live with a narrow 12-month guarantee",
-    ],
-    inquiryKey: "6-Week AI Transformation",
-    featured: true,
-  },
-  {
     key: "Build",
     href: "/build",
-    headline: "A product sprint — for your team or your customers.",
-    price: "Scoped after audit",
-    priceNote: "Discrete product · you own the IP",
+    headline: "Software your team wants to use.",
+    price: "A scoped build",
+    priceNote: "You own the IP",
     includes: [
-      "Internal tools or external products",
-      "External products are fuller scope",
-      "Workflow AI in one department → Transformation",
+      "Designed around how you work",
+      "AI inside the workflow",
+      "Launch, training, full handoff",
     ],
     inquiryKey: "Build",
+  },
+  {
+    key: "Modernize",
+    href: "/modernize",
+    headline: "An embedded partner who ships.",
+    price: "An embedded partner",
+    priceNote: "You own everything built",
+    includes: [
+      "Continuous opportunity finding",
+      "Built inside your environment",
+      "Adoption that actually sticks",
+    ],
+    inquiryKey: "Modernize",
+    featured: true,
   },
 ]
 
@@ -59,13 +58,9 @@ export default function ServiceLines() {
           <span className="text-xs sm:text-sm font-semibold tracking-widest uppercase text-gold block mb-3 sm:mb-4">
             Choose Your Stage
           </span>
-          <h2 className="font-display text-[1.65rem] sm:text-3xl md:text-4xl tracking-tight text-navy leading-[1.15] sm:leading-tight mb-3 sm:mb-4 max-w-xl text-balance">
-            Start with the audit. Ship the transformation.
+          <h2 className="font-display text-[1.65rem] sm:text-3xl md:text-4xl tracking-tight text-navy leading-[1.15] sm:leading-tight mb-8 sm:mb-12 max-w-xl text-balance">
+            Three ways to modernize.
           </h2>
-          <p className="text-base sm:text-lg text-stone-500 mb-8 sm:mb-12 max-w-2xl">
-            Primary path for businesses over ~$50M revenue: Computer Work Audit → 6-Week AI Transformation.
-            Build is a discrete product sprint. Modernize is an optional retainer after go-live.
-          </p>
         </FadeInUp>
 
         <StaggerContainer className="grid gap-4 sm:gap-6 lg:grid-cols-3">
@@ -149,15 +144,8 @@ export default function ServiceLines() {
         </StaggerContainer>
 
         <FadeInUp>
-          <p className="mt-8 sm:mt-10 text-center text-sm text-stone-500 max-w-2xl mx-auto">
-            Week 0 Audit ($2,500) credits fully toward Transformation.{" "}
-            <Link href="/modernize" className="underline hover:text-navy transition-colors">
-              Modernize retainer
-            </Link>{" "}
-            is optional after go-live.
-          </p>
-          <p className="mt-4 text-center text-sm text-stone-500 max-w-2xl mx-auto">
-            {PRICING_AFTER_AUDIT}
+          <p className="mt-8 sm:mt-10 text-center text-sm text-stone-500">
+            Start with Discover when the sequence is unclear. Go to Build or Modernize when you already know the change.
           </p>
         </FadeInUp>
       </div>

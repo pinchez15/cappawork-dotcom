@@ -21,11 +21,10 @@ const instrumentSerif = Instrument_Serif({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://cappawork.com"),
-  title: "CappaWork — 6-Week AI Transformation for $50M+ Businesses",
+  title: "CappaWork — AI systems that change how work gets done",
   description:
-    "CappaWork helps businesses over ~$50M revenue implement AI and agents. 6-Week AI Transformation — scoped after a Computer Work Audit. You own the IP.",
-  keywords:
-    "AI transformation, AI agents, Computer Work, American businesses, operational software, business automation",
+    "CappaWork designs and deploys AI systems that change how operational work gets done. Agents go in where the work calls for them.",
+  keywords: "AI implementation, enterprise operations, custom AI systems, operational transformation, AI agents",
   authors: [{ name: "CappaWork" }],
   creator: "CappaWork",
   publisher: "CappaWork",
@@ -38,24 +37,22 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://cappawork.com",
-    title: "CappaWork — 6-Week AI Transformation for $50M+ Businesses",
-    description:
-      "6-Week AI Transformation for businesses over ~$50M. Scoped after audit. You own the IP. Narrow 12-month fix guarantee.",
+    title: "CappaWork — AI systems that change how work gets done",
+    description: "Custom AI systems for the operations that run a company. We redesign the workflow and use agents where the work calls for them.",
     siteName: "CappaWork",
     images: [
       {
         url: "/linkedin-preview.jpg",
         width: 1200,
         height: 630,
-        alt: "CappaWork — 6-Week AI Transformation for $50M+ businesses",
+        alt: "CappaWork — AI systems that change how work gets done",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "CappaWork — 6-Week AI Transformation for $50M+ Businesses",
-    description:
-      "6-Week AI Transformation for businesses over ~$50M. Scoped after audit. You own the IP. Narrow 12-month fix guarantee.",
+    title: "CappaWork — AI systems that change how work gets done",
+    description: "Custom AI systems for the operations that run a company. We redesign the workflow and use agents where the work calls for them.",
     images: ["/linkedin-preview.jpg"],
   },
 }

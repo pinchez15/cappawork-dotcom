@@ -2,25 +2,28 @@ import type { Metadata } from "next"
 import Hero from "./components/hero"
 import Navigation from "./components/navigation"
 import Footer from "./components/footer"
-import ComputerWorkAudit from "./components/computer-work-audit"
+import TransformSection from "./components/transform-section"
 import PhilosophySection from "./components/philosophy-section"
 import HowItWorks from "./components/how-it-works"
-import ServiceLines from "./components/service-lines"
-import SoftwareWeBuild from "./components/software-we-build"
+import OutcomesSection from "./components/outcomes-section"
+import AiJudgmentSection from "./components/ai-judgment-section"
 import PortfolioSection from "./components/portfolio-section"
-import ClosingCTA from "./components/closing-cta"
+import FaqSection from "./components/faq-section"
+import DiscoverySection from "./components/discovery-section"
 import HomepageWrapper from "./components/homepage-wrapper"
 
+const title = "CappaWork — AI systems that change how work gets done"
+const description =
+  "Custom AI implementations for the operations that run a company. We redesign the workflow and use agents where the work calls for them."
+
 export const metadata: Metadata = {
-  title: "CappaWork — 6-Week AI Transformation for $50M+ Businesses",
-  description:
-    "Remove Computer Work so your team can do more Human Work. 6-Week AI Transformation for businesses over ~$50M revenue. Scoped after a Computer Work Audit.",
+  title,
+  description,
   keywords:
-    "AI transformation, computer work audit, AI agents, operational software, $50M businesses, six-week engagement",
+    "AI implementation, enterprise AI, operational transformation, AI agents, computer work, custom AI systems",
   openGraph: {
-    title: "CappaWork — 6-Week AI Transformation for $50M+ Businesses",
-    description:
-      "Remove Computer Work so your team can do more Human Work. 6-Week AI Transformation for businesses over ~$50M revenue. Scoped after a Computer Work Audit.",
+    title,
+    description,
     type: "website",
     url: "https://cappawork.com",
     siteName: "CappaWork",
@@ -30,15 +33,14 @@ export const metadata: Metadata = {
         url: "/linkedin-preview.jpg",
         width: 1200,
         height: 630,
-        alt: "CappaWork — 6-Week AI Transformation for $50M+ Businesses",
+        alt: "CappaWork — AI systems that change how work gets done",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "CappaWork — 6-Week AI Transformation for $50M+ Businesses",
-    description:
-      "Remove Computer Work so your team can do more Human Work. 6-Week AI Transformation for businesses over ~$50M revenue. Scoped after a Computer Work Audit.",
+    title,
+    description,
     images: ["/linkedin-preview.jpg"],
   },
 }
@@ -46,16 +48,17 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <HomepageWrapper>
-      <main className="min-h-screen">
+      <main className="min-h-screen bg-warm-white">
         <Navigation />
         <Hero />
-        <ComputerWorkAudit />
+        <TransformSection />
         <PhilosophySection />
         <HowItWorks />
-        <ServiceLines />
-        <SoftwareWeBuild />
+        <OutcomesSection />
+        <AiJudgmentSection />
         <PortfolioSection />
-        <ClosingCTA />
+        <FaqSection />
+        <DiscoverySection />
         <Footer />
       </main>
     </HomepageWrapper>

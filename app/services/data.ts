@@ -53,7 +53,7 @@ export const SERVICES: Service[] = [
     title: "Executive AI Advisor",
     subtitle:
       "A retained advisor in your corner — behind an NDA, embedded with your leadership team, looking for what you can't see.",
-    price: "$4,000/hour",
+    price: "",
     priceNote: "retained · C-suite · under NDA",
     section: "coaching",
     cardDescription:
@@ -68,7 +68,7 @@ export const SERVICES: Service[] = [
       },
       {
         label: "Strategy meets execution.",
-        text: "MBA, four years in management consulting, C-suite strategy work up to $2B+ companies — combined with hands-on AI product building every day. Not theory. Practice.",
+        text: "MBA, four years in management consulting, and C-suite strategy work, combined with hands-on AI product building every day.",
       },
       {
         label: "Typical engagement: 3–6 months.",
@@ -78,7 +78,7 @@ export const SERVICES: Service[] = [
     whoBlock:
       "You're a CEO or founder making high-stakes decisions about AI — where to invest, what to build, how to position your company. You need someone who builds AI products full-time and has real business strategy experience, not a vendor trying to sell you something. You want objectivity, deep fluency, and someone who will tell you the truth.",
     aboutNate:
-      "Founder of CappaWork. MBA, 15 years of experience, 7 years building products. C-suite strategy work up to $2B+. Full-stack AI product builder — not a theorist. Helped a founder go from $1.8M revenue / $250K profit to $2M / $650K profit in one year.",
+      "Founder of CappaWork. MBA, fifteen years in operating roles, seven years building products. The practice is changing how operational work gets done, and using an agent where the work calls for one.",
     termsNote:
       "Advisory engagements are scoped individually based on your needs.",
   },
@@ -87,7 +87,7 @@ export const SERVICES: Service[] = [
     title: "AI Literacy Cohort",
     subtitle:
       "Six weeks. Small group. For leaders who don't build but need to understand what's being built.",
-    price: "$3,500",
+    price: "",
     priceNote: "per person · 6 weeks · 10–15 per cohort",
     section: "coaching",
     cardDescription:
@@ -130,7 +130,7 @@ export const SERVICES: Service[] = [
     whoBlock:
       "You're a leader who doesn't build but needs to understand what's being built. You know AI is reshaping your industry, but you're not sure what's real and what's noise. You want to learn from someone who builds with these tools every day, in a small group where you can ask the questions you wouldn't ask in a company all-hands.",
     aboutNate:
-      "Founder of CappaWork. MBA, 15 years of experience, 7 years building products. C-suite strategy work up to $2B+. Full-stack AI product builder — not a theorist. Helped a founder go from $1.8M revenue / $250K profit to $2M / $650K profit in one year.",
+      "Founder of CappaWork. MBA, fifteen years in operating roles, seven years building products. The practice is changing how operational work gets done, and using an agent where the work calls for one.",
     termsNote:
       "When you enroll, you are holding a spot that another professional could fill.",
   },
@@ -141,7 +141,7 @@ export const SERVICES: Service[] = [
     title: "AI Audit & Diagnosis",
     subtitle:
       "Full audit of your workflows, team, and technology. You get a written diagnosis with exactly what to change, what to build, and the expected profit impact.",
-    price: "Starting at $30,000",
+    price: "",
     priceNote: "1–2 week engagement · written deliverable",
     section: "audit-build",
     cardDescription:
@@ -171,9 +171,9 @@ export const SERVICES: Service[] = [
       ],
     },
     whoBlock:
-      "You're a founder or executive at a $5–10M service business. You know AI should be changing how you operate, but you're not sure where to start or what's actually worth building. You need someone who understands operations and can build the systems to fix them — to give you a clear diagnosis before you spend capital.",
+      "You know the operation should change, and you are not sure what to build first, what to keep, or where an agent would help. You want a clear sequence before a build starts.",
     aboutNate:
-      "Founder of CappaWork. MBA, 15 years of experience, 7 years building products. C-suite strategy work up to $2B+. Full-stack AI product builder — not a theorist. Helped a founder go from $1.8M revenue / $250K profit to $2M / $650K profit in one year.",
+      "Founder of CappaWork. MBA, fifteen years in operating roles, seven years building products. The practice is changing how operational work gets done, and using an agent where the work calls for one.",
     termsNote:
       "When you book, you are holding a spot that another business could fill.",
   },
@@ -182,7 +182,7 @@ export const SERVICES: Service[] = [
     title: "The Build",
     subtitle:
       "End-to-end custom AI product build. From architecture through shipping — production-deployed and ready for your users.",
-    price: "Starting at $50,000",
+    price: "",
     priceNote: "custom AI product build · 12–16 weeks",
     section: "audit-build",
     cardDescription:
@@ -211,23 +211,19 @@ export const SERVICES: Service[] = [
           text: "SEC-compliant CRM + AI research engine for a wealth management firm",
         },
         {
-          stat: "$85,000",
-          text: "Full engagement value",
-        },
-        {
           stat: "16 weeks",
           text: "From scoping to production deployment",
         },
         {
           stat: "Complete platform",
-          text: "Advisor CRM, client portal, research engine with AI-powered EPS revision signal monitoring — built for a firm managing $21M in AUM",
+          text: "Advisor CRM, client portal, and a research workflow with signal monitoring.",
         },
       ],
     },
     whoBlock:
       "You're a founder or executive who needs a custom AI product built — not an off-the-shelf tool configured, but a real product designed for your specific business, your users, and your workflows. Ideally, you've done an Audit & Diagnosis first, so we're building exactly the right thing from day one.",
     aboutNate:
-      "Founder of CappaWork. MBA, 15 years of experience, 7 years building products. C-suite strategy work up to $2B+. Full-stack AI product builder shipping production products for clients across wealth management, healthcare, recruiting, and professional services. Helped a founder go from $1.8M revenue / $250K profit to $2M / $650K profit in one year.",
+      "Founder of CappaWork. MBA, fifteen years in operating roles, seven years building products. Production systems across wealth management, healthcare, and professional services.",
     termsNote:
       "When you commit to a build, you are reserving dedicated capacity.",
   },
@@ -238,7 +234,7 @@ export const SERVICES: Service[] = [
     title: "Internal AI Training",
     subtitle:
       "Three sessions over six weeks, designed around your team's actual codebase and development environment.",
-    price: "Starting at $5,000",
+    price: "",
     priceNote: "3 sessions · 6 weeks · scoped to your team and codebase",
     section: "training",
     cardDescription:
@@ -280,7 +276,7 @@ export const SERVICES: Service[] = [
     whoBlock:
       "You're a head of engineering or CTO who wants your team to adopt AI-assisted development — not through generic training, but by applying it to your actual codebase. You want someone to come in, work in your environment, and train your team on the workflows that matter for your specific work.",
     aboutNate:
-      "Founder of CappaWork. MBA, 15 years of experience, 7 years building products. C-suite strategy work up to $2B+. Full-stack AI product builder — not a theorist. Helped a founder go from $1.8M revenue / $250K profit to $2M / $650K profit in one year.",
+      "Founder of CappaWork. MBA, fifteen years in operating roles, seven years building products. The practice is changing how operational work gets done, and using an agent where the work calls for one.",
     termsNote:
       "When you book, you are holding a spot that another team could fill.",
   },
@@ -289,7 +285,7 @@ export const SERVICES: Service[] = [
     title: "AI Development Workshop",
     subtitle:
       "Live demonstration of AI-assisted development at production speed, using your team's real problems.",
-    price: "Starting at $5,000",
+    price: "",
     priceNote: "live build session · your team watches and learns",
     section: "training",
     cardDescription:
@@ -330,7 +326,7 @@ export const SERVICES: Service[] = [
     whoBlock:
       "You're a VP of Engineering or CTO who wants your team to see what's possible with AI-assisted development — not through slides, but by watching someone who does this every day. You want a second set of eyes, a live demonstration, and an honest debrief on what makes sense for your team.",
     aboutNate:
-      "Founder of CappaWork. MBA, four years in management consulting, C-suite strategy work up to $2B+. Full-stack AI product builder shipping production products daily with the workflow described above. Not a theorist — a practitioner who builds this way every single day.",
+      "Founder of CappaWork. MBA, four years in management consulting, and a builder who ships production systems with the workflow described above.",
     termsNote:
       "When you book, you are holding a spot that another team could fill.",
   },

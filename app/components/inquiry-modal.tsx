@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useState, useCallback } from "react"
 import { ArrowRight, X, Check, Loader2 } from "lucide-react"
+import { REVENUE_BANDS } from "@/lib/discovery"
 
 type InquiryContextType = {
   open: (preselect?: string) => void
@@ -14,54 +15,38 @@ export function useInquiry() {
   return useContext(InquiryContext)
 }
 
-const serviceOptions = [
-  { value: "6-Week AI Transformation", label: "6-Week AI Transformation" },
-  { value: "Computer Work Audit", label: "Computer Work Audit ($2,500, credited)" },
-  { value: "Discover", label: "Discover" },
-  { value: "Build", label: "Build (product sprint)" },
-  { value: "Modernize", label: "Modernize retainer" },
-  { value: "Something else", label: "Something else" },
-]
-
 export function InquiryProvider({ children }: { children: React.ReactNode }) {
   const [isOpen, setIsOpen] = useState(false)
-  const [preselectedService, setPreselectedService] = useState("")
 
-  const open = useCallback((preselect?: string) => {
-    setPreselectedService(preselect || "")
+  const open = useCallback(() => {
+    const el = document.getElementById("discovery")
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" })
+      return
+    }
     setIsOpen(true)
   }, [])
 
   return (
     <InquiryContext.Provider value={{ open, available: true }}>
       {children}
-      {isOpen && (
-        <InquiryModalContent
-          preselectedService={preselectedService}
-          onClose={() => {
-            setIsOpen(false)
-            setPreselectedService("")
-          }}
-        />
-      )}
+      {isOpen && <InquiryModalContent onClose={() => setIsOpen(false)} />}
     </InquiryContext.Provider>
   )
 }
 
-function InquiryModalContent({
-  preselectedService,
-  onClose,
-}: {
-  preselectedService: string
-  onClose: () => void
-}) {
+export function DiscoveryForm({ idPrefix = "discovery" }: { idPrefix?: string }) {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
-  const [linkedin, setLinkedin] = useState("")
-  const [service, setService] = useState(preselectedService || "Computer Work Audit")
+  const [role, setRole] = useState("")
+  const [company, setCompany] = useState("")
+  const [revenue, setRevenue] = useState("")
   const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [error, setError] = useState("")
+
+  const fieldClass =
+    "w-full rounded-md border border-stone-300 bg-white px-4 py-3 text-navy placeholder:text-stone-400 focus:border-[#2450E6] focus:outline-none focus:ring-2 focus:ring-[#2450E6]/20"
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -75,8 +60,10 @@ function InquiryModalContent({
         body: JSON.stringify({
           name: name.trim(),
           email: email.trim(),
-          linkedin: linkedin.trim(),
-          service,
+          role: role.trim(),
+          company: company.trim(),
+          revenue,
+          service: "Discovery",
         }),
       })
 
@@ -93,6 +80,128 @@ function InquiryModalContent({
     }
   }
 
+  if (submitted) {
+    return (
+      <div className="py-6">
+        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-green-50 mb-5">
+          <Check size={24} className="text-green-600" />
+        </div>
+        <h3 className="font-display text-2xl text-navy">We have it.</h3>
+        <p className="mt-2 text-stone-600">
+          We will reach out to schedule the discovery call.
+        </p>
+      </div>
+    )
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <Field id={`${idPrefix}-name`} label="Your name">
+        <input
+          id={`${idPrefix}-name`}
+          type="text"
+          required
+          autoComplete="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className={fieldClass}
+        />
+      </Field>
+      <Field id={`${idPrefix}-email`} label="Work email">
+        <input
+          id={`${idPrefix}-email`}
+          type="email"
+          required
+          autoComplete="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className={fieldClass}
+        />
+      </Field>
+      <Field id={`${idPrefix}-role`} label="Your role">
+        <input
+          id={`${idPrefix}-role`}
+          type="text"
+          required
+          autoComplete="organization-title"
+          value={role}
+          onChange={(e) => setRole(e.target.value)}
+          className={fieldClass}
+        />
+      </Field>
+      <Field id={`${idPrefix}-company`} label="Company name">
+        <input
+          id={`${idPrefix}-company`}
+          type="text"
+          required
+          autoComplete="organization"
+          value={company}
+          onChange={(e) => setCompany(e.target.value)}
+          className={fieldClass}
+        />
+      </Field>
+      <Field id={`${idPrefix}-revenue`} label="Company annual revenue">
+        <select
+          id={`${idPrefix}-revenue`}
+          required
+          value={revenue}
+          onChange={(e) => setRevenue(e.target.value)}
+          className={fieldClass}
+        >
+          <option value="" disabled>
+            Select a range
+          </option>
+          {REVENUE_BANDS.map((band) => (
+            <option key={band} value={band}>
+              {band}
+            </option>
+          ))}
+        </select>
+      </Field>
+
+      {error && <p className="text-sm text-red-600">{error}</p>}
+
+      <button
+        type="submit"
+        disabled={submitting}
+        className="w-full bg-navy text-white py-3.5 text-sm font-medium hover:bg-[#141A2E] transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        {submitting ? (
+          <>
+            <Loader2 size={16} className="animate-spin" />
+            Sending
+          </>
+        ) : (
+          <>
+            Book a Discovery Call
+            <ArrowRight size={16} />
+          </>
+        )}
+      </button>
+    </form>
+  )
+}
+
+function Field({
+  id,
+  label,
+  children,
+}: {
+  id: string
+  label: string
+  children: React.ReactNode
+}) {
+  return (
+    <div>
+      <label htmlFor={id} className="mb-1.5 block text-sm font-medium text-stone-700">
+        {label}
+      </label>
+      {children}
+    </div>
+  )
+}
+
+function InquiryModalContent({ onClose }: { onClose: () => void }) {
   return (
     <div
       className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/60 backdrop-blur-sm px-4 py-8 sm:py-16"
@@ -100,7 +209,7 @@ function InquiryModalContent({
         if (e.target === e.currentTarget) onClose()
       }}
     >
-      <div className="relative w-full max-w-lg bg-warm-white text-navy rounded-2xl shadow-2xl">
+      <div className="relative w-full max-w-lg bg-warm-white text-navy shadow-2xl">
         <button
           onClick={onClose}
           className="absolute top-4 right-4 p-2 rounded-full hover:bg-stone-200 transition-colors z-10"
@@ -108,121 +217,15 @@ function InquiryModalContent({
         >
           <X size={20} className="text-stone-500" />
         </button>
-
         <div className="p-8 sm:p-10">
-          {submitted ? (
-            <div className="text-center py-4">
-              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-green-50 mb-6">
-                <Check size={28} className="text-green-600" />
-              </div>
-              <h2 className="font-display text-2xl sm:text-3xl font-normal tracking-tight mb-3">
-                Got it — I&rsquo;ll reach out
-              </h2>
-              <p className="text-stone-600 mb-8">
-                Expect to hear from me shortly.
-              </p>
-              <button
-                onClick={onClose}
-                className="text-sm font-medium text-stone-500 hover:text-navy transition-colors"
-              >
-                Close
-              </button>
-            </div>
-          ) : (
-            <>
-              <h2 className="font-display text-2xl sm:text-3xl font-normal tracking-tight mb-2">
-                Let&rsquo;s talk
-              </h2>
-              <p className="text-stone-600 mb-8">
-                Tell me about the workflow. I&rsquo;ll reach out to schedule your Computer Work Audit ($2,500, credited toward Transformation). Engagement investment is quoted after discovery.
-              </p>
-
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                  <label htmlFor="inquiry-name" className="mb-1 block text-sm font-medium text-stone-700">
-                    Name
-                  </label>
-                  <input
-                    id="inquiry-name"
-                    type="text"
-                    required
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Jane Smith"
-                    className="w-full rounded-lg border border-stone-300 bg-white px-4 py-3 text-navy placeholder:text-stone-400 focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/20"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="inquiry-email" className="mb-1 block text-sm font-medium text-stone-700">
-                    Email
-                  </label>
-                  <input
-                    id="inquiry-email"
-                    type="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="you@company.com"
-                    className="w-full rounded-lg border border-stone-300 bg-white px-4 py-3 text-navy placeholder:text-stone-400 focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/20"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="inquiry-linkedin" className="mb-1 block text-sm font-medium text-stone-700">
-                    LinkedIn profile
-                  </label>
-                  <input
-                    id="inquiry-linkedin"
-                    type="text"
-                    required
-                    value={linkedin}
-                    onChange={(e) => setLinkedin(e.target.value)}
-                    placeholder="linkedin.com/in/janesmith"
-                    className="w-full rounded-lg border border-stone-300 bg-white px-4 py-3 text-navy placeholder:text-stone-400 focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/20"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="inquiry-service" className="mb-1 block text-sm font-medium text-stone-700">
-                    I&rsquo;m interested in
-                  </label>
-                  <select
-                    id="inquiry-service"
-                    value={service}
-                    onChange={(e) => setService(e.target.value)}
-                    className="w-full rounded-lg border border-stone-300 bg-white px-4 py-3 text-navy focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/20"
-                  >
-                    {serviceOptions.map((opt) => (
-                      <option key={opt.value} value={opt.value}>
-                        {opt.label}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                {error && <p className="text-sm text-red-600">{error}</p>}
-
-                <button
-                  type="submit"
-                  disabled={submitting}
-                  className="w-full bg-gold text-navy py-4 rounded-full font-semibold text-lg hover:bg-gold/90 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {submitting ? (
-                    <>
-                      <Loader2 size={18} className="animate-spin" />
-                      Sending...
-                    </>
-                  ) : (
-                    <>
-                      Let&rsquo;s Go
-                      <ArrowRight size={18} />
-                    </>
-                  )}
-                </button>
-              </form>
-            </>
-          )}
+          <p className="text-xs font-semibold tracking-[0.16em] uppercase text-[#2450E6] mb-3">
+            Discovery
+          </p>
+          <h2 className="font-display text-3xl tracking-tight mb-2">Book a discovery call</h2>
+          <p className="text-stone-600 mb-8 leading-relaxed">
+            A short conversation on how the operation runs today, and where a change in the work would matter first.
+          </p>
+          <DiscoveryForm idPrefix="modal" />
         </div>
       </div>
     </div>

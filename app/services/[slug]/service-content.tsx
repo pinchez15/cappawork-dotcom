@@ -26,14 +26,6 @@ export function ServiceContent({
         {service.subtitle}
       </p>
 
-      {/* Price */}
-      <div className="flex items-baseline gap-3 mb-12 pb-12 border-b border-card-border">
-        <span className="font-display text-5xl sm:text-6xl font-normal">
-          {service.price}
-        </span>
-        <span className="text-sm text-stone-500">{service.priceNote}</span>
-      </div>
-
       {/* How it works */}
       <div className="mb-12">
         <span className="text-xs font-bold tracking-widest uppercase text-gold block mb-5">

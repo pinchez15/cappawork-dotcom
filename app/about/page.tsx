@@ -6,8 +6,7 @@ import Link from "next/link"
 
 export const metadata: Metadata = {
   title: "About | CappaWork",
-  description:
-    "Meet Nate Pinches — MBA, management consultant, and full-stack AI product builder. CappaWork runs 6-Week AI Transformations for businesses over ~$50M revenue.",
+  description: "CappaWork designs and deploys AI systems that change how operational work gets done.",
 }
 
 export default function AboutPage() {
@@ -36,13 +35,10 @@ export default function AboutPage() {
               <div>
                 <h2 className="font-display text-2xl text-navy mb-3">Nate Pinches</h2>
                 <p className="text-stone-600 leading-relaxed mb-4">
-                  MBA. 15 years of experience. 7 years building products. I&apos;ve done C-suite strategy work up to $2B+ companies and I ship production AI systems every&nbsp;day.
-                </p>
-                <p className="text-stone-600 leading-relaxed mb-4">
-                  My own business almost died from poor cashflow — so profitability isn&apos;t an abstract concept for me. It&apos;s the first thing I look at, every time. I&apos;ve spent years inside founder-led service businesses mapping workflows, measuring unit economics, and building the systems that turn operational chaos into measurable&nbsp;margin.
+                  MBA. Fifteen years in operating roles and strategy. Seven years building products. I have sat with executive teams on how the work should run, and I ship the systems that make that real.
                 </p>
                 <p className="text-stone-600 leading-relaxed">
-                  I diagnose the problem, build the solution, and train your team to own&nbsp;it.
+                  CappaWork is that practice: a view of where the operation can go, and a build that gets there. Agents where the work calls for them. Judgment left with the people who should hold it.
                 </p>
               </div>
             </div>
@@ -52,10 +48,10 @@ export default function AboutPage() {
           <div className="space-y-6 mb-10">
             <h2 className="font-display text-2xl text-navy mb-4">One engagement. One relationship.</h2>
             <p className="text-stone-600 mb-4">
-              CappaWork helps businesses over ~$50M revenue implement AI and agents: Week 0 audit, six-week transformation in one department, optional Modernize retainer after go-live — with one partner from strategy through shipping.
+              CappaWork comes in, maps how the work actually runs, and builds the system that should carry it. One relationship from the audit through the build. The system stays on call after it is live. It is not a staffed seat.
             </p>
             <p className="text-stone-600 leading-relaxed">
-              You own the IP. CappaWork keeps shipped workflows working under a narrow 12-month guarantee, then via retainer if you want ongoing capacity.
+              You own the IP. CappaWork keeps the system running, secure, and improving over time.
             </p>
           </div>
 
@@ -66,20 +62,20 @@ export default function AboutPage() {
               For decades, custom software was too expensive for most businesses. So people became the middleware between disconnected systems: copying, checking, forwarding, reconciling, and chasing information from one place to another.
             </p>
             <p className="text-stone-600 leading-relaxed">
-              AI didn&rsquo;t change what software is for. It changed what businesses can afford to build. CappaWork exists to help operators use that leverage wisely: not to replace people, but to eliminate the Computer Work that never belonged to people in the first place.
+              AI did not change what software is for. It changed how much of an operation can move without a person in the middle. CappaWork exists to use that carefully: not to replace the people who carry judgment, but to take back the work that never belonged to them.
             </p>
           </div>
 
           {/* Link back */}
           <div className="bg-card-light rounded-2xl p-8 text-center">
             <p className="text-stone-600 mb-4">
-              See the 6-Week AI Transformation — pricing, billing, guarantee, and what week 6 looks like.
+              See how an engagement runs.
             </p>
             <Link
-              href="/transformation"
+              href="/#how-it-works"
               className="inline-flex items-center gap-2 text-navy font-medium hover:text-gold transition-colors"
             >
-              View the transformation &rarr;
+              How it works &rarr;
             </Link>
           </div>
         </div>

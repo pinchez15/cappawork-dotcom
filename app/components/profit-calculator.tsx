@@ -510,9 +510,8 @@ export function ProfitCalculator() {
           </div>
 
           <div className="text-center text-xs text-stone-400 mt-10 pt-5 border-t border-stone-200">
-            Estimates based on industry benchmarks for operators at businesses
-            over ~$50M revenue. Actual results depend on your specific
-            operations. A Week 0 Computer Work Audit baselines your exact numbers.
+            Estimates depend on how the work actually runs. A discovery call
+            maps the workflow before anything is built.
           </div>
         </div>
       </div>
@@ -572,10 +571,10 @@ export function ProfitCalculator() {
             </p>
             <div className="grid grid-cols-2 gap-3">
               {[
-                { v: 35000000, l: "$25M - $50M", s: "Approaching fit" },
-                { v: 75000000, l: "$50M - $100M", s: "Primary ICP" },
-                { v: 175000000, l: "$100M - $250M", s: "Multi-dept" },
-                { v: 400000000, l: "$250M+", s: "Enterprise ops" },
+                { v: 2000000, l: "$1M - $3M", s: "Early scale" },
+                { v: 4000000, l: "$3M - $5M", s: "Growth stage" },
+                { v: 7000000, l: "$5M - $10M", s: "Scaling" },
+                { v: 12000000, l: "$10M+", s: "Established" },
               ].map((o) => (
                 <button
                   key={o.v}

@@ -1,0 +1,23 @@
+"use client"
+
+import { DiscoveryForm } from "./inquiry-modal"
+
+export default function DiscoverySection() {
+  return (
+    <section id="discovery" className="py-20 sm:py-28 bg-[#F7F8FA]">
+      <div className="max-w-xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="border border-card-border bg-white p-7 sm:p-10 shadow-[0_20px_60px_-30px_rgba(10,15,28,0.35)]">
+          <h2 className="font-display text-3xl sm:text-4xl tracking-tight text-navy leading-tight">
+            CappaWork | Book a discovery call
+          </h2>
+          <p className="mt-3 text-sm sm:text-base text-stone-600 leading-relaxed">
+            Tell us where the operation is slow. We will use it to route the conversation to the right working session.
+          </p>
+          <div className="mt-8">
+            <DiscoveryForm />
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}

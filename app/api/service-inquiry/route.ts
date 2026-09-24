@@ -1,22 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 import { createDeal } from "@/server/repos/bd-deals";
+import { isRevenueBand } from "@/lib/discovery";
 
 export const runtime = "nodejs";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-const SERVICE_VALUES: Record<string, number> = {
-  "AI Team": 90000,
-  "AI Strategy Advisor": 2000,
-  "AI VP Cohort": 3500,
-  "Something else": 0,
-};
-
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email, linkedin, service } = body;
+    const { name, email, linkedin, service, company, role, revenue } = body;
 
     if (!name || typeof name !== "string" || name.trim().length === 0) {
       return NextResponse.json(
@@ -32,44 +26,57 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (!linkedin || typeof linkedin !== "string") {
+    if (!company || typeof company !== "string" || company.trim().length === 0) {
       return NextResponse.json(
-        { error: "LinkedIn username is required" },
+        { error: "Company is required" },
         { status: 400 }
       );
     }
 
-    if (!service || typeof service !== "string") {
+    if (!role || typeof role !== "string" || role.trim().length === 0) {
       return NextResponse.json(
-        { error: "Service selection is required" },
+        { error: "Role is required" },
         { status: 400 }
       );
     }
 
-    const linkedinUrl = linkedin.trim().startsWith("http")
-      ? linkedin.trim()
-      : `https://linkedin.com/in/${linkedin.trim().replace(/^@/, "")}`;
+    if (!revenue || typeof revenue !== "string" || !isRevenueBand(revenue)) {
+      return NextResponse.json(
+        { error: "Annual revenue is required" },
+        { status: 400 }
+      );
+    }
 
-    const dealValue = SERVICE_VALUES[service] ?? 0;
+    const serviceName =
+      typeof service === "string" && service.trim().length > 0
+        ? service.trim()
+        : "Discovery";
+
+    const linkedinUrl =
+      typeof linkedin === "string" && linkedin.trim().length > 0
+        ? linkedin.trim().startsWith("http")
+          ? linkedin.trim()
+          : `https://linkedin.com/in/${linkedin.trim().replace(/^@/, "")}`
+        : null;
 
     // Create deal in pipeline
     try {
       await createDeal({
-        name: `${name.trim()} — ${service}`,
-        company: null,
+        name: `${name.trim()} — ${company.trim()}`,
+        company: company.trim(),
         contact_name: name.trim(),
-        contact_title: null,
+        contact_title: role.trim(),
         email: email.trim(),
         linkedin_url: linkedinUrl,
-        value: dealValue || null,
+        value: null,
         stage: "lead",
         source: "inbound",
         referral_partner: null,
         catalyst_id: null,
         expected_close_date: null,
         follow_up_date: null,
-        next_action: `Follow up re: ${service}`,
-        notes: `Inbound inquiry from cappawork.com. Interested in: ${service}.`,
+        next_action: `Follow up re: ${serviceName}`,
+        notes: `Inbound discovery from cappawork.com. Role: ${role.trim()}. Annual revenue: ${revenue}. Interested in: ${serviceName}.`,
       });
     } catch (dealError) {
       console.error("Failed to create deal:", dealError);
@@ -81,12 +88,13 @@ export async function POST(request: NextRequest) {
         .then(({ processInboundLead }) =>
           processInboundLead({
             source: "service_inquiry",
-            company_name: name.trim(),
+            company_name: company.trim(),
             contact_name: name.trim(),
             contact_email: email.trim(),
-            linkedin_url: linkedinUrl,
+            contact_title: role.trim(),
+            linkedin_url: linkedinUrl ?? undefined,
             created_by: "system",
-            metadata: { service, deal_value: dealValue },
+            metadata: { service: serviceName, role: role.trim(), revenue },
           })
         )
         .catch((err) => console.error("List Builder inbound bridge failed:", err));
@@ -98,18 +106,22 @@ export async function POST(request: NextRequest) {
     const { error } = await resend.emails.send({
       from: process.env.EMAIL_FROM || "CappaWork <onboarding@resend.dev>",
       to: process.env.EMAIL_TO || "nate@cappawork.com",
-      subject: `New inquiry: ${service}`,
+      subject: `Discovery request: ${company.trim()}`,
       text: [
-        `New inquiry from cappawork.com`,
+        `New discovery request from cappawork.com`,
         ``,
         `Name: ${name.trim()}`,
-        `Interested in: ${service}`,
-        `Deal value: ${dealValue ? `$${dealValue.toLocaleString()}` : "TBD"}`,
+        `Role: ${role.trim()}`,
+        `Company: ${company.trim()}`,
+        `Annual revenue: ${revenue}`,
+        `Interested in: ${serviceName}`,
         `Email: ${email.trim()}`,
-        `LinkedIn: ${linkedinUrl}`,
+        linkedinUrl ? `LinkedIn: ${linkedinUrl}` : null,
         ``,
         `Added to pipeline as a lead.`,
-      ].join("\n"),
+      ]
+        .filter((line) => line !== null)
+        .join("\n"),
     });
 
     if (error) {

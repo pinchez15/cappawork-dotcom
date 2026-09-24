@@ -10,8 +10,6 @@ export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const [activeSection, setActiveSection] = useState("hero")
   const { open, available } = useInquiry()
-  const calendlyLink =
-    process.env.NEXT_PUBLIC_CALENDLY_LINK || "https://calendly.com/cappawork/discovery_call"
 
   useEffect(() => {
     const currentPath = window.location.pathname
@@ -19,8 +17,8 @@ export default function Navigation() {
       setActiveSection("blog")
     } else if (currentPath === "/") {
       const handleScroll = () => {
-        const sections = ["hero", "audit", "philosophy", "how-it-works", "services", "how-we-work", "work"]
-        const scrollPosition = window.scrollY + 100
+        const sections = ["hero", "transform", "philosophy", "how-it-works", "outcomes", "judgment", "work", "faq", "discovery"]
+        const scrollPosition = window.scrollY + 120
 
         for (const section of sections) {
           const element = document.getElementById(section)
@@ -40,11 +38,9 @@ export default function Navigation() {
   }, [])
 
   const navItems = [
-    { id: "audit", label: "The Audit", href: "/#audit" },
-    { id: "services", label: "Services", href: "/#services" },
-    { id: "how-it-works", label: "The Journey", href: "/#how-it-works" },
+    { id: "how-it-works", label: "How it works", href: "/#how-it-works" },
+    { id: "work", label: "Work", href: "/#work" },
     { id: "about", label: "About", href: "/about" },
-    { id: "cohorts", label: "Cohorts", href: "/cohorts" },
     { id: "blog", label: "Blog", href: "/blog" },
   ]
 
@@ -63,51 +59,57 @@ export default function Navigation() {
 
   const handleBookCall = () => {
     setIsOpen(false)
+    if (window.location.pathname === "/" && document.getElementById("discovery")) {
+      document.getElementById("discovery")?.scrollIntoView({ behavior: "smooth" })
+      return
+    }
     if (available) {
       open()
-    } else {
-      window.open(calendlyLink, "_blank", "noopener,noreferrer")
+      return
     }
+    window.location.href = "/#discovery"
   }
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-navy/95 backdrop-blur-sm border-b border-white/10">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#F7F8FA]/90 backdrop-blur-md border-b border-black/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <a
             href="/"
-            className="text-xl font-display tracking-tight text-white hover:text-white/80 transition-colors"
+            className="flex items-center gap-2 text-[15px] font-semibold tracking-tight text-navy"
           >
+            <span className="flex h-6 w-6 items-center justify-center bg-[#2450E6] text-[11px] font-semibold text-white">
+              C
+            </span>
             CappaWork
           </a>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-6">
+          <div className="hidden md:flex items-center gap-7">
             {navItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => handleNavClick(item.href, item.id)}
-                className={`text-sm font-medium transition-colors ${
+                className={`text-[13px] font-medium tracking-wide uppercase transition-colors ${
                   activeSection === item.id
-                    ? "text-gold"
-                    : "text-white/60 hover:text-white"
+                    ? "text-navy"
+                    : "text-stone-500 hover:text-navy"
                 }`}
               >
                 {item.label}
               </button>
             ))}
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center gap-3">
               <SignedOut>
                 <SignInButton mode="modal">
-                  <button className="text-sm font-medium text-white/60 hover:text-white transition-colors">
-                    Sign In
+                  <button className="text-[13px] font-medium text-stone-500 hover:text-navy transition-colors">
+                    Sign in
                   </button>
                 </SignInButton>
               </SignedOut>
               <SignedIn>
                 <Link
                   href="/dashboard"
-                  className="text-sm font-medium text-white/60 hover:text-white transition-colors"
+                  className="text-[13px] font-medium text-stone-500 hover:text-navy transition-colors"
                 >
                   Dashboard
                 </Link>
@@ -116,60 +118,50 @@ export default function Navigation() {
             </div>
             <button
               onClick={handleBookCall}
-              className="text-sm font-medium bg-gold text-navy px-4 py-2 rounded-full hover:bg-gold/90 transition-colors"
+              className="text-[13px] font-medium bg-[#2450E6] text-white px-4 py-2 hover:bg-[#1D45D4] transition-colors inline-flex items-center gap-1.5"
             >
-              Book Audit
+              Book a Call
+              <span aria-hidden>↗</span>
             </button>
           </div>
 
-          {/* Mobile Navigation Button */}
-          <button onClick={() => setIsOpen(!isOpen)} className="md:hidden p-2 text-white/80 hover:text-white">
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
+          <button onClick={() => setIsOpen(!isOpen)} className="md:hidden p-2 text-navy" aria-label="Menu">
+            {isOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
 
-        {/* Mobile Navigation Menu */}
         {isOpen && (
-          <div className="md:hidden py-4 border-t border-white/10">
+          <div className="md:hidden py-4 border-t border-black/5">
             {navItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => handleNavClick(item.href, item.id)}
-                className={`block w-full text-left py-3 transition-colors ${
-                  activeSection === item.id
-                    ? "text-gold"
-                    : "text-white/60 hover:text-white"
+                className={`block w-full text-left py-3 text-sm transition-colors ${
+                  activeSection === item.id ? "text-navy" : "text-stone-500"
                 }`}
               >
                 {item.label}
               </button>
             ))}
-            <div className="flex flex-col space-y-2 mt-4">
+            <div className="flex flex-col mt-2">
               <SignedOut>
                 <SignInButton mode="modal">
-                  <button className="block w-full text-left py-3 text-white/60 hover:text-white transition-colors">
-                    Sign In
+                  <button className="block w-full text-left py-3 text-sm text-stone-500">
+                    Sign in
                   </button>
                 </SignInButton>
               </SignedOut>
               <SignedIn>
-                <Link
-                  href="/dashboard"
-                  className="block w-full text-left py-3 text-white/60 hover:text-white transition-colors"
-                >
+                <Link href="/dashboard" className="block w-full text-left py-3 text-sm text-stone-500">
                   Dashboard
                 </Link>
-                <div className="flex items-center justify-between py-2">
-                  <span className="text-white/60">Account</span>
-                  <UserButton />
-                </div>
               </SignedIn>
             </div>
             <button
               onClick={handleBookCall}
-              className="block w-full text-center mt-4 font-medium bg-gold text-navy px-4 py-3 rounded-full hover:bg-gold/90 transition-colors"
+              className="mt-3 w-full bg-[#2450E6] text-white py-3 text-sm font-medium"
             >
-              Book Audit
+              Book a Call
             </button>
           </div>
         )}
