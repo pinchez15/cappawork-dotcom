@@ -46,7 +46,7 @@ export default function PathwayAcquirers() {
 
           <div className="rounded-2xl border border-gold/30 bg-card-light p-6 mb-10">
             <p className="text-navy font-semibold text-lg">
-              Mapped to your clock — typically a 6-Week AI Transformation (starts at $90,000) scoped to the acquired operating system, with optional Modernize retainer after go-live.
+              Mapped to your clock — typically a 6-Week AI Transformation scoped to the acquired operating system, with optional Modernize retainer after go-live. Investment quoted after the Computer Work Audit.
             </p>
           </div>
         </FadeInUp>

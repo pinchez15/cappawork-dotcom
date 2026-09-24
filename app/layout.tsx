@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://cappawork.com"),
   title: "CappaWork — 6-Week AI Transformation for $50M+ Businesses",
   description:
-    "CappaWork helps businesses over ~$50M revenue implement AI and agents. 6-Week AI Transformation starts at $90,000. You own the IP.",
+    "CappaWork helps businesses over ~$50M revenue implement AI and agents. 6-Week AI Transformation — scoped after a Computer Work Audit. You own the IP.",
   keywords:
     "AI transformation, AI agents, Computer Work, American businesses, operational software, business automation",
   authors: [{ name: "CappaWork" }],
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     url: "https://cappawork.com",
     title: "CappaWork — 6-Week AI Transformation for $50M+ Businesses",
     description:
-      "6-Week AI Transformation starts at $90,000 for businesses over ~$50M. You own the IP. Narrow 12-month fix guarantee.",
+      "6-Week AI Transformation for businesses over ~$50M. Scoped after audit. You own the IP. Narrow 12-month fix guarantee.",
     siteName: "CappaWork",
     images: [
       {
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "CappaWork — 6-Week AI Transformation for $50M+ Businesses",
     description:
-      "6-Week AI Transformation starts at $90,000 for businesses over ~$50M. You own the IP. Narrow 12-month fix guarantee.",
+      "6-Week AI Transformation for businesses over ~$50M. Scoped after audit. You own the IP. Narrow 12-month fix guarantee.",
     images: ["/linkedin-preview.jpg"],
   },
 }

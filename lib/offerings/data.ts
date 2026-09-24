@@ -35,6 +35,7 @@ export type Offering = {
   billing?: string;
   guarantee?: string;
   afterEngagement?: string;
+  pricingFaq?: string;
   inquiryKey: string;
   ctaText: string;
   ctaSub: string;
@@ -43,6 +44,10 @@ export type Offering = {
   journeyNext?: { label: string; href: string };
 };
 
+/** Shared Varick-style pricing line for engagement packages (not the Week 0 audit). */
+export const PRICING_AFTER_AUDIT =
+  "Engagements are scoped from the audit: pricing depends on the workflow, risk, complexity, and solution. We discuss investment after discovery once the work is clear.";
+
 export const OFFERINGS: Offering[] = [
   {
     slug: "discover",
@@ -50,8 +55,8 @@ export const OFFERINGS: Offering[] = [
     subtitle: "Map Computer Work vs Human Work before you spend on the wrong build.",
     subtitleNote:
       "Most AI projects fail because the wrong problem got solved first. Discover answers what to fix, in what order, and why.",
-    price: "From $2,500",
-    priceNote: "Week 0 Audit · $2,500  ·  Sprint · $10,000 · 2 weeks  ·  Deep · $30,000 · 4–6 weeks",
+    price: "$2,500",
+    priceNote: "Computer Work Audit (Week 0) · credited toward Transformation · longer Discover scopes available",
     outcome:
       "A prioritized scope your leadership team can execute — with baselines, build vs. buy answered, and ROI ranked.",
     tiers: [
@@ -65,17 +70,17 @@ export const OFFERINGS: Offering[] = [
       },
       {
         name: "Discover Sprint",
-        price: "$10,000",
-        timeline: "2 weeks",
-        credit: "$5,000 credit toward Transformation or Build within 90 days",
-        bestFor: "You need a prioritized plan before committing transformation or build budget.",
+        price: "Scoped after audit",
+        timeline: "About 2 weeks",
+        credit: "Credited toward Transformation or Build within 90 days",
+        bestFor: "You need a prioritized plan before committing transformation or product-sprint budget.",
       },
       {
         name: "Discover Deep",
-        price: "$30,000",
-        timeline: "4–6 weeks",
-        credit: "$10,000 credit toward Transformation or Build within 90 days",
-        bestFor: "Complex operations or a six-figure build decision that needs numbers behind it.",
+        price: "Scoped after audit",
+        timeline: "About 4–6 weeks",
+        credit: "Credited toward Transformation or Build within 90 days",
+        bestFor: "Complex operations or a product decision that needs numbers and architecture behind it.",
       },
     ],
     howItWorks: [
@@ -105,11 +110,13 @@ export const OFFERINGS: Offering[] = [
       "Executive presentation and next-step plan",
       "Signed one-page scope path into Transformation (when ready)",
     ],
+    pricingFaq: PRICING_AFTER_AUDIT,
     whoBlock:
-      "You run a business over ~$50M in revenue (or a department that size), know AI should change how you operate, and want clarity before a six-figure commitment.",
+      "You run a business over ~$50M in revenue (or a department that size), know AI should change how you operate, and want clarity before a larger commitment.",
     inquiryKey: "Discover",
     ctaText: "Book a Computer Work Audit",
-    ctaSub: "Week 0 is $2,500 and credits toward Transformation. We will scope Sprint or Deep on the call if a longer Discover is the right fit.",
+    ctaSub:
+      "Week 0 is $2,500 and credits toward Transformation. We will scope Sprint or Deep on the call if a longer Discover is the right fit.",
     termsNote:
       "When you book Discover, you are holding dedicated capacity that another business could fill.",
     journeyNext: { label: "6-Week Transformation", href: "/transformation" },
@@ -117,67 +124,68 @@ export const OFFERINGS: Offering[] = [
   {
     slug: "build",
     title: "Build",
-    subtitle: "Production software designed around your business.",
+    subtitle: "A product sprint for software your team — or your customers — will use.",
     subtitleNote:
-      "Off-the-shelf tools force your team to adapt; we build software that fits how you already work. For bounded products outside a six-week department transformation.",
-    price: "From $35,000",
-    priceNote: "8–16 weeks · you own the IP · we host and maintain",
+      "Discrete product development: internal tools or external customer-facing products. External products are typically fuller scope. Internal workflow AI that is really a department transform belongs in Transformation, not Build.",
+    price: "Scoped after audit",
+    priceNote: "Product sprint · timeline depends on scope · you own the IP",
     outcome:
-      "Production-ready software with AI handling busywork inside the system and your team trained to own it.",
+      "Production-ready product software with AI where it belongs in the workflow — and your team trained to own it.",
     phases: [
       {
-        range: "Month 1",
+        range: "Phase 1",
         title: "Strategy and design.",
         body: "Product strategy, architecture, wireframes, and sign-off with scope and success metrics locked before code.",
       },
       {
-        range: "Month 2",
+        range: "Phase 2",
         title: "Build and test.",
         body: "Full-stack development, integrations, AI workflows, and client UAT with working software every week.",
       },
       {
-        range: "Month 3",
+        range: "Phase 3",
         title: "Launch and stabilize.",
         body: "Production deployment, team training, go-live monitoring, and handoff of software you fully own.",
       },
     ],
     howItWorks: [
       {
-        label: "One primary system.",
-        text: "Client portal, operational CRM, dashboard, or workflow hub scoped to one bounded product with clear success metrics.",
+        label: "A product, not a department rewrite.",
+        text: "Client portal, operational CRM, dashboard, or customer-facing app scoped as one bounded product. If the need is 2–4 workflows inside one department in six weeks, that is Transformation.",
+      },
+      {
+        label: "Internal or external.",
+        text: "Internal products serve your team. External products serve your customers and are typically more robust — auth, multi-tenant concerns, and production hardening included.",
       },
       {
         label: "AI where work already happens.",
-        text: "Drafting, routing, summarizing, and follow-up built into the system so your team recovers time for Human Work.",
-      },
-      {
-        label: "Production from day one.",
-        text: "Real infrastructure, security, and users on a modern stack chosen for what the product requires.",
+        text: "Drafting, routing, summarizing, and follow-up built into the product so people recover time for Human Work.",
       },
       {
         label: "You own it.",
-        text: "Full IP transfer with CappaWork hosting, securing, and maintaining what we ship.",
+        text: "Full IP transfer with CappaWork hosting, securing, and maintaining what we ship as agreed.",
       },
     ],
     deliverables: [
       "Product strategy and UX/UI design",
-      "AI workflow design",
+      "AI workflow design where it fits the product",
       "Full-stack web application development",
       "Systems integration",
       "Testing, deployment, and launch support",
       "Team training and documentation",
-      "30-day post-launch stabilization",
+      "Post-launch stabilization window",
     ],
     proof: [
-      { stat: "$85,000", label: "SEC-compliant CRM + AI research engine, wealth management" },
-      { stat: "16 weeks", label: "Scoping through production deployment" },
+      { stat: "Live in production", label: "SEC-compliant CRM + AI research engine for wealth management" },
+      { stat: "Full handoff", label: "Scoping through production deployment with your team trained" },
       { stat: "You own it", label: "Advisor CRM, client portal, and AI monitoring, fully transferred" },
     ],
+    pricingFaq: PRICING_AFTER_AUDIT,
     whoBlock:
-      "You know what needs to be built and want one senior partner from architecture through launch, without an agency handoff. For a single department and 2–4 workflows in six weeks, see Transformation.",
+      "You know what product needs to be built — internal tool or external customer software — and want one senior partner from architecture through launch. For a single department and 2–4 workflows in six weeks, see Transformation.",
     inquiryKey: "Build",
     ctaText: "Book a Computer Work Audit",
-    ctaSub: "We align on scope and timeline before any commitment.",
+    ctaSub: "We align on product scope and timeline after discovery — before any commitment.",
     termsNote: "When you commit to a build, you are reserving dedicated capacity.",
     journeyPrev: { label: "Discover", href: "/discover" },
     journeyNext: { label: "6-Week Transformation", href: "/transformation" },
@@ -188,8 +196,8 @@ export const OFFERINGS: Offering[] = [
     subtitle: "One department. 2–4 workflows. Production in six weeks — not a year of transformation theater.",
     subtitleNote:
       "An experienced operator with cutting-edge AI judgment, integrated into your systems — not a pile of seats and token spend that never hits the bottom line.",
-    price: "Starts at $90,000",
-    priceNote: "Floor price · larger departments often ~$150,000 · you own the IP",
+    price: "Scoped after audit",
+    priceNote: "Six weeks · one department · 2–4 workflows · you own the IP",
     outcome:
       "Live throughput on 2–4 high-leverage workflows in one department — designed for ROI within about six months (directional; we do not promise guaranteed savings).",
     phases: [
@@ -217,7 +225,7 @@ export const OFFERINGS: Offering[] = [
     howItWorks: [
       {
         label: "One department, 2–4 workflows.",
-        text: "We find high-leverage work that increases revenue, reduces cost, or reduces risk — then create, deploy, and test inside six weeks.",
+        text: "We find high-leverage work that increases revenue, reduces cost, or reduces risk — then create, deploy, and test inside six weeks. This is department transformation, not a standalone product sprint.",
       },
       {
         label: "Best tools in your stack.",
@@ -242,16 +250,18 @@ export const OFFERINGS: Offering[] = [
       "12-month narrow fix guarantee on shipped workflows",
     ],
     billing:
-      "50% due at signature. 50% due at go-live. Week 0 audit ($2,500) is credited to the engagement total. No net-30 on the second half.",
+      "50% due at signature. 50% due at go-live. The Week 0 Computer Work Audit ($2,500) is credited to the engagement. No net-30 on the second half. Engagement investment is quoted after the audit.",
     guarantee:
       "For twelve months after go-live, the workflows we shipped keep working as specified. If a model, API, or vendor change breaks them, we fix within two business days at no charge. This is not a guarantee of savings. It does not cover new workflows, scope changes, or systems turned off. Included fix capacity is capped at roughly six hours per month; work beyond that moves to the Modernize retainer.",
     afterEngagement:
-      "Optional Modernize retainer (~$10–12k/month): unlimited fixes on shipped work plus one new workflow per month.",
+      "Optional Modernize retainer after go-live: unlimited fixes on shipped work plus one new workflow per month. Scoped and priced after Transformation.",
+    pricingFaq: PRICING_AFTER_AUDIT,
     whoBlock:
-      "Operators, founders, and executives at businesses over ~$50 million in revenue who can fund a one-check engagement and want production results in one department — not a slide deck.",
+      "Operators, founders, and executives at businesses over ~$50 million in revenue who want production results in one department — not a slide deck, and not a multi-month product build when the need is workflow transformation.",
     inquiryKey: "6-Week AI Transformation",
     ctaText: "Book a Computer Work Audit",
-    ctaSub: "Week 0 is $2,500 and credits toward the engagement. We confirm fit and department scope on the call.",
+    ctaSub:
+      "Week 0 is $2,500 and credits toward the engagement. We confirm fit and department scope on the call; Transformation investment is quoted after discovery.",
     termsNote:
       "Transformation engagements reserve dedicated capacity. Week 0 is required before Weeks 1–6 begin.",
     journeyPrev: { label: "Discover", href: "/discover" },
@@ -263,8 +273,8 @@ export const OFFERINGS: Offering[] = [
     subtitle: "Optional retainer after Transformation — keep shipped work healthy and add one new workflow a month.",
     subtitleNote:
       "Not the primary engagement. Modernize is the ongoing partnership after a 6-Week AI Transformation (or a comparable Build).",
-    price: "~$10–12,000/month",
-    priceNote: "Month-to-month retainer · unlimited fixes on shipped work · one new workflow per month",
+    price: "Optional retainer",
+    priceNote: "After go-live · unlimited fixes on shipped work · one new workflow per month · scoped after Transformation",
     outcome:
       "Shipped workflows stay production-ready, and your team keeps compounding capacity without restarting a full engagement.",
     phases: [
@@ -299,13 +309,14 @@ export const OFFERINGS: Offering[] = [
       "Continued team support and light training",
       "Priority response when production breaks",
     ],
+    pricingFaq: PRICING_AFTER_AUDIT,
     whoBlock:
       "You completed a Transformation (or Build), want the shipped system protected, and have a backlog of the next Computer Work to remove.",
     inquiryKey: "Modernize",
     ctaText: "Talk about Modernize",
-    ctaSub: "Best after Transformation. We will confirm whether retainer capacity fits your backlog.",
+    ctaSub: "Best after Transformation. We confirm retainer fit and scope after go-live.",
     termsNote:
-      "Modernize is a retainer, not the primary $90k package. Capacity is limited.",
+      "Modernize is an optional post-engagement retainer, not the primary Transformation path. Capacity is limited.",
     journeyPrev: { label: "6-Week Transformation", href: "/transformation" },
   },
 ];

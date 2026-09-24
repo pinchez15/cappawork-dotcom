@@ -182,6 +182,19 @@ export function OfferingPageContent({ offering }: { offering: Offering }) {
         </section>
       )}
 
+      {(offering.pricingFaq) && (
+        <section className="py-16 bg-card-light">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <span className="text-xs font-bold tracking-widest uppercase text-gold block mb-4">
+              How does pricing work?
+            </span>
+            <p className="text-lg text-stone-600 leading-relaxed">
+              {offering.pricingFaq}
+            </p>
+          </div>
+        </section>
+      )}
+
       {offering.billing && (
         <section className="py-16 bg-warm-white">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">

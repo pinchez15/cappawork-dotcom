@@ -15,11 +15,11 @@ export function useInquiry() {
 }
 
 const serviceOptions = [
-  { value: "6-Week AI Transformation", label: "6-Week AI Transformation (from $90,000)" },
+  { value: "6-Week AI Transformation", label: "6-Week AI Transformation" },
   { value: "Computer Work Audit", label: "Computer Work Audit ($2,500, credited)" },
-  { value: "Discover", label: "Discover (from $2,500)" },
-  { value: "Build", label: "Build (from $35,000)" },
-  { value: "Modernize", label: "Modernize retainer (~$10–12k/month)" },
+  { value: "Discover", label: "Discover" },
+  { value: "Build", label: "Build (product sprint)" },
+  { value: "Modernize", label: "Modernize retainer" },
   { value: "Something else", label: "Something else" },
 ]
 
@@ -134,7 +134,7 @@ function InquiryModalContent({
                 Let&rsquo;s talk
               </h2>
               <p className="text-stone-600 mb-8">
-                Tell me about the workflow. I&rsquo;ll reach out to schedule your Computer Work Audit — $2,500, credited toward Transformation.
+                Tell me about the workflow. I&rsquo;ll reach out to schedule your Computer Work Audit ($2,500, credited toward Transformation). Engagement investment is quoted after discovery.
               </p>
 
               <form onSubmit={handleSubmit} className="space-y-4">

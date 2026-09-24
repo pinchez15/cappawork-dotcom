@@ -79,7 +79,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
           className="text-base sm:text-lg text-white/70 max-w-xl mx-auto mb-8 sm:mb-12 leading-relaxed"
         >
-          One department. 2–4 workflows. Production agents in six weeks — starts at $90,000. You bring the workflow. We remove the Computer Work.
+          One department. 2–4 workflows. Production agents in six weeks. You bring the workflow. We remove the Computer Work.
         </motion.p>
 
         <motion.div
