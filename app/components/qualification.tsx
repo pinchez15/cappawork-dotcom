@@ -4,12 +4,12 @@ import { Check } from "lucide-react"
 import { FadeInUp, StaggerContainer, StaggerItem } from "./motion-wrapper"
 
 const qualifiers = [
-  "You're doing $3–10M in revenue but profit margins are thinner than they should be and you can feel the manual work dragging",
-  "You know AI could help but you don't know where to start and you don't trust a dev shop to figure out your business",
+  "You're over ~$50M in revenue (or running a department that size) and can fund a one-check engagement",
+  "You know AI could help but you don't trust a year-long transformation theater or a pile of tool seats",
   "You've tried AI tools — they didn't move the needle because nobody rethought the workflow underneath",
-  "You want someone who understands both business strategy and how to build, not a strategist who hands you a deck and walks away",
+  "You want someone who understands operations AND can ship production agents in your environment",
   "You want to own what gets built, not rent it",
-  "You're a founder or CEO who makes decisions fast once you trust the person advising you",
+  "You're an operator or executive who makes decisions fast once you trust the person advising you",
 ]
 
 export default function Qualification() {

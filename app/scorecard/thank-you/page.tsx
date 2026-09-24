@@ -33,9 +33,7 @@ export default function ThankYouPage() {
             Want to talk through it?
           </h2>
           <p className="mt-2 text-sm text-stone-600">
-            Book a free working session with Nate. We&rsquo;ll map where your
-            business is leaking profit and whether Discover, Build, or Modernize
-            is the right next step.
+            Book a Computer Work Audit with Nate. We&rsquo;ll map where Computer Work is crowding out Human Work and whether Transformation, Discover, or Build is the right next step.
           </p>
           <a
             href={calendlyLink}
@@ -43,7 +41,7 @@ export default function ThankYouPage() {
             rel="noopener noreferrer"
             className="mt-4 inline-flex items-center gap-2 rounded-full bg-blue-600 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-700"
           >
-            Book a Free Computer Work Audit
+            Book a Computer Work Audit
             <ChevronRight className="h-4 w-4" />
           </a>
         </div>

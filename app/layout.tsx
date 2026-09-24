@@ -21,10 +21,11 @@ const instrumentSerif = Instrument_Serif({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://cappawork.com"),
-  title: "CappaWork — Custom Software for American Businesses",
+  title: "CappaWork — 6-Week AI Transformation for $50M+ Businesses",
   description:
-    "CappaWork designs, builds, hosts, and maintains custom software for $5M-$50M American businesses.",
-  keywords: "custom software, American businesses, small business software, operational software, business automation",
+    "CappaWork helps businesses over ~$50M revenue implement AI and agents. 6-Week AI Transformation starts at $90,000. You own the IP.",
+  keywords:
+    "AI transformation, AI agents, Computer Work, American businesses, operational software, business automation",
   authors: [{ name: "CappaWork" }],
   creator: "CappaWork",
   publisher: "CappaWork",
@@ -37,22 +38,24 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://cappawork.com",
-    title: "CappaWork — Custom Software for American Businesses",
-    description: "Custom software for $5M-$50M businesses. You own the IP. CappaWork builds, hosts, secures, and maintains it.",
+    title: "CappaWork — 6-Week AI Transformation for $50M+ Businesses",
+    description:
+      "6-Week AI Transformation starts at $90,000 for businesses over ~$50M. You own the IP. Narrow 12-month fix guarantee.",
     siteName: "CappaWork",
     images: [
       {
         url: "/linkedin-preview.jpg",
         width: 1200,
         height: 630,
-        alt: "CappaWork homepage hero for custom software for American businesses",
+        alt: "CappaWork — 6-Week AI Transformation for $50M+ businesses",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "CappaWork — Custom Software for American Businesses",
-    description: "Custom software for $5M-$50M businesses. You own the IP. CappaWork builds, hosts, secures, and maintains it.",
+    title: "CappaWork — 6-Week AI Transformation for $50M+ Businesses",
+    description:
+      "6-Week AI Transformation starts at $90,000 for businesses over ~$50M. You own the IP. Narrow 12-month fix guarantee.",
     images: ["/linkedin-preview.jpg"],
   },
 }

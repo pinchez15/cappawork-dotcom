@@ -8,10 +8,11 @@ import { getOffering } from "@/lib/offerings/data";
 const offering = getOffering("modernize")!;
 
 export const metadata: Metadata = {
-  title: "Modernize — CappaWork",
-  description: offering.subtitle,
+  title: "Modernize Retainer — CappaWork",
+  description:
+    "Optional post-Transformation retainer (~$10–12k/month): unlimited fixes on shipped work plus one new workflow per month.",
   openGraph: {
-    title: "Modernize — CappaWork",
+    title: "Modernize Retainer — CappaWork",
     description: offering.outcome,
   },
 };

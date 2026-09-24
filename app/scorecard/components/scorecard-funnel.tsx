@@ -8,11 +8,11 @@ import { computeScores, type ScorecardResult } from "./scoring";
 import { trackLead, trackCompleteRegistration, trackInitiateCheckout } from "./fb-pixel";
 
 const REVENUE_RANGES = [
-  "$1M–$3M",
-  "$3M–$5M",
-  "$5M–$10M",
   "$10M–$25M",
-  "$25M+",
+  "$25M–$50M",
+  "$50M–$100M",
+  "$100M–$250M",
+  "$250M+",
 ];
 
 const GRADE_COLORS: Record<string, string> = {
@@ -174,7 +174,7 @@ export function ScorecardFunnel() {
           </p>
 
           <p className="mt-4 text-sm text-stone-500">
-            Built for service-business founders doing $3M–$10M/year
+            Built for operators at businesses over ~$50M revenue
           </p>
 
           <button
@@ -485,9 +485,9 @@ export function ScorecardFunnel() {
                     Talk through your results with Nate
                   </h3>
                   <p className="mt-1 text-sm text-stone-600">
-                    Book a free working session. We&rsquo;ll walk through your
-                    scorecard, map where computer work is eating human work, and
-                    figure out whether Discover, Build, or Modernize is the right
+                    Book a Computer Work Audit. We&rsquo;ll walk through your
+                    scorecard, map where Computer Work is eating Human Work, and
+                    figure out whether Transformation, Discover, or Build is the right
                     next step.
                   </p>
                   <ul className="mt-3 space-y-1 text-sm text-stone-600">
@@ -513,7 +513,7 @@ export function ScorecardFunnel() {
                     rel="noopener noreferrer"
                     className="mt-4 inline-flex items-center gap-2 rounded-full bg-blue-600 px-6 py-3 font-medium text-white shadow-md shadow-blue-600/20 transition-all hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-600/30"
                   >
-                    Book a Free Computer Work Audit
+                    Book a Computer Work Audit
                     <ChevronRight className="h-4 w-4" />
                   </a>
                 </div>

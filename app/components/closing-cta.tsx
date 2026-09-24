@@ -15,13 +15,13 @@ export default function ClosingCTA() {
             Bring us your messiest workflow.
           </h2>
           <p className="text-base sm:text-lg text-stone-500 mb-8 sm:mb-10 max-w-md mx-auto">
-            One free session. One clear next step.
+            Week 0 audit — $2,500, credited toward Transformation. One clear next step.
           </p>
           <button
-            onClick={() => open()}
+            onClick={() => open("Computer Work Audit")}
             className="bg-gold text-navy w-full sm:w-auto px-6 sm:px-8 py-3.5 rounded-full font-medium hover:bg-gold/90 transition-all duration-200 inline-flex items-center justify-center gap-2 text-base sm:text-lg"
           >
-            Book a Free Computer Work Audit
+            Book a Computer Work Audit
             <ArrowRight size={18} />
           </button>
           <p className="text-xs sm:text-sm text-stone-400 mt-6 sm:mt-8">

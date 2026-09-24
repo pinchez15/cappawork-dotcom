@@ -6,7 +6,8 @@ import Link from "next/link"
 
 export const metadata: Metadata = {
   title: "About | CappaWork",
-  description: "Meet Nate Pinches — MBA, management consultant, and full-stack AI product builder. CappaWork builds custom software for American businesses.",
+  description:
+    "Meet Nate Pinches — MBA, management consultant, and full-stack AI product builder. CappaWork runs 6-Week AI Transformations for businesses over ~$50M revenue.",
 }
 
 export default function AboutPage() {
@@ -51,10 +52,10 @@ export default function AboutPage() {
           <div className="space-y-6 mb-10">
             <h2 className="font-display text-2xl text-navy mb-4">One engagement. One relationship.</h2>
             <p className="text-stone-600 mb-4">
-              CappaWork is a modernization partner for founder-led businesses: audit, roadmap, build, and embed with one partner from strategy through shipping.
+              CappaWork helps businesses over ~$50M revenue implement AI and agents: Week 0 audit, six-week transformation in one department, optional Modernize retainer after go-live — with one partner from strategy through shipping.
             </p>
             <p className="text-stone-600 leading-relaxed">
-              You own the IP. CappaWork keeps the system running, secure, and improving over time.
+              You own the IP. CappaWork keeps shipped workflows working under a narrow 12-month guarantee, then via retainer if you want ongoing capacity.
             </p>
           </div>
 
@@ -65,20 +66,20 @@ export default function AboutPage() {
               For decades, custom software was too expensive for most businesses. So people became the middleware between disconnected systems: copying, checking, forwarding, reconciling, and chasing information from one place to another.
             </p>
             <p className="text-stone-600 leading-relaxed">
-              AI didn&rsquo;t change what software is for. It changed what businesses can afford to build. CappaWork exists to help founder-led companies use that leverage wisely: not to replace people, but to eliminate the work that never belonged to people in the first place.
+              AI didn&rsquo;t change what software is for. It changed what businesses can afford to build. CappaWork exists to help operators use that leverage wisely: not to replace people, but to eliminate the Computer Work that never belonged to people in the first place.
             </p>
           </div>
 
           {/* Link back */}
           <div className="bg-card-light rounded-2xl p-8 text-center">
             <p className="text-stone-600 mb-4">
-              See how the engagement works, what&apos;s included, and what the math looks like.
+              See the 6-Week AI Transformation — pricing, billing, guarantee, and what week 6 looks like.
             </p>
             <Link
-              href="/#services"
+              href="/transformation"
               className="inline-flex items-center gap-2 text-navy font-medium hover:text-gold transition-colors"
             >
-              View our services &rarr;
+              View the transformation &rarr;
             </Link>
           </div>
         </div>
