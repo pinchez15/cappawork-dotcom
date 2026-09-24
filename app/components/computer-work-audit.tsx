@@ -26,8 +26,10 @@ export default function ComputerWorkAudit() {
             Start with a <ComputerWorkTerm tone="light" /> Audit.
           </h2>
           <p className="text-base sm:text-lg text-stone-600 leading-relaxed mb-8 sm:mb-10 max-w-2xl">
-            Bring your messiest workflow. In one session, we find the{" "}
+            Bring your messiest workflow in one department. We baseline hours, cycle time, and
+            rework — and find the{" "}
             <ComputerWorkTerm tone="light" className="text-sm sm:text-base" /> hiding inside it.
+            Week 0 is $2,500 and credits fully toward a 6-Week AI Transformation.
           </p>
         </FadeInUp>
 
@@ -44,15 +46,15 @@ export default function ComputerWorkAudit() {
         <FadeInUp>
           <div className="rounded-2xl border border-gold/30 bg-warm-white p-5 sm:p-6 mb-8 sm:mb-10">
             <p className="text-base sm:text-lg font-medium text-navy">
-              You leave knowing your next move: buy, build, automate, or modernize.
+              You leave with baselines and a clear next move: Transformation, Build, or wait.
             </p>
           </div>
 
           <button
-            onClick={() => open()}
+            onClick={() => open("Computer Work Audit")}
             className="bg-gold text-navy w-full sm:w-auto px-6 sm:px-8 py-3.5 rounded-full font-medium hover:bg-gold/90 transition-all duration-200 inline-flex items-center justify-center gap-2 text-base sm:text-lg"
           >
-            Book a Free Computer Work Audit
+            Book a Computer Work Audit
             <ArrowRight size={18} />
           </button>
         </FadeInUp>

@@ -19,7 +19,7 @@ export type OfferingPhase = {
 };
 
 export type Offering = {
-  slug: "discover" | "build" | "modernize";
+  slug: "discover" | "build" | "modernize" | "transformation";
   title: string;
   subtitle: string;
   subtitleNote?: string;
@@ -32,6 +32,9 @@ export type Offering = {
   tiers?: OfferingTier[];
   phases?: OfferingPhase[];
   proof?: { stat: string; label: string }[];
+  billing?: string;
+  guarantee?: string;
+  afterEngagement?: string;
   inquiryKey: string;
   ctaText: string;
   ctaSub: string;
@@ -44,70 +47,79 @@ export const OFFERINGS: Offering[] = [
   {
     slug: "discover",
     title: "Discover",
-    subtitle:
-      "Build the right roadmap before you build the wrong software.",
-    subtitleNote: "Most AI projects fail because the wrong problem got solved first.",
-    price: "From $10,000",
-    priceNote: "Sprint · 2 weeks  ·  Deep · $30,000 · 4–6 weeks",
+    subtitle: "Map Computer Work vs Human Work before you spend on the wrong build.",
+    subtitleNote:
+      "Most AI projects fail because the wrong problem got solved first. Discover answers what to fix, in what order, and why.",
+    price: "From $2,500",
+    priceNote: "Week 0 Audit · $2,500  ·  Sprint · $10,000 · 2 weeks  ·  Deep · $30,000 · 4–6 weeks",
     outcome:
-      "A prioritized roadmap your leadership team can execute, with build vs. buy answered and ROI ranked.",
+      "A prioritized scope your leadership team can execute — with baselines, build vs. buy answered, and ROI ranked.",
     tiers: [
+      {
+        name: "Computer Work Audit (Week 0)",
+        price: "$2,500",
+        timeline: "One department · pre-contract",
+        credit: "Fully credited toward a 6-Week AI Transformation",
+        bestFor:
+          "You need a baseline before signing a transformation: hours/week on the workflow, cycle time, and error/rework rate. No baseline → no guarantee.",
+      },
       {
         name: "Discover Sprint",
         price: "$10,000",
         timeline: "2 weeks",
-        credit: "$5,000 credit toward Build or Modernize within 90 days",
-        bestFor: "You need a prioritized plan before committing build budget.",
+        credit: "$5,000 credit toward Transformation or Build within 90 days",
+        bestFor: "You need a prioritized plan before committing transformation or build budget.",
       },
       {
         name: "Discover Deep",
         price: "$30,000",
         timeline: "4–6 weeks",
-        credit: "$10,000 credit toward Build or Modernize within 90 days",
-        bestFor: "Complex operations or a $50K+ build decision that needs numbers behind it.",
+        credit: "$10,000 credit toward Transformation or Build within 90 days",
+        bestFor: "Complex operations or a six-figure build decision that needs numbers behind it.",
       },
     ],
     howItWorks: [
       {
-        label: "Start with context.",
-        text: "We review your tools, workflows, and goals, often building on a free working session where we have already found the sharpest pain point.",
+        label: "Start with one department.",
+        text: "We shadow the workflow, pull truth from your existing stack, and separate Computer Work from Human Work.",
       },
       {
-        label: "Map where time and margin leak.",
-        text: "We trace how work actually flows and where busywork is crowding out judgment.",
+        label: "Baseline three numbers.",
+        text: "Hours per week on the workflow, cycle time, and error/rework rate — the same baselines the Transformation guarantee requires.",
       },
       {
-        label: "Rank opportunities by ROI.",
-        text: "Every recommendation is sequenced by impact vs. effort, with a clear build vs. buy call.",
+        label: "Rank opportunities by leverage.",
+        text: "Every recommendation is sequenced by revenue, cost, or risk impact versus effort, with a clear build vs. buy call.",
       },
       {
-        label: "Deliver a roadmap you can execute.",
-        text: "Written deliverable, executive readout, and a recommendation on Build or Modernize as the next step.",
+        label: "Deliver a scope you can sign.",
+        text: "Written deliverable, executive readout, and a recommendation on Transformation or Build as the next step.",
       },
     ],
     deliverables: [
-      "AI modernization roadmap",
-      "Workflow and process analysis",
-      "Product opportunity assessment",
-      "Technical architecture recommendation",
-      "Prioritized implementation plan",
-      "Executive presentation and next-step plan",
+      "Computer Work vs Human Work map",
+      "Baseline metrics (hours, cycle time, error/rework)",
+      "Prioritized workflow opportunities",
       "Build vs. buy recommendation",
+      "Technical architecture notes",
+      "Executive presentation and next-step plan",
+      "Signed one-page scope path into Transformation (when ready)",
     ],
     whoBlock:
-      "You know AI should change how you operate but are unsure what to build first, what to buy, or what is worth the investment.",
+      "You run a business over ~$50M in revenue (or a department that size), know AI should change how you operate, and want clarity before a six-figure commitment.",
     inquiryKey: "Discover",
-    ctaText: "Book a Free Computer Work Audit",
-    ctaSub: "No charge. We will scope Sprint or Deep on the call if Discover is the right fit.",
+    ctaText: "Book a Computer Work Audit",
+    ctaSub: "Week 0 is $2,500 and credits toward Transformation. We will scope Sprint or Deep on the call if a longer Discover is the right fit.",
     termsNote:
       "When you book Discover, you are holding dedicated capacity that another business could fill.",
-    journeyNext: { label: "Build", href: "/build" },
+    journeyNext: { label: "6-Week Transformation", href: "/transformation" },
   },
   {
     slug: "build",
     title: "Build",
     subtitle: "Production software designed around your business.",
-    subtitleNote: "Off-the-shelf tools force your team to adapt; we build software that fits how you already work.",
+    subtitleNote:
+      "Off-the-shelf tools force your team to adapt; we build software that fits how you already work. For bounded products outside a six-week department transformation.",
     price: "From $35,000",
     priceNote: "8–16 weeks · you own the IP · we host and maintain",
     outcome:
@@ -136,7 +148,7 @@ export const OFFERINGS: Offering[] = [
       },
       {
         label: "AI where work already happens.",
-        text: "Drafting, routing, summarizing, and follow-up built into the system so your team recovers time for human work.",
+        text: "Drafting, routing, summarizing, and follow-up built into the system so your team recovers time for Human Work.",
       },
       {
         label: "Production from day one.",
@@ -162,76 +174,139 @@ export const OFFERINGS: Offering[] = [
       { stat: "You own it", label: "Advisor CRM, client portal, and AI monitoring, fully transferred" },
     ],
     whoBlock:
-      "You know what needs to be built and want one senior partner from architecture through launch, without an agency handoff.",
+      "You know what needs to be built and want one senior partner from architecture through launch, without an agency handoff. For a single department and 2–4 workflows in six weeks, see Transformation.",
     inquiryKey: "Build",
-    ctaText: "Book a Free Computer Work Audit",
+    ctaText: "Book a Computer Work Audit",
     ctaSub: "We align on scope and timeline before any commitment.",
-    termsNote:
-      "When you commit to a build, you are reserving dedicated capacity.",
+    termsNote: "When you commit to a build, you are reserving dedicated capacity.",
     journeyPrev: { label: "Discover", href: "/discover" },
-    journeyNext: { label: "Modernize", href: "/modernize" },
+    journeyNext: { label: "6-Week Transformation", href: "/transformation" },
   },
   {
-    slug: "modernize",
-    title: "Modernize",
-    subtitle: "A senior AI product engineer embedded in your business.",
-    subtitleNote: "For when the work outgrows a single scoped project.",
-    price: "$15,000/month",
-    priceNote: "Six-month engagement · $90,000 total · you own everything built",
+    slug: "transformation",
+    title: "6-Week AI Transformation",
+    subtitle: "One department. 2–4 workflows. Production in six weeks — not a year of transformation theater.",
+    subtitleNote:
+      "An experienced operator with cutting-edge AI judgment, integrated into your systems — not a pile of seats and token spend that never hits the bottom line.",
+    price: "Starts at $90,000",
+    priceNote: "Floor price · larger departments often ~$150,000 · you own the IP",
     outcome:
-      "A business that gets faster and more AI-native every month, with software built in your environment and adoption that sticks.",
+      "Live throughput on 2–4 high-leverage workflows in one department — designed for ROI within about six months (directional; we do not promise guaranteed savings).",
     phases: [
       {
-        range: "Month 1",
-        title: "Embed and plan.",
-        body: "A week inside your operation, then a modernization roadmap with ROI, priorities, and success metrics before the first build sprint.",
+        range: "Week 0",
+        title: "Computer Work Audit.",
+        body: "Paid $2,500 audit, fully credited to the engagement. One department. Baseline three numbers: hours/week on the workflow, cycle time, and error/rework rate. No baseline → no guarantee.",
       },
       {
-        range: "Months 2–4",
-        title: "Build and integrate.",
-        body: "Continuous delivery inside your existing systems: legacy modernization, automation, internal tools, and AI implementations.",
+        range: "Weeks 1–2",
+        title: "Discover.",
+        body: "Shadow, map Computer Work vs Human Work, pull truth from your existing stack. Deliverable: a signed one-page scope (2–4 workflows, baseline, target). Nothing is built until that scope is signed.",
       },
       {
-        range: "Months 5–6",
-        title: "Adopt and stabilize.",
-        body: "Team training, hardening, and technical leadership while you retain the infrastructure, code, and IP.",
+        range: "Weeks 3–5",
+        title: "Build.",
+        body: "Production on your environment, integrated to your stack, with a parallel run from week 4. Live throughput — not a demo.",
+      },
+      {
+        range: "Week 6",
+        title: "Adopt.",
+        body: "Cutover, train your team, deliver a runbook, and transfer client-owned IP. Go-live measured against the Week 0 baseline.",
       },
     ],
     howItWorks: [
       {
-        label: "Embedded in your business.",
-        text: "A senior AI product engineer alongside your leadership team, scoping and shipping inside your environment.",
+        label: "One department, 2–4 workflows.",
+        text: "We find high-leverage work that increases revenue, reduces cost, or reduces risk — then create, deploy, and test inside six weeks.",
       },
       {
-        label: "Continuous opportunity finding.",
-        text: "We keep identifying where computer work is eating human work and building the next fix.",
+        label: "Best tools in your stack.",
+        text: "Agents and automation integrated into the systems you already run, leaving a durable process your team can operate.",
       },
       {
-        label: "Built in your stack.",
-        text: "Everything ships inside your existing software environment and you own the infrastructure, code, and IP.",
+        label: "50/50 billing.",
+        text: "50% at signature, 50% at go-live. No net-30 on the back half.",
       },
       {
-        label: "Adoption is the deliverable.",
-        text: "Technical leadership and team training so the organization actually uses what we build.",
+        label: "You own the IP.",
+        text: "Code, runbooks, and process documentation transfer to you at go-live.",
       },
     ],
     deliverables: [
-      "AI implementation across departments",
-      "Legacy system modernization",
-      "Internal software and workflow automation",
-      "Product development on ongoing priorities",
-      "Technical leadership and architecture guidance",
-      "Team adoption and training",
-      "Hosting, security, and maintenance",
+      "Week 0 baseline (hours, cycle time, error/rework)",
+      "Signed one-page scope for 2–4 workflows",
+      "Production agents/workflows in your environment",
+      "Parallel-run evidence before cutover",
+      "Team training and operational runbook",
+      "Full IP ownership at go-live",
+      "12-month narrow fix guarantee on shipped workflows",
+    ],
+    billing:
+      "50% due at signature. 50% due at go-live. Week 0 audit ($2,500) is credited to the engagement total. No net-30 on the second half.",
+    guarantee:
+      "For twelve months after go-live, the workflows we shipped keep working as specified. If a model, API, or vendor change breaks them, we fix within two business days at no charge. This is not a guarantee of savings. It does not cover new workflows, scope changes, or systems turned off. Included fix capacity is capped at roughly six hours per month; work beyond that moves to the Modernize retainer.",
+    afterEngagement:
+      "Optional Modernize retainer (~$10–12k/month): unlimited fixes on shipped work plus one new workflow per month.",
+    whoBlock:
+      "Operators, founders, and executives at businesses over ~$50 million in revenue who can fund a one-check engagement and want production results in one department — not a slide deck.",
+    inquiryKey: "6-Week AI Transformation",
+    ctaText: "Book a Computer Work Audit",
+    ctaSub: "Week 0 is $2,500 and credits toward the engagement. We confirm fit and department scope on the call.",
+    termsNote:
+      "Transformation engagements reserve dedicated capacity. Week 0 is required before Weeks 1–6 begin.",
+    journeyPrev: { label: "Discover", href: "/discover" },
+    journeyNext: { label: "Modernize retainer", href: "/modernize" },
+  },
+  {
+    slug: "modernize",
+    title: "Modernize",
+    subtitle: "Optional retainer after Transformation — keep shipped work healthy and add one new workflow a month.",
+    subtitleNote:
+      "Not the primary engagement. Modernize is the ongoing partnership after a 6-Week AI Transformation (or a comparable Build).",
+    price: "~$10–12,000/month",
+    priceNote: "Month-to-month retainer · unlimited fixes on shipped work · one new workflow per month",
+    outcome:
+      "Shipped workflows stay production-ready, and your team keeps compounding capacity without restarting a full engagement.",
+    phases: [
+      {
+        range: "Ongoing",
+        title: "Fix and extend.",
+        body: "Unlimited fixes on workflows we already shipped, plus capacity for one new workflow each month — scoped, built, and handed off in your environment.",
+      },
+    ],
+    howItWorks: [
+      {
+        label: "Protect what shipped.",
+        text: "When models, APIs, or vendors change, we keep your production workflows working — beyond the included Transformation guarantee capacity.",
+      },
+      {
+        label: "One new workflow per month.",
+        text: "Steady expansion of Computer Work removal without another six-week reboot.",
+      },
+      {
+        label: "Still your IP.",
+        text: "Everything built under Modernize remains yours. We host and maintain as agreed.",
+      },
+      {
+        label: "After Transformation.",
+        text: "Designed as the natural next step once Weeks 1–6 are live — not a substitute for the six-week package.",
+      },
+    ],
+    deliverables: [
+      "Unlimited fixes on previously shipped workflows",
+      "One new workflow per month",
+      "Hosting, security, and maintenance as scoped",
+      "Continued team support and light training",
+      "Priority response when production breaks",
     ],
     whoBlock:
-      "You have an existing stack, a team that needs capacity, and multiple problems to solve over six months.",
+      "You completed a Transformation (or Build), want the shipped system protected, and have a backlog of the next Computer Work to remove.",
     inquiryKey: "Modernize",
-    ctaText: "Book a Free Computer Work Audit",
-    ctaSub: "We will talk through your timeline and whether embedded engineering is the right model.",
+    ctaText: "Talk about Modernize",
+    ctaSub: "Best after Transformation. We will confirm whether retainer capacity fits your backlog.",
     termsNote:
-      "Modernize engagements require a six-month commitment. Capacity is limited.",
-    journeyPrev: { label: "Build", href: "/build" },
+      "Modernize is a retainer, not the primary $90k package. Capacity is limited.",
+    journeyPrev: { label: "6-Week Transformation", href: "/transformation" },
   },
 ];
 

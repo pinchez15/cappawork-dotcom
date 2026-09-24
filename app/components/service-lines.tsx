@@ -9,15 +9,29 @@ const services = [
   {
     key: "Discover",
     href: "/discover",
-    headline: "Get the roadmap right first.",
-    price: "From $10,000",
-    priceNote: "2-week Sprint · 4–6 week Deep",
+    headline: "Baseline before you build.",
+    price: "From $2,500",
+    priceNote: "Week 0 Audit · credited to Transformation",
     includes: [
-      "Map where time is lost",
-      "Rank opportunities by ROI",
-      "Decide what to buy, build, or automate",
+      "Map Computer Work vs Human Work",
+      "Baseline hours, cycle time, rework",
+      "Decide what to fix first",
     ],
     inquiryKey: "Discover",
+  },
+  {
+    key: "Transformation",
+    href: "/transformation",
+    headline: "Production in one department — six weeks.",
+    price: "Starts at $90,000",
+    priceNote: "2–4 workflows · you own the IP",
+    includes: [
+      "Week 0 audit credited to the engagement",
+      "Signed scope before anything is built",
+      "Go-live with a narrow 12-month guarantee",
+    ],
+    inquiryKey: "6-Week AI Transformation",
+    featured: true,
   },
   {
     key: "Build",
@@ -32,20 +46,6 @@ const services = [
     ],
     inquiryKey: "Build",
   },
-  {
-    key: "Modernize",
-    href: "/modernize",
-    headline: "An embedded partner who ships.",
-    price: "$15,000/month",
-    priceNote: "6 months · $90,000 total",
-    includes: [
-      "Continuous opportunity finding",
-      "Built inside your environment",
-      "Adoption that actually sticks",
-    ],
-    inquiryKey: "Modernize",
-    featured: true,
-  },
 ]
 
 export default function ServiceLines() {
@@ -58,9 +58,12 @@ export default function ServiceLines() {
           <span className="text-xs sm:text-sm font-semibold tracking-widest uppercase text-gold block mb-3 sm:mb-4">
             Choose Your Stage
           </span>
-          <h2 className="font-display text-[1.65rem] sm:text-3xl md:text-4xl tracking-tight text-navy leading-[1.15] sm:leading-tight mb-8 sm:mb-12 max-w-xl text-balance">
-            Three ways to modernize.
+          <h2 className="font-display text-[1.65rem] sm:text-3xl md:text-4xl tracking-tight text-navy leading-[1.15] sm:leading-tight mb-3 sm:mb-4 max-w-xl text-balance">
+            Start with the audit. Ship the transformation.
           </h2>
+          <p className="text-base sm:text-lg text-stone-500 mb-8 sm:mb-12 max-w-2xl">
+            Primary path for businesses over ~$50M revenue: Computer Work Audit → 6-Week AI Transformation. Build stays available for bounded products. Modernize is an optional retainer after go-live.
+          </p>
         </FadeInUp>
 
         <StaggerContainer className="grid gap-4 sm:gap-6 lg:grid-cols-3">
@@ -145,7 +148,11 @@ export default function ServiceLines() {
 
         <FadeInUp>
           <p className="mt-8 sm:mt-10 text-center text-sm text-stone-500">
-            Discover Sprint credits $5K · Discover Deep credits $10K toward Build or Modernize within 90 days.
+            Week 0 Audit ($2,500) credits fully toward Transformation.{" "}
+            <Link href="/modernize" className="underline hover:text-navy transition-colors">
+              Modernize retainer
+            </Link>{" "}
+            (~$10–12k/mo) is optional after go-live.
           </p>
         </FadeInUp>
       </div>

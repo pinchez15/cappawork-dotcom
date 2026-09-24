@@ -12,14 +12,15 @@ import ClosingCTA from "./components/closing-cta"
 import HomepageWrapper from "./components/homepage-wrapper"
 
 export const metadata: Metadata = {
-  title: "CappaWork — AI Modernization for Founder-Led Businesses",
+  title: "CappaWork — 6-Week AI Transformation for $50M+ Businesses",
   description:
-    "Remove Computer Work so your team can do more Human Work. Modernization for founder-led businesses.",
-  keywords: "AI modernization, computer work audit, custom operational software, embedded engineering, founder-led",
+    "Remove Computer Work so your team can do more Human Work. 6-Week AI Transformation starts at $90,000 for businesses over ~$50M revenue.",
+  keywords:
+    "AI transformation, computer work audit, AI agents, operational software, $50M businesses, six-week engagement",
   openGraph: {
-    title: "CappaWork — AI Modernization for Founder-Led Businesses",
+    title: "CappaWork — 6-Week AI Transformation for $50M+ Businesses",
     description:
-      "Remove Computer Work so your team can do more Human Work. Modernization for founder-led businesses.",
+      "Remove Computer Work so your team can do more Human Work. 6-Week AI Transformation starts at $90,000 for businesses over ~$50M revenue.",
     type: "website",
     url: "https://cappawork.com",
     siteName: "CappaWork",
@@ -29,15 +30,15 @@ export const metadata: Metadata = {
         url: "/linkedin-preview.jpg",
         width: 1200,
         height: 630,
-        alt: "CappaWork — AI Modernization for Founder-Led Businesses",
+        alt: "CappaWork — 6-Week AI Transformation for $50M+ Businesses",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "CappaWork — AI Modernization for Founder-Led Businesses",
+    title: "CappaWork — 6-Week AI Transformation for $50M+ Businesses",
     description:
-      "Remove Computer Work so your team can do more Human Work. Modernization for founder-led businesses.",
+      "Remove Computer Work so your team can do more Human Work. 6-Week AI Transformation starts at $90,000 for businesses over ~$50M revenue.",
     images: ["/linkedin-preview.jpg"],
   },
 }

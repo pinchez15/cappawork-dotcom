@@ -55,7 +55,7 @@ export function OfferingPageContent({ offering }: { offering: Offering }) {
         <section className="py-16 bg-card-light">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <span className="text-xs font-bold tracking-widest uppercase text-gold block mb-8">
-              Two ways to engage
+              {offering.tiers.length === 2 ? "Two ways to engage" : "Ways to engage"}
             </span>
             <div className="space-y-6">
               {offering.tiers.map((tier) => (
@@ -178,6 +178,48 @@ export function OfferingPageContent({ offering }: { offering: Offering }) {
                 </a>
               ))}
             </div>
+          </div>
+        </section>
+      )}
+
+      {offering.billing && (
+        <section className="py-16 bg-warm-white">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <span className="text-xs font-bold tracking-widest uppercase text-gold block mb-4">
+              Billing
+            </span>
+            <p className="text-lg text-stone-600 leading-relaxed">{offering.billing}</p>
+          </div>
+        </section>
+      )}
+
+      {offering.guarantee && (
+        <section className="py-16 bg-card-light">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <span className="text-xs font-bold tracking-widest uppercase text-gold block mb-4">
+              12-month guarantee
+            </span>
+            <p className="text-lg text-stone-600 leading-relaxed">{offering.guarantee}</p>
+          </div>
+        </section>
+      )}
+
+      {offering.afterEngagement && (
+        <section className="py-16 bg-warm-white">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <span className="text-xs font-bold tracking-widest uppercase text-gold block mb-4">
+              After week 6
+            </span>
+            <p className="text-lg text-stone-600 leading-relaxed">{offering.afterEngagement}</p>
+            {offering.slug === "transformation" && (
+              <Link
+                href="/modernize"
+                className="inline-flex items-center gap-2 mt-6 text-sm font-semibold text-navy hover:text-gold transition-colors"
+              >
+                See the Modernize retainer
+                <ArrowRight size={16} />
+              </Link>
+            )}
           </div>
         </section>
       )}

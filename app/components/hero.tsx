@@ -61,7 +61,7 @@ export default function Hero() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="text-[11px] sm:text-sm font-semibold tracking-[0.15em] sm:tracking-widest uppercase text-gold mb-5 sm:mb-6 leading-snug"
         >
-          AI Modernization for Founder-Led Businesses
+          6-Week AI Transformation for businesses over ~$50M
         </motion.p>
 
         <motion.h1
@@ -79,7 +79,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
           className="text-base sm:text-lg text-white/70 max-w-xl mx-auto mb-8 sm:mb-12 leading-relaxed"
         >
-          We guide founder-led businesses through modernization. You bring the workflow. We map the path forward.
+          One department. 2–4 workflows. Production agents in six weeks — starts at $90,000. You bring the workflow. We remove the Computer Work.
         </motion.p>
 
         <motion.div
@@ -92,14 +92,14 @@ export default function Hero() {
             onClick={() => open()}
             className="bg-gold text-navy px-6 sm:px-8 py-3.5 rounded-full font-medium hover:bg-gold/90 transition-all duration-200 inline-flex items-center justify-center gap-2 text-base sm:text-lg"
           >
-            Book a Free Computer Work Audit
+            Book a Computer Work Audit
             <ArrowRight size={18} className="flex-shrink-0" />
           </button>
           <Link
-            href="/#how-it-works"
+            href="/transformation"
             className="text-white/80 hover:text-white transition-colors duration-200 inline-flex items-center justify-center gap-1.5 text-sm sm:text-base font-medium py-2"
           >
-            See the journey
+            See the 6-week path
             <ArrowRight size={16} />
           </Link>
         </motion.div>
