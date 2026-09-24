@@ -8,10 +8,10 @@ import { getOffering } from "@/lib/offerings/data";
 const offering = getOffering("build")!;
 
 export const metadata: Metadata = {
-  title: "Build — CappaWork",
+  title: "Build — Product Sprint — CappaWork",
   description: offering.subtitle,
   openGraph: {
-    title: "Build — CappaWork",
+    title: "Build — Product Sprint — CappaWork",
     description: offering.outcome,
   },
 };

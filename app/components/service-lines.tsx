@@ -4,14 +4,15 @@ import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { FadeInUp, StaggerContainer, StaggerItem } from "./motion-wrapper"
 import { useInquiry } from "./inquiry-modal"
+import { PRICING_AFTER_AUDIT } from "@/lib/offerings/data"
 
 const services = [
   {
     key: "Discover",
     href: "/discover",
     headline: "Baseline before you build.",
-    price: "From $2,500",
-    priceNote: "Week 0 Audit · credited to Transformation",
+    price: "$2,500",
+    priceNote: "Computer Work Audit · credited to Transformation",
     includes: [
       "Map Computer Work vs Human Work",
       "Baseline hours, cycle time, rework",
@@ -23,7 +24,7 @@ const services = [
     key: "Transformation",
     href: "/transformation",
     headline: "Production in one department — six weeks.",
-    price: "Starts at $90,000",
+    price: "Scoped after audit",
     priceNote: "2–4 workflows · you own the IP",
     includes: [
       "Week 0 audit credited to the engagement",
@@ -36,13 +37,13 @@ const services = [
   {
     key: "Build",
     href: "/build",
-    headline: "Software your team wants to use.",
-    price: "From $35,000",
-    priceNote: "8–16 weeks · you own the IP",
+    headline: "A product sprint — for your team or your customers.",
+    price: "Scoped after audit",
+    priceNote: "Discrete product · you own the IP",
     includes: [
-      "Designed around how you work",
-      "AI inside the workflow",
-      "Launch, training, full handoff",
+      "Internal tools or external products",
+      "External products are fuller scope",
+      "Workflow AI in one department → Transformation",
     ],
     inquiryKey: "Build",
   },
@@ -62,7 +63,8 @@ export default function ServiceLines() {
             Start with the audit. Ship the transformation.
           </h2>
           <p className="text-base sm:text-lg text-stone-500 mb-8 sm:mb-12 max-w-2xl">
-            Primary path for businesses over ~$50M revenue: Computer Work Audit → 6-Week AI Transformation. Build stays available for bounded products. Modernize is an optional retainer after go-live.
+            Primary path for businesses over ~$50M revenue: Computer Work Audit → 6-Week AI Transformation.
+            Build is a discrete product sprint. Modernize is an optional retainer after go-live.
           </p>
         </FadeInUp>
 
@@ -147,12 +149,15 @@ export default function ServiceLines() {
         </StaggerContainer>
 
         <FadeInUp>
-          <p className="mt-8 sm:mt-10 text-center text-sm text-stone-500">
+          <p className="mt-8 sm:mt-10 text-center text-sm text-stone-500 max-w-2xl mx-auto">
             Week 0 Audit ($2,500) credits fully toward Transformation.{" "}
             <Link href="/modernize" className="underline hover:text-navy transition-colors">
               Modernize retainer
             </Link>{" "}
-            (~$10–12k/mo) is optional after go-live.
+            is optional after go-live.
+          </p>
+          <p className="mt-4 text-center text-sm text-stone-500 max-w-2xl mx-auto">
+            {PRICING_AFTER_AUDIT}
           </p>
         </FadeInUp>
       </div>

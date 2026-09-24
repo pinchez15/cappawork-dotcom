@@ -112,7 +112,7 @@ export default function FulfillmentPolicyPage() {
             </span>
             <div className="py-4 border-t border-b border-card-border text-base leading-relaxed text-stone-700 space-y-4">
               <p>
-                Applies to: Full Build engagements ($50,000&ndash;$100,000+).
+                Applies to: Full Build and product-sprint engagements scoped after a Computer Work Audit or discovery.
               </p>
               <p>
                 Payment is non-refundable once the engagement begins. When you

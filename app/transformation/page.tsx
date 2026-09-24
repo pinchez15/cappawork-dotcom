@@ -10,7 +10,7 @@ const offering = getOffering("transformation")!;
 export const metadata: Metadata = {
   title: "6-Week AI Transformation — CappaWork",
   description:
-    "One department. 2–4 workflows. Production AI agents in six weeks. Starts at $90,000 for businesses over ~$50M revenue. You own the IP.",
+    "One department. 2–4 workflows. Production AI agents in six weeks for businesses over ~$50M revenue. Scoped after a Computer Work Audit. You own the IP.",
   openGraph: {
     title: "6-Week AI Transformation — CappaWork",
     description: offering.outcome,

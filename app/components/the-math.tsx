@@ -1,6 +1,7 @@
 "use client"
 
 import { FadeInUp } from "./motion-wrapper"
+import { PRICING_AFTER_AUDIT } from "@/lib/offerings/data"
 
 export default function TheMath() {
   return (
@@ -15,7 +16,7 @@ export default function TheMath() {
           </h2>
 
           <p className="text-xl text-navy font-display leading-relaxed mb-12">
-            Starts at $90,000. Six weeks. One department, 2–4 production workflows — for less than half the fully loaded cost of one senior hire, with client-owned IP at go-live.
+            Six weeks. One department, 2–4 production workflows — scoped after a Computer Work Audit, with client-owned IP at go-live.
           </p>
 
           <div className="bg-navy text-white rounded-2xl p-8 sm:p-10 mb-12">
@@ -25,9 +26,7 @@ export default function TheMath() {
             <p className="text-white/80 leading-relaxed mb-4">
               The engagement is designed for ROI within about six months on high-leverage Computer Work — directional, not a guaranteed-savings promise. We baseline hours, cycle time, and rework in Week 0 so go-live has a number to beat.
             </p>
-            <p className="text-white/60 leading-relaxed">
-              Larger departments often price near $150,000. Optional Modernize retainer (~$10–12k/month) covers ongoing fixes and one new workflow per month after week 6.
-            </p>
+            <p className="text-white/60 leading-relaxed">{PRICING_AFTER_AUDIT}</p>
           </div>
 
           <div className="overflow-x-auto -mx-4 px-4">
@@ -42,10 +41,10 @@ export default function TheMath() {
               </thead>
               <tbody className="text-stone-600">
                 <tr className="border-b border-stone-100">
-                  <td className="py-3 pr-4 font-medium text-navy">Cost</td>
-                  <td className="py-3 px-4">$100–200K per build</td>
-                  <td className="py-3 px-4">$500–5K/mo per tool</td>
-                  <td className="py-3 px-4 text-navy font-medium">From $90K · six weeks</td>
+                  <td className="py-3 pr-4 font-medium text-navy">Investment</td>
+                  <td className="py-3 px-4">Quoted on a build SOW</td>
+                  <td className="py-3 px-4">Seats and tokens monthly</td>
+                  <td className="py-3 px-4 text-navy font-medium">Scoped after audit · six weeks</td>
                 </tr>
                 <tr className="border-b border-stone-100">
                   <td className="py-3 pr-4 font-medium text-navy">Diagnosis</td>

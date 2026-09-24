@@ -10,7 +10,7 @@ const offering = getOffering("modernize")!;
 export const metadata: Metadata = {
   title: "Modernize Retainer — CappaWork",
   description:
-    "Optional post-Transformation retainer (~$10–12k/month): unlimited fixes on shipped work plus one new workflow per month.",
+    "Optional post-Transformation retainer: unlimited fixes on shipped work plus one new workflow per month. Scoped after go-live.",
   openGraph: {
     title: "Modernize Retainer — CappaWork",
     description: offering.outcome,

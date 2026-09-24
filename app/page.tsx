@@ -14,13 +14,13 @@ import HomepageWrapper from "./components/homepage-wrapper"
 export const metadata: Metadata = {
   title: "CappaWork — 6-Week AI Transformation for $50M+ Businesses",
   description:
-    "Remove Computer Work so your team can do more Human Work. 6-Week AI Transformation starts at $90,000 for businesses over ~$50M revenue.",
+    "Remove Computer Work so your team can do more Human Work. 6-Week AI Transformation for businesses over ~$50M revenue. Scoped after a Computer Work Audit.",
   keywords:
     "AI transformation, computer work audit, AI agents, operational software, $50M businesses, six-week engagement",
   openGraph: {
     title: "CappaWork — 6-Week AI Transformation for $50M+ Businesses",
     description:
-      "Remove Computer Work so your team can do more Human Work. 6-Week AI Transformation starts at $90,000 for businesses over ~$50M revenue.",
+      "Remove Computer Work so your team can do more Human Work. 6-Week AI Transformation for businesses over ~$50M revenue. Scoped after a Computer Work Audit.",
     type: "website",
     url: "https://cappawork.com",
     siteName: "CappaWork",
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "CappaWork — 6-Week AI Transformation for $50M+ Businesses",
     description:
-      "Remove Computer Work so your team can do more Human Work. 6-Week AI Transformation starts at $90,000 for businesses over ~$50M revenue.",
+      "Remove Computer Work so your team can do more Human Work. 6-Week AI Transformation for businesses over ~$50M revenue. Scoped after a Computer Work Audit.",
     images: ["/linkedin-preview.jpg"],
   },
 }

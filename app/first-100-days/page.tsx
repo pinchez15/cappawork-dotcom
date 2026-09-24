@@ -6,7 +6,7 @@ import PathwayAcquirers from "../components/pathway-acquirers"
 export const metadata: Metadata = {
   title: "The First 100 Days — CappaWork",
   description:
-    "Just acquired a company that runs on the founder's memory and duct-taped tools? Scope a 6-Week AI Transformation to the first 100 days — starts at $90,000.",
+    "Just acquired a company that runs on the founder's memory and duct-taped tools? Scope a 6-Week AI Transformation to the first 100 days — investment quoted after audit.",
 }
 
 export default function First100DaysPage() {
