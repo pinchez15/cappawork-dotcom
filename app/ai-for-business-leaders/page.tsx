@@ -3,6 +3,7 @@ import Link from "next/link"
 import { Check, ArrowRight } from "lucide-react"
 import Footer from "../components/footer"
 import CohortLeadForm from "../components/cohort-lead-form"
+import ProcessOrb, { GlyphKey, OrbStation } from "../components/process-orb"
 import {
   Accordion,
   AccordionContent,
@@ -165,6 +166,7 @@ const products = [
 export default function AiForBusinessLeadersPage() {
   return (
     <main className="min-h-screen bg-navy font-sans">
+      <ProcessOrb />
       {/* Nav */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-navy/95 backdrop-blur-sm border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex justify-between items-center">
@@ -191,6 +193,9 @@ export default function AiForBusinessLeadersPage() {
             Enrolling for June
           </div>
 
+          <div className="mb-6 flex justify-center">
+            <OrbStation kind="agent" label="AI for Business Leaders" />
+          </div>
           <h1 className="font-display text-5xl md:text-7xl tracking-tight leading-[1.1] mb-6 text-white">
             AI for Business Leaders
           </h1>
@@ -203,6 +208,7 @@ export default function AiForBusinessLeadersPage() {
           <p className="text-lg text-white/70 leading-relaxed mb-10 max-w-xl mx-auto">
             For directors, VPs, and CXOs who want hands-on help, not another lecture. You'll work one-on-one with Nate to dial in your workflow — and leave with a working AI agent you actually use.
           </p>
+          <GlyphKey tone="dark" className="mb-10 justify-center" />
 
           <Link
             href="#request"
@@ -430,6 +436,9 @@ export default function AiForBusinessLeadersPage() {
       {/* CTA / request form */}
       <section id="request" className="py-24 bg-navy scroll-mt-20">
         <div className="max-w-xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-4 flex justify-center">
+            <OrbStation kind="human" label="Request a seat" />
+          </div>
           <h2 className="font-display text-3xl sm:text-4xl tracking-tight text-white mb-3 text-center">
             Ready to build?
           </h2>

@@ -12,6 +12,16 @@ export default function Footer() {
             <p className="text-white/55 text-sm max-w-sm leading-relaxed">
               We change how operational work gets done. Agents go in where the work calls for them. The judgment stays with your team.
             </p>
+            <div className="mt-5 flex flex-wrap items-center gap-5 text-[11px] font-medium tracking-[0.14em] uppercase text-white/40">
+              <span className="inline-flex items-center gap-2">
+                <span className="h-3.5 w-3.5 rounded-full border border-gold bg-transparent" aria-hidden />
+                Agentic work
+              </span>
+              <span className="inline-flex items-center gap-2">
+                <span className="h-3.5 w-3.5 rounded-full border border-gold bg-gold" aria-hidden />
+                Human work
+              </span>
+            </div>
           </div>
 
           <div>

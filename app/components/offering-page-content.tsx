@@ -3,8 +3,9 @@
 import Link from "next/link";
 import { ArrowRight, ArrowLeft } from "lucide-react";
 import type { Offering } from "@/lib/offerings/data";
-import { PORTFOLIO_PROJECTS } from "@/lib/portfolio/data";
+import { FEATURED_TESTIMONIAL, PORTFOLIO_PROJECTS } from "@/lib/portfolio/data";
 import { useInquiry } from "@/app/components/inquiry-modal";
+import { GlyphKey, OrbStation } from "@/app/components/process-orb";
 
 export function OfferingPageContent({ offering }: { offering: Offering }) {
   const { open } = useInquiry();
@@ -21,15 +22,19 @@ export function OfferingPageContent({ offering }: { offering: Offering }) {
             How it works
           </Link>
 
-          <span className="text-sm font-semibold tracking-widest uppercase text-gold block mb-4">
-            {offering.title}
-          </span>
+          <div className="mb-4 flex items-center gap-3">
+            <OrbStation kind="agent" label={offering.title} />
+            <span className="text-sm font-semibold tracking-widest uppercase text-gold">
+              {offering.title}
+            </span>
+          </div>
           <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-tight text-white leading-tight mb-6">
             {offering.subtitle}
           </h1>
           {offering.subtitleNote && (
             <p className="text-lg text-white/70 leading-relaxed">{offering.subtitleNote}</p>
           )}
+          <GlyphKey tone="dark" className="mt-8" />
         </div>
       </section>
 
@@ -75,6 +80,9 @@ export function OfferingPageContent({ offering }: { offering: Offering }) {
             <div className="space-y-8">
               {offering.phases.map((phase) => (
                 <div key={phase.range} className="flex gap-6">
+                  <span className="mt-1 shrink-0">
+                    <OrbStation kind="agent" label={phase.title} />
+                  </span>
                   <span className="flex-shrink-0 inline-block bg-gold text-navy text-xs font-semibold px-3 py-1 rounded-full h-fit whitespace-nowrap">
                     {phase.range}
                   </span>
@@ -96,9 +104,14 @@ export function OfferingPageContent({ offering }: { offering: Offering }) {
           </span>
           <div className="divide-y divide-card-border border-t border-card-border">
             {offering.howItWorks.map((item) => (
-              <div key={item.label} className="py-5 text-base leading-relaxed text-stone-600">
-                <strong className="font-semibold text-navy">{item.label}</strong>{" "}
-                {item.text}
+              <div key={item.label} className="flex items-start gap-3 py-5 text-base leading-relaxed text-stone-600">
+                <span className="mt-1.5">
+                  <OrbStation kind="agent" label={item.label} />
+                </span>
+                <div>
+                  <strong className="font-semibold text-navy">{item.label}</strong>{" "}
+                  {item.text}
+                </div>
               </div>
             ))}
           </div>
@@ -242,19 +255,17 @@ export function OfferingPageContent({ offering }: { offering: Offering }) {
               What clients say
             </span>
             <blockquote className="text-lg text-navy leading-relaxed mb-6">
-              &ldquo;During our initial discovery session, Nate identified some gaps in our vision
-              and helped bring our solution to a viable state, including an added built-in
-              CRM!&rdquo;
+              &ldquo;{FEATURED_TESTIMONIAL.quote}&rdquo;
             </blockquote>
             <p className="text-sm text-stone-500">
-              Stephen Fogg, Founder, Fogg Media ·{" "}
+              {FEATURED_TESTIMONIAL.name}, {FEATURED_TESTIMONIAL.title}, {FEATURED_TESTIMONIAL.company} ·{" "}
               <a
-                href="https://healthcareaio.com"
+                href={FEATURED_TESTIMONIAL.projectUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gold hover:text-gold/80"
               >
-                HealthcareAIO
+                {FEATURED_TESTIMONIAL.projectName}
               </a>
             </p>
           </div>
@@ -264,6 +275,10 @@ export function OfferingPageContent({ offering }: { offering: Offering }) {
       <section className="py-16 bg-warm-white">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="rounded-2xl border border-gold/30 bg-card-light p-8">
+            <div className="mb-4 flex items-center gap-3">
+              <OrbStation kind="agent" label="Computer work" />
+              <OrbStation kind="human" label="Human work" />
+            </div>
             <p className="font-display text-xl sm:text-2xl text-navy leading-snug">
               Let computers do the computer work, so your team can do the human work.
             </p>
@@ -276,6 +291,9 @@ export function OfferingPageContent({ offering }: { offering: Offering }) {
 
       <section className="py-16 bg-card-light">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-4">
+            <OrbStation kind="human" label="Discovery call" />
+          </div>
           <button
             onClick={() => open(offering.inquiryKey)}
             className="bg-gold text-navy px-8 py-3.5 rounded-full font-medium hover:bg-gold/90 transition-all duration-200 inline-flex items-center gap-2 text-lg"

@@ -21,7 +21,7 @@ export default function EnrollmentCard({ className = "" }: { className?: string 
               element.scrollIntoView({ behavior: "smooth" })
             }
           }}
-          className="w-full bg-blue-600 text-white py-4 rounded-full font-medium hover:bg-blue-700 transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-blue-500/20 mb-4"
+          className="w-full bg-gold text-navy py-4 rounded-full font-medium hover:bg-gold/90 transition-all duration-200 flex items-center justify-center gap-2 mb-4"
         >
           Apply Now
           <ArrowRight size={18} />
@@ -34,19 +34,19 @@ export default function EnrollmentCard({ className = "" }: { className?: string 
 
       <div className="space-y-3 pt-6 border-t border-stone-100">
         <div className="flex items-start gap-3 text-sm text-stone-600">
-          <Check size={16} className="text-blue-600 mt-0.5 flex-shrink-0" />
+          <Check size={16} className="text-gold mt-0.5 flex-shrink-0" />
           <span>4 Weekly Live Calls</span>
         </div>
         <div className="flex items-start gap-3 text-sm text-stone-600">
-          <Check size={16} className="text-blue-600 mt-0.5 flex-shrink-0" />
+          <Check size={16} className="text-gold mt-0.5 flex-shrink-0" />
           <span>LinkedIn Alumni Group Access</span>
         </div>
         <div className="flex items-start gap-3 text-sm text-stone-600">
-          <Check size={16} className="text-blue-600 mt-0.5 flex-shrink-0" />
+          <Check size={16} className="text-gold mt-0.5 flex-shrink-0" />
           <span>Direct access to instructors</span>
         </div>
         <div className="flex items-start gap-3 text-sm text-stone-600">
-           <Check size={16} className="text-blue-600 mt-0.5 flex-shrink-0" />
+           <Check size={16} className="text-gold mt-0.5 flex-shrink-0" />
            <span>If you need to cancel, join any future cohort for free.</span>
         </div>
       </div>

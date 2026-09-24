@@ -189,6 +189,28 @@ export function OrbStation({
   )
 }
 
+export function GlyphKey({
+  className = "",
+  tone = "light",
+}: {
+  className?: string
+  tone?: "light" | "dark"
+}) {
+  const label = tone === "dark" ? "text-white/55" : "text-stone-500"
+  return (
+    <div className={cn("flex flex-wrap items-center gap-5 text-[11px] font-medium tracking-[0.14em] uppercase", label, className)}>
+      <span className="inline-flex items-center gap-2">
+        <span className="h-3.5 w-3.5 rounded-full border border-gold bg-transparent" aria-hidden />
+        Agentic work
+      </span>
+      <span className="inline-flex items-center gap-2">
+        <span className="h-3.5 w-3.5 rounded-full border border-gold bg-gold" aria-hidden />
+        Human work
+      </span>
+    </div>
+  )
+}
+
 export function GlyphPath({
   d,
   viewBox = "0 0 120 24",

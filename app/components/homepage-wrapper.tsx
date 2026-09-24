@@ -1,13 +1,7 @@
 "use client"
 
-import { InquiryProvider } from "./inquiry-modal"
-import ProcessOrb from "./process-orb"
+import MarketingShell from "./marketing-shell"
 
 export default function HomepageWrapper({ children }: { children: React.ReactNode }) {
-  return (
-    <InquiryProvider>
-      <ProcessOrb />
-      {children}
-    </InquiryProvider>
-  )
+  return <MarketingShell>{children}</MarketingShell>
 }

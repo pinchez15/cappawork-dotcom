@@ -3,6 +3,7 @@
 import { ArrowRight } from "lucide-react"
 import { FadeInUp, StaggerContainer, StaggerItem } from "./motion-wrapper"
 import { useInquiry } from "./inquiry-modal"
+import { GlyphKey, OrbStation } from "./process-orb"
 
 const steps = [
   {
@@ -29,9 +30,13 @@ export default function PathwayAcquirers() {
     <section id="acquirers" className="py-24 bg-warm-white">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <FadeInUp>
-          <span className="text-sm font-semibold tracking-widest uppercase text-gold block mb-8">
-            Pathway: Acquirers
-          </span>
+          <div className="mb-8 flex flex-wrap items-center gap-3">
+            <OrbStation kind="agent" label="First 100 days" />
+            <span className="text-sm font-semibold tracking-widest uppercase text-gold">
+              Pathway: Acquirers
+            </span>
+          </div>
+          <GlyphKey className="mb-8" />
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl tracking-tight text-navy leading-tight mb-6">
             Just bought a business? The first 100 days decide the next five years.
           </h2>
@@ -54,6 +59,9 @@ export default function PathwayAcquirers() {
             <StaggerItem key={step.range}>
               <div className="flex gap-6">
                 <div className="flex-shrink-0 pt-1">
+                  <OrbStation kind="agent" label={step.title} />
+                </div>
+                <div className="flex-shrink-0 pt-1">
                   <span className="inline-block bg-gold text-navy text-xs font-semibold px-3 py-1 rounded-full whitespace-nowrap">
                     {step.range}
                   </span>
@@ -71,6 +79,9 @@ export default function PathwayAcquirers() {
           <p className="text-stone-600 leading-relaxed text-lg mb-10">
             By day 100, the core system is live. By day 180, it&rsquo;s yours.
           </p>
+          <div className="mb-4">
+            <OrbStation kind="human" label="Discovery call" />
+          </div>
           <button
             onClick={() => open()}
             className="bg-gold text-navy px-8 py-3.5 rounded-full font-medium hover:bg-gold/90 transition-all duration-200 inline-flex items-center gap-2 text-lg"

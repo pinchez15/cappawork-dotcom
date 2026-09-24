@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CheckCircle2, ChevronRight } from "lucide-react";
+import { OrbStation } from "@/app/components/process-orb";
 
 export const metadata: Metadata = {
   title: "Thank You — CappaWork",
@@ -29,6 +30,9 @@ export default function ThankYouPage() {
         </p>
 
         <div className="mt-10 rounded-2xl border border-stone-200 bg-white p-6 text-left">
+          <div className="mb-3">
+            <OrbStation kind="human" label="Discovery call" />
+          </div>
           <h2 className="font-medium text-stone-900">
             Want to talk through it?
           </h2>
@@ -39,7 +43,7 @@ export default function ThankYouPage() {
             href={calendlyLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-4 inline-flex items-center gap-2 rounded-full bg-blue-600 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-700"
+            className="mt-4 inline-flex items-center gap-2 rounded-full bg-gold px-6 py-3 text-sm font-medium text-navy transition-colors hover:bg-gold/90"
           >
             Book a Computer Work Audit
             <ChevronRight className="h-4 w-4" />

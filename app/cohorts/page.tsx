@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { ArrowRight, Check } from "lucide-react"
 import Footer from "../components/footer"
+import ProcessOrb, { GlyphKey, OrbStation } from "../components/process-orb"
 
 export const metadata: Metadata = {
   title: "AI Cohorts for Business Leaders | CappaWork",
@@ -56,6 +57,7 @@ const cohorts = [
 export default function CohortsIndexPage() {
   return (
     <main className="min-h-screen bg-navy font-sans">
+      <ProcessOrb />
       {/* Minimal nav */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-navy/95 backdrop-blur-sm border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex justify-between items-center">
@@ -74,6 +76,9 @@ export default function CohortsIndexPage() {
       {/* Hero */}
       <section className="bg-navy pt-36 pb-16 md:pt-44">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="mb-6 flex justify-center">
+            <OrbStation kind="agent" label="Live cohorts" />
+          </div>
           <span className="text-sm font-semibold tracking-widest uppercase text-gold block mb-6">
             Live cohorts
           </span>
@@ -84,6 +89,7 @@ export default function CohortsIndexPage() {
             Two live cohorts. One goal: make you genuinely effective with AI — whether you're deciding what to build
             or shipping it yourself.
           </p>
+          <GlyphKey tone="dark" className="mt-8 justify-center" />
         </div>
       </section>
 
@@ -134,6 +140,9 @@ export default function CohortsIndexPage() {
       {/* Which one? */}
       <section className="py-20 bg-navy">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-4 flex justify-center">
+            <OrbStation kind="human" label="Choose a path" />
+          </div>
           <h2 className="font-display text-2xl sm:text-3xl tracking-tight text-white mb-8 text-center">
             Which one is right for me?
           </h2>

@@ -11,11 +11,11 @@ export const dynamic = "force-dynamic";
 
 export default function TermsPage() {
   return (
-    <main className="min-h-screen bg-stone-50">
+    <main className="min-h-screen bg-warm-white">
       <Navigation />
       <div className="pt-24 pb-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight text-stone-900 mb-8">
+          <h1 className="font-display text-4xl sm:text-5xl font-semibold tracking-tight text-navy mb-8">
             Terms of Service
           </h1>
 
@@ -86,7 +86,7 @@ export default function TermsPage() {
               <h2 className="text-2xl font-semibold text-stone-900 mt-8 mb-4">Contact Information</h2>
               <p className="text-stone-700 leading-relaxed mb-4">
                 If you have questions about these Terms of Service, please contact us at{" "}
-                <a href="/contact" className="text-blue-600 hover:underline">our contact page</a>.
+                <a href="/contact" className="text-gold hover:underline">our contact page</a>.
               </p>
             </section>
           </div>

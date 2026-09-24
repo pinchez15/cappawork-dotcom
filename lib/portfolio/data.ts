@@ -58,7 +58,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
 
 export const FEATURED_TESTIMONIAL: PortfolioTestimonial = {
   quote:
-    "Nate identified gaps in our vision and helped bring HealthcareAIO to a viable state. We highly recommend CappaWork.",
+    "CappaWork identified gaps in our vision and helped bring HealthcareAIO to a viable state. We highly recommend them.",
   name: "Stephen Fogg",
   title: "Founder",
   company: "Fogg Media",

@@ -3,6 +3,7 @@ import Link from "next/link"
 import { Check, ArrowRight } from "lucide-react"
 import Footer from "../components/footer"
 import CohortLeadForm from "../components/cohort-lead-form"
+import ProcessOrb, { GlyphKey, OrbStation } from "../components/process-orb"
 import {
   Accordion,
   AccordionContent,
@@ -154,6 +155,7 @@ const products = [
 export default function AiLiteracyBootcampPage() {
   return (
     <main className="min-h-screen bg-navy font-sans">
+      <ProcessOrb />
       {/* Nav */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-navy/95 backdrop-blur-sm border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex justify-between items-center">
@@ -180,6 +182,9 @@ export default function AiLiteracyBootcampPage() {
             Enrolling for June
           </div>
 
+          <div className="mb-6 flex justify-center">
+            <OrbStation kind="agent" label="AI Literacy Bootcamp" />
+          </div>
           <h1 className="font-display text-5xl md:text-7xl tracking-tight leading-[1.1] mb-6 text-navy">
             AI Literacy Bootcamp
           </h1>
@@ -193,6 +198,7 @@ export default function AiLiteracyBootcampPage() {
             For directors, VPs, and CXOs who need to be conversant in AI — because it now sits inside every
             strategic decision they make.
           </p>
+          <GlyphKey className="mb-10 justify-center" />
 
           <Link
             href="#request"
@@ -428,6 +434,9 @@ export default function AiLiteracyBootcampPage() {
       {/* CTA / request form */}
       <section id="request" className="py-24 bg-navy scroll-mt-20">
         <div className="max-w-xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-4 flex justify-center">
+            <OrbStation kind="human" label="Request a seat" />
+          </div>
           <h2 className="font-display text-3xl sm:text-4xl tracking-tight text-white mb-3 text-center">
             Get strategically fluent.
           </h2>

@@ -1,6 +1,7 @@
 "use client";
 
 import type { Service } from "../data";
+import { GlyphKey, OrbStation } from "@/app/components/process-orb";
 
 export function ServiceContent({
   service,
@@ -16,15 +17,19 @@ export function ServiceContent({
   return (
     <div className="max-w-[680px] mx-auto px-6 py-20">
       {/* Header */}
-      <span className="text-xs font-semibold tracking-widest uppercase text-gold block mb-4">
-        CappaWork
-      </span>
+      <div className="mb-4 flex items-center gap-3">
+        <OrbStation kind="agent" label={service.title} />
+        <span className="text-xs font-semibold tracking-widest uppercase text-gold">
+          CappaWork
+        </span>
+      </div>
       <h1 className="font-display text-4xl sm:text-5xl font-normal leading-tight tracking-tight mb-6">
         {service.title}
       </h1>
-      <p className="text-lg text-stone-500 mb-12 max-w-[540px]">
+      <p className="text-lg text-stone-500 mb-8 max-w-[540px]">
         {service.subtitle}
       </p>
+      <GlyphKey className="mb-12" />
 
       {/* How it works */}
       <div className="mb-12">
@@ -35,10 +40,15 @@ export function ServiceContent({
           {service.howItWorks.map((item, i) => (
             <div
               key={i}
-              className="py-4 border-b border-card-border first:border-t text-base leading-relaxed"
+              className="flex items-start gap-3 py-4 border-b border-card-border first:border-t text-base leading-relaxed"
             >
-              <strong className="font-semibold">{item.label}</strong>{" "}
-              {item.text}
+              <span className="mt-1.5">
+                <OrbStation kind="agent" label={item.label} />
+              </span>
+              <div>
+                <strong className="font-semibold">{item.label}</strong>{" "}
+                {item.text}
+              </div>
             </div>
           ))}
         </div>
@@ -167,9 +177,12 @@ export function ServiceContent({
 
       {/* CTA */}
       <div className="mt-12">
+        <div className="mb-4">
+          <OrbStation kind="human" label={service.ctaText} />
+        </div>
         <button
           onClick={handleCTA}
-          className="inline-block bg-navy text-warm-white text-sm font-semibold px-10 py-4 tracking-wide hover:bg-[#1a2035] transition-colors"
+          className="inline-block bg-gold text-navy text-sm font-semibold px-10 py-4 tracking-wide rounded-full hover:bg-gold/90 transition-colors"
         >
           {service.ctaText}
         </button>

@@ -1,7 +1,7 @@
 "use client";
 
-import { InquiryProvider } from "@/app/components/inquiry-modal";
+import MarketingShell from "@/app/components/marketing-shell";
 
 export function OfferingPageWrapper({ children }: { children: React.ReactNode }) {
-  return <InquiryProvider>{children}</InquiryProvider>;
+  return <MarketingShell>{children}</MarketingShell>;
 }

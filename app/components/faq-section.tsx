@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { Minus, Plus } from "lucide-react"
+import { OrbStation } from "./process-orb"
 
 const faqs = [
   {
@@ -44,6 +45,9 @@ export default function FaqSection() {
   return (
     <section id="faq" className="py-20 sm:py-28 bg-warm-white">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mb-4 flex justify-center">
+          <OrbStation kind="agent" label="Questions" />
+        </div>
         <h2 className="font-display text-4xl sm:text-5xl tracking-tight text-navy leading-[1.05] text-center">
           Frequently asked questions.
         </h2>
@@ -78,6 +82,9 @@ export default function FaqSection() {
         </div>
 
         <div className="mt-10 text-center">
+          <div className="mb-4 flex justify-center">
+            <OrbStation kind="human" label="Discovery call" />
+          </div>
           <a
             href="#discovery"
             className="inline-flex items-center bg-gold text-navy px-6 py-3 text-sm font-medium rounded-full hover:bg-gold/90 transition-colors"

@@ -2,6 +2,8 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import Navigation from "../components/navigation"
 import Footer from "../components/footer"
+import MarketingShell from "../components/marketing-shell"
+import { GlyphKey, OrbStation } from "../components/process-orb"
 
 export const metadata: Metadata = {
   title: "Transformation — CappaWork",
@@ -11,13 +13,18 @@ export const metadata: Metadata = {
 
 export default function TransformationPage() {
   return (
+    <MarketingShell>
     <main className="min-h-screen bg-warm-white">
       <Navigation />
       <article className="pt-28 pb-20">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-xs font-semibold tracking-[0.18em] uppercase text-gold mb-4">
-            Transformation
-          </p>
+          <GlyphKey className="mb-8" />
+          <div className="mb-4 flex items-center gap-3">
+            <OrbStation kind="agent" label="Transformation" />
+            <p className="text-xs font-semibold tracking-[0.18em] uppercase text-gold">
+              Transformation
+            </p>
+          </div>
           <h1 className="font-display text-4xl sm:text-5xl tracking-tight text-navy leading-[1.05]">
             Change how the work runs. Use an agent when the work calls for one.
           </h1>
@@ -32,7 +39,8 @@ export default function TransformationPage() {
               Some of that software is an agent. Some of it is the operating system the team should have had. Both stay on call after they are live. Neither is a staffed seat.
             </p>
           </div>
-          <div className="mt-10 flex flex-wrap gap-3">
+          <div className="mt-10 flex flex-wrap items-center gap-3">
+            <OrbStation kind="human" label="Discovery call" />
             <Link
               href="/#discovery"
               className="inline-flex items-center bg-gold text-navy px-6 py-3 text-sm font-medium rounded-full hover:bg-gold/90 transition-colors"
@@ -50,5 +58,6 @@ export default function TransformationPage() {
       </article>
       <Footer />
     </main>
+    </MarketingShell>
   )
 }

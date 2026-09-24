@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { FacebookPixel } from "./components/fb-pixel";
+import ProcessOrb from "@/app/components/process-orb";
 
 export default function ScorecardLayout({
   children,
@@ -7,7 +8,8 @@ export default function ScorecardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-stone-50">
+    <div className="min-h-screen bg-warm-white">
+      <ProcessOrb />
       <nav className="border-b border-stone-200 bg-white/80 backdrop-blur-sm">
         <div className="mx-auto max-w-3xl px-6 flex h-14 items-center">
           <Link

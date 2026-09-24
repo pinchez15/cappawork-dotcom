@@ -6,10 +6,11 @@ import { ArrowRight, ArrowLeft, CheckCircle2, AlertTriangle, TrendingDown, Chevr
 import { QUESTIONS, DIMENSION_LABELS, type Dimension } from "./questions";
 import { computeScores, type ScorecardResult } from "./scoring";
 import { trackLead, trackCompleteRegistration } from "./fb-pixel";
+import { GlyphKey, OrbStation } from "@/app/components/process-orb";
 
 const GRADE_COLORS: Record<string, string> = {
   A: "text-green-600 bg-green-50 border-green-200",
-  B: "text-blue-600 bg-blue-50 border-blue-200",
+  B: "text-navy bg-gold/10 border-gold/30",
   C: "text-yellow-600 bg-yellow-50 border-yellow-200",
   D: "text-orange-600 bg-orange-50 border-orange-200",
   F: "text-red-600 bg-red-50 border-red-200",
@@ -17,7 +18,7 @@ const GRADE_COLORS: Record<string, string> = {
 
 const GRADE_BAR_COLORS: Record<string, string> = {
   A: "bg-green-500",
-  B: "bg-blue-500",
+  B: "bg-gold",
   C: "bg-yellow-500",
   D: "bg-orange-500",
   F: "bg-red-500",
@@ -138,6 +139,10 @@ export function ScorecardFunnel() {
     return (
       <div className="light min-h-[calc(100vh-3.5rem)] flex items-center justify-center px-4 py-16">
         <div className="mx-auto max-w-2xl text-center">
+          <div className="mb-6 flex justify-center">
+            <OrbStation kind="agent" label="Scorecard" />
+          </div>
+          <GlyphKey className="mb-6 justify-center" />
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-stone-200 bg-white px-4 py-1.5 text-sm text-stone-600">
             <span className="inline-block h-2 w-2 rounded-full bg-green-500" />
             Free &middot; Takes 2 minutes
@@ -155,7 +160,7 @@ export function ScorecardFunnel() {
 
           <button
             onClick={() => setStep("capture")}
-            className="mt-10 inline-flex items-center gap-2 rounded-full bg-blue-600 px-8 py-4 text-lg font-medium text-white shadow-lg shadow-blue-600/20 transition-all hover:bg-blue-700 hover:shadow-xl hover:shadow-blue-600/30"
+            className="mt-10 inline-flex items-center gap-2 rounded-full bg-gold px-8 py-4 text-lg font-medium text-navy transition-all hover:bg-gold/90"
           >
             Take the Free Scorecard
             <ArrowRight className="h-5 w-5" />
@@ -207,7 +212,7 @@ export function ScorecardFunnel() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Jane Smith"
-                  className="w-full rounded-lg border border-stone-300 bg-white px-4 py-3 text-stone-900 placeholder:text-stone-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                  className="w-full rounded-lg border border-stone-300 bg-white px-4 py-3 text-stone-900 placeholder:text-stone-400 focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/20"
                 />
               </div>
 
@@ -225,7 +230,7 @@ export function ScorecardFunnel() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="jane@company.com"
-                  className="w-full rounded-lg border border-stone-300 bg-white px-4 py-3 text-stone-900 placeholder:text-stone-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                  className="w-full rounded-lg border border-stone-300 bg-white px-4 py-3 text-stone-900 placeholder:text-stone-400 focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/20"
                 />
               </div>
 
@@ -236,7 +241,7 @@ export function ScorecardFunnel() {
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full rounded-full bg-blue-600 px-6 py-3 font-medium text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
+                className="w-full rounded-full bg-gold px-6 py-3 font-medium text-navy transition-colors hover:bg-gold/90 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {submitting ? "Starting..." : "Start the Scorecard"}
               </button>
@@ -280,7 +285,7 @@ export function ScorecardFunnel() {
           </div>
           <div className="mb-8 h-2 overflow-hidden rounded-full bg-stone-200">
             <div
-              className="h-full rounded-full bg-blue-600 transition-all duration-500"
+              className="h-full rounded-full bg-gold transition-all duration-500"
               style={{ width: `${progress}%` }}
             />
           </div>
@@ -298,7 +303,7 @@ export function ScorecardFunnel() {
                 onClick={() => handleSelectOption(idx)}
                 className={`w-full rounded-xl border px-5 py-4 text-left text-sm transition-all sm:text-base ${
                   selectedOption === idx
-                    ? "border-blue-500 bg-blue-50 text-blue-900 ring-2 ring-blue-500/20"
+                    ? "border-gold bg-gold/10 text-navy ring-2 ring-gold/20"
                     : "border-stone-200 bg-white text-stone-700 hover:border-stone-300 hover:bg-stone-50"
                 }`}
               >
@@ -333,7 +338,7 @@ export function ScorecardFunnel() {
               <button
                 onClick={handleQuizComplete}
                 disabled={!allAnswered}
-                className="flex items-center gap-1 rounded-full bg-blue-600 px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-30"
+                className="flex items-center gap-1 rounded-full bg-gold px-6 py-2.5 text-sm font-medium text-navy transition-colors hover:bg-gold/90 disabled:cursor-not-allowed disabled:opacity-30"
               >
                 See My Results
                 <CheckCircle2 className="h-4 w-4" />
@@ -428,9 +433,12 @@ export function ScorecardFunnel() {
 
           {/* CTAs */}
           <div className="mt-10 space-y-4">
-            <div className="rounded-2xl border-2 border-blue-500 bg-white p-6 shadow-lg">
+            <div className="rounded-2xl border-2 border-gold bg-white p-6 shadow-lg">
+              <div className="mb-3">
+                <OrbStation kind="human" label="Discovery call" />
+              </div>
               <div className="flex items-start gap-3">
-                <TrendingDown className="mt-1 h-6 w-6 flex-shrink-0 text-blue-600" />
+                <TrendingDown className="mt-1 h-6 w-6 flex-shrink-0 text-gold" />
                 <div className="flex-1">
                   <h3 className="text-lg font-medium text-stone-900">
                     Talk through your results with Nate
@@ -459,7 +467,7 @@ export function ScorecardFunnel() {
                     }
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-4 inline-flex items-center gap-2 rounded-full bg-blue-600 px-6 py-3 font-medium text-white shadow-md shadow-blue-600/20 transition-all hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-600/30"
+                    className="mt-4 inline-flex items-center gap-2 rounded-full bg-gold px-6 py-3 font-medium text-navy transition-all hover:bg-gold/90"
                   >
                     Book a Discovery Call
                     <ChevronRight className="h-4 w-4" />

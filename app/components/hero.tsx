@@ -3,7 +3,7 @@
 import { ArrowRight } from "lucide-react"
 import HeroField from "./hero-field"
 import { ComputerWorkTerm, HumanWorkTerm } from "./work-term"
-import { OrbStation } from "./process-orb"
+import { GlyphKey, OrbStation } from "./process-orb"
 
 export default function Hero() {
   return (
@@ -19,6 +19,7 @@ export default function Hero() {
             <p className="mt-5 text-lg sm:text-xl text-stone-600">
               AI transformations for complex organizations.
             </p>
+            <GlyphKey className="mt-6" />
           </div>
           <p className="lg:col-span-5 lg:pt-4 text-base sm:text-lg text-stone-600 leading-relaxed max-w-md lg:ml-auto">
             Let computers do the{" "}

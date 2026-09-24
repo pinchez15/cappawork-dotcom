@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Navigation from "../components/navigation";
 import Footer from "../components/footer";
 import Link from "next/link";
+import MarketingShell from "../components/marketing-shell";
+import { GlyphKey, OrbStation } from "../components/process-orb";
 import { getAllBlogPosts } from "@/server/repos/blog";
 
 export const dynamic = "force-dynamic";
@@ -84,18 +86,23 @@ export default async function BlogPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }}
       />
+      <MarketingShell>
       <main className="min-h-screen bg-warm-white">
         <Navigation />
         <div className="pt-24 pb-16">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* Header */}
             <div className="text-center mb-16">
+              <div className="mb-4 flex justify-center">
+                <OrbStation kind="agent" label="Insights" />
+              </div>
               <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight text-navy mb-4 font-display">
                 Insights
               </h1>
               <p className="text-lg text-stone-600 max-w-2xl mx-auto">
                 How operational work changes, and where an agent belongs in that change.
               </p>
+              <GlyphKey className="mt-6 justify-center" />
             </div>
 
             {/* Posts Grid or Empty State */}
@@ -108,7 +115,7 @@ export default async function BlogPage() {
                   </p>
                   <Link
                     href="/"
-                    className="inline-flex items-center gap-2 bg-stone-900 text-white px-6 py-3 rounded-full font-medium hover:bg-stone-800 transition-all duration-200"
+                    className="inline-flex items-center gap-2 bg-gold text-navy px-6 py-3 rounded-full font-medium hover:bg-gold/90 transition-all duration-200"
                   >
                     Back to Home
                   </Link>
@@ -149,10 +156,23 @@ export default async function BlogPage() {
                 ))}
               </div>
             )}
+
+            <div className="mt-16 text-center">
+              <div className="mb-4 flex justify-center">
+                <OrbStation kind="human" label="Discovery call" />
+              </div>
+              <Link
+                href="/#discovery"
+                className="inline-flex items-center bg-gold text-navy px-6 py-3 text-sm font-medium rounded-full hover:bg-gold/90 transition-colors"
+              >
+                Book a Discovery Call
+              </Link>
+            </div>
           </div>
         </div>
         <Footer />
       </main>
+      </MarketingShell>
     </>
   );
 }

@@ -218,15 +218,15 @@ export default function CohortPage() {
                   <p className="text-stone-500 mb-6">Days 1-7</p>
                   <ul className="space-y-4">
                      <li className="flex items-start gap-3 text-stone-700">
-                        <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></div>
+                        <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-gold shrink-0"></div>
                         <span>Setup Cursor, V0, and Next.js 16 environment</span>
                      </li>
                      <li className="flex items-start gap-3 text-stone-700">
-                        <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></div>
+                        <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-gold shrink-0"></div>
                         <span>Design the Database Schema in Supabase</span>
                      </li>
                      <li className="flex items-start gap-3 text-stone-700">
-                        <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></div>
+                        <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-gold shrink-0"></div>
                         <span>Implement Authentication with Clerk</span>
                      </li>
                   </ul>
@@ -241,15 +241,15 @@ export default function CohortPage() {
                   <p className="text-stone-500 mb-6">Days 8-14</p>
                   <ul className="space-y-4">
                      <li className="flex items-start gap-3 text-stone-700">
-                        <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></div>
+                        <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-gold shrink-0"></div>
                         <span>Building UI with Tailwind + shadcn/ui</span>
                      </li>
                      <li className="flex items-start gap-3 text-stone-700">
-                        <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></div>
+                        <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-gold shrink-0"></div>
                         <span>Connecting Client Components to Server Actions</span>
                      </li>
                      <li className="flex items-start gap-3 text-stone-700">
-                        <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></div>
+                        <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-gold shrink-0"></div>
                         <span>Implementing core feature logic (CRUD)</span>
                      </li>
                   </ul>
@@ -264,15 +264,15 @@ export default function CohortPage() {
                   <p className="text-stone-500 mb-6">Days 15-21</p>
                   <ul className="space-y-4">
                      <li className="flex items-start gap-3 text-stone-700">
-                        <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></div>
+                        <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-gold shrink-0"></div>
                         <span>Stripe Payment Integration</span>
                      </li>
                      <li className="flex items-start gap-3 text-stone-700">
-                        <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></div>
+                        <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-gold shrink-0"></div>
                         <span>Production Deployment to Vercel</span>
                      </li>
                      <li className="flex items-start gap-3 text-stone-700">
-                        <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></div>
+                        <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-gold shrink-0"></div>
                         <span>Launch Day checklist</span>
                      </li>
                   </ul>
@@ -287,19 +287,19 @@ export default function CohortPage() {
                   <p className="text-stone-500 mb-6">Days 22-30</p>
                   <ul className="space-y-4">
                      <li className="flex items-start gap-3 text-stone-700">
-                        <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></div>
+                        <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-gold shrink-0"></div>
                         <span>Code review and refinement</span>
                      </li>
                      <li className="flex items-start gap-3 text-stone-700">
-                        <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></div>
+                        <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-gold shrink-0"></div>
                         <span>Performance optimization</span>
                      </li>
                      <li className="flex items-start gap-3 text-stone-700">
-                        <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></div>
+                        <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-gold shrink-0"></div>
                         <span>Final deployment and go-live</span>
                      </li>
                      <li className="flex items-start gap-3 text-stone-700">
-                        <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></div>
+                        <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-gold shrink-0"></div>
                         <span>Post-launch checklist</span>
                      </li>
                   </ul>
@@ -384,7 +384,7 @@ export default function CohortPage() {
                   rel="noopener noreferrer"
                   className="group block"
                >
-                  <div className="bg-white rounded-2xl shadow-xl border border-stone-200 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:border-blue-300">
+                  <div className="bg-white rounded-2xl shadow-xl border border-stone-200 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:border-gold">
                      <div className="aspect-[16/10] relative bg-stone-100">
                         <Image
                            src="/ours_homepage.png"
@@ -415,7 +415,7 @@ export default function CohortPage() {
                                     />
                                  </div>
                               </div>
-                              <div className="bg-blue-600 text-white p-2 rounded-full group-hover:bg-blue-700 transition-colors">
+                              <div className="bg-gold text-navy p-2 rounded-full group-hover:bg-gold/90 transition-colors">
                                  <ArrowRight size={20} />
                               </div>
                            </div>
@@ -485,7 +485,7 @@ export default function CohortPage() {
                           href={stripePaymentLink}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex w-full items-center justify-center bg-blue-600 text-white px-8 py-4 rounded-full font-medium hover:bg-blue-700 transition-all duration-200 shadow-lg shadow-blue-500/20 hover:scale-[1.02] transform"
+                          className="inline-flex w-full items-center justify-center bg-gold text-navy px-8 py-4 rounded-full font-medium hover:bg-gold/90 transition-all duration-200 hover:scale-[1.02] transform"
                         >
                           Checkout with Stripe
                           <ArrowRight size={18} className="ml-2" />

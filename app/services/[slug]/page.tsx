@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { SERVICES, getServiceBySlug } from "../data";
 import { ServiceContent } from "./service-content";
+import ProcessOrb from "@/app/components/process-orb";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -39,6 +40,7 @@ export default async function ServicePage({ params }: Props) {
 
   return (
     <div className="min-h-screen bg-warm-white text-navy">
+      <ProcessOrb />
       {/* Minimal nav */}
       <nav className="border-b border-card-border">
         <div className="max-w-[680px] mx-auto px-6 flex h-14 items-center justify-between">
