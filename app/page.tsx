@@ -3,6 +3,7 @@ import Hero from "./components/hero"
 import Navigation from "./components/navigation"
 import Footer from "./components/footer"
 import TransformSection from "./components/transform-section"
+import QuoteGame from "./components/quote-game"
 import PhilosophySection from "./components/philosophy-section"
 import HowItWorks from "./components/how-it-works"
 import OutcomesSection from "./components/outcomes-section"
@@ -53,6 +54,7 @@ export default function HomePage() {
         <Hero />
         <TransformSection />
         <PhilosophySection />
+        <QuoteGame />
         <HowItWorks />
         <OutcomesSection />
         <AiJudgmentSection />
