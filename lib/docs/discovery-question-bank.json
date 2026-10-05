@@ -1,0 +1,95 @@
+{
+  "name": "CappaWork discovery question bank",
+  "version": "2026-10-05.2",
+  "framework": "PPPP: Profit, Possibility, Pain, Proof",
+  "focus": "Confirm the firm has more demand than it can deliver, size it, and find the ops constraint in the way.",
+  "kinds": {
+    "story": "An open walk-through of what happens",
+    "number": "A count, value or duration; ask with a bracket",
+    "cause": "Why it works that way; ask why until the causes run out",
+    "stress": "A what-if that shows where things break",
+    "vision": "What the business looks like without the limit",
+    "feeling": "How the limit lands on them personally",
+    "confirm": "Play back what you heard and get agreement",
+    "commit": "What they need to see and what they'll do next",
+    "action": "Something you do on the call, not a question"
+  },
+  "frame": "No pitch today. I want to understand how work comes in and how it gets delivered. Then I'll play back what I heard, and we'll decide together if a next step makes sense. If it's not a fit, I'll say so. Okay if I record, so I can listen instead of type?",
+  "guardrails": [
+    "One question at a time.",
+    "Do the math yourself and test it in the playback; never ask the buyer what the problem costs.",
+    "Nothing about what you'd build until the playback is confirmed.",
+    "Talk less than half the time."
+  ],
+  "prospecting": {
+    "lead_fields": [
+      { "field": "lead.demand_signals", "holds": "Evidence of more demand than capacity, each with source and date" },
+      { "field": "lead.capacity_signals", "holds": "Evidence the team can't keep up, each with source and date" },
+      { "field": "lead.trigger_events", "holds": "Events that make it urgent now, each with source and date" },
+      { "field": "lead.hypothesis", "holds": "One line: where demand exceeds capacity, the likely constraint, rough monthly value" },
+      { "field": "lead.outreach_angle", "holds": "The signal and likely constraint the first message leads with" }
+    ],
+    "plays": [
+      {
+        "id": "p1",
+        "channel": "linkedin_video",
+        "length": "30 to 60 seconds",
+        "steps": [
+          "Name what you saw, specifically (\"booked out through November\")",
+          "Say what it usually means (\"the bottleneck is usually scheduling, not the work\")",
+          "Ask whether that's what's happening",
+          "Offer 20 minutes on how work flows for them today"
+        ]
+      },
+      {
+        "id": "p2",
+        "channel": "email",
+        "length": "Under 90 words",
+        "steps": [
+          "Subject: what you saw, in plain words",
+          "Line 1: the signal",
+          "Line 2: what it usually means for firms like theirs",
+          "Line 3: one question",
+          "Ask: 20 minutes"
+        ]
+      }
+    ]
+  },
+  "discovery": [
+    { "id": "q01", "order": 1, "stage": "Trigger", "kind": "story", "tier": "must", "fields": ["deal.trigger"], "ask": "What made this the right time to talk?", "cue": "Why now?", "follow_up": "Is something going on, like more work coming in than the team can handle?" },
+    { "id": "q02", "order": 2, "stage": "Trigger", "kind": "number", "tier": "if_time", "fields": ["deal.timeline_driver"], "ask": "Is there a date or event this is tied to?", "cue": "Date or event?" },
+    { "id": "q03", "order": 3, "stage": "Profit", "kind": "confirm", "tier": "confirm", "fields": ["deal.team", "deal.systems"], "ask": "I saw you [research]. Still right?", "cue": "Confirm research" },
+    { "id": "q04", "order": 4, "stage": "Profit", "kind": "number", "tier": "must", "fields": ["deal.demand_volume"], "ask": "Roughly how many requests come in a month: closer to 20 or 200?", "cue": "Requests a month: 20 or 200?" },
+    { "id": "q05", "order": 5, "stage": "Profit", "kind": "number", "tier": "must", "fields": ["deal.delivered_volume"], "ask": "How many of those turn into work you deliver?", "cue": "How many delivered?" },
+    { "id": "q06", "order": 6, "stage": "Profit", "kind": "number", "tier": "must", "fields": ["deal.avg_job_value"], "ask": "What's a typical job worth?", "cue": "Typical job worth?" },
+    { "id": "q07", "order": 7, "stage": "Profit", "kind": "number", "tier": "if_time", "fields": ["deal.margin"], "ask": "Roughly what do you keep on a job after delivery costs?", "cue": "What do you keep per job?" },
+    { "id": "q08", "order": 8, "stage": "Profit", "kind": "story", "tier": "must", "fields": ["deal.workflow_map"], "ask": "Walk me through a typical job, from first contact to paid.", "cue": "First contact to paid" },
+    { "id": "q09", "order": 9, "stage": "Possibility", "kind": "story", "tier": "must", "fields": ["deal.unserved_demand"], "ask": "What work are you turning away or pushing out right now?", "cue": "What are you turning away?" },
+    { "id": "q10", "order": 10, "stage": "Possibility", "kind": "stress", "tier": "fallback", "fields": ["deal.unserved_demand"], "ask": "If twice the work came in tomorrow, could you deliver it?", "cue": "Twice the work tomorrow: could you deliver?" },
+    { "id": "q11", "order": 11, "stage": "Possibility", "kind": "number", "tier": "must", "fields": ["deal.unserved_volume"], "ask": "How many a month, roughly: a few or dozens?", "cue": "How many a month?" },
+    { "id": "q12", "order": 12, "stage": "Possibility", "kind": "story", "tier": "must", "fields": ["deal.unserved_outcome"], "ask": "Do those people wait, or go elsewhere?", "cue": "Wait or leave?" },
+    { "id": "q13", "order": 13, "stage": "Possibility", "kind": "vision", "tier": "must", "fields": ["deal.ideal_state"], "ask": "If you could say yes to all of it, what would the business look like a year from now?", "cue": "Say yes to all of it: what's the business?" },
+    { "id": "q14", "order": 14, "stage": "Possibility", "kind": "vision", "tier": "must", "fields": ["deal.ideal_workflow"], "ask": "If money were no object, how would delivery work?", "cue": "Money no object: how does delivery work?" },
+    { "id": "q15", "order": 15, "stage": "Pain", "kind": "story", "tier": "must", "fields": ["constraint.constraint"], "ask": "Where does work wait between \"yes\" and \"delivered\"? Or: when [likely step] happens, what has to happen next?", "cue": "Where does work wait?" },
+    { "id": "q16", "order": 16, "stage": "Pain", "kind": "story", "tier": "must", "fields": ["constraint.example"], "ask": "Walk me through the last time it backed up.", "cue": "Last time it backed up?" },
+    { "id": "q17", "order": 17, "stage": "Pain", "kind": "story", "tier": "must", "fields": ["constraint.consequences"], "ask": "What happened to that work?", "cue": "What happened to the work?" },
+    { "id": "q18", "order": 18, "stage": "Pain", "kind": "number", "tier": "must", "fields": ["constraint.wait_time"], "ask": "How long does work sit there: days or weeks?", "cue": "Days or weeks?" },
+    { "id": "q19", "order": 19, "stage": "Pain", "kind": "story", "tier": "must", "fields": ["constraint.owner_role"], "ask": "Who does that step? Is it you?", "cue": "Who does it? You?" },
+    { "id": "q20", "order": 20, "stage": "Pain", "kind": "number", "tier": "must", "fields": ["constraint.effort"], "ask": "Roughly how many hours a week go to it: 5 or 20?", "cue": "Hours a week: 5 or 20?" },
+    { "id": "q21", "order": 21, "stage": "Pain", "kind": "number", "tier": "must", "fields": ["constraint.trend"], "ask": "Is the backlog growing, shrinking or flat?", "cue": "Backlog growing?" },
+    { "id": "q22", "order": 22, "stage": "Pain", "kind": "cause", "tier": "must", "fields": ["constraint.root_causes"], "ask": "I'll ask why a few times. Why does it pile up there? What else feeds it?", "cue": "Why? Five times, announced" },
+    { "id": "q23", "order": 23, "stage": "Pain", "kind": "confirm", "tier": "must", "fields": ["constraint.root_causes"], "ask": "Does [likely cause] play into it?", "cue": "Does [cause] play in?" },
+    { "id": "q24", "order": 24, "stage": "Pain", "kind": "story", "tier": "must", "fields": ["constraint.prior_attempts"], "ask": "What have you tried, like hiring or new tools?", "cue": "Tried hiring or tools?" },
+    { "id": "q25", "order": 25, "stage": "Pain", "kind": "stress", "tier": "once", "fields": ["constraint.consequences"], "ask": "If demand grew by half next year, where would it break first?", "cue": "Demand up half: what breaks first?" },
+    { "id": "q26", "order": 26, "stage": "Pain", "kind": "feeling", "tier": "must", "fields": ["deal.emotional_state"], "ask": "What's it like, turning work away?", "cue": "What's turning work away like?" },
+    { "id": "q27", "order": 27, "stage": "Proof", "kind": "vision", "tier": "must", "fields": ["deal.success_metric"], "ask": "Six months after it ships, what would extraordinary look like? What number would show it?", "cue": "Six months: extraordinary? Number?" },
+    { "id": "q28", "order": 28, "stage": "Playback", "kind": "confirm", "tier": "must", "fields": ["deal.validation"], "ask": "You're turning away about [N] a month, worth about $[X] by my math. It piles up at [step] because [causes], and you want [target]. Did I get that right?", "cue": "Playback: did I get it right?" },
+    { "id": "q29", "order": 29, "stage": "Next step", "kind": "commit", "tier": "must", "fields": ["deal.demo_acceptance"], "ask": "If I came back [call 2 day] with [step] running on your data, what would you need to see?", "cue": "Call 2: what must you see?" },
+    { "id": "q30", "order": 30, "stage": "Next step", "kind": "commit", "tier": "must", "fields": ["deal.objections"], "ask": "If it does that, what would stop you from moving forward?", "cue": "What would stop you?" },
+    { "id": "q31", "order": 31, "stage": "Next step", "kind": "commit", "tier": "must", "fields": ["deal.stakeholders"], "ask": "Anyone else who'd weigh in? Can they join?", "cue": "Who else? Can they join?" },
+    { "id": "q32", "order": 32, "stage": "Next step", "kind": "story", "tier": "if_time", "fields": ["deal.decision_process"], "ask": "How did you decide on the last tool or vendor like this?", "cue": "Last vendor decision?" },
+    { "id": "q33", "order": 33, "stage": "Next step", "kind": "commit", "tier": "must", "fields": ["deal.demo_artifacts"], "ask": "Can you send a sample [schedule, intake form, job sheet] with client details removed?", "cue": "Sample data, client details out" },
+    { "id": "q34", "order": 34, "stage": "Next step", "kind": "story", "tier": "if_time", "fields": ["deal.must_work_with"], "ask": "Anything this has to work with or around, like a system you can't change or client-data rules?", "cue": "Work with or around?" },
+    { "id": "q35", "order": 35, "stage": "Next step", "kind": "action", "tier": "must", "fields": ["deal.call2_at"], "ask": "Send the invite before you hang up.", "cue": "Send invite live" }
+  ]
+}

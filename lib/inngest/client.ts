@@ -27,3 +27,7 @@ export type ListBuilderEvents = {
     };
   };
 };
+
+export type DiscoveryEvents = {
+  "discovery/transcript.received": { data: { runId: string; dealId: string } };
+};
