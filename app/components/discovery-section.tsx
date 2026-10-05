@@ -18,8 +18,8 @@ export default function DiscoverySection() {
           <h2 className="font-display text-3xl sm:text-4xl tracking-tight text-navy leading-tight">
             Book a discovery call
           </h2>
-          <p className="mt-3 text-sm sm:text-base text-stone-600 leading-relaxed">
-            Tell us where the operation is slow. We will use it to route the conversation to the right working session.
+          <p className="mt-3 text-base text-stone-600">
+            We help founder-led companies transform with AI.
           </p>
           <div className="mt-8">
             <DiscoveryForm />

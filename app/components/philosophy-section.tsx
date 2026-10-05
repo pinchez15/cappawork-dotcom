@@ -28,13 +28,10 @@ export default function PhilosophySection() {
           <span className="text-xs sm:text-sm font-semibold tracking-widest uppercase text-gold block mb-5 sm:mb-8">
             The Belief
           </span>
-          <h2 className="font-display text-[1.65rem] sm:text-3xl md:text-4xl lg:text-5xl tracking-tight text-white leading-[1.15] sm:leading-tight mb-6 sm:mb-8 text-balance">
+          <h2 className="font-display text-[1.65rem] sm:text-3xl md:text-4xl lg:text-5xl tracking-tight text-white leading-[1.15] sm:leading-tight mb-10 sm:mb-14 text-balance">
             Let computers do the <ComputerWorkTerm />, so humans can do the{" "}
             <HumanWorkTerm />.
           </h2>
-          <p className="text-white/60 text-base sm:text-lg mb-8 sm:mb-12 max-w-2xl leading-relaxed">
-            AI should not replace your team&rsquo;s judgment. It should clear the path for it.
-          </p>
         </FadeInUp>
 
         <div className="relative mb-10 sm:mb-12">

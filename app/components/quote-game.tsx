@@ -14,7 +14,7 @@ import {
 } from "@/lib/quote-process"
 import { FadeInUp } from "./motion-wrapper"
 import { OrbStation } from "./glyphs"
-import { ComputerWorkTerm, HumanWorkTerm } from "./work-term"
+import { ComputerWorkTerm } from "./work-term"
 
 /** The timeline runs to the end of the third working week. */
 const SCALE = 16
@@ -67,10 +67,6 @@ export default function QuoteGame() {
           <h2 className="font-display text-4xl sm:text-5xl tracking-tight text-navy leading-[1.05] max-w-3xl text-balance">
             Why most AI pilots fail.
           </h2>
-          <p className="mt-6 text-base sm:text-lg text-stone-600 leading-relaxed max-w-2xl">
-            They never redesign the process, so you pay more to do the same thing a little faster. The
-            bottleneck is the wait in each coworker&rsquo;s queue, and that does not move.
-          </p>
         </FadeInUp>
 
         <div className="mt-12">
@@ -132,7 +128,7 @@ export default function QuoteGame() {
           {/* What the AI above is speeding up */}
           <div>
             <h3 className="font-display text-xl sm:text-2xl tracking-tight text-navy text-balance">
-              <ComputerWorkTerm tone="light" /> is anything that follows a determined path.
+              <ComputerWorkTerm tone="light" />
             </h3>
             <ul className="mt-4 flex flex-wrap gap-2">
               {COMPUTER_WORK.map((item) => (
@@ -151,12 +147,6 @@ export default function QuoteGame() {
           <h2 className="mt-24 font-display text-4xl sm:text-5xl tracking-tight text-navy leading-[1.05] max-w-3xl text-balance">
             Redesigned, with the waiting removed.
           </h2>
-          <p className="mt-6 text-base sm:text-lg text-stone-600 leading-relaxed max-w-2xl">
-            CappaWork puts everything the work needs into one shared system that agents can reach without
-            waiting on anyone. The waiting goes away, the{" "}
-            <ComputerWorkTerm tone="light" className="text-base sm:text-lg" /> moves to agents, and your people
-            do the <HumanWorkTerm tone="light" className="text-base sm:text-lg" />.
-          </p>
         </FadeInUp>
 
         <div className="mt-12">

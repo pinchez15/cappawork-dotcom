@@ -61,9 +61,6 @@ export default function PortfolioSection() {
           <h2 className="font-display text-4xl sm:text-5xl tracking-tight text-navy leading-[1.05] max-w-3xl text-balance">
             Systems that changed how the work gets done.
           </h2>
-          <p className="mt-6 text-base sm:text-lg text-stone-600 max-w-2xl leading-relaxed">
-            Some of these put an agent in the workflow. All of them replaced a way of working that depended on people moving information by hand.
-          </p>
         </FadeInUp>
 
         <div ref={gridRef} className="mt-14 grid gap-4 md:grid-cols-2">

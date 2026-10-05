@@ -10,7 +10,7 @@ export default function Footer() {
               CappaWork
             </Link>
             <p className="text-white/55 text-sm max-w-sm leading-relaxed">
-              We change how operational work gets done. Agents go in where the work calls for them. The judgment stays with your team.
+              We help founder-led companies transform with AI.
             </p>
             <div className="mt-5 flex flex-wrap items-center gap-5 text-[11px] font-medium tracking-[0.14em] uppercase text-white/40">
               <span className="inline-flex items-center gap-2">

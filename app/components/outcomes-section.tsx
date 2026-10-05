@@ -4,21 +4,9 @@ import { OrbStation } from "./glyphs"
 import WorkflowMesh from "./workflow-mesh"
 
 const outcomes = [
-  {
-    number: "01",
-    title: "Less operational drag",
-    body: "Computer work comes off the people who should be deciding, selling, and leading.",
-  },
-  {
-    number: "02",
-    title: "Faster execution",
-    body: "Handoffs that used to wait on a meeting now move as the work arrives.",
-  },
-  {
-    number: "03",
-    title: "More output, same team",
-    body: "The operation carries more without a new layer of coordination or headcount.",
-  },
+  { number: "01", title: "Less operational drag" },
+  { number: "02", title: "Faster execution" },
+  { number: "03", title: "More output, same team" },
 ]
 
 export default function OutcomesSection() {
@@ -35,9 +23,6 @@ export default function OutcomesSection() {
             <h2 className="font-display text-4xl sm:text-5xl tracking-tight text-navy leading-[1.05] text-balance">
               The operation gets faster without getting heavier.
             </h2>
-            <p className="mt-6 text-base text-stone-600 leading-relaxed max-w-md">
-              The work moves with fewer handoffs. An agent is used where it removes drag, and left out where a person should decide.
-            </p>
           </div>
 
           <ol className="lg:col-span-6 lg:col-start-7 space-y-10">
@@ -45,7 +30,6 @@ export default function OutcomesSection() {
               <li key={item.number}>
                 <span className="font-display text-3xl text-gold">{item.number}</span>
                 <h3 className="mt-2 font-display text-2xl sm:text-3xl text-navy">{item.title}</h3>
-                <p className="mt-2 text-stone-600 leading-relaxed max-w-md">{item.body}</p>
               </li>
             ))}
             <li>

@@ -21,8 +21,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
   {
     name: "HealthcareAIO",
     url: "https://healthcareaio.com",
-    description:
-      "Audits and the client relationship moved into one system. An agent runs the review. The team keeps the judgment.",
+    description: "Audits and the client relationship, in one system.",
     industry: "Healthcare",
     mode: "agent",
     modeLabel: "Agent in the workflow",
@@ -30,8 +29,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
   {
     name: "ArborKey",
     url: "https://www.arborkeysoftware.com",
-    description:
-      "Association firms were running the practice across disconnected tools. The operating work now lives in one system the team actually uses.",
+    description: "The practice, in one system.",
     industry: "Property management",
     mode: "workflow",
     modeLabel: "How the work runs",
@@ -39,8 +37,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
   {
     name: "Karibu Health",
     url: "https://karibu.health",
-    description:
-      "Clinicians speak the visit. The record is written from the conversation, so documentation stops crowding out the patient.",
+    description: "The visit is spoken. The record is written.",
     industry: "Healthcare",
     mode: "agent",
     modeLabel: "Agent in the workflow",
@@ -48,8 +45,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
   {
     name: "Horizon Data Partners",
     url: "https://www.horizondatapartners.com",
-    description:
-      "Client delivery stopped being a manual assembly job. Analysis and the work around it now move through a system built for how the firm delivers.",
+    description: "Delivery stopped being a manual assembly job.",
     industry: "Data consulting",
     mode: "workflow",
     modeLabel: "How the work runs",

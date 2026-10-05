@@ -14,8 +14,7 @@ import DiscoverySection from "./components/discovery-section"
 import HomepageWrapper from "./components/homepage-wrapper"
 
 const title = "CappaWork — AI systems that change how work gets done"
-const description =
-  "Custom AI implementations for the operations that run a company. We redesign the workflow and use agents where the work calls for them."
+const description = "We help founder-led companies transform with AI."
 
 export const metadata: Metadata = {
   title,

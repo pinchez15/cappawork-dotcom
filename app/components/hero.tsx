@@ -2,7 +2,6 @@
 
 import { ArrowRight } from "lucide-react"
 import HeroField from "./hero-field"
-import { ComputerWorkTerm, HumanWorkTerm } from "./work-term"
 import { GlyphKey, OrbStation } from "./glyphs"
 
 export default function Hero() {
@@ -11,21 +10,14 @@ export default function Hero() {
       <HeroField />
 
       <div className="relative z-10 flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-16 sm:pt-24 lg:pt-28 pb-16">
-        <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
-          <div className="lg:col-span-7">
+        <div className="max-w-3xl">
             <h1 className="font-display text-[2.75rem] sm:text-6xl lg:text-[4.5rem] tracking-tight text-navy leading-[0.98] text-balance">
               We make work more human.
             </h1>
             <p className="mt-5 text-lg sm:text-xl text-stone-600">
-              AI transformations for complex organizations.
+              We help founder-led companies transform with AI.
             </p>
-            <GlyphKey className="mt-6" />
-          </div>
-          <p className="lg:col-span-5 lg:pt-4 text-base sm:text-lg text-stone-600 leading-relaxed max-w-md lg:ml-auto">
-            Let computers do the{" "}
-            <ComputerWorkTerm tone="light" className="text-base sm:text-lg" /> so your team can do the{" "}
-            <HumanWorkTerm tone="light" className="text-base sm:text-lg" />. We transform enterprises with agents — durable systems that stay on call. Not staffed seats. Not an 18-month program.
-          </p>
+            <GlyphKey className="mt-8" />
         </div>
 
         <div className="mt-12 sm:mt-16 flex flex-col sm:flex-row gap-3">

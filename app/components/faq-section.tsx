@@ -7,35 +7,35 @@ import { OrbStation } from "./glyphs"
 const faqs = [
   {
     q: "What happens on a discovery call?",
-    a: "It is a working session. We look at how an operational workflow actually runs, where the drag is, and whether the next step is a change in the system, an agent, or both. You leave knowing what would be built and what a deployment would look like.",
+    a: "We look at one workflow with you. You leave knowing whether we should build it.",
   },
   {
     q: "How long does a deployment take?",
-    a: "Most engagements move from discovery to a system in production in about six weeks. The clock depends on the workflow and the systems it has to touch. It is not an 18-month program.",
+    a: "About six weeks for most systems. The workflow sets the clock.",
   },
   {
-    q: "What kind of work do you change?",
-    a: "Work that moves through teams, tools, and handoffs: intake, review, routing, reporting, reconciliation, and the coordination around them. We change how that work runs. An agent goes in when the steps are known and a person should not be the middleware.",
+    q: "What kind of work do you take?",
+    a: "Bring the work that is slow. The call is where we decide if it is ours.",
   },
   {
     q: "Will this replace our existing systems?",
-    a: "No. The system is built on the tools you already run. We do not ask you to migrate the company onto a new platform. If you want to leave a tool, we will help. We will not require it.",
+    a: "We build on what you already run. Leaving a tool is your call.",
   },
   {
     q: "Do you staff people into our organization?",
-    a: "No. We come in, design the change, and leave a system that stays on call. It is not a seat on your org chart, and it is not a contractor sitting in the workflow.",
+    a: "No. You get a system. Your people keep the decisions.",
   },
   {
     q: "How much of our team’s time does this take?",
-    a: "Your team provides the context: how the work really moves, and who has to sign off. CappaWork does the design and the build, and coordinates with the people who own the systems.",
+    a: "Enough to show how the work moves, and who signs off.",
   },
   {
     q: "How do you handle security?",
-    a: "The system operates inside the permissions and policies you already have. Access is scoped. Actions are logged so the work can be reviewed.",
+    a: "Inside the permissions you already have. Access is scoped. Actions are logged.",
   },
   {
     q: "Can this be specific to our workflows?",
-    a: "Yes. Every deployment is designed around the workflows, systems, and rules inside your operation. Generalized software that only does half the job is the thing we are here to replace.",
+    a: "Yes. It is built for your operation.",
   },
 ]
 
@@ -51,9 +51,6 @@ export default function FaqSection() {
         <h2 className="font-display text-4xl sm:text-5xl tracking-tight text-navy leading-[1.05] text-center">
           Frequently asked questions.
         </h2>
-        <p className="mt-4 text-center text-stone-600">
-          What leadership teams ask before a discovery call.
-        </p>
 
         <div className="mt-12 divide-y divide-card-border border-y border-card-border">
           {faqs.map((item, i) => {
