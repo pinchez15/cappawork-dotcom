@@ -1,13 +1,15 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Check, X } from "lucide-react";
 import type { DiscoveryView } from "@/server/repos/discovery";
-import { TIER_LABELS, fieldFilled, groupByStage, PPPP_STAGES } from "./shared";
+import { TIER_LABELS, fieldFilled, groupByStage } from "./shared";
+
+// Call mode reads like notes, not a script: one narrow column under the webcam, scrolled
+// slowly with the mouse wheel, fading out below the top third so your eyes stay near the camera.
 
 // Minute each block should end by, from the playbook's 30-minute call card.
 const STAGE_ENDS_BY: Record<string, number> = {
-  Frame: 1,
   Trigger: 3,
   Profit: 8,
   Possibility: 13,
@@ -18,6 +20,8 @@ const STAGE_ENDS_BY: Record<string, number> = {
 };
 
 const POLL_MS = 5000;
+const WHEEL_SPEED = [0.15, 0.25, 0.4, 0.6]; // fraction of native wheel distance
+const EASE = 0.1; // share of the remaining distance covered each frame
 
 type Props = {
   dealId: string;
@@ -35,13 +39,11 @@ function formatClock(seconds: number): string {
 
 export function CallMode({ dealId, companyName, view, onClose, onRefresh }: Props) {
   const bank = view.bank!;
-  const stages = useMemo(
-    () => [{ stage: "Frame", questions: [] }, ...groupByStage(bank.questions)],
-    [bank.questions]
-  );
-  const [index, setIndex] = useState(1);
+  const stages = useMemo(() => groupByStage(bank.questions), [bank.questions]);
   const [startedAt, setStartedAt] = useState(() => Date.now());
   const [now, setNow] = useState(() => Date.now());
+  const [speedIndex, setSpeedIndex] = useState(1);
+
   // Cues you've asked, by question id. Local only: a tap is not evidence.
   const storageKey = `discovery-asked:${dealId}`;
   const [asked, setAsked] = useState<Set<string>>(() => {
@@ -82,153 +84,212 @@ export function CallMode({ dealId, companyName, view, onClose, onRefresh }: Prop
     };
   }, []);
 
-  const go = useCallback(
-    (i: number) => setIndex(Math.max(0, Math.min(stages.length - 1, i))),
-    [stages.length]
+  // ─── Slow, eased scrolling ────────────────────────────────────────────────
+  const scroller = useRef<HTMLDivElement>(null);
+  const target = useRef(0);
+  const frame = useRef<number | null>(null);
+  const speed = useRef(WHEEL_SPEED[speedIndex]);
+  speed.current = WHEEL_SPEED[speedIndex];
+
+  const animate = useCallback(() => {
+    const el = scroller.current;
+    if (!el) return;
+    const remaining = target.current - el.scrollTop;
+    if (Math.abs(remaining) < 0.5) {
+      el.scrollTop = target.current;
+      frame.current = null;
+      return;
+    }
+    el.scrollTop += remaining * EASE;
+    frame.current = requestAnimationFrame(animate);
+  }, []);
+
+  const scrollTo = useCallback(
+    (top: number) => {
+      const el = scroller.current;
+      if (!el) return;
+      target.current = Math.max(0, Math.min(el.scrollHeight - el.clientHeight, top));
+      if (frame.current == null) frame.current = requestAnimationFrame(animate);
+    },
+    [animate]
+  );
+
+  useEffect(() => {
+    const el = scroller.current;
+    if (!el) return;
+    target.current = el.scrollTop;
+
+    function onWheel(e: WheelEvent) {
+      e.preventDefault();
+      const unit = e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? el!.clientHeight : 1;
+      const base = frame.current == null ? el!.scrollTop : target.current;
+      scrollTo(base + e.deltaY * unit * speed.current);
+    }
+    // Scrollbar drags and touch scrolling: follow them instead of fighting them.
+    function onScroll() {
+      if (frame.current == null) target.current = el!.scrollTop;
+    }
+    el.addEventListener("wheel", onWheel, { passive: false });
+    el.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      el.removeEventListener("wheel", onWheel);
+      el.removeEventListener("scroll", onScroll);
+      if (frame.current != null) cancelAnimationFrame(frame.current);
+    };
+  }, [scrollTo]);
+
+  const stageRefs = useRef<Record<string, HTMLElement | null>>({});
+  const jumpToStage = useCallback(
+    (i: number) => {
+      const stage = stages[i];
+      const node = stage && stageRefs.current[stage.stage];
+      if (node) scrollTo(node.offsetTop - 24);
+    },
+    [scrollTo, stages]
   );
 
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
       if (e.key === "Escape") onClose();
-      else if (e.key === "ArrowRight") go(index + 1);
-      else if (e.key === "ArrowLeft") go(index - 1);
-      else if (/^[1-9]$/.test(e.key)) go(Number(e.key) - 1);
+      else if (e.key === "ArrowDown") scrollTo(target.current + 60);
+      else if (e.key === "ArrowUp") scrollTo(target.current - 60);
+      else if (e.key === "-") setSpeedIndex((i) => Math.max(0, i - 1));
+      else if (e.key === "=" || e.key === "+") setSpeedIndex((i) => Math.min(WHEEL_SPEED.length - 1, i + 1));
+      else if (/^[1-9]$/.test(e.key)) jumpToStage(Number(e.key) - 1);
+      else return;
+      e.preventDefault();
     }
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [go, index, onClose]);
+  }, [jumpToStage, onClose, scrollTo]);
 
+  // ─── Progress ─────────────────────────────────────────────────────────────
   const mustDone = (questions: typeof bank.questions) => {
     const must = questions.filter((q) => q.tier === "must");
     const done = must.filter((q) => q.fields.every((f) => fieldFilled(view, f)));
     return { done: done.length, total: must.length };
   };
-
-  const current = stages[index];
+  const overall = mustDone(bank.questions);
   const elapsed = Math.floor((now - startedAt) / 1000);
-  const endsBy = STAGE_ENDS_BY[current.stage];
-  const behind = endsBy != null && elapsed > endsBy * 60;
-  const many = current.questions.length > 6;
+
+  // Fade lines below the top of the window so the eye stays near the camera.
+  const fade =
+    "linear-gradient(to bottom, transparent 0, black 2.5rem, black 38%, rgba(0,0,0,0.25) 70%, transparent 92%)";
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col bg-navy text-white" role="dialog" aria-label="Call mode">
-      {/* Stage strip */}
-      <div className="flex items-center gap-2 border-b border-white/10 px-6 py-3">
-        <span className="mr-2 text-sm text-white/50">{companyName}</span>
-        <nav className="flex flex-1 flex-wrap gap-1.5">
-          {stages.map((s, i) => {
-            const { done, total } = mustDone(s.questions);
-            const complete = total > 0 && done === total;
+    <div className="fixed inset-0 z-50 bg-navy text-white" role="dialog" aria-label="Call mode">
+      {/* Corner marks: quiet enough to ignore */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-10 flex items-start justify-between px-4 py-3 text-xs text-white/30">
+        <span className="tabular-nums">
+          {companyName} · Must {overall.done}/{overall.total}
+        </span>
+        <span className="pointer-events-auto flex items-center gap-3">
+          <button
+            onClick={() => setStartedAt(Date.now())}
+            title="Reset the call clock"
+            className="font-mono tabular-nums hover:text-white/70"
+          >
+            {formatClock(elapsed)}
+          </button>
+          <button onClick={onClose} className="rounded-full p-1 hover:bg-white/10 hover:text-white/70" aria-label="Exit call mode">
+            <X className="h-4 w-4" />
+          </button>
+        </span>
+      </div>
+
+      <div
+        ref={scroller}
+        className="h-full overflow-y-auto overscroll-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        style={{ maskImage: fade, WebkitMaskImage: fade }}
+      >
+        <div className="mx-auto max-w-xl px-6 pt-10 pb-[80vh]">
+          {view.deal?.hypothesis && (
+            <p className="mb-8 text-lg leading-snug text-white/45">{view.deal.hypothesis}</p>
+          )}
+          {bank.frame && (
+            <section className="mb-12">
+              <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-gold/70">Frame</h2>
+              <p className="text-2xl leading-snug text-white/80">{bank.frame}</p>
+            </section>
+          )}
+
+          {stages.map(({ stage, questions }) => {
+            const { done, total } = mustDone(questions);
+            const endsBy = STAGE_ENDS_BY[stage];
+            const behind = endsBy != null && elapsed > endsBy * 60 && done < total;
             return (
-              <button
-                key={s.stage}
-                onClick={() => go(i)}
-                className={`rounded-full px-3 py-1.5 text-sm font-medium transition-colors ${
-                  i === index
-                    ? "bg-gold text-navy"
-                    : complete
-                      ? "bg-white/10 text-gold"
-                      : "text-white/60 hover:bg-white/10 hover:text-white"
-                }`}
-              >
-                {s.stage}
-                {total > 0 && (
-                  <span className={`ml-1.5 tabular-nums ${i === index ? "text-navy/70" : "text-white/40"}`}>
-                    {done}/{total}
-                  </span>
-                )}
-              </button>
+              <section key={stage} ref={(n) => { stageRefs.current[stage] = n; }} className="mb-12">
+                <h2 className="mb-4 flex items-baseline gap-3 text-xs font-semibold uppercase tracking-widest text-gold/70">
+                  {stage}
+                  {total > 0 && <span className="tabular-nums text-white/30">{done}/{total}</span>}
+                  {endsBy != null && (
+                    <span className={`font-normal normal-case tracking-normal ${behind ? "text-amber-400/80" : "text-white/25"}`}>
+                      by {endsBy}:00
+                    </span>
+                  )}
+                </h2>
+                <ul className="space-y-5">
+                  {questions.map((q) => {
+                    const filled = q.fields.every((f) => fieldFilled(view, f));
+                    const wasAsked = asked.has(q.question_id);
+                    const must = q.tier === "must";
+                    return (
+                      <li key={q.question_id}>
+                        <button
+                          onClick={() =>
+                            setAsked((prev) => {
+                              const next = new Set(prev);
+                              if (next.has(q.question_id)) next.delete(q.question_id);
+                              else next.add(q.question_id);
+                              return next;
+                            })
+                          }
+                          className="flex w-full items-start gap-4 text-left"
+                        >
+                          <span
+                            className={`mt-1.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border ${
+                              filled
+                                ? "border-gold bg-gold text-navy"
+                                : wasAsked
+                                  ? "border-white/50"
+                                  : must
+                                    ? "border-white/20"
+                                    : "border-dashed border-white/15"
+                            }`}
+                          >
+                            {filled && <Check className="h-4 w-4" strokeWidth={3} />}
+                          </span>
+                          <span className="min-w-0">
+                            <span
+                              className={`block text-2xl leading-snug ${
+                                filled ? "text-white/30" : must ? "text-white/90" : "text-white/50"
+                              }`}
+                            >
+                              {q.cue}
+                              {!must && (
+                                <span className="ml-2 align-middle text-[11px] font-semibold uppercase tracking-widest text-gold/50">
+                                  {TIER_LABELS[q.tier]}
+                                </span>
+                              )}
+                            </span>
+                            {q.follow_up && !filled && (
+                              <span className="mt-1 block text-base leading-snug text-white/40">↳ {q.follow_up}</span>
+                            )}
+                          </span>
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </section>
             );
           })}
-        </nav>
-        <button
-          onClick={() => setStartedAt(Date.now())}
-          title="Reset the call clock"
-          className={`font-mono text-2xl tabular-nums ${behind ? "text-amber-400" : "text-white/80"}`}
-        >
-          {formatClock(elapsed)}
-        </button>
-        <button onClick={onClose} className="ml-3 rounded-full p-2 text-white/60 hover:bg-white/10" aria-label="Exit call mode">
-          <X className="h-6 w-6" />
-        </button>
-      </div>
 
-      {/* Cues */}
-      <div className="flex-1 overflow-y-auto px-8 py-8 lg:px-16">
-        <div className="mb-8 flex items-baseline gap-4">
-          <h2 className="font-display text-6xl tracking-tight text-gold">{current.stage}</h2>
-          {PPPP_STAGES.has(current.stage) && <span className="text-sm uppercase tracking-widest text-white/40">PPPP</span>}
-          {endsBy != null && <span className="text-lg text-white/40">by {endsBy}:00</span>}
+          <p className="text-sm leading-relaxed text-white/30">{bank.guardrails.join(" · ")}</p>
+          <p className="mt-6 text-xs text-white/20">
+            Scroll slowly with the wheel · − / + scroll speed · 1–8 jump to a stage · Esc to exit
+          </p>
         </div>
-
-        {current.stage === "Frame" ? (
-          <p className="max-w-5xl text-4xl leading-snug text-white/90">{bank.frame}</p>
-        ) : (
-          <ul className={many ? "grid gap-x-12 gap-y-6 xl:grid-cols-2" : "max-w-5xl space-y-7"}>
-            {current.questions.map((q) => {
-              const filled = q.fields.every((f) => fieldFilled(view, f));
-              const wasAsked = asked.has(q.question_id);
-              const primaryTier = q.tier === "must";
-              return (
-                <li key={q.question_id}>
-                  <button
-                    onClick={() =>
-                      setAsked((prev) => {
-                        const next = new Set(prev);
-                        if (next.has(q.question_id)) next.delete(q.question_id);
-                        else next.add(q.question_id);
-                        return next;
-                      })
-                    }
-                    className="flex w-full items-start gap-5 text-left"
-                  >
-                    <span
-                      className={`mt-1.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 ${
-                        filled
-                          ? "border-gold bg-gold text-navy"
-                          : wasAsked
-                            ? "border-white/60"
-                            : primaryTier
-                              ? "border-white/25"
-                              : "border-dashed border-white/15"
-                      }`}
-                    >
-                      {filled && <Check className="h-6 w-6" strokeWidth={3} />}
-                    </span>
-                    <span className="min-w-0">
-                      <span
-                        className={`block ${many ? "text-3xl" : "text-4xl"} leading-tight ${
-                          filled ? "text-white/40" : primaryTier ? "text-white" : "text-white/55"
-                        }`}
-                      >
-                        {q.cue}
-                        {!primaryTier && (
-                          <span className="ml-3 align-middle text-sm font-semibold uppercase tracking-widest text-gold/70">
-                            {TIER_LABELS[q.tier]}
-                          </span>
-                        )}
-                      </span>
-                      {q.follow_up && !filled && (
-                        <span className="mt-1 block text-xl text-white/45">↳ {q.follow_up}</span>
-                      )}
-                    </span>
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
-        )}
-      </div>
-
-      {/* Hypothesis and guardrails */}
-      <div className="flex flex-wrap items-center gap-x-8 gap-y-1 border-t border-white/10 px-6 py-3 text-base text-white/50">
-        {view.deal?.hypothesis && (
-          <span>
-            <span className="font-semibold uppercase tracking-widest text-gold/80 text-xs mr-2">Hypothesis</span>
-            {view.deal.hypothesis}
-          </span>
-        )}
-        <span className="ml-auto">{bank.guardrails.join(" · ")}</span>
       </div>
     </div>
   );

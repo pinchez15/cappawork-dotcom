@@ -72,4 +72,3 @@ export function groupByStage(questions: DiscoveryQuestion[]): { stage: string; q
   return groups;
 }
 
-export const PPPP_STAGES = new Set(["Profit", "Possibility", "Pain", "Proof"]);
