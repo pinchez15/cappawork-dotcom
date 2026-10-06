@@ -6,11 +6,12 @@ import { z } from "zod";
 export const NOT_COVERED = "not covered";
 export const NO_ANSWER = "no answer";
 
-// A buyer statement plus the evidence behind it.
+// A buyer statement plus the evidence behind it. quote and at are required (empty when
+// absent): Anthropic caps a tool schema at 24 optional params, and this object repeats ~32 times.
 export const stated = z.object({
   value: z.string(), // "not covered" or "no answer" when absent
-  quote: z.string().optional(),
-  at: z.string().optional(), // transcript timestamp
+  quote: z.string().describe("Verbatim buyer quote, or an empty string when there is none."),
+  at: z.string().describe("Transcript timestamp, or an empty string when there is none."),
 });
 
 // A calculation, never mixed with buyer statements.
@@ -95,7 +96,8 @@ export const ExtractionResult = z.object({
   }),
 });
 
-export type Stated = z.infer<typeof stated>;
+// The app treats quote and at as optional; only the model is made to fill them.
+export type Stated = { value: string; quote?: string; at?: string };
 export type Computed = z.infer<typeof computed>;
 export type ConstraintRecord = z.infer<typeof Constraint>;
 export type DealRecord = z.infer<typeof Deal>;

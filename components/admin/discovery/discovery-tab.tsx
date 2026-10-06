@@ -428,6 +428,35 @@ function RunPanel({
               </div>
             )}
 
+            {run.proposal_brief && (
+              <div>
+                <div className="flex items-center justify-between mb-1">
+                  <h3 className="text-xs font-semibold uppercase tracking-wide">Proposal brief</h3>
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    onClick={() => {
+                      navigator.clipboard.writeText(run.proposal_brief ?? "");
+                      toast.success("Proposal brief copied");
+                    }}
+                  >
+                    <Copy className="h-3.5 w-3.5 mr-1" /> Copy
+                  </Button>
+                </div>
+                {run.pricing && (
+                  <p className="text-xs text-muted-foreground mb-2">
+                    Target ${run.pricing.price_target.toLocaleString("en-US")} (range $
+                    {run.pricing.price_low.toLocaleString("en-US")}–${run.pricing.price_high.toLocaleString("en-US")})
+                    {" · "}cap {run.pricing.hours_cap} hours
+                    {run.pricing.payback_months != null && ` · pays back in ${run.pricing.payback_months} months`}
+                  </p>
+                )}
+                <pre className="whitespace-pre-wrap rounded-lg border bg-muted/40 p-3 text-xs font-sans">
+                  {run.proposal_brief}
+                </pre>
+              </div>
+            )}
+
             {run.demo_brief && (
               <div>
                 <h3 className="text-xs font-semibold uppercase tracking-wide mb-1">Demo brief</h3>

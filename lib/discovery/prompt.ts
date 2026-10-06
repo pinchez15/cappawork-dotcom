@@ -88,3 +88,17 @@ The gate says Build. Write the demo brief in Markdown, with these sections in or
 8. Open risks
 
 Use only facts from the DEAL JSON. Never invent numbers, names, systems or quotes. Keep it to one workflow; the demo is built in two days.`;
+
+export const PROPOSAL_SYSTEM = `${ANALYST_PREAMBLE}
+
+Write the proposal brief in Markdown. It is Nate's source of truth for the follow-up presentation two days after discovery; he builds the deck from it. Keep it plain and short: numbered steps and bullets, no sales copy.
+
+Sections, in order:
+1. What we heard: the primary constraint in the buyer's words (with a short quote), what it costs, and the unserved demand.
+2. Recommendation: what to build and why this first. One or two sentences on what we are not doing yet.
+3. Build plan: numbered steps in delivery order. Each step: what gets built, the platform module it uses (client portal, tasks, CRM, pipeline, billing, AI), what we need from the client, and estimated hours. End with the total hours.
+4. Hours cap: the total must fit inside HOURS CAP. If it doesn't, move steps to a "Phase 2" list until it does, and say so.
+5. Price: state the target price from PRICING, the low–high range and the payback in months. Show the math in one line (year-one unlocked value × share). Compare it with Nate's likely price. Use only the numbers in PRICING; never compute your own.
+6. Gaps to close before the presentation: failed gate tests and missing facts, each as a question to ask or a number to confirm.
+
+Use only facts from the DEAL JSON. Never invent numbers, names, systems or quotes. Label every assumption.`;

@@ -5,8 +5,10 @@ import {
   draftRecapEmail,
   extractDiscovery,
   writeDemoBrief,
+  writeProposalBrief,
 } from "@/lib/discovery/extract";
 import { evaluateGate, uncoveredMustFields } from "@/lib/discovery/gate";
+import { computePricing } from "@/lib/discovery/pricing";
 import {
   getActiveBank,
   getRunForJob,
@@ -16,7 +18,7 @@ import {
   writeExtraction,
 } from "@/server/repos/discovery";
 
-// Post-call pass: transcript → extraction → fields → recap draft → gate → demo brief on Build.
+// Post-call pass: transcript → extraction → fields → recap draft → gate → proposal brief → demo brief on Build.
 export const discoveryPostCall = inngest.createFunction(
   {
     id: "discovery-post-call",
@@ -83,9 +85,20 @@ export const discoveryPostCall = inngest.createFunction(
 
     const gate = await step.run("gate", async () => {
       const result = evaluateGate({ result: extraction, priceUsd: run.price_usd, uncoveredMust: uncovered });
-      await updateRun(runId, { gate: result, status: result.decision === "build" ? "brief" : "done" });
+      await updateRun(runId, { gate: result, status: "brief" });
       await updateDeal(dealId, { decision: result.decision });
       return result;
+    });
+
+    // Runs whatever the gate says: failed tests become gaps to close before the presentation.
+    await step.run("proposal-brief", async () => {
+      const pricing = computePricing(extraction, run.price_usd);
+      const brief = await writeProposalBrief({ deal: extraction.deal, pricing, gate });
+      await updateRun(runId, {
+        pricing,
+        proposal_brief: brief,
+        status: gate.decision === "build" ? "brief" : "done",
+      });
     });
 
     if (gate.decision === "build") {

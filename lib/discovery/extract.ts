@@ -7,7 +7,9 @@ import {
   type Extraction,
   type RecapEmailDraft,
 } from "./schema";
-import { DEMO_BRIEF_SYSTEM, EXTRACTION_SYSTEM, RECAP_SYSTEM } from "./prompt";
+import { DEMO_BRIEF_SYSTEM, EXTRACTION_SYSTEM, PROPOSAL_SYSTEM, RECAP_SYSTEM } from "./prompt";
+import type { PricingAnchors } from "./pricing";
+import type { GateResult } from "./gate";
 
 // Standalone discovery AI calls. No database, no Inngest, no app imports: anything that
 // has a transcript (the post-call job here, Pigeon later) can call these directly.
@@ -102,6 +104,29 @@ export async function writeDemoBrief(input: {
     model: resolveModel(input.model),
     system: DEMO_BRIEF_SYSTEM,
     prompt: `DEAL JSON\n${JSON.stringify(input.deal, null, 2)}`,
+    maxOutputTokens: 8000,
+  });
+  return text;
+}
+
+export async function writeProposalBrief(input: {
+  deal: DealRecord;
+  pricing: PricingAnchors;
+  gate: GateResult;
+  model?: LanguageModel;
+}): Promise<string> {
+  const failed = input.gate.tests.filter((t) => !t.passed).map((t) => `${t.n}. ${t.test}: ${t.detail}`);
+  const prompt = [
+    `HOURS CAP\n${input.pricing.hours_cap} hours`,
+    `PRICING\n${JSON.stringify(input.pricing, null, 2)}`,
+    `GATE\nDecision: ${input.gate.decision}\nFailed tests:\n${failed.join("\n") || "none"}`,
+    `DEAL JSON\n${JSON.stringify(input.deal, null, 2)}`,
+  ].join("\n\n");
+
+  const { text } = await generateText({
+    model: resolveModel(input.model),
+    system: PROPOSAL_SYSTEM,
+    prompt,
     maxOutputTokens: 8000,
   });
   return text;

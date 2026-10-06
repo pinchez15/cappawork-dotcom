@@ -1,4 +1,5 @@
 import { supabaseAdmin } from "@/lib/db/client";
+import type { PricingAnchors } from "@/lib/discovery/pricing";
 import {
   CONSTRAINT_STATED_FIELDS,
   DEAL_STATED_FIELDS,
@@ -85,6 +86,8 @@ export type DiscoveryRun = {
   recap_body: string | null;
   gate: { tests: { n: number; test: string; passed: boolean; fields: string[]; detail: string }[]; decision: string } | null;
   demo_brief: string | null;
+  proposal_brief: string | null;
+  pricing: PricingAnchors | null;
   error: string | null;
   created_at: string;
   completed_at: string | null;
@@ -171,7 +174,7 @@ export async function getDiscoveryView(bdDealId: string): Promise<DiscoveryView>
     supabaseAdmin
       .from("discovery_runs")
       .select(
-        "id, status, price_usd, bank_version, model, hypothesis_check, recap_subject, recap_body, gate, demo_brief, error, created_at, completed_at"
+        "id, status, price_usd, bank_version, model, hypothesis_check, recap_subject, recap_body, gate, demo_brief, proposal_brief, pricing, error, created_at, completed_at"
       )
       .eq("deal_id", deal.id)
       .order("created_at", { ascending: false })
@@ -330,7 +333,7 @@ const isSentinel = (s: Stated, sentinel: string) => s.value.trim().toLowerCase()
 
 function toItems(v: Stated | Stated[]): AnswerItem[] {
   const list = Array.isArray(v) ? v : [v];
-  return list.map((s) => ({ value: s.value.trim() || NOT_COVERED, quote: s.quote, at: s.at }));
+  return list.map((s) => ({ value: s.value.trim() || NOT_COVERED, quote: s.quote || undefined, at: s.at || undefined }));
 }
 
 /**
