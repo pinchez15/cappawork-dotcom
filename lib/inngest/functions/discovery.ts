@@ -67,17 +67,15 @@ export const discoveryPostCall = inngest.createFunction(
     });
 
     await step.run("draft-recap", async () => {
-      const { data: contact } = await supabaseAdmin
-        .from("gtm_contacts")
-        .select("name")
-        .eq("account_id", run.discovery_deals.account_id)
-        .order("is_primary", { ascending: false })
-        .limit(1)
+      const { data: pipelineDeal } = await supabaseAdmin
+        .from("bd_deals")
+        .select("contact_name")
+        .eq("id", run.discovery_deals.bd_deal_id)
         .maybeSingle();
 
       const recap = await draftRecapEmail({
         deal: extraction.deal,
-        contactName: contact?.name?.split(" ")[0],
+        contactName: pipelineDeal?.contact_name?.split(" ")[0],
         uncoveredMustFields: uncovered.slice(0, 3),
       });
       await updateRun(runId, { status: "gating", recap_subject: recap.subject, recap_body: recap.body });

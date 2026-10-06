@@ -37,13 +37,12 @@ export const DiscoveryRunSchema = z.object({
 });
 
 export const DiscoveryWebhookSchema = DiscoveryRunSchema.extend({
-  account_id: z.string().uuid().optional(),
-  domain: z.string().optional(),
+  deal_id: z.string().uuid().optional(), // Pipeline deal (bd_deals)
   attendee_emails: z.array(z.string().email()).optional(),
   source: z.enum(["google_meet", "webhook"]).default("webhook"),
   source_ref: z.string().max(300).optional(),
   meeting_title: z.string().max(300).optional(),
   meeting_started_at: z.string().optional(),
-}).refine((b) => b.account_id || b.domain || b.attendee_emails?.length, {
-  message: "account_id, domain or attendee_emails is required",
+}).refine((b) => b.deal_id || b.attendee_emails?.length, {
+  message: "deal_id or attendee_emails is required",
 });

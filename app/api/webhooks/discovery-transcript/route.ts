@@ -1,8 +1,7 @@
 import { timingSafeEqual } from "crypto";
 import { NextRequest, NextResponse } from "next/server";
 import { DiscoveryWebhookSchema } from "@/lib/validators/discovery";
-import { findAccountByDomain } from "@/server/repos/gtm-accounts";
-import { queueDiscoveryRun } from "@/server/services/discovery";
+import { findPipelineDealByEmails, queueDiscoveryRun } from "@/server/services/discovery";
 
 export const runtime = "nodejs";
 
@@ -10,7 +9,7 @@ export const runtime = "nodejs";
 // Authorization: Bearer $DISCOVERY_WEBHOOK_SECRET
 // Repeat posts with the same source_ref return the existing run instead of starting another.
 
-// Attendee domains that never identify a lead.
+// Attendee domains that never identify a lead on their own (exact email matches still count).
 const IGNORED_DOMAINS = new Set([
   "cappawork.com",
   "gmail.com",
@@ -35,24 +34,6 @@ function authorized(request: NextRequest): boolean {
   return given.length === expected.length && timingSafeEqual(given, expected);
 }
 
-async function resolveAccountId(body: {
-  account_id?: string;
-  domain?: string;
-  attendee_emails?: string[];
-}): Promise<string | null> {
-  if (body.account_id) return body.account_id;
-  const domains = [
-    body.domain,
-    ...(body.attendee_emails ?? []).map((e) => e.split("@")[1]?.toLowerCase()),
-  ].filter((d): d is string => !!d && !IGNORED_DOMAINS.has(d));
-
-  for (const domain of new Set(domains)) {
-    const account = await findAccountByDomain(domain);
-    if (account) return account.id;
-  }
-  return null;
-}
-
 export async function POST(request: NextRequest) {
   if (!authorized(request)) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
@@ -62,8 +43,8 @@ export async function POST(request: NextRequest) {
   }
   const body = parsed.data;
 
-  const accountId = await resolveAccountId(body);
-  if (!accountId) return NextResponse.json({ error: "No CRM account matches" }, { status: 404 });
+  const dealId = body.deal_id ?? (await findPipelineDealByEmails(body.attendee_emails ?? [], IGNORED_DOMAINS));
+  if (!dealId) return NextResponse.json({ error: "No open Pipeline deal matches the attendees" }, { status: 404 });
 
   const meeting = [
     body.meeting_title && `Meeting: ${body.meeting_title}`,
@@ -73,7 +54,7 @@ export async function POST(request: NextRequest) {
     .join("\n");
 
   try {
-    const run = await queueDiscoveryRun(accountId, {
+    const run = await queueDiscoveryRun(dealId, {
       transcript: body.transcript,
       research: [meeting, body.research].filter(Boolean).join("\n\n") || undefined,
       constraintMap: body.constraint_map,
@@ -82,7 +63,7 @@ export async function POST(request: NextRequest) {
       source: body.source,
       sourceRef: body.source_ref,
     });
-    return NextResponse.json({ ...run, accountId }, { status: run.duplicate ? 200 : 202 });
+    return NextResponse.json({ ...run, pipelineDealId: dealId }, { status: run.duplicate ? 200 : 202 });
   } catch (err) {
     const message = err instanceof Error ? err.message : "Failed to queue run";
     return NextResponse.json({ error: message }, { status: 422 });

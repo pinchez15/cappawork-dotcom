@@ -4,7 +4,8 @@
  * Runs as you in Apps Script every 15 minutes. Finds your Meet calls that ended in the last
  * 48 hours with a finished native transcript, keeps the ones whose calendar title matches
  * TITLE_PATTERN, and posts the transcript to /api/webhooks/discovery-transcript. The site
- * matches the lead by attendee email domain and starts the post-call job.
+ * matches the open Pipeline deal by attendee email (exact, then company domain) and starts
+ * the post-call job.
  *
  * Uses the Meet REST API transcript entries rather than the Google Doc: each entry carries
  * its speaker and start time, so every quote gets a real timestamp.
@@ -193,16 +194,16 @@ function notifyUnmatched_(props, title, record, attendees, transcript) {
   const doc = transcript.docsDestination && transcript.docsDestination.exportUri;
   MailApp.sendEmail(
     to,
-    'Transcript not matched to a CRM lead: ' + title,
+    'Transcript not matched to a Pipeline deal: ' + title,
     [
-      'No CRM account matched these attendees, so the discovery pass did not run.',
+      'No open Pipeline deal matched these attendees, so the discovery pass did not run.',
       '',
       'Meeting: ' + title,
       'Started: ' + record.startTime,
       'Attendees: ' + (attendees.join(', ') || 'none on the calendar event'),
       doc ? 'Transcript: ' + doc : '',
       '',
-      'Set the account domain in the CRM, or paste the transcript into the Discovery tab.',
+      'Add the contact\'s email to the deal in Pipeline, or paste the transcript into its Discovery page.',
     ].join('\n')
   );
 }

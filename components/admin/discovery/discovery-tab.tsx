@@ -40,14 +40,14 @@ import {
   isFilled,
 } from "./shared";
 
-type Props = { accountId: string; companyName: string; initialView: DiscoveryView };
+type Props = { dealId: string; companyName: string; initialView: DiscoveryView };
 
 const RUNNING = new Set(["queued", "extracting", "writing", "recap", "gating", "brief"]);
 
-export function DiscoveryTab({ accountId, companyName, initialView }: Props) {
+export function DiscoveryTab({ dealId, companyName, initialView }: Props) {
   const [view, setView] = useState(initialView);
   const [callMode, setCallMode] = useState(false);
-  const base = `/api/admin/crm/${accountId}/discovery`;
+  const base = `/api/admin/bd-deals/${dealId}/discovery`;
 
   const refresh = useCallback(async () => {
     const res = await fetch(base, { cache: "no-store" });
@@ -101,7 +101,7 @@ export function DiscoveryTab({ accountId, companyName, initialView }: Props) {
     <div className="space-y-6 max-w-4xl">
       {callMode && (
         <CallMode
-          accountId={accountId}
+          dealId={dealId}
           companyName={companyName}
           view={view}
           onClose={() => setCallMode(false)}
@@ -129,7 +129,7 @@ export function DiscoveryTab({ accountId, companyName, initialView }: Props) {
 
       <PreCall view={view} onPatch={patch} />
 
-      <RunPanel accountId={accountId} run={latestRun} priceUsd={view.deal?.price_usd ?? 35000} onQueued={refresh} />
+      <RunPanel dealId={dealId} run={latestRun} priceUsd={view.deal?.price_usd ?? 35000} onQueued={refresh} />
 
       {view.deal && <ComputedSummary view={view} />}
 
@@ -262,12 +262,12 @@ function PreCall({
 // ─── Post-call run ──────────────────────────────────────────────────────────
 
 function RunPanel({
-  accountId,
+  dealId,
   run,
   priceUsd,
   onQueued,
 }: {
-  accountId: string;
+  dealId: string;
   run: DiscoveryRun | undefined;
   priceUsd: number;
   onQueued: () => void;
@@ -285,7 +285,7 @@ function RunPanel({
     setSubmitting(true);
     try {
       const pct = (v: string) => (v ? Number(v) / 100 : undefined);
-      const res = await fetch(`/api/admin/crm/${accountId}/discovery/runs`, {
+      const res = await fetch(`/api/admin/bd-deals/${dealId}/discovery/runs`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

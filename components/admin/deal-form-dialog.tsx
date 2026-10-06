@@ -18,7 +18,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Trash2, ExternalLink } from "lucide-react";
+import Link from "next/link";
+import { Trash2, ExternalLink, ClipboardList } from "lucide-react";
 import { STAGES, type BDDeal } from "@/server/repos/bd-deals";
 import type { BDCatalyst } from "@/server/repos/bd-catalysts";
 
@@ -165,10 +166,17 @@ export function DealFormDialog({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
-        <DialogHeader>
+        <DialogHeader className="flex-row items-center justify-between space-y-0 pr-8">
           <DialogTitle>
             {isEditing ? "Edit Deal" : "New Deal"}
           </DialogTitle>
+          {isEditing && (
+            <Button asChild size="sm" variant="outline">
+              <Link href={`/admin/pipeline/${deal.id}`}>
+                <ClipboardList className="h-4 w-4 mr-1" /> Discovery
+              </Link>
+            </Button>
+          )}
         </DialogHeader>
 
         <div className="space-y-4 mt-2">

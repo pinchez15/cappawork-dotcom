@@ -5,7 +5,7 @@ import { queueDiscoveryRun } from "@/server/services/discovery";
 
 export const runtime = "nodejs";
 
-type RouteParams = { params: Promise<{ accountId: string }> };
+type RouteParams = { params: Promise<{ dealId: string }> };
 
 export async function POST(request: NextRequest, { params }: RouteParams) {
   try {
@@ -13,7 +13,7 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
   } catch {
     return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
   }
-  const { accountId } = await params;
+  const { dealId } = await params;
 
   const parsed = DiscoveryRunSchema.safeParse(await request.json());
   if (!parsed.success) {
@@ -21,7 +21,7 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
   }
 
   try {
-    const run = await queueDiscoveryRun(accountId, {
+    const run = await queueDiscoveryRun(dealId, {
       transcript: parsed.data.transcript,
       research: parsed.data.research,
       constraintMap: parsed.data.constraint_map,

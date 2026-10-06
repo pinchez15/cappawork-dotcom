@@ -20,7 +20,7 @@ const STAGE_ENDS_BY: Record<string, number> = {
 const POLL_MS = 5000;
 
 type Props = {
-  accountId: string;
+  dealId: string;
   companyName: string;
   view: DiscoveryView;
   onClose: () => void;
@@ -33,7 +33,7 @@ function formatClock(seconds: number): string {
   return `${m}:${String(s).padStart(2, "0")}`;
 }
 
-export function CallMode({ accountId, companyName, view, onClose, onRefresh }: Props) {
+export function CallMode({ dealId, companyName, view, onClose, onRefresh }: Props) {
   const bank = view.bank!;
   const stages = useMemo(
     () => [{ stage: "Frame", questions: [] }, ...groupByStage(bank.questions)],
@@ -43,7 +43,7 @@ export function CallMode({ accountId, companyName, view, onClose, onRefresh }: P
   const [startedAt, setStartedAt] = useState(() => Date.now());
   const [now, setNow] = useState(() => Date.now());
   // Cues you've asked, by question id. Local only: a tap is not evidence.
-  const storageKey = `discovery-asked:${accountId}`;
+  const storageKey = `discovery-asked:${dealId}`;
   const [asked, setAsked] = useState<Set<string>>(() => {
     try {
       return new Set(JSON.parse(sessionStorage.getItem(storageKey) ?? "[]"));
@@ -61,11 +61,11 @@ export function CallMode({ accountId, companyName, view, onClose, onRefresh }: P
   // Fields fill from MCP, manual edits and the post-call pass; pick them up while the call runs.
   useEffect(() => {
     const id = setInterval(async () => {
-      const res = await fetch(`/api/admin/crm/${accountId}/discovery`, { cache: "no-store" });
+      const res = await fetch(`/api/admin/bd-deals/${dealId}/discovery`, { cache: "no-store" });
       if (res.ok) onRefresh(await res.json());
     }, POLL_MS);
     return () => clearInterval(id);
-  }, [accountId, onRefresh]);
+  }, [dealId, onRefresh]);
 
   useEffect(() => {
     const id = setInterval(() => setNow(Date.now()), 1000);

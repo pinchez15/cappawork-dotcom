@@ -12,7 +12,7 @@ import {
 
 export const runtime = "nodejs";
 
-type RouteParams = { params: Promise<{ accountId: string }> };
+type RouteParams = { params: Promise<{ dealId: string }> };
 
 async function authorized() {
   try {
@@ -25,13 +25,13 @@ async function authorized() {
 
 export async function GET(_req: NextRequest, { params }: RouteParams) {
   if (!(await authorized())) return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
-  const { accountId } = await params;
-  return NextResponse.json(await getDiscoveryView(accountId));
+  const { dealId } = await params;
+  return NextResponse.json(await getDiscoveryView(dealId));
 }
 
 export async function PATCH(request: NextRequest, { params }: RouteParams) {
   if (!(await authorized())) return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
-  const { accountId } = await params;
+  const { dealId } = await params;
 
   const parsed = DiscoveryPatchSchema.safeParse(await request.json());
   if (!parsed.success) {
@@ -40,7 +40,7 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
   const body = parsed.data;
 
   try {
-    const deal = await ensureDeal(accountId);
+    const deal = await ensureDeal(dealId);
     switch (body.action) {
       case "set_field":
         await setField({
@@ -64,7 +64,7 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
         await confirmPrimaryConstraint(deal.id, body.constraint_id);
         break;
     }
-    return NextResponse.json(await getDiscoveryView(accountId));
+    return NextResponse.json(await getDiscoveryView(dealId));
   } catch (err) {
     const message = err instanceof Error ? err.message : (err as { message?: string })?.message ?? "Failed";
     return NextResponse.json({ error: message }, { status: 422 });

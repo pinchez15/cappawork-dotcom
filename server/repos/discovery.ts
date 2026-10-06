@@ -58,7 +58,8 @@ export type DiscoveryConstraint = {
 
 export type DiscoveryDeal = {
   id: string;
-  account_id: string;
+  bd_deal_id: string | null;
+  account_id: string | null;
   hypothesis: string | null;
   price_usd: number;
   hypothesis_result: "confirmed" | "partial" | "wrong" | null;
@@ -125,18 +126,19 @@ export function mustFields(bank: DiscoveryBank): string[] {
 
 // ─── Reads ──────────────────────────────────────────────────────────────────
 
-export async function getDealByAccount(accountId: string): Promise<DiscoveryDeal | null> {
+export async function getDealByPipelineDeal(bdDealId: string): Promise<DiscoveryDeal | null> {
   const { data, error } = await supabaseAdmin
     .from("discovery_deals")
     .select("*")
-    .eq("account_id", accountId)
+    .eq("bd_deal_id", bdDealId)
     .maybeSingle();
   if (error) throw error;
   return data as DiscoveryDeal | null;
 }
 
-export async function ensureDeal(accountId: string): Promise<DiscoveryDeal> {
-  const { data, error } = await supabaseAdmin.rpc("discovery_ensure_deal", { p_account_id: accountId });
+/** The discovery record for a Pipeline deal, created on first write. */
+export async function ensureDeal(bdDealId: string): Promise<DiscoveryDeal> {
+  const { data, error } = await supabaseAdmin.rpc("discovery_ensure_bd_deal", { p_bd_deal_id: bdDealId });
   if (error) throw error;
   return data as DiscoveryDeal;
 }
@@ -160,8 +162,8 @@ export async function getDealState(dealId: string) {
   };
 }
 
-export async function getDiscoveryView(accountId: string): Promise<DiscoveryView> {
-  const [bank, deal] = await Promise.all([getActiveBank(), getDealByAccount(accountId)]);
+export async function getDiscoveryView(bdDealId: string): Promise<DiscoveryView> {
+  const [bank, deal] = await Promise.all([getActiveBank(), getDealByPipelineDeal(bdDealId)]);
   if (!deal) return { bank, deal: null, constraints: [], answers: [], runs: [] };
 
   const [state, runs] = await Promise.all([
@@ -243,7 +245,7 @@ export async function confirmPrimaryConstraint(dealId: string, constraintId: str
 
 export async function updateDeal(
   dealId: string,
-  patch: Partial<Omit<DiscoveryDeal, "id" | "account_id" | "updated_at">>
+  patch: Partial<Omit<DiscoveryDeal, "id" | "bd_deal_id" | "account_id" | "updated_at">>
 ): Promise<DiscoveryDeal> {
   const { data, error } = await supabaseAdmin
     .from("discovery_deals")
@@ -300,7 +302,7 @@ export async function findRunBySourceRef(sourceRef: string): Promise<{ id: strin
 export async function getRunForJob(runId: string) {
   const { data, error } = await supabaseAdmin
     .from("discovery_runs")
-    .select("*, discovery_deals!inner(id, account_id, hypothesis)")
+    .select("*, discovery_deals!inner(id, bd_deal_id, hypothesis)")
     .eq("id", runId)
     .single();
   if (error) throw error;
@@ -313,7 +315,7 @@ export async function getRunForJob(runId: string) {
     defaults: Record<string, number>;
     price_usd: number;
     extraction: Extraction | null;
-    discovery_deals: { id: string; account_id: string; hypothesis: string | null };
+    discovery_deals: { id: string; bd_deal_id: string; hypothesis: string | null };
   };
 }
 

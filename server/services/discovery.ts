@@ -1,30 +1,53 @@
 import { inngest } from "@/lib/inngest/client";
-import { getGtmAccountDetail } from "@/server/repos/gtm-accounts";
+import { supabaseAdmin } from "@/lib/db/client";
+import { getDeal, type BDDeal } from "@/server/repos/bd-deals";
 import { createRun, ensureDeal, findRunBySourceRef, getActiveBank } from "@/server/repos/discovery";
 
-/** Pre-call research from what the CRM already knows about the account. */
-export async function buildResearch(accountId: string): Promise<string> {
-  const account = await getGtmAccountDetail(accountId);
-  if (!account) throw new Error("Account not found");
-
+/** Pre-call research from what the Pipeline deal already records. */
+export function buildResearch(deal: BDDeal): string {
   const lines = [
-    `Company: ${account.company_name}${account.domain ? ` (${account.domain})` : ""}`,
-    account.industry && `Industry: ${account.industry}`,
-    account.location && `Location: ${account.location}`,
-    account.employee_count && `Employees: ${account.employee_count}`,
-    account.revenue_estimate && `Revenue estimate: ${account.revenue_estimate}`,
-    account.description && `Description: ${account.description}`,
-    ...(account.signals as { signal_type: string; evidence_summary: string | null }[]).map(
-      (s) => `Signal (${s.signal_type.replace(/_/g, " ")}): ${s.evidence_summary ?? ""}`
-    ),
-    (account.hypothesis as { likely_pain?: string | null } | null)?.likely_pain &&
-      `Outreach hypothesis, likely pain: ${(account.hypothesis as { likely_pain: string }).likely_pain}`,
+    `Deal: ${deal.name}`,
+    deal.company && `Company: ${deal.company}`,
+    deal.contact_name && `Contact: ${deal.contact_name}${deal.contact_title ? `, ${deal.contact_title}` : ""}`,
+    deal.value && `Pipeline value: $${deal.value.toLocaleString("en-US")}`,
+    `Source: ${deal.source}${deal.referral_partner ? ` (via ${deal.referral_partner})` : ""}`,
+    deal.next_action && `Next action: ${deal.next_action}`,
+    deal.notes && `Notes: ${deal.notes}`,
   ];
   return lines.filter(Boolean).join("\n");
 }
 
+/**
+ * Which open Pipeline deal a call belongs to, from attendee emails:
+ * an exact contact email first, then a contact at the same company domain.
+ */
+export async function findPipelineDealByEmails(emails: string[], ignoredDomains: Set<string>): Promise<string | null> {
+  const openDealMatching = async (pattern: string) => {
+    const { data, error } = await supabaseAdmin
+      .from("bd_deals")
+      .select("id")
+      .ilike("email", pattern)
+      .not("stage", "in", "(won,lost)")
+      .order("updated_at", { ascending: false })
+      .limit(1);
+    if (error) throw error;
+    return (data?.[0]?.id as string | undefined) ?? null;
+  };
+
+  for (const email of emails) {
+    const id = await openDealMatching(email.replace(/%/g, ""));
+    if (id) return id;
+  }
+  for (const domain of new Set(emails.map((e) => e.split("@")[1]?.toLowerCase()))) {
+    if (!domain || ignoredDomains.has(domain)) continue;
+    const id = await openDealMatching(`%@${domain.replace(/%/g, "")}`);
+    if (id) return id;
+  }
+  return null;
+}
+
 export async function queueDiscoveryRun(
-  accountId: string,
+  bdDealId: string,
   input: {
     transcript: string;
     research?: string;
@@ -41,10 +64,13 @@ export async function queueDiscoveryRun(
   }
 
   const bank = await getActiveBank();
-  if (!bank) throw new Error("No active question bank. Run scripts/import-discovery-bank.mjs");
+  if (!bank) throw new Error("No active question bank. Run supabase/seed/discovery_question_bank.sql");
 
-  const deal = await ensureDeal(accountId);
-  const autoResearch = await buildResearch(accountId);
+  const pipelineDeal = await getDeal(bdDealId);
+  if (!pipelineDeal) throw new Error("Pipeline deal not found");
+
+  const deal = await ensureDeal(bdDealId);
+  const autoResearch = buildResearch(pipelineDeal);
   const research = input.research?.trim() ? `${input.research.trim()}\n\n${autoResearch}` : autoResearch;
 
   const run = await createRun({
