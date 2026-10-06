@@ -1,4 +1,4 @@
-import { generateText, Output, type LanguageModel } from "ai";
+import { generateText, Output, zodSchema, type LanguageModel } from "ai";
 import { anthropic } from "@ai-sdk/anthropic";
 import {
   ExtractionResult,
@@ -33,9 +33,18 @@ export type ExtractDiscoveryInput = {
   model?: LanguageModel;
 };
 
-// Anthropic's JSON tool mode tolerates the schema's array and number bounds;
-// Zod still validates the result.
+// Small schemas (the recap) use structured output. The extraction schema is too large for
+// Anthropic's constrained-decoding grammar, and Opus rejects the forced-tool fallback, so the
+// extraction asks for plain JSON against the schema and validates it with Zod instead.
 const ANTHROPIC_OPTIONS = { anthropic: { structuredOutputMode: "jsonTool" as const } };
+const EXTRACTION_JSON_SCHEMA = JSON.stringify(zodSchema(ExtractionResult).jsonSchema);
+
+function parseJsonText(text: string): unknown {
+  const start = text.indexOf("{");
+  const end = text.lastIndexOf("}");
+  if (start < 0 || end < start) throw new Error("Extraction returned no JSON object");
+  return JSON.parse(text.slice(start, end + 1));
+}
 
 function resolveModel(model?: LanguageModel): LanguageModel {
   return model ?? anthropic(DEFAULT_DISCOVERY_MODEL);
@@ -61,16 +70,35 @@ export async function extractDiscovery(input: ExtractDiscoveryInput): Promise<Ex
     `PRICE\n$${input.priceUsd.toLocaleString("en-US")}`,
   ].join("\n\n");
 
-  const { output } = await generateText({
-    model: resolveModel(input.model),
-    system: EXTRACTION_SYSTEM,
-    prompt,
-    output: Output.object({ schema: ExtractionResult }),
-    providerOptions: ANTHROPIC_OPTIONS,
-    maxOutputTokens: 16000,
-  });
+  const model = resolveModel(input.model);
+  const system = `${EXTRACTION_SYSTEM}
 
-  return output;
+FORMAT
+Reply with one JSON object and nothing else: no prose, no code fences. It must match this JSON Schema exactly, with every property present:
+${EXTRACTION_JSON_SCHEMA}`;
+
+  const first = await generateText({ model, system, prompt, maxOutputTokens: 32000 });
+  let error: string;
+  try {
+    const parsed = ExtractionResult.safeParse(parseJsonText(first.text));
+    if (parsed.success) return parsed.data;
+    error = JSON.stringify(parsed.error.issues.slice(0, 20));
+  } catch (e) {
+    error = (e as Error).message;
+  }
+
+  // One repair pass: hand back the reply and what was wrong with it.
+  const retry = await generateText({
+    model,
+    system,
+    messages: [
+      { role: "user", content: prompt },
+      { role: "assistant", content: first.text },
+      { role: "user", content: `That reply did not match the schema: ${error}\nReturn the corrected JSON object only.` },
+    ],
+    maxOutputTokens: 32000,
+  });
+  return ExtractionResult.parse(parseJsonText(retry.text));
 }
 
 export async function draftRecapEmail(input: {
