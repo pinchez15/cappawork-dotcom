@@ -158,7 +158,7 @@ export function AnnotationOverlay({
                   ox = -ox;
                   oy = -oy;
                 }
-                const labelOffset = 0.028;
+                const labelOffset = 0.042;
                 const x1 = nx(seg.a.x);
                 const y1 = ny(seg.a.y);
                 const x2 = nx(seg.b.x);
@@ -268,8 +268,8 @@ export function AnnotationOverlay({
                     />
                     {layers.labels && (
                       <Marker
-                        x={x + w / 2}
-                        y={y + h / 2}
+                        x={x + Math.min(14, w * 0.2)}
+                        y={y + Math.min(14, h * 0.2)}
                         n={n}
                         color={active ? "#D97706" : color}
                         active={active}
