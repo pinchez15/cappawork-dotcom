@@ -9,7 +9,9 @@ export const metadata: Metadata = {
 
 export default function DemoLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen bg-[#F7F6F3] text-stone-900 antialiased">
+    <div className="min-h-[100dvh] bg-[#F4F5F7] text-stone-900 antialiased">
+      {/* Hide Clerk keyless/dev claim toast so it does not cover takeoff controls during demos. */}
+      <style>{`#clerk-components, .cl-internal-b3fm6y { display: none !important; }`}</style>
       {children}
     </div>
   );
