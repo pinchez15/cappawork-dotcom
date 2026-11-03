@@ -1,19 +1,17 @@
 import type { Metadata } from "next";
 import Navigation from "@/app/components/navigation";
 import Footer from "@/app/components/footer";
-import { OfferingPageContent } from "@/app/components/offering-page-content";
 import { OfferingPageWrapper } from "@/app/components/offering-page-wrapper";
-import { getOffering } from "@/lib/offerings/data";
+import { RoadmapContent } from "./roadmap-content";
 
-const offering = getOffering("discover")!;
+const title = "The AI Opportunity Roadmap | CappaWork";
+const description =
+  "The 5 to 10 AI projects worth doing in your business, ranked and priced. $1,500, credited in full toward your build.";
 
 export const metadata: Metadata = {
-  title: "Discover — CappaWork",
-  description: offering.subtitle,
-  openGraph: {
-    title: "Discover — CappaWork",
-    description: offering.outcome,
-  },
+  title,
+  description,
+  openGraph: { title, description },
 };
 
 export default function DiscoverPage() {
@@ -21,7 +19,7 @@ export default function DiscoverPage() {
     <OfferingPageWrapper>
       <main className="min-h-screen bg-warm-white">
         <Navigation />
-        <OfferingPageContent offering={offering} />
+        <RoadmapContent />
         <Footer />
       </main>
     </OfferingPageWrapper>

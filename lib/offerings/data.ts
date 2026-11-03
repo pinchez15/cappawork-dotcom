@@ -45,12 +45,12 @@ export const OFFERINGS: Offering[] = [
     slug: "discover",
     title: "Discover",
     subtitle:
-      "Build the right roadmap before you build the wrong software.",
-    subtitleNote: "Most AI projects fail because the wrong problem got solved first.",
-    price: "",
-    priceNote: "Sprint · 2 weeks  ·  Deep · 4–6 weeks",
+      "The 5 to 10 AI projects worth doing in your business, ranked and priced.",
+    subtitleNote: "$1,500, credited in full toward your build.",
+    price: "$1,500",
+    priceNote: "Delivered 1 to 2 weeks after the discovery call",
     outcome:
-      "A prioritized roadmap your leadership team can execute, with build vs. buy answered and ROI ranked.",
+      "A written, model-agnostic roadmap of your 5 to 10 best AI opportunities, ranked by impact and effort, with a profit range for each.",
     tiers: [
       {
         name: "Discover Sprint",
