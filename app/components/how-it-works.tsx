@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef } from "react"
+import Link from "next/link"
 import { FadeInUp } from "./motion-wrapper"
 import { isLiteMotion } from "@/lib/motion"
 import { GlyphPath, OrbStation } from "./glyphs"
@@ -10,6 +11,8 @@ const steps = [
     number: "01",
     title: "Discover",
     body: "We interview your team to understand how the business works and where you need to go.",
+    href: "/roadmap",
+    linkLabel: "Start with the AI Opportunity Roadmap",
   },
   {
     number: "02",
@@ -92,6 +95,14 @@ export default function HowItWorks() {
               </div>
               <h3 className="mt-4 font-display text-2xl text-navy">{step.title}</h3>
               <p className="mt-3 text-stone-600 leading-relaxed">{step.body}</p>
+              {"href" in step && step.href && step.linkLabel ? (
+                <Link
+                  href={step.href}
+                  className="mt-4 inline-flex text-sm font-medium text-navy underline decoration-gold/60 underline-offset-4 transition-colors hover:text-gold"
+                >
+                  {step.linkLabel}
+                </Link>
+              ) : null}
             </li>
           ))}
         </ol>

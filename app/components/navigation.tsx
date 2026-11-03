@@ -15,6 +15,8 @@ export default function Navigation() {
     const currentPath = window.location.pathname
     if (currentPath === "/blog") {
       setActiveSection("blog")
+    } else if (currentPath === "/roadmap") {
+      setActiveSection("roadmap")
     } else if (currentPath === "/") {
       const handleScroll = () => {
         const sections = ["hero", "transform", "philosophy", "how-it-works", "outcomes", "judgment", "work", "faq", "discovery"]
@@ -40,6 +42,7 @@ export default function Navigation() {
   const navItems = [
     { id: "how-it-works", label: "How it works", href: "/#how-it-works" },
     { id: "work", label: "Work", href: "/#work" },
+    { id: "roadmap", label: "Roadmap", href: "/roadmap" },
     { id: "about", label: "About", href: "/about" },
     { id: "blog", label: "Blog", href: "/blog" },
   ]

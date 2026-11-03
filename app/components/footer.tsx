@@ -48,6 +48,11 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/roadmap" className="text-white/50 hover:text-white text-sm transition-colors">
+                  AI Opportunity Roadmap
+                </Link>
+              </li>
+              <li>
                 <Link href="/about" className="text-white/50 hover:text-white text-sm transition-colors">
                   About
                 </Link>
