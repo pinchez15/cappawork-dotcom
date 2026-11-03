@@ -4,9 +4,44 @@ import { BOOKING_URL } from "@/lib/booking"
 import { GlyphKey, OrbStation } from "@/app/components/glyphs"
 import RoadmapFaq from "@/app/components/roadmap-faq"
 
+const painGroups = [
+  {
+    title: "Speed and lost deals",
+    items: [
+      "Quotes take too long. Customers wait. Competitors answer first.",
+      "Bids due Friday still sit with one estimator.",
+      "The deals you chase are limited by the hours you have.",
+    ],
+  },
+  {
+    title: "People and knowledge",
+    items: [
+      "Your best people are stuck on busy work, not real customer work.",
+      "Pricing rules live in one senior head. If they leave, you feel it.",
+      "New hires take too long to get up to speed.",
+    ],
+  },
+  {
+    title: "Margin, capacity, pressure",
+    items: [
+      "Mispriced quotes and missed line items show up later as pain.",
+      "You turn down work, or soft-pedal it, because the bench is full.",
+      "A regulation or deadline means something has to get done right now.",
+      "Vendors pitch AI tools. You still do not know where to start.",
+    ],
+  },
+]
+
+const costLines = [
+  "Every slow quote is a customer deciding without you.",
+  "Every hour on take-off and re-keying is an hour not spent winning work.",
+  "Every process that lives in one person's head is a risk you carry alone.",
+  "You already know there is more capacity in the business. You just cannot unlock it yet.",
+]
+
 const deliverables = [
   "The 5 to 10 best AI opportunities in your business, ranked by impact and effort",
-  "Next steps for each one, covering tools, data, and rough build effort",
+  "Next steps for each one: tools, data, and rough build effort",
   "Estimated productivity or profit impact, with the math and assumptions shown",
   "Quick wins you can start this month with tools you already own",
   "A 45-minute walkthrough with your team",
@@ -23,41 +58,38 @@ const bookingSteps = [
   {
     number: "01",
     title: "Book a call",
-    body: "Schedule a short call. We confirm fit and answer questions before anything is paid.",
+    body: "Fifteen minutes. Tell us where quotes stall, where knowledge sits with one person, and what has to move now.",
   },
   {
     number: "02",
     title: "A quick back-and-forth",
-    body: "One or two messages to align on scope, timing, and the sample documents we will need.",
+    body: "One or two messages. We align on scope, timing, and the sample documents that show how your work really runs.",
   },
   {
     number: "03",
     title: "Pay and schedule the work",
-    body: "We send a payment link for the $1,500 fixed fee, then book discovery and get to work.",
+    body: "We send a payment link for the $1,500 fixed fee. Then we book discovery and get to work on your roadmap.",
   },
-]
-
-const audience = [
-  "Owners, executives, and division leaders at companies with $10M+ in revenue",
-  "Teams with complex quoting or bidding, or manual, knowledge-work-heavy processes",
-  "Commercial building-product manufacturers whose estimators turn drawings into priced quotes",
-  "Leaders who know AI matters but do not want to bet on the wrong vendor",
 ]
 
 const exampleRows = [
   {
     rank: "1",
-    opportunity: "Drawing to quote. Pilot AI take-off on past jobs, compare against estimator numbers, then roll out with human review.",
-    impact: "Quote prep from hours to minutes; possibly 2x to 3x bids per estimator",
+    opportunity:
+      "Drawing to quote. Pilot AI take-off on past jobs, compare against estimator numbers, then roll out with human review.",
+    impact:
+      "Quote prep from hours to minutes; possibly 2x to 3x bids per estimator",
   },
   {
     rank: "2",
-    opportunity: "RFQ intake. Auto-sort inbound bid requests and pull specs and due dates into the CRM.",
+    opportunity:
+      "RFQ intake. Auto-sort inbound bid requests and pull specs and due dates into the CRM.",
     impact: "Roughly 3 to 6 hours a week back per rep",
   },
   {
     rank: "3",
-    opportunity: "PO to order entry. Read customer POs and draft ERP orders for approval.",
+    opportunity:
+      "PO to order entry. Read customer POs and draft ERP orders for approval.",
     impact: "Fewer re-keying errors; faster order turnaround",
   },
 ]
@@ -107,21 +139,21 @@ export default function RoadmapLanding() {
           </div>
 
           <h1 className="font-display text-4xl tracking-tight text-white leading-[1.05] sm:text-5xl lg:text-6xl">
-            Know exactly where AI pays off in your business.
+            Your quotes take too long. Your best people are stuck. Deals wait on hours you do not have.
           </h1>
 
           <p className="mt-6 text-lg leading-relaxed text-white/70 sm:text-xl">
-            One hour with you. About 10 hours of our work. A prioritized,
-            model-agnostic roadmap of where to apply AI, what to do first, and
-            what each step could be worth. Fixed price: $1,500. Free when you
-            build.
+            You feel it every week. Customers wait. Competitors answer first.
+            Knowledge sits with one estimator. New hires take forever to ramp.
+            You know there is more capacity in the business. You need a clear
+            plan for where AI actually unlocks it. Fixed price: $1,500. Free
+            when you build.
           </p>
 
           <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
             <BookCallButton size="large" />
             <p className="text-sm text-white/50">
-              Model-agnostic and vendor-neutral. We work for you, not for an AI
-              company.
+              Stop guessing. Get a ranked plan for your bottlenecks.
             </p>
           </div>
 
@@ -129,68 +161,103 @@ export default function RoadmapLanding() {
         </div>
       </section>
 
-      {/* Problem */}
+      {/* Sound familiar */}
       <section className="bg-warm-white py-16 sm:py-20">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <span className="mb-4 block text-xs font-bold uppercase tracking-widest text-gold">
-            The problem
+            Sound familiar?
           </span>
           <h2 className="font-display text-3xl tracking-tight text-navy sm:text-4xl">
-            You need a straight answer, not more hype.
+            This is what it feels like from your seat.
+          </h2>
+          <p className="mt-4 text-lg leading-relaxed text-stone-600">
+            Owners, executives, and division leaders at $10M+ companies that
+            quote from drawings or run heavy knowledge work know these lines by
+            heart.
+          </p>
+
+          <div className="mt-10 space-y-10">
+            {painGroups.map((group) => (
+              <div key={group.title}>
+                <h3 className="font-display text-xl text-navy">{group.title}</h3>
+                <ul className="mt-4 space-y-3">
+                  {group.items.map((item) => (
+                    <li
+                      key={item}
+                      className="flex items-start gap-3 text-stone-600 leading-relaxed"
+                    >
+                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-gold" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* What it costs you */}
+      <section className="bg-card-light py-16 sm:py-20">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+          <span className="mb-4 block text-xs font-bold uppercase tracking-widest text-gold">
+            What it costs you
+          </span>
+          <h2 className="font-display text-3xl tracking-tight text-navy sm:text-4xl">
+            The pain is not abstract. It shows up in the business.
+          </h2>
+          <ul className="mt-8 space-y-4">
+            {costLines.map((line) => (
+              <li
+                key={line}
+                className="flex items-start gap-3 text-lg text-stone-600 leading-relaxed"
+              >
+                <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold" />
+                {line}
+              </li>
+            ))}
+          </ul>
+          <p className="mt-8 text-stone-600 leading-relaxed">
+            Hiring alone will not clear the queue for long. Another vendor demo
+            will not tell you what is worth doing first. You need the bottlenecks
+            named, ranked, and sized.
+          </p>
+        </div>
+      </section>
+
+      {/* The way out */}
+      <section className="bg-warm-white py-16 sm:py-20">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+          <span className="mb-4 block text-xs font-bold uppercase tracking-widest text-gold">
+            The way out
+          </span>
+          <h2 className="font-display text-3xl tracking-tight text-navy sm:text-4xl">
+            A written roadmap for where AI pays off in your operation.
           </h2>
           <div className="mt-6 space-y-5 text-lg leading-relaxed text-stone-600">
             <p>
-              Everyone is telling you to do something with AI. Vendors want to
-              sell you their tool. Consultants want a six-month program.
-              Meanwhile your best people still spend hours copying numbers from
-              PDFs into spreadsheets, building quotes by hand, and re-keying
-              orders into the ERP.
+              One hour with you. About 10 hours of our work. You get a
+              model-agnostic plan for the work that is slow, risky, or stuck in
+              one person&rsquo;s head.
             </p>
-            <p>You need answers to three questions:</p>
-            <ol className="list-decimal space-y-2 pl-5">
-              <li>Where in my business does AI actually make a difference?</li>
-              <li>What should we do first?</li>
-              <li>What is it likely to be worth?</li>
-            </ol>
             <p>
-              The AI Opportunity Roadmap answers all three, in writing, in about
-              two weeks.
+              We work from your side of the table. We do not resell anyone&rsquo;s
+              AI tools. If the right answer is a process change, an off-the-shelf
+              tool, or &ldquo;do not use AI here,&rdquo; that is what the roadmap
+              will say.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Who it's for */}
-      <section className="bg-card-light py-16 sm:py-20">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-          <span className="mb-4 block text-xs font-bold uppercase tracking-widest text-gold">
-            Who it is for
-          </span>
-          <h2 className="font-display text-3xl tracking-tight text-navy sm:text-4xl">
-            Built for operators with real workflow weight.
-          </h2>
-          <ul className="mt-8 space-y-4">
-            {audience.map((item) => (
-              <li
-                key={item}
-                className="flex items-start gap-3 text-stone-600 leading-relaxed"
-              >
-                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-gold" />
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
       {/* What you get */}
-      <section className="bg-warm-white py-16 sm:py-20">
+      <section className="bg-card-light py-16 sm:py-20">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <span className="mb-4 block text-xs font-bold uppercase tracking-widest text-gold">
             What you get
           </span>
           <h2 className="font-display text-3xl tracking-tight text-navy sm:text-4xl">
-            A written plan you can act on.
+            Clarity on what to fix first, and what it could be worth.
           </h2>
           <p className="mt-4 text-lg leading-relaxed text-stone-600">
             A 1-hour discovery call with a founder or executive, then about 10
@@ -208,15 +275,15 @@ export default function RoadmapLanding() {
             ))}
           </ul>
           <p className="mt-8 text-stone-600 leading-relaxed">
-            We are model-agnostic. If an off-the-shelf tool, a process change, or
-            &ldquo;do not use AI here&rdquo; is the right answer, that is what
-            the roadmap will say. We do not resell anyone&rsquo;s AI tools.
+            Built for quoting from drawings, bidding under deadline pressure, and
+            other knowledge-heavy workflows where speed, margin, and key-person
+            risk all collide.
           </p>
         </div>
       </section>
 
       {/* Guarantees */}
-      <section className="bg-card-light py-16 sm:py-20">
+      <section className="bg-warm-white py-16 sm:py-20">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <span className="mb-4 block text-xs font-bold uppercase tracking-widest text-gold">
             Guarantees
@@ -224,6 +291,10 @@ export default function RoadmapLanding() {
           <h2 className="font-display text-3xl tracking-tight text-navy sm:text-4xl">
             Free when you build. Refunded if we miss.
           </h2>
+          <p className="mt-4 text-lg leading-relaxed text-stone-600">
+            You should not pay $1,500 to get another vague AI slide deck. The
+            offer is built to remove that risk.
+          </p>
 
           <div className="mt-10 space-y-10">
             <div>
@@ -249,7 +320,7 @@ export default function RoadmapLanding() {
               </h3>
               <p className="mt-3 text-stone-600 leading-relaxed">
                 If the roadmap identifies fewer than 3 opportunities with a
-                sized impact, you get a full refund.
+                sized impact, you get a full refund. No soft list. No filler.
               </p>
             </div>
           </div>
@@ -257,17 +328,17 @@ export default function RoadmapLanding() {
       </section>
 
       {/* How it works */}
-      <section className="bg-warm-white py-16 sm:py-20">
+      <section className="bg-card-light py-16 sm:py-20">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <span className="mb-4 block text-xs font-bold uppercase tracking-widest text-gold">
             How it works
           </span>
           <h2 className="font-display text-3xl tracking-tight text-navy sm:text-4xl">
-            Book a call. Align. Then we start.
+            Start with the bottleneck. Not a software pitch.
           </h2>
           <p className="mt-4 text-lg leading-relaxed text-stone-600">
-            There is no checkout on this page. Payment comes after a short call
-            confirms fit.
+            There is no checkout on this page. You talk first. Payment comes
+            after we confirm fit.
           </p>
 
           <ol className="mt-10 space-y-6">
@@ -299,13 +370,13 @@ export default function RoadmapLanding() {
       </section>
 
       {/* Proof */}
-      <section className="bg-card-light py-16 sm:py-20">
+      <section className="bg-warm-white py-16 sm:py-20">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <span className="mb-4 block text-xs font-bold uppercase tracking-widest text-gold">
             Proof
           </span>
           <h2 className="font-display text-3xl tracking-tight text-navy sm:text-4xl">
-            Drawing or photo to a priced quote, in minutes.
+            We have already attacked the drawing-to-quote bottleneck.
           </h2>
           <div className="mt-6 space-y-5 text-lg leading-relaxed text-stone-600">
             <p>
@@ -315,9 +386,9 @@ export default function RoadmapLanding() {
               matching, and the pricing math.
             </p>
             <p>
-              That is the kind of opportunity the roadmap is built to find:
-              high-skill people stuck doing repetitive work that software can
-              draft for them to check.
+              That is the kind of pain the roadmap is built to find: high-skill
+              people stuck doing repetitive work, while deals wait and knowledge
+              stays trapped in a few heads.
             </p>
             <p>
               Divisions are a good place to pilot. If it works in one part of the
@@ -328,15 +399,15 @@ export default function RoadmapLanding() {
       </section>
 
       {/* Example excerpt */}
-      <section className="bg-warm-white py-16 sm:py-20">
+      <section className="bg-card-light py-16 sm:py-20">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <span className="mb-4 block text-xs font-bold uppercase tracking-widest text-gold">
             Example roadmap excerpt
           </span>
           <h2 className="font-display text-3xl tracking-tight text-navy sm:text-4xl">
-            What a page of the plan can look like.
+            Pain named. Next step written. Impact sized.
           </h2>
-          <p className="mt-4 rounded-2xl border border-gold/30 bg-card-light px-4 py-3 text-sm text-stone-600">
+          <p className="mt-4 rounded-2xl border border-gold/30 bg-warm-white px-4 py-3 text-sm text-stone-600">
             Example only. Hypothetical company and illustrative figures. These
             are not client results.
           </p>
@@ -386,7 +457,7 @@ export default function RoadmapLanding() {
             After the roadmap
           </span>
           <h2 className="font-display text-3xl tracking-tight text-white sm:text-4xl">
-            If there is value, we can build what we find.
+            If the pain is real and the upside is clear, we can build.
           </h2>
           <p className="mt-6 text-lg leading-relaxed text-white/70">
             At the walkthrough we can quote building the top opportunity, with
@@ -404,7 +475,7 @@ export default function RoadmapLanding() {
             FAQ
           </span>
           <h2 className="font-display text-3xl tracking-tight text-navy sm:text-4xl">
-            Common questions.
+            Straight answers.
           </h2>
           <div className="mt-10">
             <RoadmapFaq />
@@ -419,11 +490,11 @@ export default function RoadmapLanding() {
             <OrbStation kind="human" label="Book a call" />
           </div>
           <h2 className="font-display text-3xl tracking-tight text-navy sm:text-4xl">
-            Get a clear plan for AI in your business.
+            Tired of slow quotes and busywork eating the week?
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-lg text-stone-600 leading-relaxed">
-            Book a short call. We will follow up, send a payment link if it is a
-            fit, and schedule the work.
+            Book a short call. Tell us where the work stalls. If it is a fit, we
+            send a payment link and schedule the roadmap.
           </p>
           <div className="mt-8">
             <BookCallButton size="large" />
