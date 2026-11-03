@@ -4,6 +4,18 @@ import { createContext, useContext, useState, useCallback } from "react"
 import { ArrowRight, X, Check, Loader2 } from "lucide-react"
 import { REVENUE_BANDS } from "@/lib/discovery"
 
+export const INQUIRY_REASONS = ["AI Roadmap", "Custom Build", "Other"] as const
+export type InquiryReason = (typeof INQUIRY_REASONS)[number]
+
+// Buttons across the site pass their own keys to open(); map them to a reason.
+function reasonFor(preselect?: string): InquiryReason | "" {
+  if (!preselect) return ""
+  const key = preselect.toLowerCase()
+  if (key.includes("discover") || key.includes("roadmap")) return "AI Roadmap"
+  if (key.includes("build")) return "Custom Build"
+  return ""
+}
+
 type InquiryContextType = {
   open: (preselect?: string) => void
   available: boolean
@@ -17,8 +29,10 @@ export function useInquiry() {
 
 export function InquiryProvider({ children }: { children: React.ReactNode }) {
   const [isOpen, setIsOpen] = useState(false)
+  const [reason, setReason] = useState<InquiryReason | "">("")
 
-  const open = useCallback(() => {
+  const open = useCallback((preselect?: string) => {
+    setReason(reasonFor(preselect))
     const el = document.getElementById("discovery")
     if (el) {
       el.scrollIntoView({ behavior: "smooth" })
@@ -30,12 +44,19 @@ export function InquiryProvider({ children }: { children: React.ReactNode }) {
   return (
     <InquiryContext.Provider value={{ open, available: true }}>
       {children}
-      {isOpen && <InquiryModalContent onClose={() => setIsOpen(false)} />}
+      {isOpen && <InquiryModalContent reason={reason} onClose={() => setIsOpen(false)} />}
     </InquiryContext.Provider>
   )
 }
 
-export function DiscoveryForm({ idPrefix = "discovery" }: { idPrefix?: string }) {
+export function DiscoveryForm({
+  idPrefix = "discovery",
+  initialReason = "",
+}: {
+  idPrefix?: string
+  initialReason?: InquiryReason | ""
+}) {
+  const [reason, setReason] = useState<InquiryReason | "">(initialReason)
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [role, setRole] = useState("")
@@ -51,6 +72,10 @@ export function DiscoveryForm({ idPrefix = "discovery" }: { idPrefix?: string })
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError("")
+    if (!reason) {
+      setError("Choose what you would like to talk about.")
+      return
+    }
     setSubmitting(true)
 
     try {
@@ -63,7 +88,7 @@ export function DiscoveryForm({ idPrefix = "discovery" }: { idPrefix?: string })
           role: role.trim(),
           company: company.trim(),
           revenue,
-          service: "Discovery",
+          service: reason,
         }),
       })
 
@@ -96,6 +121,36 @@ export function DiscoveryForm({ idPrefix = "discovery" }: { idPrefix?: string })
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+      <fieldset>
+        <legend className="mb-1.5 block text-sm font-medium text-stone-700">
+          What would you like to talk about?
+        </legend>
+        <div className="grid grid-cols-3 gap-2">
+          {INQUIRY_REASONS.map((option) => {
+            const selected = reason === option
+            return (
+              <label
+                key={option}
+                className={`flex cursor-pointer items-center justify-center rounded-md border px-2 py-3 text-center text-sm font-medium transition-colors focus-within:ring-2 focus-within:ring-gold/20 ${
+                  selected
+                    ? "border-gold bg-gold/10 text-navy"
+                    : "border-stone-300 bg-white text-stone-600 hover:border-stone-400"
+                }`}
+              >
+                <input
+                  type="radio"
+                  name={`${idPrefix}-reason`}
+                  value={option}
+                  checked={selected}
+                  onChange={() => setReason(option)}
+                  className="sr-only"
+                />
+                {option}
+              </label>
+            )
+          })}
+        </div>
+      </fieldset>
       <Field id={`${idPrefix}-name`} label="Your name">
         <input
           id={`${idPrefix}-name`}
@@ -201,7 +256,13 @@ function Field({
   )
 }
 
-function InquiryModalContent({ onClose }: { onClose: () => void }) {
+function InquiryModalContent({
+  reason,
+  onClose,
+}: {
+  reason: InquiryReason | ""
+  onClose: () => void
+}) {
   return (
     <div
       className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/60 backdrop-blur-sm px-4 py-8 sm:py-16"
@@ -225,7 +286,7 @@ function InquiryModalContent({ onClose }: { onClose: () => void }) {
           <p className="text-stone-600 mb-8 leading-relaxed">
             A short conversation on how the operation runs today, and where a change in the work would matter first.
           </p>
-          <DiscoveryForm idPrefix="modal" />
+          <DiscoveryForm idPrefix="modal" initialReason={reason} />
         </div>
       </div>
     </div>

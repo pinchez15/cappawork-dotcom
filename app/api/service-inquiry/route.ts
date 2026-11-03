@@ -106,7 +106,7 @@ export async function POST(request: NextRequest) {
     const { error } = await resend.emails.send({
       from: process.env.EMAIL_FROM || "CappaWork <onboarding@resend.dev>",
       to: process.env.EMAIL_TO || "nate@cappawork.com",
-      subject: `Discovery request: ${company.trim()}`,
+      subject: `Discovery request (${serviceName}): ${company.trim()}`,
       text: [
         `New discovery request from cappawork.com`,
         ``,
