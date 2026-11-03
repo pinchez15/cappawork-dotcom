@@ -139,15 +139,14 @@ export default function RoadmapLanding() {
           </div>
 
           <h1 className="font-display text-4xl tracking-tight text-white leading-[1.05] sm:text-5xl lg:text-6xl">
-            Your quotes take too long. Your best people are stuck. Deals wait on hours you do not have.
+            Do your quotes take too long and competitors answer first?
           </h1>
 
           <p className="mt-6 text-lg leading-relaxed text-white/70 sm:text-xl">
-            You feel it every week. Customers wait. Competitors answer first.
-            Knowledge sits with one estimator. New hires take forever to ramp.
-            You know there is more capacity in the business. You need a clear
-            plan for where AI actually unlocks it. Fixed price: $1,500. Free
-            when you build.
+            You feel it every week. Customers wait. Knowledge sits with one
+            estimator. New hires take forever to ramp. You know there is more
+            capacity in the business. You need a clear plan for where AI
+            actually unlocks it. Fixed price: $1,500. Free when you build.
           </p>
 
           <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
