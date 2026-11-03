@@ -32,6 +32,7 @@ const isPublicRoute = createRouteMatcher([
   '/build(.*)',
   '/modernize(.*)',
   '/first-100-days(.*)',
+  '/roadmap(.*)',
   '/services(.*)',
   '/fulfillment-policy',
   '/studio(.*)',

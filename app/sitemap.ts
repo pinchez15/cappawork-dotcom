@@ -24,6 +24,7 @@ const STATIC_PATHS = [
   "/fulfillment-policy",
   "/linkedin-carousel",
   "/privacy",
+  "/roadmap",
   "/scorecard",
   "/scorecard/thank-you",
   "/terms",
