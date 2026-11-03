@@ -4,47 +4,72 @@ import { BOOKING_URL } from "@/lib/booking"
 import { GlyphKey, OrbStation } from "@/app/components/glyphs"
 import RoadmapFaq from "@/app/components/roadmap-faq"
 
+// Pain is asked, never told. The reader answers each one for themselves.
 const painGroups = [
   {
     title: "Speed and lost deals",
     items: [
-      "Quotes take too long. Customers wait. Competitors answer first.",
-      "Bids due Friday still sit with one estimator.",
-      "The deals you chase are limited by the hours you have.",
+      "Do customers call twice asking where their number is?",
+      "Is a bid due Friday still sitting with one estimator?",
+      "Have you won the walkthrough and then lost the job on response time?",
+      "Do you pick which RFQs to answer by how many hours are left in the week?",
     ],
   },
   {
     title: "People and knowledge",
     items: [
-      "Your best people are stuck on busy work, not real customer work.",
-      "Pricing rules live in one senior head. If they leave, you feel it.",
-      "New hires take too long to get up to speed.",
+      "How much of your best people's week goes to re-keying numbers and marking up PDFs?",
+      "Do your pricing rules live in one senior person's head? What happens to quoting when they take a week off?",
+      "How many months does it take a new hire to quote on their own?",
     ],
   },
   {
     title: "Margin, capacity, pressure",
     items: [
-      "Mispriced quotes and missed line items show up later as pain.",
-      "You turn down work, or soft-pedal it, because the bench is full.",
-      "A regulation or deadline means something has to get done right now.",
-      "Vendors pitch AI tools. You still do not know where to start.",
+      "Have mispriced quotes or missed line items come back as change orders this year?",
+      "Have you turned down work because the bench was full?",
+      "Is a regulation, a deadline or a parent company asking for an AI plan right now?",
+      "Have AI vendors pitched you tools without telling you where to start?",
     ],
   },
 ]
 
-const costLines = [
-  "Every slow quote is a customer deciding without you.",
-  "Every hour on take-off and re-keying is an hour not spent winning work.",
-  "Every process that lives in one person's head is a risk you carry alone.",
-  "You already know there is more capacity in the business. You just cannot unlock it yet.",
+const costQuestions = [
+  "How many quotes a month go to a competitor who answered first?",
+  "How many hours a week do your estimators spend on take-off and re-keying?",
+  "If your most senior estimator left next month, how long would quoting take to recover?",
+  "How much more work could you take on if quoting kept up with sales?",
 ]
 
 const deliverables = [
-  "The 5 to 10 best AI opportunities in your business, ranked by impact and effort",
-  "Next steps for each one: tools, data, and rough build effort",
-  "Estimated productivity or profit impact, with the math and assumptions shown",
-  "Quick wins you can start this month with tools you already own",
-  "A 45-minute walkthrough with your team",
+  {
+    title: "A 1-hour discovery call",
+    body: "With a founder or executive. We walk the work from request to quote to order and mark where it slows down.",
+  },
+  {
+    title: "About 10 hours of CappaWork analysis",
+    body: "We work through your intake form and sample documents and trace where the hours go.",
+  },
+  {
+    title: "Your 5 to 10 best AI opportunities, ranked",
+    body: "Ordered by impact and effort, so you know what to do first and what to leave alone.",
+  },
+  {
+    title: "Next steps for each one",
+    body: "Tool options, the data it needs and rough build effort.",
+  },
+  {
+    title: "A sized impact for each one",
+    body: "An estimated productivity or profit range, with the math and assumptions shown.",
+  },
+  {
+    title: "Quick wins for this month",
+    body: "Changes your team can start with tools you already own.",
+  },
+  {
+    title: "A 45-minute walkthrough with your team",
+    body: "We take the roadmap through with you and the person who owns the workflow.",
+  },
 ]
 
 const creditSteps = [
@@ -143,16 +168,15 @@ export default function RoadmapLanding() {
           </h1>
 
           <p className="mt-6 text-lg leading-relaxed text-white/70 sm:text-xl">
-            You feel it every week. Customers wait. Knowledge sits with one
-            estimator. New hires take forever to ramp. You know there is more
-            capacity in the business. You need a clear plan for where AI
-            actually unlocks it. Fixed price: $1,500. Free when you build.
+            One hour with you and about 10 hours of our analysis. In 1 to 2
+            weeks you get a written, ranked plan for where AI frees up capacity
+            in your business. $1,500 fixed. Free when you build.
           </p>
 
           <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
             <BookCallButton size="large" />
             <p className="text-sm text-white/50">
-              Stop guessing. Get a ranked plan for your bottlenecks.
+              A 15-minute call first. You pay only after we confirm fit.
             </p>
           </div>
 
@@ -167,12 +191,12 @@ export default function RoadmapLanding() {
             Sound familiar?
           </span>
           <h2 className="font-display text-3xl tracking-tight text-navy sm:text-4xl">
-            This is what it feels like from your seat.
+            Does any of this sound like your business?
           </h2>
           <p className="mt-4 text-lg leading-relaxed text-stone-600">
-            Owners, executives, and division leaders at $10M+ companies that
-            quote from drawings or run heavy knowledge work know these lines by
-            heart.
+            A few questions for owners, executives and division leaders at
+            $10M+ companies that quote from drawings or run heavy knowledge
+            work.
           </p>
 
           <div className="mt-10 space-y-10">
@@ -193,6 +217,10 @@ export default function RoadmapLanding() {
               </div>
             ))}
           </div>
+          <p className="mt-10 text-lg leading-relaxed text-stone-600">
+            If two or more of these are a yes, the roadmap is built for your
+            business.
+          </p>
         </div>
       </section>
 
@@ -203,10 +231,10 @@ export default function RoadmapLanding() {
             What it costs you
           </span>
           <h2 className="font-display text-3xl tracking-tight text-navy sm:text-4xl">
-            The pain is not abstract. It shows up in the business.
+            Do you know the number?
           </h2>
           <ul className="mt-8 space-y-4">
-            {costLines.map((line) => (
+            {costQuestions.map((line) => (
               <li
                 key={line}
                 className="flex items-start gap-3 text-lg text-stone-600 leading-relaxed"
@@ -217,9 +245,8 @@ export default function RoadmapLanding() {
             ))}
           </ul>
           <p className="mt-8 text-stone-600 leading-relaxed">
-            Hiring alone will not clear the queue for long. Another vendor demo
-            will not tell you what is worth doing first. You need the bottlenecks
-            named, ranked, and sized.
+            The roadmap puts a number on each of these for your business, with
+            the assumptions shown, and ranks what to fix first.
           </p>
         </div>
       </section>
@@ -235,15 +262,13 @@ export default function RoadmapLanding() {
           </h2>
           <div className="mt-6 space-y-5 text-lg leading-relaxed text-stone-600">
             <p>
-              One hour with you. About 10 hours of our work. You get a
-              model-agnostic plan for the work that is slow, risky, or stuck in
+              A model-agnostic plan for the work that is slow, risky or stuck in
               one person&rsquo;s head.
             </p>
             <p>
-              We work from your side of the table. We do not resell anyone&rsquo;s
-              AI tools. If the right answer is a process change, an off-the-shelf
-              tool, or &ldquo;do not use AI here,&rdquo; that is what the roadmap
-              will say.
+              We work from your side of the table and resell no one&rsquo;s AI
+              tools. When the best answer is a process change, an off-the-shelf
+              tool or leaving AI out of a step, the roadmap says so.
             </p>
           </div>
         </div>
@@ -259,17 +284,21 @@ export default function RoadmapLanding() {
             Clarity on what to fix first, and what it could be worth.
           </h2>
           <p className="mt-4 text-lg leading-relaxed text-stone-600">
-            A 1-hour discovery call with a founder or executive, then about 10
-            hours of CappaWork analysis. Delivered 1 to 2 weeks after discovery.
+            Delivered 1 to 2 weeks after discovery.
           </p>
           <ul className="mt-8 space-y-4">
             {deliverables.map((item) => (
               <li
-                key={item}
-                className="flex items-start gap-3 text-stone-600 leading-relaxed"
+                key={item.title}
+                className="flex items-start gap-4 rounded-2xl border border-card-border bg-warm-white p-5 sm:p-6"
               >
-                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-gold" />
-                {item}
+                <span className="mt-1.5 shrink-0">
+                  <OrbStation kind="agent" label={item.title} />
+                </span>
+                <div>
+                  <h3 className="font-display text-lg text-navy">{item.title}</h3>
+                  <p className="mt-1 text-stone-600 leading-relaxed">{item.body}</p>
+                </div>
               </li>
             ))}
           </ul>
@@ -291,8 +320,7 @@ export default function RoadmapLanding() {
             Free when you build. Refunded if we miss.
           </h2>
           <p className="mt-4 text-lg leading-relaxed text-stone-600">
-            You should not pay $1,500 to get another vague AI slide deck. The
-            offer is built to remove that risk.
+            Two guarantees take the risk of the $1,500 off your side.
           </p>
 
           <div className="mt-10 space-y-10">
@@ -303,8 +331,8 @@ export default function RoadmapLanding() {
               <p className="mt-3 text-stone-600 leading-relaxed">
                 Do these four things and the full $1,500 is credited toward a
                 CappaWork build signed within 60 days of the walkthrough. The
-                credit comes off build invoices. It is not paid out as cash. If
-                you do not build, you keep the roadmap.
+                credit comes off your build invoices. If you decide not to build,
+                you keep the roadmap.
               </p>
               <ol className="mt-5 list-decimal space-y-2 pl-5 text-stone-600 leading-relaxed">
                 {creditSteps.map((step) => (
@@ -333,11 +361,10 @@ export default function RoadmapLanding() {
             How it works
           </span>
           <h2 className="font-display text-3xl tracking-tight text-navy sm:text-4xl">
-            Start with the bottleneck. Not a software pitch.
+            Three steps to start
           </h2>
           <p className="mt-4 text-lg leading-relaxed text-stone-600">
-            There is no checkout on this page. You talk first. Payment comes
-            after we confirm fit.
+            You talk to us first. Payment comes after we confirm fit.
           </p>
 
           <ol className="mt-10 space-y-6">
@@ -363,7 +390,9 @@ export default function RoadmapLanding() {
 
           <p className="mt-10 text-sm leading-relaxed text-stone-500">
             After payment: discovery in week 1, about 10 hours of analysis in
-            weeks 1 to 2, then the walkthrough and your written roadmap.
+            weeks 1 to 2, then the walkthrough and your written roadmap. Your
+            time across all of it: about 2 hours on calls, plus the intake form
+            and 3 sample documents.
           </p>
         </div>
       </section>
@@ -489,7 +518,7 @@ export default function RoadmapLanding() {
             <OrbStation kind="human" label="Book a call" />
           </div>
           <h2 className="font-display text-3xl tracking-tight text-navy sm:text-4xl">
-            Tired of slow quotes and busywork eating the week?
+            Where does the work stall in your business?
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-lg text-stone-600 leading-relaxed">
             Book a short call. Tell us where the work stalls. If it is a fit, we

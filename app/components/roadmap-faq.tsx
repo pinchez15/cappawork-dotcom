@@ -6,23 +6,23 @@ import { Minus, Plus } from "lucide-react"
 const faqs = [
   {
     q: "Is this just another AI vendor pitch?",
-    a: "No. We are on your side and model-agnostic. We do not resell anyone's AI tools. If your real problem is a slow quote queue, key-person risk, or bad handoffs, that is what we map. If off-the-shelf software beats a custom build, the roadmap will say so.",
+    a: "We are model-agnostic and resell no one's AI tools. If your real problem is a slow quote queue, key-person risk or bad handoffs, that is what we map. If off-the-shelf software beats a custom build, the roadmap says so.",
   },
   {
     q: "We already know quotes are slow. Why pay for a roadmap?",
-    a: "Knowing the pain is not the same as knowing what to fix first, what each fix is worth, and what not to touch. The roadmap ranks the bottlenecks, sizes the impact, and gives you next steps you can defend to a board, a parent company, or your own team.",
+    a: "You know the symptom. The roadmap tells you which fix comes first, what each one is worth and what to leave alone, with next steps you can defend to a board, a parent company or your own team.",
   },
   {
     q: "What does \"free when you build\" mean?",
-    a: "If you sign a CappaWork build within 60 days of the walkthrough, the full $1,500 is credited toward that build. The credit comes off build invoices. It is not paid out as cash. If you do not build, you keep the roadmap.",
+    a: "Complete the four credit steps and sign a CappaWork build within 60 days of the walkthrough, and the full $1,500 comes off your build invoices. If you do not build, you keep the roadmap.",
   },
   {
     q: "What if the roadmap finds fewer than 3 opportunities?",
-    a: "If the roadmap identifies fewer than 3 opportunities with a sized impact, you get a full refund. We are not here to pad a list so you feel busy.",
+    a: "If the roadmap identifies fewer than 3 opportunities with a sized impact, you get a full refund. Every opportunity on the list has to carry a number.",
   },
   {
     q: "How much of my time does it take?",
-    a: "A short booking call to start, about an hour for discovery, a few minutes for the intake form and sample documents, and 45 minutes for the walkthrough. We do the heavy analysis.",
+    a: "About 2 hours on calls: a 15-minute booking call, a 1-hour discovery call and a 45-minute walkthrough. Add the intake form and 3 sample documents. We do the analysis.",
   },
   {
     q: "Our pricing knowledge lives with one person. Can you still help?",
@@ -30,11 +30,11 @@ const faqs = [
   },
   {
     q: "Do we need clean data or an IT team first?",
-    a: "No. Bring the real workflow: a recent quote, a drawing set, a weekly report. We flag what data each step would need. You do not need a perfect stack to get a clear plan.",
+    a: "Start with what you have. Bring the real workflow: a recent quote, a drawing set, a weekly report. We flag what data each step would need.",
   },
   {
     q: "We have a deadline or a parent company asking for an AI plan. Is this fast enough?",
-    a: "Yes for a decision-grade plan. Discovery in week 1. Written roadmap and walkthrough usually 1 to 2 weeks after that. You leave with something concrete to act on or present, not another vague initiative.",
+    a: "Yes for a decision-grade plan. Discovery in week 1. Written roadmap and walkthrough usually 1 to 2 weeks after that. You leave with a written plan you can act on or present.",
   },
   {
     q: "Is our information kept confidential?",

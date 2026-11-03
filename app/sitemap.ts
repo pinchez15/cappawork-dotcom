@@ -17,7 +17,6 @@ const STATIC_PATHS = [
   "/ai-for-business-leaders",
   "/ai-literacy-bootcamp",
   "/contact",
-  "/discover",
   "/build",
   "/modernize",
   "/first-100-days",
@@ -42,7 +41,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: path === "/" ? 1 : 0.7,
   }))
 
-  const serviceEntries: MetadataRoute.Sitemap = OFFERINGS.map((o) => ({
+  const serviceEntries: MetadataRoute.Sitemap = OFFERINGS.filter((o) => o.slug !== "discover").map((o) => ({
     url: `${base}/${o.slug}`,
     lastModified: now,
     changeFrequency: "monthly",

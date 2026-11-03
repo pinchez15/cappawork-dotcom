@@ -168,7 +168,7 @@ export const OFFERINGS: Offering[] = [
     ctaSub: "We align on scope and timeline before any commitment.",
     termsNote:
       "When you commit to a build, you are reserving dedicated capacity.",
-    journeyPrev: { label: "Discover", href: "/discover" },
+    journeyPrev: { label: "Roadmap", href: "/roadmap" },
     journeyNext: { label: "Modernize", href: "/modernize" },
   },
   {
