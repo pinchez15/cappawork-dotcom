@@ -6,7 +6,7 @@ import RoadmapLanding from "@/app/components/roadmap-landing"
 
 const title = "AI Opportunity Roadmap: $1,500, free when you build | CappaWork"
 const description =
-  "Quotes take too long. Your best people are stuck on busywork. Deals wait on hours you do not have. Get a fixed-price, model-agnostic roadmap of where AI unlocks capacity in your business. $1,500, free when you build."
+  "Quote faster and win more work with the same team. A ranked, priced AI roadmap in about 2 weeks. $1,500, free when you build."
 
 export const metadata: Metadata = {
   title,
