@@ -598,7 +598,7 @@ export async function POST(request: NextRequest) {
 
     for (let i = 0; i < 5; i++) {
       const response = await client.messages.create({
-        model: "claude-sonnet-4-20250514",
+        model: "claude-sonnet-5-5",
         max_tokens: 2048,
         system: systemPrompt,
         tools: TOOLS,
