@@ -5,12 +5,14 @@ import Link from "next/link";
 import {
   ArrowDown,
   ArrowUp,
+  Building2,
   ExternalLink,
   Linkedin,
   Loader2,
   Radio,
   Search,
   Sparkles,
+  Target,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -57,29 +59,17 @@ function signalTypeMeta(type: string) {
   return LI_SIGNAL_TYPES.find((t) => t.value === type);
 }
 
-function ScoreBadge({ score, boost }: { score: number; boost?: boolean }) {
+function ScoreBadge({ score }: { score: number }) {
   const color =
     score >= 5
-      ? "bg-green-100 text-green-800"
+      ? "bg-green-100 text-green-700"
       : score >= 4
-        ? "bg-green-50 text-green-700"
+        ? "bg-blue-100 text-blue-700"
         : score >= 3
-          ? "bg-blue-100 text-blue-700"
-          : score >= 1
-            ? "bg-amber-100 text-amber-700"
-            : "bg-stone-100 text-stone-500";
+          ? "bg-amber-100 text-amber-700"
+          : "bg-stone-100 text-stone-600";
   return (
-    <div className="flex flex-col items-center gap-1">
-      <Badge className={`text-sm tabular-nums font-semibold ${color}`}>
-        {score}/5
-      </Badge>
-      {boost && (
-        <span className="inline-flex items-center gap-0.5 text-[10px] font-medium text-emerald-700">
-          <Sparkles className="h-3 w-3" />
-          AI hire
-        </span>
-      )}
-    </div>
+    <Badge className={`text-[10px] tabular-nums ${color}`}>{score}/5</Badge>
   );
 }
 
@@ -101,9 +91,7 @@ function StatusButtons({
             key={s.value}
             size="sm"
             variant={active ? "default" : "outline"}
-            className={`h-7 text-[11px] px-2 ${
-              active ? "bg-blue-600 hover:bg-blue-700" : ""
-            }`}
+            className="h-7 text-[11px] px-2"
             disabled={disabled}
             onClick={() => onChange(s.value)}
           >
@@ -126,8 +114,8 @@ export function SignalsBoard({ initialRows, stats }: Props) {
   const [updating, setUpdating] = useState<string | null>(null);
   const [researching, setResearching] = useState<string | null>(null);
   const [seeding, setSeeding] = useState(false);
-  const [showNoSignal, setShowNoSignal] = useState(false);
   const [banner, setBanner] = useState<string | null>(null);
+  const [showNoSignal, setShowNoSignal] = useState(false);
 
   const filtered = useMemo(() => {
     let list = rows.filter((r) => {
@@ -262,7 +250,6 @@ export function SignalsBoard({ initialRows, stats }: Props) {
         setBanner(data.error || "Research failed");
         return;
       }
-      // Refresh list
       const listRes = await fetch("/api/admin/signals?include_no_signal=1");
       if (listRes.ok) {
         const listData = await listRes.json();
@@ -289,33 +276,24 @@ export function SignalsBoard({ initialRows, stats }: Props) {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+      <div className="flex items-center justify-between gap-3 flex-wrap">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Signals</h1>
-          <p className="text-sm text-muted-foreground mt-1 max-w-2xl">
+          <p className="text-sm text-muted-foreground mt-1">
             Ranked companies with real buying signals. Open LinkedIn, send the
             message yourself, then mark the status here.
           </p>
         </div>
         <div className="flex gap-2">
-          {rows.length === 0 && (
-            <Button disabled={seeding} onClick={loadSeed}>
-              {seeding ? (
-                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-              ) : null}
-              Load building-products seed
-            </Button>
-          )}
-          {rows.length > 0 && (
-            <Button variant="outline" disabled={seeding} onClick={loadSeed}>
-              {seeding ? (
-                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-              ) : null}
-              Re-import seed
-            </Button>
-          )}
           <Button variant="outline" asChild>
-            <Link href="/admin/crm">Open CRM</Link>
+            <Link href="/admin/crm">
+              <Building2 className="h-4 w-4 mr-2" />
+              CRM
+            </Link>
+          </Button>
+          <Button disabled={seeding} onClick={loadSeed} variant={rows.length ? "outline" : "default"}>
+            {seeding ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : null}
+            {rows.length ? "Re-import seed" : "Load building-products seed"}
           </Button>
         </div>
       </div>
@@ -323,44 +301,41 @@ export function SignalsBoard({ initialRows, stats }: Props) {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
           { label: "With signals", value: stats.withSignal, icon: Radio },
-          { label: "Score 4+", value: stats.highScore, icon: Sparkles },
-          { label: "Avg score", value: stats.avgScore, icon: ArrowUp },
+          { label: "Score 4+", value: stats.highScore, icon: Target },
+          { label: "Avg score", value: stats.avgScore, icon: Sparkles },
           { label: "No signal", value: stats.noSignal, icon: Search },
         ].map((s) => (
           <Card key={s.label}>
-            <CardContent className="pt-4 pb-3 flex items-center gap-3">
-              <div className="h-9 w-9 rounded-lg bg-stone-100 flex items-center justify-center">
-                <s.icon className="h-4 w-4 text-stone-600" />
+            <CardContent className="pt-4">
+              <div className="flex items-center gap-2 text-muted-foreground text-xs">
+                <s.icon className="h-3.5 w-3.5" /> {s.label}
               </div>
-              <div>
-                <div className="text-2xl font-semibold tabular-nums leading-none">
-                  {s.value}
-                </div>
-                <div className="text-xs text-muted-foreground mt-1">{s.label}</div>
-              </div>
+              <div className="text-2xl font-bold mt-1">{s.value}</div>
             </CardContent>
           </Card>
         ))}
       </div>
 
       {banner && (
-        <div className="rounded-lg border border-stone-200 bg-stone-50 px-4 py-2 text-sm text-stone-700">
-          {banner}
-        </div>
+        <Card>
+          <CardContent className="py-3 text-sm text-muted-foreground">
+            {banner}
+          </CardContent>
+        </Card>
       )}
 
-      <div className="flex flex-col lg:flex-row gap-3 lg:items-center">
-        <div className="relative flex-1">
+      <div className="flex gap-3 flex-wrap">
+        <div className="relative flex-1 min-w-[200px]">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
+            placeholder="Search companies, domains, contacts..."
             className="pl-9"
-            placeholder="Search company or person"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
         <Select value={filterType} onValueChange={setFilterType}>
-          <SelectTrigger className="w-full lg:w-[200px]">
+          <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="Signal type" />
           </SelectTrigger>
           <SelectContent>
@@ -373,7 +348,7 @@ export function SignalsBoard({ initialRows, stats }: Props) {
           </SelectContent>
         </Select>
         <Select value={filterStatus} onValueChange={setFilterStatus}>
-          <SelectTrigger className="w-full lg:w-[160px]">
+          <SelectTrigger className="w-[160px]">
             <SelectValue placeholder="Status" />
           </SelectTrigger>
           <SelectContent>
@@ -386,7 +361,7 @@ export function SignalsBoard({ initialRows, stats }: Props) {
           </SelectContent>
         </Select>
         <Select value={filterScore} onValueChange={setFilterScore}>
-          <SelectTrigger className="w-full lg:w-[140px]">
+          <SelectTrigger className="w-[140px]">
             <SelectValue placeholder="Score" />
           </SelectTrigger>
           <SelectContent>
@@ -410,10 +385,10 @@ export function SignalsBoard({ initialRows, stats }: Props) {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-[70px]">
+              <TableHead className="w-[72px]">
                 <button
                   type="button"
-                  className="inline-flex items-center font-medium"
+                  className="inline-flex items-center"
                   onClick={() => toggleSort("score")}
                 >
                   Score
@@ -423,26 +398,26 @@ export function SignalsBoard({ initialRows, stats }: Props) {
               <TableHead>
                 <button
                   type="button"
-                  className="inline-flex items-center font-medium"
+                  className="inline-flex items-center"
                   onClick={() => toggleSort("company")}
                 >
                   Company
                   <SortIcon active={sortKey === "company"} />
                 </button>
               </TableHead>
-              <TableHead className="min-w-[280px]">Signals</TableHead>
+              <TableHead className="min-w-[260px]">Signals</TableHead>
               <TableHead>Person</TableHead>
               <TableHead>
                 <button
                   type="button"
-                  className="inline-flex items-center font-medium"
+                  className="inline-flex items-center"
                   onClick={() => toggleSort("status")}
                 >
                   Status
                   <SortIcon active={sortKey === "status"} />
                 </button>
               </TableHead>
-              <TableHead className="w-[100px]" />
+              <TableHead className="w-[90px]" />
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -452,8 +427,16 @@ export function SignalsBoard({ initialRows, stats }: Props) {
                   colSpan={6}
                   className="text-center py-12 text-muted-foreground"
                 >
-                  No companies match these filters. Import researched signals or
-                  run signal research on a CRM account.
+                  No companies match these filters.{" "}
+                  <button
+                    type="button"
+                    className="underline"
+                    onClick={loadSeed}
+                    disabled={seeding}
+                  >
+                    Load building-products seed
+                  </button>{" "}
+                  or research signals from CRM.
                 </TableCell>
               </TableRow>
             ) : (
@@ -461,6 +444,9 @@ export function SignalsBoard({ initialRows, stats }: Props) {
                 const hasAi = row.signal_types.includes("hiring_ai");
                 const status = outreachStageToLiStatus(
                   row.contact?.outreach_stage
+                );
+                const statusMeta = LI_OUTREACH_STATUSES.find(
+                  (s) => s.value === status
                 );
                 const liUrl = row.contact
                   ? resolveLinkedInUrl(
@@ -483,10 +469,18 @@ export function SignalsBoard({ initialRows, stats }: Props) {
                         : undefined
                     }
                   >
-                    <TableCell className="align-top pt-4">
-                      <ScoreBadge score={row.signal_score} boost={hasAi} />
+                    <TableCell className="align-top">
+                      <div className="flex flex-col items-start gap-1">
+                        <ScoreBadge score={row.signal_score} />
+                        {hasAi && (
+                          <Badge className="text-[10px] bg-green-100 text-green-700">
+                            <Sparkles className="h-3 w-3 mr-0.5" />
+                            AI hire
+                          </Badge>
+                        )}
+                      </div>
                     </TableCell>
-                    <TableCell className="align-top pt-4">
+                    <TableCell className="align-top">
                       <div className="font-medium text-sm">
                         <Link
                           href={`/admin/crm/${row.account_id}`}
@@ -495,19 +489,19 @@ export function SignalsBoard({ initialRows, stats }: Props) {
                           {row.company_name}
                         </Link>
                       </div>
-                      {row.website && (
+                      {row.domain && (
                         <a
-                          href={row.website}
+                          href={row.website || `https://${row.domain}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-xs text-blue-600 hover:text-blue-800 inline-flex items-center gap-1 mt-1"
+                          className="text-xs text-muted-foreground hover:underline inline-flex items-center gap-1 mt-0.5"
                         >
-                          {row.domain || "Website"}
+                          {row.domain}
                           <ExternalLink className="h-3 w-3" />
                         </a>
                       )}
                     </TableCell>
-                    <TableCell className="align-top pt-4">
+                    <TableCell className="align-top">
                       {row.signals.length === 0 ? (
                         <span className="text-xs text-muted-foreground">
                           Researched. No buying signal found.
@@ -517,21 +511,16 @@ export function SignalsBoard({ initialRows, stats }: Props) {
                           {row.signals.map((signal) => {
                             const meta = signalTypeMeta(signal.signal_type);
                             return (
-                              <div key={signal.id} className="space-y-1.5">
-                                <div className="flex flex-wrap gap-1">
-                                  <Badge
-                                    variant="outline"
-                                    className={`text-[10px] ${
-                                      signal.signal_type === "hiring_ai"
-                                        ? "border-emerald-300 bg-emerald-50 text-emerald-800"
-                                        : ""
-                                    }`}
-                                  >
-                                    {meta?.label ||
-                                      signal.signal_type.replace(/_/g, " ")}
-                                  </Badge>
-                                </div>
-                                <p className="text-sm text-stone-700 leading-snug">
+                              <div key={signal.id} className="space-y-1">
+                                <Badge
+                                  className={`text-[10px] ${
+                                    meta?.color || "bg-stone-100 text-stone-600"
+                                  }`}
+                                >
+                                  {meta?.label ||
+                                    signal.signal_type.replace(/_/g, " ")}
+                                </Badge>
+                                <p className="text-sm leading-snug">
                                   {signal.evidence_summary}
                                 </p>
                                 <ul className="space-y-0.5">
@@ -541,7 +530,7 @@ export function SignalsBoard({ initialRows, stats }: Props) {
                                         href={src.url}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="text-[11px] text-blue-600 hover:text-blue-800 inline-flex items-center gap-1"
+                                        className="text-[11px] text-muted-foreground hover:text-foreground inline-flex items-center gap-1"
                                       >
                                         {src.label}
                                         {src.date ? ` · ${src.date}` : ""}
@@ -556,7 +545,7 @@ export function SignalsBoard({ initialRows, stats }: Props) {
                         </div>
                       )}
                     </TableCell>
-                    <TableCell className="align-top pt-4">
+                    <TableCell className="align-top">
                       {row.contact ? (
                         <div className="space-y-2">
                           <div>
@@ -570,17 +559,13 @@ export function SignalsBoard({ initialRows, stats }: Props) {
                             )}
                           </div>
                           {liUrl && (
-                            <Button
-                              asChild
-                              size="sm"
-                              className="h-8 bg-[#0A66C2] hover:bg-[#004182]"
-                            >
+                            <Button asChild size="sm" variant="outline" className="h-8">
                               <a
                                 href={liUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
                               >
-                                <Linkedin className="h-3.5 w-3.5 mr-1.5" />
+                                <Linkedin className="h-3.5 w-3.5" />
                                 {isProfile ? "LinkedIn" : "Find on LinkedIn"}
                               </a>
                             </Button>
@@ -592,26 +577,33 @@ export function SignalsBoard({ initialRows, stats }: Props) {
                         </span>
                       )}
                     </TableCell>
-                    <TableCell className="align-top pt-4">
+                    <TableCell className="align-top">
                       {row.contact ? (
-                        <StatusButtons
-                          status={status}
-                          disabled={updating === row.account_id}
-                          onChange={(s) => setStatus(row.account_id, s)}
-                        />
+                        <div className="space-y-2">
+                          {statusMeta && (
+                            <Badge className={`text-[10px] ${statusMeta.color}`}>
+                              {statusMeta.label}
+                            </Badge>
+                          )}
+                          <StatusButtons
+                            status={status}
+                            disabled={updating === row.account_id}
+                            onChange={(s) => setStatus(row.account_id, s)}
+                          />
+                          {updating === row.account_id && (
+                            <div className="text-[11px] text-muted-foreground inline-flex items-center gap-1">
+                              <Loader2 className="h-3 w-3 animate-spin" />
+                              Saving
+                            </div>
+                          )}
+                        </div>
                       ) : (
                         <span className="text-xs text-muted-foreground">
                           Add a contact in CRM first
                         </span>
                       )}
-                      {updating === row.account_id && (
-                        <div className="mt-2 text-[11px] text-muted-foreground inline-flex items-center gap-1">
-                          <Loader2 className="h-3 w-3 animate-spin" />
-                          Saving
-                        </div>
-                      )}
                     </TableCell>
-                    <TableCell className="align-top pt-4">
+                    <TableCell className="align-top">
                       <Button
                         size="sm"
                         variant="ghost"
@@ -635,7 +627,13 @@ export function SignalsBoard({ initialRows, stats }: Props) {
       </Card>
 
       <p className="text-xs text-muted-foreground">
-        Showing {filtered.length} of {rows.filter((r) => showNoSignal || r.signal_research_status === "has_signal").length}{" "}
+        Showing {filtered.length} of{" "}
+        {
+          rows.filter(
+            (r) =>
+              showNoSignal || r.signal_research_status === "has_signal"
+          ).length
+        }{" "}
         companies. Status writes to contact outreach stage and LinkedIn DM
         activity.
       </p>

@@ -6,30 +6,35 @@ export const LI_SIGNAL_TYPES = [
     label: "Hiring for estimating",
     description: "Hiring for estimating, quoting, or preconstruction",
     highlight: false,
+    color: "bg-blue-100 text-blue-700",
   },
   {
     value: "hiring_ai",
     label: "Hiring for AI / digital",
     description: "Hiring for AI, automation, or digital roles",
     highlight: true,
+    color: "bg-green-100 text-green-700",
   },
   {
     value: "growth",
     label: "Growth",
     description: "Expansion, acquisition, or PE investment",
     highlight: false,
+    color: "bg-amber-100 text-amber-700",
   },
   {
     value: "new_leader",
     label: "New ops / tech leader",
     description: "New operations or technology leader",
     highlight: false,
+    color: "bg-indigo-100 text-indigo-700",
   },
   {
     value: "leader_posting",
     label: "Leader posting on AI",
     description: "Leaders posting publicly about AI or efficiency",
     highlight: false,
+    color: "bg-teal-100 text-teal-700",
   },
 ] as const;
 
@@ -37,10 +42,30 @@ export type LiSignalType = (typeof LI_SIGNAL_TYPES)[number]["value"];
 
 /** UI status labels Nate uses; mapped to gtm_contacts.outreach_stage */
 export const LI_OUTREACH_STATUSES = [
-  { value: "to_message", label: "To message", outreach_stage: "not_started" },
-  { value: "messaged", label: "Messaged", outreach_stage: "dm_sent" },
-  { value: "replied", label: "Replied", outreach_stage: "replied" },
-  { value: "booked", label: "Booked", outreach_stage: "call_booked" },
+  {
+    value: "to_message",
+    label: "To message",
+    outreach_stage: "not_started",
+    color: "bg-stone-100 text-stone-600",
+  },
+  {
+    value: "messaged",
+    label: "Messaged",
+    outreach_stage: "dm_sent",
+    color: "bg-indigo-100 text-indigo-700",
+  },
+  {
+    value: "replied",
+    label: "Replied",
+    outreach_stage: "replied",
+    color: "bg-green-200 text-green-800",
+  },
+  {
+    value: "booked",
+    label: "Booked",
+    outreach_stage: "call_booked",
+    color: "bg-green-100 text-green-700",
+  },
 ] as const;
 
 export type LiOutreachStatus = (typeof LI_OUTREACH_STATUSES)[number]["value"];
