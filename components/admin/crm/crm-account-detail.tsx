@@ -82,6 +82,8 @@ type Props = { account: AccountDetail };
 export function CrmAccountDetail({ account: initial }: Props) {
   const [account, setAccount] = useState(initial);
   const [saving, setSaving] = useState(false);
+  const [researching, setResearching] = useState(false);
+  const [researchNote, setResearchNote] = useState<string | null>(null);
 
   async function updateStage(stage: string) {
     setSaving(true);
@@ -97,6 +99,31 @@ export function CrmAccountDetail({ account: initial }: Props) {
       }
     } finally {
       setSaving(false);
+    }
+  }
+
+  async function researchSignals() {
+    setResearching(true);
+    setResearchNote(null);
+    try {
+      const res = await fetch("/api/admin/signals/research", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ account_id: account.id }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setResearchNote(data.error || "Research failed");
+        return;
+      }
+      setResearchNote(
+        data.result?.has_signal
+          ? `Found signals (score ${data.result.score}/5). Open Signals to message.`
+          : "No buying signal found with a source URL."
+      );
+      window.location.reload();
+    } finally {
+      setResearching(false);
     }
   }
 
@@ -136,7 +163,25 @@ export function CrmAccountDetail({ account: initial }: Props) {
           )}
         </div>
         <Badge className={stageInfo?.color}>{stageInfo?.label}</Badge>
+        <Button
+          size="sm"
+          variant="outline"
+          disabled={researching}
+          onClick={researchSignals}
+        >
+          {researching ? (
+            <Loader2 className="h-3.5 w-3.5 mr-1.5 animate-spin" />
+          ) : null}
+          Research signals
+        </Button>
+        <Button size="sm" variant="ghost" asChild>
+          <Link href="/admin/signals">Open Signals</Link>
+        </Button>
       </div>
+
+      {researchNote && (
+        <p className="text-sm text-muted-foreground">{researchNote}</p>
+      )}
 
       <div className="flex gap-2 flex-wrap">
         <Badge className="bg-green-100 text-green-700">Fit {account.fit_score}</Badge>

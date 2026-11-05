@@ -50,6 +50,9 @@ export type GtmAccount = {
   apollo_id: string | null;
   provider_data: Record<string, unknown>;
   notes: string | null;
+  signal_score?: number | null;
+  signal_research_status?: "unresearched" | "has_signal" | "no_signal";
+  signal_researched_at?: string | null;
   created_at: string;
   updated_at: string;
 };

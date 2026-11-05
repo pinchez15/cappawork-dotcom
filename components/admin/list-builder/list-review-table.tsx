@@ -15,6 +15,7 @@ import {
   Brain,
   CheckCircle,
   XCircle,
+  Radio,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -293,6 +294,34 @@ export function ListReviewTable({ list, initialAccounts, runs }: Props) {
             onClick={() => runAction("hypothesis", Array.from(selectedIds))}
           >
             <Brain className="h-3.5 w-3.5 mr-1" /> Hypothesis
+          </Button>
+          <Button
+            size="sm"
+            variant="outline"
+            disabled={!!running}
+            onClick={async () => {
+              setRunning("signals");
+              try {
+                await fetch("/api/admin/signals/research", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({
+                    list_id: list.id,
+                    account_ids: Array.from(selectedIds),
+                  }),
+                });
+                setTimeout(refreshAccounts, 2000);
+              } finally {
+                setRunning(null);
+              }
+            }}
+          >
+            {running === "signals" ? (
+              <Loader2 className="h-3.5 w-3.5 mr-1 animate-spin" />
+            ) : (
+              <Radio className="h-3.5 w-3.5 mr-1" />
+            )}
+            Research signals
           </Button>
           <Button
             size="sm"
