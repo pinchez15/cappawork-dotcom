@@ -1,0 +1,610 @@
+{
+  "signals": [
+    {
+      "domain": "arch-fab.com",
+      "score": 5,
+      "rank": 1,
+      "status": "Replied",
+      "best": "Nicholas Allen",
+      "best_title": "Director of Preconstruction",
+      "signal": "Hired a new estimator in July 2026 to speed preconstruction takeoffs. In Sept 2025 posted a Business Development Coordinator role that reviews ITBs, runs Bluebeam takeoffs, and feeds the estimating team. Team page lists a VP of Preconstruction and multiple estimators. Careers board still open with design and field roles as of Nov 2026.",
+      "sources": [
+        {
+          "label": "LinkedIn new estimator hire",
+          "url": "https://www.linkedin.com/posts/architectural-fabrication_archfab-newhire-estimatingteam-activity-7488248386295316480-KdyY",
+          "date": "2026-07-29"
+        },
+        {
+          "label": "BD Coordinator job (ITB and takeoffs)",
+          "url": "https://www.jobtarget.com/jobs/jt-vmbbegjrq6/business-development-coordinator-fort-worth-texas",
+          "date": "2025-09-02"
+        },
+        {
+          "label": "Team page (VP Preconstruction)",
+          "url": "https://arch-fab.com/our-team/",
+          "date": "fetched 2026-11-05"
+        },
+        {
+          "label": "Paylocity careers",
+          "url": "https://recruiting.paylocity.com/Recruiting/Jobs/All/edc2e52a-c2f0-4142-90d6-b0aa1ddf3838",
+          "date": "fetched 2026-11-05"
+        }
+      ],
+      "company": "Architectural Fabrication, Inc.",
+      "website": "http://www.arch-fab.com",
+      "emailed": "Jeffrey Cash",
+      "emailed_title": "Chief Executive Officer",
+      "emailed_li": "http://www.linkedin.com/in/jeffrey-cash-a1110122",
+      "best_li": "https://www.linkedin.com/search/results/people/?keywords=Nicholas%20Allen%20Architectural%20Fabrication"
+    },
+    {
+      "domain": "awip.com",
+      "score": 5,
+      "rank": 2,
+      "status": "To message",
+      "best": "Joseph Paparella",
+      "best_title": "President",
+      "signal": "Live AI Implementation Lead job in Vacaville to build and deploy AI agents across ops. Also hiring Inside Sales and a Project Coordinator for shop drawings. Public news shows a data-center push, low-slope roofing hire, and Paparella elevated to lead growth.",
+      "sources": [
+        {
+          "label": "AI Implementation Lead posting",
+          "url": "https://app.trinethire.com/companies/20533-all-weather-insulated-panels/jobs/124680-ai-implementation-lead",
+          "date": "open as of 2026-11-05"
+        },
+        {
+          "label": "Careers board (Inside Sales, Shop Drawings)",
+          "url": "https://app.trinethire.com/companies/20533-all-weather-insulated-panels/jobs",
+          "date": "fetched 2026-11-05"
+        },
+        {
+          "label": "AWIP news / data center and leadership",
+          "url": "https://awip.com/en-US/news",
+          "date": "2025 items on page"
+        }
+      ],
+      "company": "All Weather Insulated Panels",
+      "website": "http://www.awip.com",
+      "emailed": "Joseph Paparella",
+      "emailed_title": "President",
+      "emailed_li": "http://www.linkedin.com/in/joseph-paparella",
+      "best_li": "https://www.linkedin.com/search/results/people/?keywords=Joseph%20Paparella%20All%20Weather%20Insulated%20Panels"
+    },
+    {
+      "domain": "markrichey.com",
+      "score": 5,
+      "rank": 3,
+      "status": "To message",
+      "best": "Greg Porfido",
+      "best_title": "Chief Operating Officer",
+      "signal": "Nov 2025 LinkedIn post for Senior Estimator, architectural millwork. Careers page still lists Estimator among open role types.",
+      "sources": [
+        {
+          "label": "LinkedIn Senior Estimator post",
+          "url": "https://www.linkedin.com/posts/mark-richey-6151b049_careers-at-mark-richey-woodworking-and-wallgoldfinger-activity-7396996015867777024-WEue",
+          "date": "2025-11-19"
+        },
+        {
+          "label": "Careers page",
+          "url": "https://www.markrichey.com/careers",
+          "date": "fetched 2026-11-05"
+        }
+      ],
+      "company": "Mark Richey Woodworking",
+      "website": "http://www.markrichey.com",
+      "emailed": "Greg Porfido",
+      "emailed_title": "Chief Operating Officer",
+      "emailed_li": "http://www.linkedin.com/in/greg-porfido-8a81ab49",
+      "best_li": "https://www.linkedin.com/search/results/people/?keywords=Greg%20Porfido%20Mark%20Richey%20Woodworking"
+    },
+    {
+      "domain": "bapko.com",
+      "score": 5,
+      "rank": 4,
+      "status": "To message",
+      "best": "Adam Cherry",
+      "best_title": "President",
+      "signal": "Open Design-Phase and Budget Estimator role that prices from incomplete drawings and builds toward full project estimates. Direct quote-capacity signal.",
+      "sources": [
+        {
+          "label": "Design-Phase & Budget Estimator",
+          "url": "https://recruiting.paylocity.com/Recruiting/Jobs/Details/4526969",
+          "date": "open as of 2026-11-05"
+        }
+      ],
+      "company": "BAPKO Metal, Inc.",
+      "website": "http://www.bapko.com",
+      "emailed": "Adam Cherry",
+      "emailed_title": "President",
+      "emailed_li": "http://www.linkedin.com/in/adam-cherry-80a567202",
+      "best_li": "https://www.linkedin.com/search/results/people/?keywords=Adam%20Cherry%20BAPKO%20Metal"
+    },
+    {
+      "domain": "portersteel.com",
+      "score": 5,
+      "rank": 5,
+      "status": "To message",
+      "best": "Joel",
+      "best_title": "Vice President Operations",
+      "signal": "Nov 2025 post hiring Senior Steel Estimator in Lilburn for Bluebeam/Tekla takeoffs.",
+      "sources": [
+        {
+          "label": "LinkedIn Senior Steel Estimator",
+          "url": "https://www.linkedin.com/posts/porter-steel-inc_hiring-activity-7399424099875434496-lGY7",
+          "date": "2025-11-26"
+        },
+        {
+          "label": "Careers",
+          "url": "https://www.portersteel.com/careers/",
+          "date": "fetched 2026-11-05"
+        }
+      ],
+      "company": "Porter Steel, Inc.",
+      "website": "http://www.portersteel.com",
+      "emailed": "Cole Porter",
+      "emailed_title": "President & CEO",
+      "emailed_li": "http://www.linkedin.com/in/colemanporter",
+      "best_li": "https://www.linkedin.com/search/results/people/?keywords=Joel%20Vice%20President%20Operations%20Porter%20Steel"
+    },
+    {
+      "domain": "suresteel.com",
+      "score": 5,
+      "rank": 6,
+      "status": "To message",
+      "best": "Matt",
+      "best_title": "Vice President of Preconstruction",
+      "signal": "Multiple preconstruction manager openings in South Weber/Ogden in 2026. Free Apollo search shows a VP of Preconstruction and several senior estimators already on staff.",
+      "sources": [
+        {
+          "label": "Preconstruction Manager II listing",
+          "url": "https://www.thejobsmap.com/job/3cd4ccb7-bb0e-46d5-ad0c-fac5153293a0",
+          "date": "listed 2026"
+        },
+        {
+          "label": "Assistant Preconstruction Manager",
+          "url": "https://lensa.com/job-v1/sure-steel-inc/south-weber-ut/assistant-preconstruction-manager/3a24c97011d00e12538e18fd67175c39",
+          "date": "listed 2026"
+        }
+      ],
+      "company": "Sure Steel, Inc.",
+      "website": "http://www.suresteel.com",
+      "emailed": "Daniel Miller",
+      "emailed_title": "Chief Executive Officer",
+      "emailed_li": "http://www.linkedin.com/in/daniel-b-miller-b4ba4b87",
+      "best_li": "https://www.linkedin.com/search/results/people/?keywords=Matt%20Vice%20President%20Preconstruction%20Sure%20Steel"
+    },
+    {
+      "domain": "crystalsteel.com",
+      "score": 4,
+      "rank": 7,
+      "status": "To message",
+      "best": "Michael",
+      "best_title": "V.P. of Operations",
+      "signal": "April 2026 Estimator opening for the Manila estimating office, plus a live careers Estimator page.",
+      "sources": [
+        {
+          "label": "LinkedIn Estimator hire post",
+          "url": "https://www.linkedin.com/posts/diana-mae-elaiza-rasonable-chra-rpm-b10b99325_we-are-hiring-position-estimator-activity-7455507361919598592-HPeF",
+          "date": "2026-04-30"
+        },
+        {
+          "label": "Careers Estimator page",
+          "url": "https://www.crystalsteel.com/contact-crystal-steel/employment/manila-office/181-estimator",
+          "date": "fetched 2026-11-05"
+        }
+      ],
+      "company": "Crystal Steel Fabricators, Inc.",
+      "website": "http://www.crystalsteel.com",
+      "emailed": "Bill Lo",
+      "emailed_title": "Chief Executive Officer",
+      "emailed_li": "http://www.linkedin.com/in/bill-lo-3a044912",
+      "best_li": "https://www.linkedin.com/search/results/people/?keywords=Michael%20Vice%20President%20Operations%20Crystal%20Steel"
+    },
+    {
+      "domain": "engineeredfacades.com",
+      "score": 4,
+      "rank": 8,
+      "status": "To message",
+      "best": "Stephen",
+      "best_title": "Chief Operating Officer",
+      "signal": "Repeated 2025 posts for Preconstruction Manager in Noblesville as they grow the sales and preconstruction bench.",
+      "sources": [
+        {
+          "label": "Preconstruction Manager post",
+          "url": "https://www.linkedin.com/posts/engineeredfacades_hiring-activity-7305188167580565504-Aaad",
+          "date": "2025-03"
+        },
+        {
+          "label": "Founder follow-up hire post",
+          "url": "https://www.linkedin.com/posts/brad-hitzfield-7a6bb53_joinourteam-salesopportunity-activity-7340738838455046163-Fxu-",
+          "date": "2025-06"
+        }
+      ],
+      "company": "Engineered Facades",
+      "website": "http://www.engineeredfacades.com",
+      "emailed": "Brad Hitzfield",
+      "emailed_title": "Founder & President",
+      "emailed_li": "http://www.linkedin.com/in/brad-hitzfield-7a6bb53",
+      "best_li": "https://www.linkedin.com/search/results/people/?keywords=Stephen%20Chief%20Operating%20Officer%20Engineered%20Facades"
+    },
+    {
+      "domain": "scrantonproducts.com",
+      "score": 4,
+      "rank": 9,
+      "status": "To message",
+      "best": "Mike Janssen",
+      "best_title": "Vice President of Sales & Marketing",
+      "signal": "Sky Island PE bought majority stake June 24, 2025. First add-on: Metpar partition assets Jan 5, 2026. PE-backed growth usually means process pressure across quoting and ops.",
+      "sources": [
+        {
+          "label": "Sky Island acquisition PR",
+          "url": "https://www.scrantonproducts.com/wp-content/uploads/2025/06/Sky-Island-Scranton-Products-Press-Release-June-2025.pdf",
+          "date": "2025-06-24"
+        },
+        {
+          "label": "Metpar assets PR",
+          "url": "https://www.scrantonproducts.com/wp-content/uploads/2026/01/Press-Release_January-2026.pdf",
+          "date": "2026-01-05"
+        }
+      ],
+      "company": "Scranton Products",
+      "website": "http://www.scrantonproducts.com",
+      "emailed": "Rob Donlon",
+      "emailed_title": "Chief Executive Officer",
+      "emailed_li": "http://www.linkedin.com/in/rob-donlon-90b3936",
+      "best_li": "https://www.linkedin.com/search/results/people/?keywords=Mike%20Janssen%20Scranton%20Products"
+    },
+    {
+      "domain": "special-lite.com",
+      "score": 4,
+      "rank": 10,
+      "status": "To message",
+      "best": "Alex Esposito",
+      "best_title": "President & COO",
+      "signal": "Oct 15, 2025 grand opening of 69,000 sq ft HQ and plant expansion with more CNC and IT modernization. COO said the goal is to meet demand faster.",
+      "sources": [
+        {
+          "label": "Grand opening news",
+          "url": "https://special-lite.com/news/special-lite-celebrates-grand-opening-of-new-corporate-headquarters-and-expanded-production-facility/",
+          "date": "2025-10-15"
+        }
+      ],
+      "company": "Special-Lite",
+      "website": "http://www.special-lite.com",
+      "emailed": "Alex Esposito",
+      "emailed_title": "President & COO",
+      "emailed_li": "http://www.linkedin.com/in/alex-esposito-p-e-59791654",
+      "best_li": "https://www.linkedin.com/search/results/people/?keywords=Alex%20Esposito%20Special-Lite"
+    },
+    {
+      "domain": "dri-design.com",
+      "score": 4,
+      "rank": 11,
+      "status": "To message",
+      "best": "Christine Gilbert",
+      "best_title": "President",
+      "signal": "April 28, 2025 Ohio tax credit for a new Columbus location, 29 jobs and $2.2M payroll. Kingspan metal panel growth.",
+      "sources": [
+        {
+          "label": "Ohio Governor announcement",
+          "url": "https://governor.ohio.gov/media/news-and-media/governor-dewine-announces-6-projects-set-to-create-more-than-835-million-in-investments",
+          "date": "2025-04-28"
+        },
+        {
+          "label": "Columbus Business First coverage",
+          "url": "https://www.bizjournals.com/columbus/news/2025/04/28/dri-design-kingspan-group-columbus-facility.html",
+          "date": "2025-04-28"
+        }
+      ],
+      "company": "Dri-Design, a Kingspan Company",
+      "website": "http://www.dri-design.com",
+      "emailed": "Christine Gilbert",
+      "emailed_title": "President",
+      "emailed_li": "http://www.linkedin.com/in/christine-gilbert-4953b155",
+      "best_li": "https://www.linkedin.com/search/results/people/?keywords=Christine%20Gilbert%20Dri-Design"
+    },
+    {
+      "domain": "fortmiller.com",
+      "score": 4,
+      "rank": 12,
+      "status": "To message",
+      "best": "Scott Harrigan",
+      "best_title": "President",
+      "signal": "Jan 27, 2026 Albany Business Review: 35,000 sq ft Easton plant addition. Also posting Technical Sales Engineer work that includes estimating and proposals.",
+      "sources": [
+        {
+          "label": "Albany Business Review expansion",
+          "url": "https://www.bizjournals.com/albany/news/2026/01/27/fort-miller-easton-precast.html",
+          "date": "2026-01-27"
+        },
+        {
+          "label": "Technical Sales Engineer LinkedIn",
+          "url": "https://www.linkedin.com/posts/fmgroup_were-hiring-technical-sales-engineer-activity-7432151718810972160-6-Nl",
+          "date": "2026-02"
+        }
+      ],
+      "company": "Fort Miller Precast",
+      "website": "http://www.fortmiller.com",
+      "emailed": "Scott Harrigan",
+      "emailed_title": "President",
+      "emailed_li": "http://www.linkedin.com/in/scott-harrigan-p-e-bb362346",
+      "best_li": "https://www.linkedin.com/search/results/people/?keywords=Scott%20Harrigan%20Fort%20Miller%20Precast"
+    },
+    {
+      "domain": "unitedarchitectural.com",
+      "score": 4,
+      "rank": 13,
+      "status": "To message",
+      "best": "Tom Nesbitt",
+      "best_title": "Chief Executive Officer",
+      "signal": "Careers page open for Preconstruction Group Lead Facade Designer reporting to VP of Preconstruction, plus process, engineering, and shop roles. Beaver Constructors documents a 50,000 sq ft plant addition in North Canton.",
+      "sources": [
+        {
+          "label": "Careers (Preconstruction Lead)",
+          "url": "https://www.unitedarchitectural.com/careers/",
+          "date": "fetched 2026-11-05"
+        },
+        {
+          "label": "50k sq ft addition case study",
+          "url": "https://beaverconstructors.com/united-architectural-metals-building-addition/",
+          "date": "undated builder write-up"
+        }
+      ],
+      "company": "United Architectural Metals, Inc.",
+      "website": "http://www.unitedarchitectural.com",
+      "emailed": "Tom Nesbitt",
+      "emailed_title": "Chief Executive Officer",
+      "emailed_li": "http://www.linkedin.com/in/tom-nesbitt-0148b8a",
+      "best_li": "https://www.linkedin.com/search/results/people/?keywords=Tom%20Nesbitt%20United%20Architectural%20Metals"
+    },
+    {
+      "domain": "falkpanel.com",
+      "score": 4,
+      "rank": 14,
+      "status": "To message",
+      "best": "Boudewijn Haase",
+      "best_title": "President",
+      "company": "FALK USA",
+      "website": "https://falkpanel.com",
+      "emailed": "Boudewijn Haase",
+      "emailed_title": "President",
+      "emailed_li": "http://www.linkedin.com/in/boudewijnhaase",
+      "signal": "Inside Sales Estimator opening listed for Walker, MI / FALK Panel, commercial exterior estimating.",
+      "sources": [
+        {
+          "label": "Inside Sales Estimator listing",
+          "url": "https://talents.vaia.com/companies/falk-panel-llc/inside-sales-estimator-19099000/",
+          "date": "listed 2025"
+        }
+      ],
+      "best_li": "https://www.linkedin.com/search/results/people/?keywords=Boudewijn%20Haase%20FALK"
+    },
+    {
+      "domain": "alleghenymillwork.com",
+      "score": 4,
+      "rank": 15,
+      "status": "To message",
+      "best": "Victor Walters",
+      "best_title": "Executive VP of Operations",
+      "signal": "Millwork Estimator role listed for Lawrence, PA (remote option) requiring 5+ years takeoff experience.",
+      "sources": [
+        {
+          "label": "Estimator listing",
+          "url": "https://www.metaintro.com/job/estimator-at-allegheny-millwork-dfac2b29-b3c9-5467-b5ad-cbc65ad9bc42",
+          "date": "listed 2025-2026"
+        },
+        {
+          "label": "Indeed company jobs",
+          "url": "https://www.indeed.com/cmp/Allegheny-Millwork-1",
+          "date": "fetched 2026-11-05"
+        }
+      ],
+      "company": "Allegheny Millwork",
+      "website": "http://www.alleghenymillwork.com",
+      "emailed": "Victor Walters",
+      "emailed_title": "Executive VP of Operations",
+      "emailed_li": "http://www.linkedin.com/in/victor-walters-79809635",
+      "best_li": "https://www.linkedin.com/search/results/people/?keywords=Victor%20Walters%20Allegheny%20Millwork"
+    },
+    {
+      "domain": "bernhardwoodwork.com",
+      "score": 4,
+      "rank": 16,
+      "status": "To message",
+      "best": "Mark Bernhard",
+      "best_title": "President",
+      "signal": "March 8, 2025 LinkedIn post hiring Project Estimator in Greater Chicago.",
+      "sources": [
+        {
+          "label": "LinkedIn Project Estimator",
+          "url": "https://www.linkedin.com/posts/bernhard-woodwork-ltd%2E_hiring-activity-7304121020674703360--TbZ",
+          "date": "2025-03-08"
+        }
+      ],
+      "company": "Bernhard Woodwork Ltd.",
+      "website": "http://www.bernhardwoodwork.com",
+      "emailed": "Mark Bernhard",
+      "emailed_title": "President",
+      "emailed_li": "http://www.linkedin.com/in/mark-bernhard-02746b",
+      "best_li": "https://www.linkedin.com/search/results/people/?keywords=Mark%20Bernhard%20Bernhard%20Woodwork%20Ltd."
+    },
+    {
+      "domain": "bobrick.com",
+      "score": 3,
+      "rank": 17,
+      "status": "To message",
+      "best": "Ming Liu",
+      "best_title": "Vice President Operations",
+      "signal": "Dec 11, 2024 Tennessee ECD: $17M Jackson expansion and 26 jobs (third expansion there). Growth pressure, not a quoting hire.",
+      "sources": [
+        {
+          "label": "TN ECD expansion release",
+          "url": "https://www.tn.gov/ecd/news/2024/12/11/governor-lee--commissioner-mcwhorter-announce-bobrick-washroom-equipment-to-expand-in-madison-county.html",
+          "date": "2024-12-11"
+        }
+      ],
+      "company": "Bobrick",
+      "website": "http://www.bobrick.com",
+      "emailed": "Matthew Louchheim",
+      "emailed_title": "President",
+      "emailed_li": "http://www.linkedin.com/in/matthewlouchheim",
+      "best_li": "https://www.linkedin.com/search/results/people/?keywords=Ming%20Liu%20Bobrick"
+    },
+    {
+      "domain": "alliedbuildings.com",
+      "score": 3,
+      "rank": 18,
+      "status": "To message",
+      "best": "Catherine Soto",
+      "best_title": "Executive Vice President of Project Operations",
+      "signal": "Dec 27, 2024 company post: McGregor TX plant automation, 30% workforce growth, second robotics line planned. Public automation push.",
+      "sources": [
+        {
+          "label": "Automation and growth article",
+          "url": "https://www.alliedbuildings.com/automation/",
+          "date": "2024-12-27"
+        }
+      ],
+      "company": "Allied Steel Buildings",
+      "website": "http://www.alliedbuildings.com",
+      "emailed": "Catherine Soto",
+      "emailed_title": "Executive Vice President of Project Operations",
+      "emailed_li": "http://www.linkedin.com/in/catherine-soto-86aa0935",
+      "best_li": "https://www.linkedin.com/search/results/people/?keywords=Catherine%20Soto%20Allied%20Steel%20Buildings"
+    },
+    {
+      "domain": "viewrail.com",
+      "score": 2,
+      "rank": 19,
+      "status": "To message",
+      "best": "Len Morris",
+      "best_title": "Founder and Principal, CEO",
+      "signal": "Active careers board with Inside Sales in Goshen. Feb 2026 EHS Manager post for multi-site ops. No current estimator post found.",
+      "sources": [
+        {
+          "label": "Paycor careers",
+          "url": "https://recruitingbypaycor.com/career/CareerHome.action?clientId=8a7883d092bba0c20192d49204d90359",
+          "date": "fetched 2026-11-05"
+        },
+        {
+          "label": "EHS Manager LinkedIn",
+          "url": "https://www.linkedin.com/posts/nickbanke_careers-viewrail-activity-7429903839492849664-90yF",
+          "date": "2026-02-18"
+        }
+      ],
+      "company": "Viewrail",
+      "website": "http://www.viewrail.com",
+      "emailed": "Len Morris",
+      "emailed_title": "Founder and Principal, CEO",
+      "emailed_li": "http://www.linkedin.com/in/lenmorris",
+      "best_li": "https://www.linkedin.com/search/results/people/?keywords=Len%20Morris%20Viewrail"
+    },
+    {
+      "domain": "kaneinnovations.com",
+      "score": 2,
+      "rank": 20,
+      "status": "To message",
+      "best": "Owen Scannell",
+      "best_title": "CEO",
+      "signal": "Hiring Project Manager Mid-Atlantic plus plant roles on BambooHR. Growth signal, not quoting-specific.",
+      "sources": [
+        {
+          "label": "PM Mid-Atlantic LinkedIn",
+          "url": "https://www.linkedin.com/posts/kane-innovations_project-manager-mid-atlantic-territory-activity-7418004191568388096-4Dk_",
+          "date": "2026"
+        },
+        {
+          "label": "BambooHR careers",
+          "url": "https://kaneinnovations.bamboohr.com/careers/44",
+          "date": "fetched 2026-11-05"
+        }
+      ],
+      "company": "Kane Innovations",
+      "website": "http://www.kaneinnovations.com",
+      "emailed": "Owen Scannell",
+      "emailed_title": "CEO",
+      "emailed_li": "http://www.linkedin.com/in/owen-scannell-45497a39",
+      "best_li": "https://www.linkedin.com/search/results/people/?keywords=Owen%20Scannell%20Kane%20Innovations"
+    }
+  ],
+  "no_signal": [
+    "ACME",
+    "ATAS International, Inc.",
+    "Adams Group",
+    "Air Performance LLC",
+    "Air2O",
+    "Aldora Aluminum and Glass Products",
+    "All Weather Architectural Aluminum",
+    "Arcadia",
+    "Architectural Arts Millwork",
+    "BAMCO inc.",
+    "Baltimore Fabrication, an affiliate of SteelFab",
+    "Bonnell Aluminum",
+    "Bradley Company",
+    "CENTRIA",
+    "CTU PRECAST",
+    "Capone Iron Corporation",
+    "Clark Pacific",
+    "Cocoon, Inc.",
+    "Commercial Casework Inc.",
+    "Complete Millwork Services, Inc.",
+    "Curries",
+    "Dant Clayton Corporation",
+    "Doherty Steel, Inc.",
+    "Dukane Precast Inc",
+    "East Coast Metal Structures",
+    "Environmental Air Systems",
+    "FHC Frameless Hardware Company",
+    "Fetzer Architectural Woodwork",
+    "Gaithersburg Architectural Millwork",
+    "Gutmann North America",
+    "HOLLYWOOD WOODWORK",
+    "Hall Aluminum Products",
+    "High Concrete Group",
+    "Hollaender Manufacturing Company",
+    "House of Forgings",
+    "INTEX Millwork Solutions",
+    "Innovent Air Handling Equipment",
+    "Island Architectural Woodwork, Inc.",
+    "JK Concepts, Inc.",
+    "John W. McDougall Co., Inc.",
+    "Keylink",
+    "King Architectural Metals",
+    "Klima New York, LLC",
+    "Livers Bronze LLC",
+    "Lyndon Steel Company LLC",
+    "MBCI",
+    "McKinney Door Solutions",
+    "McNICHOLS CO.",
+    "Merritt",
+    "Molin Concrete Products Company",
+    "Morin By Kingspan",
+    "Muza Sheet Metal Co., LLC.",
+    "New Hudson Facades",
+    "Northeast Precast",
+    "Northeast Structural Steel, Inc.",
+    "ONSITE Woodwork Corporation",
+    "PermaTherm, Inc.",
+    "Precast Services, Inc.",
+    "R.B. Woodcraft, Inc.",
+    "Reflection Window + Wall",
+    "Remmert & Company",
+    "Ruskin",
+    "S.A. Morman & Co.",
+    "SB Group",
+    "Smith-Midland Corporation",
+    "Texas Air Products",
+    "The AAPCO Group",
+    "The Bradbury Co., Inc.",
+    "The Door Company",
+    "Ultralox Railing Systems",
+    "United Steel",
+    "VIVA Railings LLC",
+    "Varitec Solutions",
+    "Wagner",
+    "West Coast ASM",
+    "Western Millwork",
+    "Wisconsin Built",
+    "Wright Architectural Millwork",
+    "Zephyr Aluminum, LLC"
+  ]
+}

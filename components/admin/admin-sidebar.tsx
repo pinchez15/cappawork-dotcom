@@ -29,6 +29,7 @@ import {
   GraduationCap,
   Inbox,
   ListFilter,
+  Radio,
 } from "lucide-react";
 
 export function AdminSidebar() {
@@ -59,6 +60,11 @@ export function AdminSidebar() {
       title: "CRM",
       icon: Crosshair,
       href: "/admin/crm",
+    },
+    {
+      title: "Signals",
+      icon: Radio,
+      href: "/admin/signals",
     },
     {
       title: "List Builder",

@@ -53,11 +53,14 @@ This will install:
 ### 2. Set Up Supabase
 
 1. Create a Supabase project at https://supabase.com
-2. Run the migration:
+2. Run the migrations in order:
    ```bash
-   # In Supabase dashboard, go to SQL Editor and run:
-   # Copy contents from supabase/migrations/001_schema.sql
+   # In Supabase dashboard, go to SQL Editor and run each file in
+   # supabase/migrations/ from 001_schema.sql through the latest
+   # (including 028_li_signals.sql for the LinkedIn Signals admin view).
    ```
+   After 028, open `/admin/signals` and click **Load building-products seed**
+   (or see `docs/li-signals.md`).
 3. Get your Supabase credentials:
    - Project URL
    - Anon key (for public reads)
