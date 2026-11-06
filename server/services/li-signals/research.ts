@@ -212,7 +212,7 @@ Search the company site careers page, LinkedIn company posts, recent news, expan
 Only return signals with real source URLs and dates.`;
 
   const response = await client.messages.create({
-    model: "claude-sonnet-4-20250514",
+    model: "claude-sonnet-5-5",
     max_tokens: 2048,
     system: SYSTEM_PROMPT,
     tools: [
