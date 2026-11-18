@@ -5,10 +5,12 @@ import Image from "next/image"
 import Link from "next/link"
 import MarketingShell from "../components/marketing-shell"
 import { GlyphKey, OrbStation } from "../components/glyphs"
+import { FOUNDER_CAREER } from "../components/founder-section"
 
 export const metadata: Metadata = {
   title: "About | CappaWork",
-  description: "CappaWork designs and deploys AI systems that change how operational work gets done.",
+  description:
+    "Nate Pinches built CappaWork after a career inside healthcare: clinical research, the FDA, and a CVS Health pharmacy. The embedded product team for healthcare and life sciences.",
 }
 
 export default function AboutPage() {
@@ -40,52 +42,93 @@ export default function AboutPage() {
                   <OrbStation kind="human" label="Nate Pinches" />
                   <h2 className="font-display text-2xl text-navy">Nate Pinches</h2>
                 </div>
-                <p className="text-stone-600 leading-relaxed mb-4">
-                  MBA. Fifteen years in operating roles and strategy. Seven years building products. I have sat with executive teams on how the work should run, and I ship the systems that make that real.
+                <p className="font-display text-xl text-navy mb-3">
+                  From the clinic, to the FDA, to the pharmacy.
                 </p>
                 <p className="text-stone-600 leading-relaxed">
-                  CappaWork is that practice: a view of where the operation can go, and a build that gets there. Agents where the work calls for them. Judgment left with the people who should hold it.
+                  Nate has worked inside the places healthcare work actually happens. He sets the product
+                  vision with your executives, then builds it with your team.
                 </p>
               </div>
             </div>
+            <ul className="mt-8 divide-y divide-card-border border-y border-card-border">
+              {FOUNDER_CAREER.map((item, i) => (
+                <li key={item} className="flex items-start gap-4 py-4">
+                  <span className="mt-1 font-display text-lg leading-none text-gold">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="text-stone-700 leading-relaxed">{item}</span>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          <div className="space-y-6 mb-10">
-            <div className="mb-4 flex items-center gap-3">
-              <OrbStation kind="agent" label="The engagement" />
-              <h2 className="font-display text-2xl text-navy">One engagement. One relationship.</h2>
-            </div>
-            <p className="text-stone-600 mb-4">
-              CappaWork comes in, maps how the work actually runs, and builds the system that should carry it. One relationship from the audit through the build. The system stays on call after it is live. It is not a staffed seat.
+          <div className="mb-10 pb-10 border-b border-card-border">
+            <h2 className="font-display text-2xl text-navy mb-4">Three kinds of work</h2>
+            <p className="text-stone-600 leading-relaxed mb-6">
+              AI is for speed, scale, and capability. It is never for truth, joy, or relationships. Every
+              workflow we touch gets sorted into three kinds of work.
             </p>
-            <p className="text-stone-600 leading-relaxed">
-              You own the IP. CappaWork keeps the system running, secure, and improving over time.
+            <dl className="space-y-5">
+              <div>
+                <dt className="flex items-center gap-3 font-display text-xl text-navy">
+                  <OrbStation kind="agent" label="AI" />
+                  Groundwork: AI runs it
+                </dt>
+                <dd className="mt-1 pl-7 text-stone-600 leading-relaxed">
+                  Rules-based work no licensed person should be doing by hand. Eligibility checks, prior
+                  auth packets, regulatory binders kept current.
+                </dd>
+              </div>
+              <div>
+                <dt className="flex items-center gap-3 font-display text-xl text-navy">
+                  <OrbStation kind="agent" label="AI" />
+                  Teamwork: AI drafts, a qualified person decides
+                </dt>
+                <dd className="mt-1 pl-7 text-stone-600 leading-relaxed">
+                  Draft 0 protocols and medical content, pre-MLR checks, enrollment forecasts. AI drafts and
+                  checks. A qualified person decides and signs.
+                </dd>
+              </div>
+              <div>
+                <dt className="flex items-center gap-3 font-display text-xl text-navy">
+                  <OrbStation kind="human" label="People" />
+                  Lifework: never AI
+                </dt>
+                <dd className="mt-1 pl-7 text-stone-600 leading-relaxed">
+                  The consent conversation and the hard news. A clinician&rsquo;s judgment at the bedside.
+                  The relationships that win the next study.
+                </dd>
+              </div>
+            </dl>
+            <p className="mt-6 font-display text-xl text-navy leading-snug">
+              AI never sits between a clinician and a patient. It clears the paperwork that keeps them apart.
             </p>
           </div>
 
-          <h2 className="font-display text-2xl text-navy mb-4">Why We Exist</h2>
           <div className="space-y-4 mb-10">
+            <h2 className="font-display text-2xl text-navy">How we work</h2>
             <p className="text-stone-600 leading-relaxed">
-              For decades, custom software was too expensive for most businesses. So people became the middleware between disconnected systems: copying, checking, forwarding, reconciling, and chasing information from one place to another.
+              We work in one-week sprints: strategy, product, UX, UI, or build. A full product is five or six
+              sprints back to back. Clients buy sprints one at a time, or keep us on as an embedded team and
+              add sprints on top.
             </p>
             <p className="text-stone-600 leading-relaxed">
-              AI did not change what software is for. It changed how much of an operation can move without a person in the middle. CappaWork exists to use that carefully: not to replace the people who carry judgment, but to take back the work that never belonged to them.
+              You own everything we build: all code, IP, and scaffolding.
             </p>
           </div>
 
           <div className="rounded-2xl border border-card-border bg-card-light p-8">
             <div className="mb-4 flex justify-center">
-              <OrbStation kind="human" label="See how an engagement runs" />
+              <OrbStation kind="human" label="Strategy sprint" />
             </div>
-            <p className="text-stone-600 mb-4 text-center">
-              See how an engagement runs.
-            </p>
+            <p className="text-stone-600 mb-4 text-center">Stuck on an initiative?</p>
             <div className="text-center">
               <Link
-                href="/#how-it-works"
+                href="/#discovery"
                 className="inline-flex items-center bg-gold text-navy px-6 py-3 text-sm font-medium rounded-full hover:bg-gold/90 transition-colors"
               >
-                How it works
+                Book a Strategy Sprint
               </Link>
             </div>
           </div>

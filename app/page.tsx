@@ -2,9 +2,10 @@ import type { Metadata } from "next"
 import Hero from "./components/hero"
 import Navigation from "./components/navigation"
 import Footer from "./components/footer"
-import TransformSection from "./components/transform-section"
-import QuoteGame from "./components/quote-game"
+import ExperienceStrip from "./components/experience-strip"
 import PhilosophySection from "./components/philosophy-section"
+import FounderSection from "./components/founder-section"
+import ServiceLines from "./components/service-lines"
 import HowItWorks from "./components/how-it-works"
 import OutcomesSection from "./components/outcomes-section"
 import AiJudgmentSection from "./components/ai-judgment-section"
@@ -13,14 +14,15 @@ import FaqSection from "./components/faq-section"
 import DiscoverySection from "./components/discovery-section"
 import HomepageWrapper from "./components/homepage-wrapper"
 
-const title = "CappaWork — AI systems that change how work gets done"
-const description = "We help founder-led companies transform with AI."
+const title = "CappaWork | The embedded product team for healthcare and life sciences"
+const description =
+  "We turn stuck initiatives into shipped products for healthcare and life sciences companies, in one-week sprints. AI for speed, scale, and capability. Never for truth, joy, or relationships."
 
 export const metadata: Metadata = {
   title,
   description,
   keywords:
-    "AI implementation, enterprise AI, operational transformation, AI agents, computer work, custom AI systems",
+    "healthcare product team, life sciences software, clinical trial operations, patient recruitment technology, pharmacy operations, regulated content, MLR review, embedded product team, AI agents",
   openGraph: {
     title,
     description,
@@ -33,7 +35,7 @@ export const metadata: Metadata = {
         url: "/linkedin-preview.jpg",
         width: 1200,
         height: 630,
-        alt: "CappaWork — AI systems that change how work gets done",
+        alt: title,
       },
     ],
   },
@@ -51,9 +53,10 @@ export default function HomePage() {
       <main className="min-h-screen bg-warm-white">
         <Navigation />
         <Hero />
-        <TransformSection />
+        <ExperienceStrip />
         <PhilosophySection />
-        <QuoteGame />
+        <FounderSection />
+        <ServiceLines />
         <HowItWorks />
         <OutcomesSection />
         <AiJudgmentSection />

@@ -19,12 +19,16 @@ const instrumentSerif = Instrument_Serif({
   display: "swap",
 })
 
+const SITE_TITLE = "CappaWork | The embedded product team for healthcare and life sciences"
+const SITE_DESCRIPTION =
+  "We turn stuck initiatives into shipped products for healthcare and life sciences companies, in one-week sprints. AI for speed, scale, and capability. Never for truth, joy, or relationships."
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://cappawork.com"),
-  title: "CappaWork — AI systems that change how work gets done",
-  description:
-    "CappaWork designs and deploys AI systems that change how operational work gets done. Agents go in where the work calls for them.",
-  keywords: "AI implementation, enterprise operations, custom AI systems, operational transformation, AI agents",
+  title: SITE_TITLE,
+  description: SITE_DESCRIPTION,
+  keywords:
+    "healthcare product team, life sciences software, clinical trial operations, pharmacy operations, regulated content operations, embedded product team, AI agents",
   authors: [{ name: "CappaWork" }],
   creator: "CappaWork",
   publisher: "CappaWork",
@@ -37,22 +41,22 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://cappawork.com",
-    title: "CappaWork — AI systems that change how work gets done",
-    description: "Custom AI systems for the operations that run a company. We redesign the workflow and use agents where the work calls for them.",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
     siteName: "CappaWork",
     images: [
       {
         url: "/linkedin-preview.jpg",
         width: 1200,
         height: 630,
-        alt: "CappaWork — AI systems that change how work gets done",
+        alt: SITE_TITLE,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "CappaWork — AI systems that change how work gets done",
-    description: "Custom AI systems for the operations that run a company. We redesign the workflow and use agents where the work calls for them.",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
     images: ["/linkedin-preview.jpg"],
   },
 }

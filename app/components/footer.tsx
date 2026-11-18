@@ -10,7 +10,8 @@ export default function Footer() {
               CappaWork
             </Link>
             <p className="text-white/55 text-sm max-w-sm leading-relaxed">
-              We help founder-led companies transform with AI.
+              The embedded product team for healthcare and life sciences. AI for speed, scale, and
+              capability. Never for truth, joy, or relationships.
             </p>
             <div className="mt-5 flex flex-wrap items-center gap-5 text-[11px] font-medium tracking-[0.14em] uppercase text-white/40">
               <span className="inline-flex items-center gap-2">
@@ -28,8 +29,13 @@ export default function Footer() {
             <h3 className="text-white font-semibold mb-4 text-xs uppercase tracking-[0.16em]">Explore</h3>
             <ul className="space-y-3">
               <li>
+                <Link href="/#services" className="text-white/50 hover:text-white text-sm transition-colors">
+                  Services
+                </Link>
+              </li>
+              <li>
                 <Link href="/#how-it-works" className="text-white/50 hover:text-white text-sm transition-colors">
-                  How it works
+                  How we work
                 </Link>
               </li>
               <li>
@@ -44,7 +50,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/#discovery" className="text-white/50 hover:text-white text-sm transition-colors">
-                  Discovery
+                  Book a Strategy Sprint
                 </Link>
               </li>
               <li>

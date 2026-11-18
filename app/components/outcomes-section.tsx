@@ -4,9 +4,10 @@ import { OrbStation } from "./glyphs"
 import WorkflowMesh from "./workflow-mesh"
 
 const outcomes = [
-  { number: "01", title: "Less operational drag" },
-  { number: "02", title: "Faster execution" },
-  { number: "03", title: "More output, same team" },
+  { number: "01", title: "Patients enrolled and served sooner" },
+  { number: "02", title: "Review and start-up cycles that shrink" },
+  { number: "03", title: "More capacity from the same licensed team" },
+  { number: "04", title: "Services that become products you can sell" },
 ]
 
 export default function OutcomesSection() {
@@ -21,11 +22,11 @@ export default function OutcomesSection() {
               <OrbStation kind="human" label="The operation decides" />
             </div>
             <h2 className="font-display text-4xl sm:text-5xl tracking-tight text-navy leading-[1.05] text-balance">
-              The operation gets faster without getting heavier.
+              The operation gets faster. The care stays human.
             </h2>
           </div>
 
-          <ol className="lg:col-span-6 lg:col-start-7 space-y-10">
+          <ol className="lg:col-span-6 lg:col-start-7 space-y-8 sm:space-y-10">
             {outcomes.map((item) => (
               <li key={item.number}>
                 <span className="font-display text-3xl text-gold">{item.number}</span>
@@ -37,7 +38,7 @@ export default function OutcomesSection() {
                 href="#discovery"
                 className="inline-flex items-center bg-gold text-navy px-6 py-3 text-sm font-medium rounded-full hover:bg-gold/90 transition-colors"
               >
-                Book a Discovery Call
+                Book a Strategy Sprint
               </a>
             </li>
           </ol>

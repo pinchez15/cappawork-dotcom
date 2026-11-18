@@ -10,16 +10,16 @@ export default function DiscoverySection() {
         <div className="rounded-2xl border border-white/10 bg-warm-white p-7 sm:p-10">
           <GlyphPath d="M4 12 H148" viewBox="0 0 160 24" className="mb-4 h-5 w-36" />
           <div className="mb-3 flex items-center gap-3">
-            <OrbStation kind="human" label="Discovery call" />
+            <OrbStation kind="human" label="Strategy sprint" />
             <p className="text-xs font-semibold tracking-[0.16em] uppercase text-gold">
-              Discovery
+              Strategy Sprint
             </p>
           </div>
           <h2 className="font-display text-3xl sm:text-4xl tracking-tight text-navy leading-tight">
-            Book a discovery call
+            Stuck on an initiative? Book a strategy sprint.
           </h2>
           <p className="mt-3 text-base text-stone-600">
-            We help founder-led companies transform with AI.
+            Tell us what is stuck. We will come back with how the first week would run and what it would produce.
           </p>
           <div className="mt-8">
             <DiscoveryForm />
