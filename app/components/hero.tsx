@@ -15,17 +15,18 @@ export default function Hero() {
               We make work more human.
             </h1>
             <p className="mt-5 text-lg sm:text-xl text-stone-600">
-              We help founder-led companies transform with AI.
+              The embedded product team for healthcare and life sciences. We turn stuck initiatives into shipped products, so clinicians, coordinators, and care teams get their time back for patients.
             </p>
             <GlyphKey className="mt-8" />
         </div>
 
-        <div className="mt-12 sm:mt-16 flex flex-col sm:flex-row gap-3">
+        <p className="mt-12 sm:mt-14 text-sm font-semibold text-navy">Stuck on an initiative?</p>
+        <div className="mt-3 flex flex-col sm:flex-row gap-3">
           <a
             href="#discovery"
             className="inline-flex items-center justify-center gap-2 bg-gold text-navy px-7 py-3.5 rounded-full font-medium hover:bg-gold/90 transition-colors"
           >
-            Book a Discovery Call
+            Book a Strategy Sprint
             <ArrowRight size={16} />
           </a>
           <a
@@ -36,7 +37,7 @@ export default function Hero() {
           </a>
         </div>
 
-        <div className="mt-20 flex justify-center sm:mt-28">
+        <div className="mt-16 flex justify-center sm:mt-20">
           <OrbStation kind="agent" label="Thread resolves" />
         </div>
       </div>

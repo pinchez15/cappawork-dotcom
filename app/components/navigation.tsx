@@ -15,11 +15,11 @@ export default function Navigation() {
     const currentPath = window.location.pathname
     if (currentPath === "/blog") {
       setActiveSection("blog")
-    } else if (currentPath === "/roadmap") {
-      setActiveSection("roadmap")
+    } else if (currentPath === "/about") {
+      setActiveSection("about")
     } else if (currentPath === "/") {
       const handleScroll = () => {
-        const sections = ["hero", "transform", "philosophy", "how-it-works", "outcomes", "judgment", "work", "faq", "discovery"]
+        const sections = ["hero", "experience", "philosophy", "founder", "services", "how-it-works", "outcomes", "judgment", "work", "faq", "discovery"]
         const scrollPosition = window.scrollY + 120
 
         for (const section of sections) {
@@ -40,9 +40,9 @@ export default function Navigation() {
   }, [])
 
   const navItems = [
-    { id: "how-it-works", label: "How it works", href: "/#how-it-works" },
+    { id: "services", label: "Services", href: "/#services" },
+    { id: "how-it-works", label: "How we work", href: "/#how-it-works" },
     { id: "work", label: "Work", href: "/#work" },
-    { id: "roadmap", label: "Roadmap", href: "/roadmap" },
     { id: "about", label: "About", href: "/about" },
     { id: "blog", label: "Blog", href: "/blog" },
   ]
@@ -120,7 +120,7 @@ export default function Navigation() {
               onClick={handleBookCall}
               className="text-[13px] font-medium bg-gold text-navy px-4 py-2 rounded-full hover:bg-gold/90 transition-colors"
             >
-              Book a Call
+              Book a Sprint
             </button>
           </div>
 
@@ -160,7 +160,7 @@ export default function Navigation() {
               onClick={handleBookCall}
               className="mt-3 w-full bg-gold text-navy py-3 text-sm font-medium rounded-full"
             >
-              Book a Call
+              Book a Sprint
             </button>
           </div>
         )}

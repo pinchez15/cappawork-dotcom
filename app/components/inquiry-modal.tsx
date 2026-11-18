@@ -4,15 +4,22 @@ import { createContext, useContext, useState, useCallback } from "react"
 import { ArrowRight, X, Check, Loader2 } from "lucide-react"
 import { REVENUE_BANDS } from "@/lib/discovery"
 
-export const INQUIRY_REASONS = ["AI Roadmap", "Custom Build", "Other"] as const
+export const INQUIRY_REASONS = ["Strategy Sprint", "Embedded Team", "Other"] as const
 export type InquiryReason = (typeof INQUIRY_REASONS)[number]
 
 // Buttons across the site pass their own keys to open(); map them to a reason.
 function reasonFor(preselect?: string): InquiryReason | "" {
   if (!preselect) return ""
   const key = preselect.toLowerCase()
-  if (key.includes("discover") || key.includes("roadmap")) return "AI Roadmap"
-  if (key.includes("build")) return "Custom Build"
+  if (key.includes("embedded") || key.includes("retainer") || key.includes("modernize")) return "Embedded Team"
+  if (
+    key.includes("sprint") ||
+    key.includes("discover") ||
+    key.includes("roadmap") ||
+    key.includes("audit") ||
+    key.includes("build")
+  )
+    return "Strategy Sprint"
   return ""
 }
 
@@ -113,7 +120,7 @@ export function DiscoveryForm({
         </div>
         <h3 className="font-display text-2xl text-navy">We have it.</h3>
         <p className="mt-2 text-stone-600">
-          We will reach out to schedule the discovery call.
+          We will come back with how the first week would run and what it would produce.
         </p>
       </div>
     )
@@ -228,7 +235,7 @@ export function DiscoveryForm({
           </>
         ) : (
           <>
-            Book a Discovery Call
+            Book a Strategy Sprint
             <ArrowRight size={16} />
           </>
         )}
@@ -280,11 +287,11 @@ function InquiryModalContent({
         </button>
         <div className="p-8 sm:p-10">
           <p className="text-xs font-semibold tracking-[0.16em] uppercase text-gold mb-3">
-            Discovery
+            Strategy Sprint
           </p>
-          <h2 className="font-display text-3xl tracking-tight mb-2">Book a discovery call</h2>
+          <h2 className="font-display text-3xl tracking-tight mb-2">Book a strategy sprint</h2>
           <p className="text-stone-600 mb-8 leading-relaxed">
-            A short conversation on how the operation runs today, and where a change in the work would matter first.
+            Tell us what is stuck. We will come back with how the first week would run and what it would produce.
           </p>
           <DiscoveryForm idPrefix="modal" initialReason={reason} />
         </div>

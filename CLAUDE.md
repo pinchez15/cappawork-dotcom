@@ -104,10 +104,13 @@ server/             # Server-side repos, actions, services
 
 ## Key Business Context
 
-- **Value prop:** "Your operations are the most expensive thing you're not measuring"
-- **Engagement model:** Phase 1 Diagnostic ($30K, 4-6 weeks) then Phase 2 Implementation ($50K+)
-- **Positioning:** Analytics-first, not code-first. Clarity before capital allocation
-- **Tone:** Direct, confident, specific. No jargon, no hype. Speaks CFO language (margins, unit economics, ROI)
+- **Positioning:** The embedded product team for healthcare and life sciences. We turn stuck initiatives into shipped products.
+- **ICP:** Healthcare and life sciences companies above ~$30M revenue (patient recruitment, agencies/medcomms, CROs and site networks, LTC/specialty pharmacy, provider groups, emerging biotech). Buyer: CEO, President, or COO with a stalled initiative.
+- **Engagement model:** One-week sprints (Strategy, Product, UX, UI, Build). A full product is 5 to 6 sprints back to back. $7,500 per sprint (one focused week). Plus an embedded team retainer: $20,000 a month, anchored to an SVP of Product or AI salary, with sprints added on top. Internally scoped at about 40 hours a month, but **never publish hours**: pricing is on output, not time. Think and write in weeks of work and outputs.
+- **Primary CTA:** "Book a Strategy Sprint" (scrolls to the `#discovery` form on the homepage)
+- **Philosophy:** AI for speed, scale, and capability; never for truth, joy, or relationships. Groundwork (AI runs it) / Teamwork (AI drafts, a qualified person decides) / Lifework (never AI).
+- **Guardrails:** Never use the FDA logo. No invented statistics. Founder experience is career history, not a client list.
+- **Tone:** Direct, confident, specific. No jargon, no hype.
 - **Signup model:** Invite-only for client portal (Clerk signup link hidden)
 
 ## Common Commands

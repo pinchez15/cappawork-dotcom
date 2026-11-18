@@ -1,6 +1,7 @@
 export type PortfolioProject = {
   name: string
-  url: string
+  /** Omit for confidential work; the card renders without a link. */
+  url?: string
   description: string
   industry: string
   /** How the engagement shows up in the work. */
@@ -19,6 +20,14 @@ export type PortfolioTestimonial = {
 
 export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
   {
+    name: "Karibu Health",
+    url: "https://karibu.health",
+    description: "The visit is spoken. The record is written.",
+    industry: "Healthcare",
+    mode: "agent",
+    modeLabel: "Agent in the workflow",
+  },
+  {
     name: "HealthcareAIO",
     url: "https://healthcareaio.com",
     description: "Audits and the client relationship, in one system.",
@@ -27,20 +36,12 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     modeLabel: "Agent in the workflow",
   },
   {
-    name: "ArborKey",
-    url: "https://www.arborkeysoftware.com",
-    description: "The practice, in one system.",
-    industry: "Property management",
+    name: "Enterprise trial platform",
+    description:
+      "Embedded with the product team of a clinical trial recruitment and communications firm: suite strategy, an enterprise prototype, and an AI-native way of building.",
+    industry: "Life sciences · Client confidential",
     mode: "workflow",
-    modeLabel: "How the work runs",
-  },
-  {
-    name: "Karibu Health",
-    url: "https://karibu.health",
-    description: "The visit is spoken. The record is written.",
-    industry: "Healthcare",
-    mode: "agent",
-    modeLabel: "Agent in the workflow",
+    modeLabel: "Embedded product team",
   },
   {
     name: "Horizon Data Partners",

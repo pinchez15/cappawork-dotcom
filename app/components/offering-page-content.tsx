@@ -162,7 +162,7 @@ export function OfferingPageContent({ offering }: { offering: Offering }) {
               More live systems
             </span>
             <div className="grid gap-4 sm:grid-cols-2">
-              {PORTFOLIO_PROJECTS.map((project) => (
+              {PORTFOLIO_PROJECTS.filter((project) => project.url).map((project) => (
                 <a
                   key={project.name}
                   href={project.url}

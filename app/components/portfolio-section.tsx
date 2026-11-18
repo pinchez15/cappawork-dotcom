@@ -64,44 +64,66 @@ export default function PortfolioSection() {
         </FadeInUp>
 
         <div ref={gridRef} className="mt-14 grid gap-4 md:grid-cols-2">
-          {PORTFOLIO_PROJECTS.map((project) => (
-            <a
-              key={project.name}
-              data-work-card
-              href={project.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex h-full flex-col rounded-2xl border border-card-border bg-card-light p-7 sm:p-8 hover:border-gold/50 transition-colors"
-            >
-              <div className="flex items-start justify-between gap-4">
-                <div className="flex items-center gap-2">
-                  <GlyphPath d="M2 8 H22" viewBox="0 0 24 16" className="h-3 w-6" />
-                  {project.mode === "agent" ? (
-                    <OrbStation kind="agent" label={project.modeLabel} />
+          {PORTFOLIO_PROJECTS.map((project) => {
+            const inner = (
+              <>
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex items-center gap-2">
+                    <GlyphPath d="M2 8 H22" viewBox="0 0 24 16" className="h-3 w-6" />
+                    {project.mode === "agent" ? (
+                      <OrbStation kind="agent" label={project.modeLabel} />
+                    ) : null}
+                    <span className="text-[11px] font-semibold tracking-[0.16em] uppercase text-gold">
+                      {project.modeLabel}
+                    </span>
+                  </div>
+                  {project.url ? (
+                    <ArrowUpRight
+                      size={16}
+                      className="text-stone-400 group-hover:text-gold transition-colors"
+                    />
                   ) : null}
-                  <span className="text-[11px] font-semibold tracking-[0.16em] uppercase text-gold">
-                    {project.modeLabel}
-                  </span>
                 </div>
-                <ArrowUpRight
-                  size={16}
-                  className="text-stone-400 group-hover:text-gold transition-colors"
-                />
+                <h3
+                  className={`mt-6 font-display text-3xl text-navy ${
+                    project.url ? "group-hover:text-gold transition-colors" : ""
+                  }`}
+                >
+                  {project.name}
+                </h3>
+                <p className="mt-1 text-xs font-medium tracking-wide uppercase text-stone-400">
+                  {project.industry}
+                </p>
+                <p className="mt-4 text-sm sm:text-base text-stone-600 leading-relaxed flex-1">
+                  {project.description}
+                </p>
+                {project.url ? (
+                  <span className="mt-6 text-sm font-medium text-navy group-hover:text-gold transition-colors">
+                    Visit {project.name}
+                  </span>
+                ) : null}
+              </>
+            )
+            const cardClass =
+              "group flex h-full flex-col rounded-2xl border border-card-border bg-card-light p-7 sm:p-8"
+
+            return project.url ? (
+              <a
+                key={project.name}
+                data-work-card
+                href={project.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${cardClass} hover:border-gold/50 transition-colors`}
+              >
+                {inner}
+              </a>
+            ) : (
+              <div key={project.name} data-work-card className={cardClass}>
+                {inner}
               </div>
-              <h3 className="mt-6 font-display text-3xl text-navy group-hover:text-gold transition-colors">
-                {project.name}
-              </h3>
-              <p className="mt-1 text-xs font-medium tracking-wide uppercase text-stone-400">
-                {project.industry}
-              </p>
-              <p className="mt-4 text-sm sm:text-base text-stone-600 leading-relaxed flex-1">
-                {project.description}
-              </p>
-              <span className="mt-6 text-sm font-medium text-navy group-hover:text-gold transition-colors">
-                Visit {project.name}
-              </span>
-            </a>
-          ))}
+            )
+          })}
         </div>
 
         <blockquote className="mt-10 rounded-2xl border border-card-border bg-card-light p-7 sm:p-10">

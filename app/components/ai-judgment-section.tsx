@@ -4,15 +4,15 @@ import { FadeInUp } from "./motion-wrapper"
 import { OrbStation } from "./glyphs"
 
 const useAgent = [
-  "The steps are known.",
-  "People are the copy between systems.",
-  "A miss can be caught.",
+  "The steps are written down: a protocol, a payer rule, an SOP.",
+  "Licensed staff are re-keying between the EHR, the portal, and the spreadsheet.",
+  "A miss is caught by a person before it reaches a patient.",
 ]
 
 const keepHuman = [
-  "A customer will feel the judgment.",
-  "The relationship is the product.",
-  "Someone stands behind the decision.",
+  "A patient will feel it: consent, a diagnosis, hard news.",
+  "The relationship is the care: clinician, investigator, sponsor.",
+  "A licensed person signs their name to the decision.",
 ]
 
 export default function AiJudgmentSection() {
@@ -24,7 +24,7 @@ export default function AiJudgmentSection() {
             Where an agent belongs
           </p>
           <h2 className="font-display text-4xl sm:text-5xl tracking-tight text-white leading-[1.05] max-w-3xl text-balance">
-            We use agents when the work calls for them.
+            Agents in the workflow. Never in the exam room.
           </h2>
         </FadeInUp>
 
@@ -32,7 +32,7 @@ export default function AiJudgmentSection() {
           <div>
             <h3 className="flex items-center gap-3 text-sm font-semibold tracking-[0.16em] uppercase text-white">
               <OrbStation kind="agent" label="Use an agent" />
-              Use an agent
+              Use an agent when
             </h3>
             <ul className="mt-6 space-y-4">
               {useAgent.map((item) => (
@@ -45,7 +45,7 @@ export default function AiJudgmentSection() {
           <div>
             <h3 className="flex items-center gap-3 text-sm font-semibold tracking-[0.16em] uppercase text-gold">
               <OrbStation kind="human" label="Keep it human" />
-              Keep it human
+              Keep it human when
             </h3>
             <ul className="mt-6 space-y-4">
               {keepHuman.map((item) => (
