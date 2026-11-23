@@ -5,6 +5,7 @@ import { InquiryProvider } from "./components/inquiry-modal"
 import HomeHero from "./components/home/home-hero"
 import HomeBelief from "./components/home/home-belief"
 import HomeServices from "./components/home/home-services"
+import HomeCompliance from "./components/home/home-compliance"
 import HomeSprints from "./components/home/home-sprints"
 import HomeProof from "./components/home/home-proof"
 import HomeBook from "./components/home/home-book"
@@ -49,6 +50,7 @@ export default function HomePage() {
       <main className="bg-warm-white">
         <HomeHero />
         <HomeServices />
+        <HomeCompliance />
         <HomeSprints />
         <HomeProof />
         <HomeBelief />
