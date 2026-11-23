@@ -71,7 +71,7 @@ export default function HomeHero() {
                   <ul
                     key={copy}
                     aria-hidden={copy === 1 ? true : undefined}
-                    className="flex shrink-0 items-center"
+                    className="flex shrink-0 items-center pl-10"
                   >
                     {EXPERIENCE.map((name) => (
                       <li

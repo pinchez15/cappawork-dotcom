@@ -20,6 +20,14 @@ export type PortfolioTestimonial = {
 
 export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
   {
+    name: "Enterprise trial platform",
+    description:
+      "Embedded with the product team of a clinical trial recruitment and communications firm: suite strategy, an enterprise prototype, and an AI-native way of building.",
+    industry: "Life sciences · Client confidential",
+    mode: "workflow",
+    modeLabel: "Embedded product team",
+  },
+  {
     name: "Karibu Health",
     url: "https://karibu.health",
     description: "The visit is spoken. The record is written.",
@@ -34,14 +42,6 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     industry: "Healthcare",
     mode: "agent",
     modeLabel: "Agent in the workflow",
-  },
-  {
-    name: "Enterprise trial platform",
-    description:
-      "Embedded with the product team of a clinical trial recruitment and communications firm: suite strategy, an enterprise prototype, and an AI-native way of building.",
-    industry: "Life sciences · Client confidential",
-    mode: "workflow",
-    modeLabel: "Embedded product team",
   },
   {
     name: "Horizon Data Partners",

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { Menu, X } from "lucide-react"
-import { SignInButton, UserButton, SignedIn, SignedOut } from "@clerk/nextjs"
+import { UserButton, SignedIn } from "@clerk/nextjs"
 import Link from "next/link"
 import { useInquiry } from "./inquiry-modal"
 
@@ -99,13 +99,6 @@ export default function Navigation() {
               </button>
             ))}
             <div className="flex items-center gap-3">
-              <SignedOut>
-                <SignInButton mode="modal">
-                  <button className="text-[13px] font-medium text-stone-500 hover:text-navy transition-colors">
-                    Sign in
-                  </button>
-                </SignInButton>
-              </SignedOut>
               <SignedIn>
                 <Link
                   href="/dashboard"
@@ -143,13 +136,6 @@ export default function Navigation() {
               </button>
             ))}
             <div className="flex flex-col mt-2">
-              <SignedOut>
-                <SignInButton mode="modal">
-                  <button className="block w-full text-left py-3 text-sm text-stone-500">
-                    Sign in
-                  </button>
-                </SignInButton>
-              </SignedOut>
               <SignedIn>
                 <Link href="/dashboard" className="block w-full text-left py-3 text-sm text-stone-500">
                   Dashboard

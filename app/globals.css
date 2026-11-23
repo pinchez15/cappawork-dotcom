@@ -283,8 +283,8 @@
    --cw-ease; it is the one looping motion on the page. */
 .cw-marquee {
   overflow: hidden;
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
-  mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 3%, #000 94%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 3%, #000 94%, transparent);
 }
 .cw-marquee-track {
   display: flex;

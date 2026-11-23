@@ -73,6 +73,11 @@ export default function Footer() {
                   Contact
                 </Link>
               </li>
+              <li>
+                <Link href="/dashboard" className="text-white/50 hover:text-white text-sm transition-colors">
+                  Client sign in
+                </Link>
+              </li>
             </ul>
           </div>
 
