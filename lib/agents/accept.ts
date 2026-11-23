@@ -36,8 +36,6 @@ const MARKDOWN_STATIC = new Set([
   "/about",
   "/blog",
   "/calculator",
-  "/cohort",
-  "/cohort/success",
   "/contact",
   "/fulfillment-policy",
   "/linkedin-carousel",

@@ -57,8 +57,6 @@ const STATIC_MARKDOWN: Record<string, () => string> = {
   "/about": () => pageStub("/about", "About CappaWork"),
   "/blog": () => pageStub("/blog", "CappaWork blog index"),
   "/calculator": () => pageStub("/calculator", "Profit calculator"),
-  "/cohort": () => pageStub("/cohort", "Cohort program"),
-  "/cohort/success": () => pageStub("/cohort/success", "Cohort enrollment success"),
   "/contact": () => pageStub("/contact", "Contact CappaWork"),
   "/fulfillment-policy": () => pageStub("/fulfillment-policy", "Fulfillment policy"),
   "/linkedin-carousel": () => pageStub("/linkedin-carousel", "LinkedIn carousel"),

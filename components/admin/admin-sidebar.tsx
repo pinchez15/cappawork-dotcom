@@ -26,8 +26,6 @@ import {
   Handshake,
   Crosshair,
   CheckSquare,
-  GraduationCap,
-  Inbox,
   ListFilter,
   Radio,
 } from "lucide-react";
@@ -80,16 +78,6 @@ export function AdminSidebar() {
       title: "Outreach",
       icon: Megaphone,
       href: "/admin/outreach",
-    },
-    {
-      title: "Cohorts",
-      icon: GraduationCap,
-      href: "/admin/cohorts",
-    },
-    {
-      title: "Cohort Leads",
-      icon: Inbox,
-      href: "/admin/leads",
     },
     {
       title: "Site Activity",

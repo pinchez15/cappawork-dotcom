@@ -83,60 +83,6 @@ export const SERVICES: Service[] = [
       "Advisory engagements are scoped individually based on your needs.",
   },
   {
-    slug: "ai-literacy-cohort",
-    title: "AI Literacy Cohort",
-    subtitle:
-      "Six weeks. Small group. For leaders who don't build but need to understand what's being built.",
-    price: "",
-    priceNote: "per person · 6 weeks · 10–15 per cohort",
-    section: "coaching",
-    cardDescription:
-      "Six-week small-group program for leaders who don't build but need to understand what's being built. You'll learn what the models actually are, how they differ, what tools like Claude Code do, what's safe and what's not, and how to evaluate AI investments your team is making — so you stop nodding along in meetings and start making informed decisions.",
-    ctaText: "Apply for the Next Cohort",
-    ctaSub:
-      "Cohorts run with 10–15 people. Apply and we'll confirm your spot.",
-    howItWorks: [
-      {
-        label: "Before we start,",
-        text: "you take a short survey rating your familiarity with AI tools and concepts. This calibrates the curriculum to the room so nobody's bored and nobody's lost.",
-      },
-      {
-        label: "Six weekly sessions,",
-        text: "structured curriculum plus open Q&A that runs until every question is answered. All sessions recorded.",
-      },
-      {
-        label: "You leave with",
-        text: "the fluency to evaluate AI investments, ask the right questions, and make informed decisions — not the ability to code, but the judgment to lead.",
-      },
-    ],
-    whatWeCover: [
-      {
-        label: "",
-        text: "What the models actually are — Claude, ChatGPT, Gemini — and how they differ",
-      },
-      {
-        label: "",
-        text: "What tools like Claude Code and Cursor do, and what you can build without writing code",
-      },
-      {
-        label: "",
-        text: "What's safe and what's not — data privacy, security, and where the real risks are",
-      },
-      {
-        label: "",
-        text: "How to evaluate AI investments your team is making — so you stop nodding along and start leading",
-      },
-    ],
-    whoBlock:
-      "You're a leader who doesn't build but needs to understand what's being built. You know AI is reshaping your industry, but you're not sure what's real and what's noise. You want to learn from someone who builds with these tools every day, in a small group where you can ask the questions you wouldn't ask in a company all-hands.",
-    aboutNate:
-      "Founder of CappaWork. MBA, fifteen years in operating roles, seven years building products. The practice is changing how operational work gets done, and using an agent where the work calls for one.",
-    termsNote:
-      "When you enroll, you are holding a spot that another professional could fill.",
-  },
-
-  // ─── SECTION 2: AUDIT & BUILD ───
-  {
     slug: "ai-audit-diagnosis",
     title: "AI Audit & Diagnosis",
     subtitle:
