@@ -63,11 +63,30 @@ export default function HomeHero() {
           style={stagger(5)}
           id="experience"
         >
-          <p className="text-[15px] leading-relaxed text-stone-500">
-            <span className="text-navy">Our engineers have worked at: </span>
-            {EXPERIENCE.join(" · ")}
-          </p>
-          <p className="mt-1 text-xs text-stone-400">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-8">
+            <p className="shrink-0 text-[15px] text-navy">Our engineers have worked at:</p>
+            <div className="cw-marquee min-w-0 flex-1">
+              <div className="cw-marquee-track">
+                {[0, 1].map((copy) => (
+                  <ul
+                    key={copy}
+                    aria-hidden={copy === 1 ? true : undefined}
+                    className="flex shrink-0 items-center"
+                  >
+                    {EXPERIENCE.map((name) => (
+                      <li
+                        key={name}
+                        className="whitespace-nowrap pr-12 font-display text-[1.375rem] leading-none text-stone-500"
+                      >
+                        {name}
+                      </li>
+                    ))}
+                  </ul>
+                ))}
+              </div>
+            </div>
+          </div>
+          <p className="mt-3 text-xs text-stone-400">
             Career experience. Not a client list or an endorsement.
           </p>
         </div>

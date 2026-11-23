@@ -278,3 +278,29 @@
     animation: none !important;
   }
 }
+
+/* Experience strip marquee. Continuous, so it runs linear rather than on
+   --cw-ease; it is the one looping motion on the page. */
+.cw-marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+}
+.cw-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: cw-marquee 40s linear infinite;
+}
+.cw-marquee:hover .cw-marquee-track {
+  animation-play-state: paused;
+}
+@keyframes cw-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cw-marquee { -webkit-mask-image: none; mask-image: none; }
+  .cw-marquee-track { animation: none; width: auto; }
+  .cw-marquee-track > ul { flex-wrap: wrap; row-gap: 0.75rem; }
+  .cw-marquee-track > ul[aria-hidden="true"] { display: none; }
+}
