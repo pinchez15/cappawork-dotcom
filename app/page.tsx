@@ -1,18 +1,13 @@
 import type { Metadata } from "next"
-import Hero from "./components/hero"
 import Navigation from "./components/navigation"
 import Footer from "./components/footer"
-import ExperienceStrip from "./components/experience-strip"
-import PhilosophySection from "./components/philosophy-section"
-import FounderSection from "./components/founder-section"
-import ServiceLines from "./components/service-lines"
-import HowItWorks from "./components/how-it-works"
-import OutcomesSection from "./components/outcomes-section"
-import AiJudgmentSection from "./components/ai-judgment-section"
-import PortfolioSection from "./components/portfolio-section"
-import FaqSection from "./components/faq-section"
-import DiscoverySection from "./components/discovery-section"
-import HomepageWrapper from "./components/homepage-wrapper"
+import { InquiryProvider } from "./components/inquiry-modal"
+import HomeHero from "./components/home/home-hero"
+import HomeBelief from "./components/home/home-belief"
+import HomeServices from "./components/home/home-services"
+import HomeSprints from "./components/home/home-sprints"
+import HomeProof from "./components/home/home-proof"
+import HomeBook from "./components/home/home-book"
 
 const title = "CappaWork | The embedded product team for healthcare and life sciences"
 const description =
@@ -49,22 +44,17 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   return (
-    <HomepageWrapper>
-      <main className="min-h-screen bg-warm-white">
-        <Navigation />
-        <Hero />
-        <ExperienceStrip />
-        <PhilosophySection />
-        <FounderSection />
-        <ServiceLines />
-        <HowItWorks />
-        <OutcomesSection />
-        <AiJudgmentSection />
-        <PortfolioSection />
-        <FaqSection />
-        <DiscoverySection />
-        <Footer />
+    <InquiryProvider>
+      <Navigation />
+      <main className="bg-warm-white">
+        <HomeHero />
+        <HomeBelief />
+        <HomeServices />
+        <HomeSprints />
+        <HomeProof />
+        <HomeBook />
       </main>
-    </HomepageWrapper>
+      <Footer />
+    </InquiryProvider>
   )
 }

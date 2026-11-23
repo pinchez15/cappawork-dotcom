@@ -5,7 +5,7 @@ import Image from "next/image"
 import Link from "next/link"
 import MarketingShell from "../components/marketing-shell"
 import { GlyphKey, OrbStation } from "../components/glyphs"
-import { FOUNDER_CAREER } from "../components/founder-section"
+import { FOUNDER_CAREER } from "@/lib/founder"
 
 export const metadata: Metadata = {
   title: "About | CappaWork",

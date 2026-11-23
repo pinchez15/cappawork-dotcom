@@ -19,7 +19,7 @@ export default function Navigation() {
       setActiveSection("about")
     } else if (currentPath === "/") {
       const handleScroll = () => {
-        const sections = ["hero", "experience", "philosophy", "founder", "services", "how-it-works", "outcomes", "judgment", "work", "faq", "discovery"]
+        const sections = ["hero", "philosophy", "services", "how-it-works", "work", "faq", "discovery"]
         const scrollPosition = window.scrollY + 120
 
         for (const section of sections) {
@@ -120,7 +120,7 @@ export default function Navigation() {
               onClick={handleBookCall}
               className="text-[13px] font-medium bg-gold text-navy px-4 py-2 rounded-full hover:bg-gold/90 transition-colors"
             >
-              Book a Sprint
+              Book a Strategy Sprint
             </button>
           </div>
 
@@ -160,7 +160,7 @@ export default function Navigation() {
               onClick={handleBookCall}
               className="mt-3 w-full bg-gold text-navy py-3 text-sm font-medium rounded-full"
             >
-              Book a Sprint
+              Book a Strategy Sprint
             </button>
           </div>
         )}

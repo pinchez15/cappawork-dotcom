@@ -56,25 +56,6 @@
     overflow: hidden;
   }
 
-  @keyframes logo-scroll {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-50%);
-    }
-  }
-
-  .animate-logo-scroll {
-    animation: logo-scroll 30s linear infinite;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .animate-logo-scroll {
-      animation: none;
-    }
-  }
-
   [data-orb-kind="agent"].orb-station-active {
     background-color: transparent;
     border-color: #d4a853;
@@ -236,39 +217,64 @@
   @apply rounded-sm my-6 max-w-full;
 }
 
-@media (max-width: 767px) {
-  .hero-thread-draw {
-    stroke-dasharray: 1400;
-    stroke-dashoffset: 1400;
-    animation: hero-thread-in 1.15s ease-out 0.12s forwards;
-  }
+/* ─── Motion system ───────────────────────────────────────────────
+   One duration, one easing, one stagger. Every animated element on
+   the marketing site uses these tokens; do not add new timings. */
+:root {
+  --cw-ease: cubic-bezier(0.2, 0.7, 0.15, 1);
+  --cw-dur: 700ms;
+  --cw-stagger: 90ms;
+}
 
-  .hero-thread-agent {
-    opacity: 0;
-    animation: hero-agent-in 0.4s ease-out 0.85s forwards;
-  }
+/* Scroll reveal: toggled by <Reveal> via data-in */
+.cw-reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity var(--cw-dur) var(--cw-ease),
+    transform var(--cw-dur) var(--cw-ease);
+  transition-delay: calc(var(--i, 0) * var(--cw-stagger));
+}
+.cw-reveal[data-in="true"] {
+  opacity: 1;
+  transform: none;
+}
+
+/* Load-time rise for above-the-fold content (no JS needed) */
+.cw-rise {
+  animation: cw-rise var(--cw-dur) var(--cw-ease) both;
+  animation-delay: calc(var(--i, 0) * var(--cw-stagger) + 120ms);
+}
+
+/* Line-by-line headline reveal: each line is a masked span */
+.cw-line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+.cw-line > span {
+  display: block;
+  animation: cw-line-rise var(--cw-dur) var(--cw-ease) both;
+  animation-delay: calc(var(--i, 0) * var(--cw-stagger) + 120ms);
+}
+
+@keyframes cw-rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes cw-line-rise {
+  from { transform: translateY(110%); }
+  to { transform: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-thread-draw {
-    animation: none;
-    stroke-dashoffset: 0;
-  }
-
-  .hero-thread-agent {
-    animation: none;
-    opacity: 1;
-  }
-}
-
-@keyframes hero-thread-in {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
-@keyframes hero-agent-in {
-  to {
-    opacity: 1;
+  .cw-reveal,
+  .cw-rise,
+  .cw-line > span {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
   }
 }
