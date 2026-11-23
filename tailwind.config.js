@@ -91,11 +91,6 @@ module.exports = {
           active: "#D4A853",
           completed: "#22C55E",
         },
-        // Brand colors
-        brand: {
-          DEFAULT: "#D4A853",
-          hover: "#C4983F",
-        },
       },
       borderRadius: {
         lg: "var(--radius)",

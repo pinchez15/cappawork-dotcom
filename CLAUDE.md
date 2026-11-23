@@ -1,45 +1,40 @@
-# CappaWork Front-End Developer Skill
+# CappaWork
 
 ## Project Overview
 
-CappaWork is an operational analytics and automation consultancy targeting founder-led service businesses doing $3M+ in annual revenue. The website serves as both a marketing site and a client portal (SaaS).
+CappaWork is the embedded product team for healthcare and life sciences. This repo is both the marketing site and the internal/client tools: admin CRM and Pipeline, discovery, list builder, client portal, and SOW signing.
 
-**Deployed at:** https://cappawork.com
+**Deployed at:** https://cappawork.com (Vercel)
 
-## Ideal Customer Profile (ICP)
+## Key Business Context
 
-- **Role:** President or CEO
-- **Company size:** $3M+ revenue/year (sweet spot $3M-$10M)
-- **Industry:** Service-based businesses (consulting, agencies, professional services, trades, staffing)
-- **Mindset:** Operationally focused, profit-margin conscious, growth-stage
-- **Pain:** Scaling problems — margin compression, workflow inefficiency, software sprawl, no visibility into unit economics
-- **Devices:** Desktop (primary work device) and mobile (on-the-go review, meetings, travel)
+- **Positioning:** The embedded product team for healthcare and life sciences. We turn stuck initiatives into shipped products.
+- **ICP:** Healthcare and life sciences companies above ~$30M revenue (patient recruitment, agencies/medcomms, CROs and site networks, LTC/specialty pharmacy, provider groups, emerging biotech). Buyer: CEO, President, or COO with a stalled initiative.
+- **Engagement model:** One-week sprints (Strategy, Product, UX, UI, Build). A full product is 5 to 6 sprints back to back. $7,500 per sprint (one focused week). Plus an embedded team retainer: $20,000 a month, anchored to an SVP of Product or AI salary, with sprints added on top. Internally scoped at about 40 hours a month, but **never publish hours**: pricing is on output, not time. Think and write in weeks of work and outputs.
+- **Primary CTA:** "Book a Strategy Sprint" (scrolls to the `#discovery` form on the homepage, which posts to `/api/service-inquiry`). Use this label for every primary CTA.
+- **Philosophy:** AI for speed, scale, and capability; never for truth, joy, or relationships. Groundwork (AI runs it) / Teamwork (AI drafts, a qualified person decides) / Lifework (never AI).
+- **Guardrails:** Never use the FDA logo. No invented statistics. Founder experience is career history, not a client list.
+- **Tone:** Direct, confident, specific. No jargon, no hype.
+- **Signup model:** Invite-only for client portal (Clerk signup link hidden)
 
-## Design Principles for ICP
+Retired offers (do not build on or link to): the $3M+ service-business ICP, "Book a Diagnostic Call", the profit calculator, the Profit Leak Scorecard, the AI cohorts, and the $30K+ engagement pricing. Some of their pages still exist pending removal; treat them as legacy.
 
-### Visual Authority
-- Clean, restrained design that signals competence — not flashy startup energy
-- This audience runs real businesses. The site should feel like a trusted advisor, not a pitch deck
-- Minimal decoration. Let content and whitespace do the work
-- Professional typography hierarchy: Inter (sans) for body, Crimson Text (serif) for editorial accents
+## Design System (navy/gold editorial)
 
-### Mobile-First, Executive-Ready
-- CEOs check things between meetings on their phone. Every page must be fully functional on mobile
-- Touch targets minimum 44px. No hover-dependent interactions without mobile fallbacks
-- Content must be scannable — short paragraphs, clear headings, bullet points over walls of text
-- CTAs visible without excessive scrolling on both desktop and mobile
+- **Colors:** navy `#0A0F1C` (dark sections), warm-white `#FAFAF8` and card-light `#F5F4F0` (light sections), gold `#D4A853` (accent and buttons), card-dark `#12172A` (cards on navy), card-border `#E5E2DB`. Stone scale for body text. Do not use blue-600, green, or plain stone palettes on marketing pages.
+- **Fonts:** Instrument Serif for headings (`font-display`, `--font-display`), DM Sans for body (`font-body`, `--font-body`), loaded via `next/font/google`.
+- **Headings:** `font-display tracking-tight`. Eyebrows, when used: `text-gold uppercase tracking-widest text-sm font-semibold`. Not every section needs an eyebrow.
+- **Buttons:** gold pill, `bg-gold text-navy rounded-full hover:bg-gold/90`.
+- **Body text:** `text-stone-600` on light, `text-white/70` on navy.
+- **Cards:** `rounded-2xl border-card-border bg-warm-white` (light) / `bg-card-dark border-white/10` (dark).
+- **Sections:** alternate navy and light, `py-24`; `max-w-7xl` (or `max-w-3xl` for prose) with `px-4 sm:px-6 lg:px-8`.
+- **Craft benchmark:** the redesign borrows type scale, content placement, and motion discipline from spectrumscience.com while keeping this brand. Teardown: https://claude.ai/artifact/JKRaSVZgQAoW1qXM9KhTQf. Aim for large jumps between type tiers, few homepage sections with one job each, and one consistent motion timing. Avoid the AI-template look: eyebrow + heading + card grid on every section, icon-in-a-circle cards, gradient blobs.
 
-### Conversion-Oriented
-- Primary CTA: "Book a Diagnostic Call" (Calendly link)
-- Every section should build toward the CTA. Do not add decorative sections that dilute the funnel
-- Social proof and credibility markers matter to this audience — they evaluate vendors carefully
-- Pricing is transparent and premium ($30K+ engagements). The design should match that price point
-
-### Trust Signals That Matter to CEOs
-- Clarity over cleverness in copy
-- Specific dollar figures and outcomes over vague promises
-- No stock photos of "diverse teams in meetings" — use real product screenshots or abstract visuals
-- Professional, corporate-adjacent aesthetic (think McKinsey meets modern SaaS, not Y Combinator demo day)
+### Executive-ready on desktop and mobile
+- Buyers read on desktop and between meetings on their phone. Every page must work on mobile.
+- Touch targets at least 44px. No hover-only interactions.
+- Short paragraphs, clear headings. The CTA is reachable without excessive scrolling.
+- Specific outcomes over vague promises. No stock photos of teams in meetings; use real product screenshots or abstract visuals.
 
 ## Tech Stack
 
@@ -49,8 +44,9 @@ CappaWork is an operational analytics and automation consultancy targeting found
 - **Icons:** Lucide React
 - **Auth:** Clerk
 - **Database:** Supabase
-- **Animations:** GSAP + CSS `animate-in` classes
-- **Fonts:** Inter (sans), Crimson Text (serif) via `next/font/google`
+- **Background jobs:** Inngest
+- **Animations:** GSAP + CSS `animate-in` classes (framer-motion only in `motion-wrapper.tsx`)
+- **Package manager:** pnpm (`pnpm-lock.yaml` is the only lockfile; do not use npm)
 - **Deployment:** Vercel
 
 ## Code Conventions
@@ -59,9 +55,9 @@ CappaWork is an operational analytics and automation consultancy targeting found
 ```
 app/
   components/       # Landing page / marketing components
-  (admin)/          # Admin layout group
-  (portal)/         # Client portal layout group
-  api/              # API routes
+  (admin)/          # Admin: CRM, Pipeline, discovery, list builder, projects
+  (portal)/         # Client portal
+  api/              # API routes (webhooks and /.well-known are called externally)
 components/
   ui/               # shadcn/ui primitives (do not modify directly)
   admin/            # Admin-specific components
@@ -71,57 +67,35 @@ server/             # Server-side repos, actions, services
 ```
 
 ### Styling Rules
-- Use Tailwind utility classes exclusively. No inline styles except for dynamic values (e.g., `perspective`, `--progress-value`)
-- Color palette: `stone-50` through `stone-900` for neutrals, `blue-500`/`blue-600` for brand/primary, `green-500` for success
-- Backgrounds: `bg-white` and `bg-stone-50` alternate between sections
-- Max content width: `max-w-7xl` with `px-4 sm:px-6 lg:px-8` padding
-- Border radius: `rounded-2xl` for cards, `rounded-full` for buttons/badges
-- Buttons: `rounded-full` with `bg-blue-600 hover:bg-blue-700` for primary CTAs
-- Section spacing: `py-24` standard, `py-16` for tighter sections
-- Text sizes: `text-5xl md:text-7xl` for hero h1, `text-2xl sm:text-3xl` for section headings, `text-xl` for subheadings
+- Use Tailwind utility classes. No inline styles except for dynamic values (e.g., `perspective`, `--progress-value`).
+- Use the design-system tokens above, not raw hex values.
 
 ### Component Patterns
 - Marketing page components go in `app/components/`
 - Use `"use client"` only when needed (event handlers, hooks, browser APIs)
 - Prefer server components by default
-- Calendly link sourced from `process.env.NEXT_PUBLIC_CALENDLY_LINK` with hardcoded fallback
-- Icons: Import individually from `lucide-react` (e.g., `import { ArrowRight } from "lucide-react"`)
-- Images: Use `next/image` with explicit `width`/`height`
+- Icons: import individually from `lucide-react` (e.g., `import { ArrowRight } from "lucide-react"`)
+- Images: use `next/image` with explicit `width`/`height`
 
 ### Responsive Breakpoints
 - Mobile-first: base styles are mobile
-- `md:` (768px) — tablet/desktop layout shifts (grid columns, font size bumps)
-- `lg:` (1024px) — wider padding, larger max-widths
-- `sm:` (640px) — minor padding/spacing adjustments
-- Hide/show with `hidden md:block` / `md:hidden` patterns
+- `sm:` (640px) minor spacing, `md:` (768px) layout shifts, `lg:` (1024px) wider padding and max-widths
 
 ### Accessibility
 - Semantic HTML: `<section>`, `<nav>`, `<main>`, `<button>` (not div-with-onClick)
 - All images require meaningful `alt` text
 - Interactive elements need visible focus states
-- `prefers-reduced-motion` respected for animations
-- Color contrast: stone-600 on white minimum for body text, stone-900 for headings
-
-## Key Business Context
-
-- **Positioning:** The embedded product team for healthcare and life sciences. We turn stuck initiatives into shipped products.
-- **ICP:** Healthcare and life sciences companies above ~$30M revenue (patient recruitment, agencies/medcomms, CROs and site networks, LTC/specialty pharmacy, provider groups, emerging biotech). Buyer: CEO, President, or COO with a stalled initiative.
-- **Engagement model:** One-week sprints (Strategy, Product, UX, UI, Build). A full product is 5 to 6 sprints back to back. $7,500 per sprint (one focused week). Plus an embedded team retainer: $20,000 a month, anchored to an SVP of Product or AI salary, with sprints added on top. Internally scoped at about 40 hours a month, but **never publish hours**: pricing is on output, not time. Think and write in weeks of work and outputs.
-- **Primary CTA:** "Book a Strategy Sprint" (scrolls to the `#discovery` form on the homepage)
-- **Philosophy:** AI for speed, scale, and capability; never for truth, joy, or relationships. Groundwork (AI runs it) / Teamwork (AI drafts, a qualified person decides) / Lifework (never AI).
-- **Guardrails:** Never use the FDA logo. No invented statistics. Founder experience is career history, not a client list.
-- **Tone:** Direct, confident, specific. No jargon, no hype.
-- **Signup model:** Invite-only for client portal (Clerk signup link hidden)
+- Respect `prefers-reduced-motion` for all animation
 
 ## Common Commands
 
 ```bash
-npm run dev     # Local dev server
-npx next build  # Production build
-npx tsc         # Type check
+pnpm dev          # Local dev server (port 3011)
+pnpm build        # Production build
+pnpm exec tsc --noEmit   # Type check
 ```
 
 ## Git Workflow
 
 - Main branch: `main`
-- Single repo — no submodules
+- Single repo, no submodules
