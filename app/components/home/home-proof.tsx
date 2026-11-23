@@ -1,7 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight, ArrowUpRight } from "lucide-react"
-import { FEATURED_TESTIMONIAL, PORTFOLIO_PROJECTS } from "@/lib/portfolio/data"
+import { FEATURED_TESTIMONIAL, visibleProjects } from "@/lib/portfolio/data"
 import { FOUNDER_CAREER } from "@/lib/founder"
 import { Reveal } from "./reveal"
 
@@ -14,7 +14,7 @@ export default function HomeProof() {
         </Reveal>
 
         <ul className="mt-14 border-b border-card-border sm:mt-20">
-          {PORTFOLIO_PROJECTS.map((project) => {
+          {visibleProjects().map((project) => {
             const row = (
               <div className="grid gap-3 py-8 sm:py-10 lg:grid-cols-12 lg:items-baseline lg:gap-8">
                 <h3
@@ -31,9 +31,14 @@ export default function HomeProof() {
                     />
                   ) : null}
                 </h3>
-                <p className="text-lg leading-relaxed text-stone-600 lg:col-span-5">
-                  {project.description}
-                </p>
+                <div className="lg:col-span-5">
+                  {project.metric ? (
+                    <p className="mb-3 font-display text-[1.375rem] leading-snug text-gold">
+                      {project.metric}
+                    </p>
+                  ) : null}
+                  <p className="text-lg leading-relaxed text-stone-600">{project.description}</p>
+                </div>
                 <p className="text-[13px] uppercase tracking-[0.1em] text-stone-400 lg:col-span-2 lg:text-right">
                   {project.industry}
                 </p>

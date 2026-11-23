@@ -10,6 +10,9 @@ import HomeSprints from "./components/home/home-sprints"
 import HomeProof from "./components/home/home-proof"
 import HomeBook from "./components/home/home-book"
 
+// Regenerate hourly so date-gated content (see lib/portfolio/data.ts) appears on time.
+export const revalidate = 3600
+
 const title = "CappaWork | AI for Healthcare, from strategy to production"
 const description =
   "AI strategy, architecture, and agents for healthcare and life sciences. We find where AI pays back, design how it fits your systems, then build the agents and keep them running."

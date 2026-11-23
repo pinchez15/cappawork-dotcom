@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { ArrowRight, ArrowLeft } from "lucide-react";
 import type { Offering } from "@/lib/offerings/data";
-import { FEATURED_TESTIMONIAL, PORTFOLIO_PROJECTS } from "@/lib/portfolio/data";
+import { FEATURED_TESTIMONIAL, visibleProjects } from "@/lib/portfolio/data";
 import { useInquiry } from "@/app/components/inquiry-modal";
 import { GlyphKey, OrbStation } from "@/app/components/glyphs";
 
@@ -162,7 +162,7 @@ export function OfferingPageContent({ offering }: { offering: Offering }) {
               More live systems
             </span>
             <div className="grid gap-4 sm:grid-cols-2">
-              {PORTFOLIO_PROJECTS.filter((project) => project.url).map((project) => (
+              {visibleProjects().filter((project) => project.url).map((project) => (
                 <a
                   key={project.name}
                   href={project.url}

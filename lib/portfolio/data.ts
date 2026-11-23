@@ -7,6 +7,10 @@ export type PortfolioProject = {
   /** How the engagement shows up in the work. */
   mode: "agent" | "workflow"
   modeLabel: string
+  /** Before → after result, shown in gold. Only numbers the client would confirm. */
+  metric?: string
+  /** ISO timestamp; the project stays hidden on the site until then. */
+  publishAfter?: string
 }
 
 export type PortfolioTestimonial = {
@@ -20,12 +24,15 @@ export type PortfolioTestimonial = {
 
 export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
   {
-    name: "Enterprise trial platform",
+    name: "Enterprise trial and communications platform",
+    metric: "8 months stalled → working executive demo in 21 days",
     description:
-      "Embedded with the product team of a clinical trial recruitment and communications firm: suite strategy, an enterprise prototype, and an AI-native way of building.",
+      "Embedded with leadership at a $50M+ life sciences agency to restart a stalled platform initiative. A live demo in front of leadership in three weeks, then production modules shipped into their enterprise stack.",
     industry: "Life sciences · Client confidential",
     mode: "workflow",
     modeLabel: "Embedded product team",
+    // Hidden until the client engagement can be referenced publicly.
+    publishAfter: "2026-12-20T00:00:00-05:00",
   },
   {
     name: "Karibu Health",
@@ -61,4 +68,11 @@ export const FEATURED_TESTIMONIAL: PortfolioTestimonial = {
   company: "Fogg Media",
   projectName: "HealthcareAIO",
   projectUrl: "https://healthcareaio.com",
+}
+
+/** Projects that are live on the site right now (respects publishAfter). */
+export function visibleProjects(now: Date = new Date()): PortfolioProject[] {
+  return PORTFOLIO_PROJECTS.filter(
+    (project) => !project.publishAfter || now >= new Date(project.publishAfter)
+  )
 }
