@@ -20,10 +20,10 @@ export default function HomeHero() {
       <div className="mx-auto max-w-7xl px-4 pb-16 pt-20 sm:px-6 sm:pb-24 sm:pt-28 lg:px-8 lg:pb-28 lg:pt-36">
         <h1 className="font-display text-[3.4rem] leading-[0.94] tracking-[-0.025em] text-navy sm:text-[5.5rem] lg:text-[7.5rem]">
           <span className="cw-line">
-            <span style={stagger(0)}>We make work</span>
+            <span style={stagger(0)}>AI architecture.</span>
           </span>
           <span className="cw-line">
-            <span style={stagger(1)}>more human.</span>
+            <span style={stagger(1)}>Healthcare agents.</span>
           </span>
         </h1>
 
@@ -32,8 +32,8 @@ export default function HomeHero() {
             className="cw-rise max-w-xl text-xl leading-[1.45] text-stone-600 sm:text-[1.375rem] lg:col-span-6"
             style={stagger(3)}
           >
-            The embedded product team for healthcare and life sciences. We turn stuck initiatives
-            into shipped products, so care teams get their time back for patients.
+            For healthcare and life sciences companies ready to put AI to work. We find where it pays
+            back, design how it fits your systems, then build the agents and keep them running.
           </p>
 
           <div

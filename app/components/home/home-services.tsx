@@ -3,70 +3,56 @@ import { Reveal } from "./reveal"
 
 const services = [
   {
-    name: "Embedded Product and AI Leadership",
-    outcome: "A stuck initiative becomes a product your executives can see, price, and sell.",
+    name: "AI strategy and roadmap",
+    outcome: "Find where AI pays back first, and fund that.",
     work: [
-      "Product vision, suite strategy, pricing",
-      "Working prototypes in front of leadership within weeks",
-      "Your team moved onto an AI-native way of building",
+      "Where your licensed team's time and money go today",
+      "Opportunities ranked by return, risk, and time to value",
+      "A roadmap your executives and board can approve",
     ],
-    forWhom: "Life sciences services firms, pharmacy and provider organizations, emerging biotech",
   },
   {
-    name: "Services-to-Product Builds",
-    outcome: "Expertise you deliver by hand becomes a platform your clients log into.",
+    name: "AI architecture",
+    outcome: "Design how AI fits the systems you already run.",
     work: [
-      "Sponsor- and client-facing platforms",
+      "Data, models, and access mapped to your EHR, CTMS, and cloud",
+      "PHI boundaries, BAA, and an audit log for every agent action",
+      "Build, buy, or wait, decided per workflow",
+    ],
+  },
+  {
+    name: "Healthcare agents",
+    outcome: "Agents that do the work, deployed in your systems and kept running.",
+    work: [
+      "Prior auth, eligibility, intake, trial start-up, pre-MLR review",
+      "Shadow mode beside your team before anything goes live",
+      "Maintained as payer rules, SOPs, and systems change, measured every month",
+    ],
+  },
+  {
+    name: "Custom software",
+    outcome: "When the answer is a product, we build it.",
+    work: [
+      "Client portals and sponsor-facing platforms",
       "Replacing costly legacy SaaS cores",
-      "Client portals with agents built in",
+      "Interfaces your team and agents share",
     ],
-    forWhom: "Recruitment firms, agencies, CROs, consultancies",
-  },
-  {
-    name: "Clinical Trial Operations",
-    outcome: "Faster from first outreach to randomized patient, with less site paperwork.",
-    work: [
-      "Patient follow-up and pre-screening",
-      "Feasibility packets and start-up tracking",
-      "Enrollment forecasting and sponsor reporting",
-    ],
-    forWhom: "Patient recruitment firms, CROs, site networks, sponsors",
-  },
-  {
-    name: "Regulated Content Operations",
-    outcome: "Shorter review cycles without loosening MLR control.",
-    work: [
-      "Pre-MLR checks against approved claims",
-      "Claims libraries and Draft 0 documents",
-      "Translation request routing",
-    ],
-    forWhom: "Healthcare agencies, medical communications, medical affairs",
-  },
-  {
-    name: "Pharmacy and Care Operations",
-    outcome: "More patients served by the same pharmacists, nurses, and intake staff.",
-    work: [
-      "Admissions, intake, prior auth packets",
-      "Refill and delivery coordination",
-      "Staffing and capacity models",
-    ],
-    forWhom: "LTC, specialty, and infusion pharmacies; physician groups and MSOs",
   },
 ]
 
 export default function HomeServices() {
   return (
-    <section id="services" className="bg-warm-white py-24 sm:py-32">
+    <section id="services" className="bg-card-light py-24 sm:py-32">
       <div className="mx-auto grid max-w-7xl gap-14 px-4 sm:px-6 lg:grid-cols-12 lg:gap-8 lg:px-8">
         <div className="lg:col-span-4">
           <div className="lg:sticky lg:top-32">
             <Reveal as="h2" className="font-display text-[2.5rem] leading-[1.05] tracking-[-0.015em] text-navy sm:text-[3.25rem]">
-              Built for the work between the science and the patient.
+              Built for return, not for demos.
             </Reveal>
             <Reveal index={1} className="mt-6">
               <p className="text-lg leading-relaxed text-stone-600">
-                Every engagement starts with a capacity model: where your licensed team&rsquo;s time
-                goes today, and where it goes after the build.
+                Every engagement starts with a baseline: where your team&rsquo;s time and money go
+                today. That is how we choose the work, and how we measure what it returns.
               </p>
               <a
                 href="#discovery"
@@ -98,10 +84,6 @@ export default function HomeServices() {
                 </p>
                 <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-stone-500">
                   {service.work.join(". ")}.
-                </p>
-                <p className="mt-4 text-[13px] text-stone-400">
-                  <span className="font-medium uppercase tracking-[0.1em]">For</span>{" "}
-                  {service.forWhom}
                 </p>
               </div>
             </Reveal>

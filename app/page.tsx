@@ -9,9 +9,9 @@ import HomeSprints from "./components/home/home-sprints"
 import HomeProof from "./components/home/home-proof"
 import HomeBook from "./components/home/home-book"
 
-const title = "CappaWork | The embedded product team for healthcare and life sciences"
+const title = "CappaWork | AI architecture and healthcare agents"
 const description =
-  "We turn stuck initiatives into shipped products for healthcare and life sciences companies, in one-week sprints. AI for speed, scale, and capability. Never for truth, joy, or relationships."
+  "AI strategy, architecture, and agents for healthcare and life sciences. We find where AI pays back, design how it fits your systems, then build the agents and keep them running."
 
 export const metadata: Metadata = {
   title,
@@ -48,10 +48,10 @@ export default function HomePage() {
       <Navigation />
       <main className="bg-warm-white">
         <HomeHero />
-        <HomeBelief />
         <HomeServices />
         <HomeSprints />
         <HomeProof />
+        <HomeBelief />
         <HomeBook />
       </main>
       <Footer />
