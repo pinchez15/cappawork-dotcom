@@ -36,7 +36,7 @@ const STATIC_MARKDOWN: Record<string, () => string> = {
       "",
       "## How we work",
       "",
-      "One-week sprints: Strategy, Product, UX, UI, Build. A full product is five or six sprints back to back. Sprints are $7,500 each (one focused week). Embedded team retainer: $20,000 a month for SVP-level product and AI leadership that also builds, with sprints added on top. Priced on what ships, not hours.",
+      "One-week sprints: Strategy, Product, UX, UI, Build. A full product is five or six sprints back to back. A Strategy Sprint is $7,500 (one focused week); build sprints are $15,000 each, HIPAA-ready build included. Embedded team retainer: from $20,000 a month for SVP-level product and AI leadership that also builds, with sprints added on top. Priced on what ships, not hours.",
       "",
       `Book a Strategy Sprint: ${base}/#discovery`,
       "",

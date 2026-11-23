@@ -32,11 +32,21 @@ const weeks = [
 ]
 
 const terms = [
-  { figure: "$7,500", text: "per sprint. One focused week, booked by the week. Sprints can run on-site." },
-  { figure: "5–6", text: "sprints to a full product, back to back. Most clients start with Strategy." },
   {
+    label: "Strategy Sprint",
+    figure: "$7,500",
+    text: "One week: where AI pays back, the architecture, and the plan. Where most clients start.",
+  },
+  {
+    label: "Build Sprint",
+    figure: "$15,000",
+    text: "Each week of product, UX, UI, or build after that. HIPAA-ready build included.",
+  },
+  {
+    label: "Embedded team",
     figure: "$20,000",
-    text: "a month for the embedded team: SVP-level product and AI leadership that also builds.",
+    prefix: "From",
+    text: "A month to keep your agents running, compliant, and improving, with sprints added on top.",
   },
 ]
 
@@ -153,9 +163,17 @@ export default function HomeSprints() {
       <div className="mx-auto max-w-7xl px-4 pb-24 pt-4 sm:px-6 sm:pb-32 lg:px-8">
         <dl className="grid gap-10 border-t border-white/15 pt-12 md:grid-cols-3">
           {terms.map((term, i) => (
-            <Reveal key={term.figure} index={i}>
-              <dt className="font-display text-[3.25rem] leading-none text-gold sm:text-[4rem]">
-                {term.figure}
+            <Reveal key={term.label} index={i}>
+              <dt>
+                <span className="block text-[13px] font-medium uppercase tracking-[0.1em] text-white/50">
+                  {term.label}
+                </span>
+                <span className="mt-4 block font-display text-[3.25rem] leading-none text-gold sm:text-[4rem]">
+                  {term.prefix ? (
+                    <span className="mr-2 align-baseline text-[1.5rem] text-gold/70">{term.prefix}</span>
+                  ) : null}
+                  {term.figure}
+                </span>
               </dt>
               <dd className="mt-4 max-w-xs leading-relaxed text-white/70">{term.text}</dd>
             </Reveal>
@@ -164,8 +182,9 @@ export default function HomeSprints() {
 
         <Reveal className="mt-14 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="max-w-2xl leading-relaxed text-white/55">
-            The retainer is priced like an SVP of Product or AI salary, without the search, benefits,
-            equity, or severance. Retainer clients add sprints whenever a push needs a full week.
+            HIPAA-ready build is included in every build sprint, never an add-on. The embedded team is
+            priced like an SVP of Product or AI salary, without the search, benefits, equity, or
+            severance.
           </p>
           <a
             href="#discovery"

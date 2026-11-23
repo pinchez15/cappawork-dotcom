@@ -16,7 +16,7 @@ const faqs = [
   },
   {
     q: "Can we keep you on retainer?",
-    a: "Yes. The embedded team is $20,000 a month: SVP-level product and AI leadership that also builds. We do not sell hours. AI-native work moves at a different speed, so we price on what ships. Retainer clients add sprints whenever they need a full week of focus.",
+    a: "Yes. The embedded team starts at $20,000 a month: SVP-level product and AI leadership that also builds. We do not sell hours. AI-native work moves at a different speed, so we price on what ships. Retainer clients add sprints whenever they need a full week of focus.",
   },
   {
     q: "How do you handle PHI and HIPAA?",
