@@ -6,12 +6,12 @@ const SHOW_SPECTRUM_SCIENCE = false
 
 const EXPERIENCE = [
   "CVS Health",
-  "U.S. Food and Drug Administration",
+  "US FDA",
   "Vertex Pharmaceuticals",
-  ...(SHOW_SPECTRUM_SCIENCE ? ["Spectrum Science"] : []),
-  "Boston Children’s Hospital",
-  "Dana-Farber Cancer Institute",
   "Harvard Cancer Center",
+  "Dana-Farber Cancer Institute",
+  "Boston Children’s Hospital",
+  ...(SHOW_SPECTRUM_SCIENCE ? ["Spectrum Science"] : []),
 ]
 
 export default function HomeHero() {
@@ -64,11 +64,11 @@ export default function HomeHero() {
           id="experience"
         >
           <p className="text-[15px] leading-relaxed text-stone-500">
-            <span className="text-navy">Before CappaWork, Nate worked at </span>
+            <span className="text-navy">Our engineers have worked at: </span>
             {EXPERIENCE.join(" · ")}
           </p>
           <p className="mt-1 text-xs text-stone-400">
-            Founder&rsquo;s career experience. Not a client list or an endorsement.
+            Career experience. Not a client list or an endorsement.
           </p>
         </div>
       </div>
