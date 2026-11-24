@@ -30,18 +30,10 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
   {
     name: "HealthcareAIO",
     url: "https://healthcareaio.com",
-    description: "Audits and the client relationship, in one system.",
+    description: "Reviews and the client relationship, in one system.",
     industry: "Healthcare",
     mode: "agent",
     modeLabel: "Agent in the workflow",
-  },
-  {
-    name: "Enterprise trial platform",
-    description:
-      "Embedded with the product team of a clinical trial recruitment and communications firm: suite strategy, an enterprise prototype, and an AI-native way of building.",
-    industry: "Life sciences · Client confidential",
-    mode: "workflow",
-    modeLabel: "Embedded product team",
   },
   {
     name: "Horizon Data Partners",
@@ -50,6 +42,14 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     industry: "Data consulting",
     mode: "workflow",
     modeLabel: "How the work runs",
+  },
+  {
+    name: "Enterprise trial platform",
+    description:
+      "Embedded with a life sciences product team on suite strategy, an enterprise prototype, and an AI-native way of building.",
+    industry: "Life sciences · Client confidential",
+    mode: "workflow",
+    modeLabel: "Embedded product team",
   },
 ]
 

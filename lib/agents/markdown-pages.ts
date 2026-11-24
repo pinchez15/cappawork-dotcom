@@ -1,5 +1,4 @@
 import { getBlogPostBySlug } from "@/server/repos/blog"
-import { SERVICES } from "@/app/services/data"
 import { getSiteUrl } from "@/lib/site"
 
 function tiptapToPlain(content: unknown): string {
@@ -18,9 +17,9 @@ const STATIC_MARKDOWN: Record<string, () => string> = {
     return [
       "# CappaWork",
       "",
-      "The embedded product team for healthcare and life sciences. We turn stuck initiatives into shipped products, so clinicians, coordinators, and care teams get their time back for patients.",
+      "The embedded product team for healthcare and life sciences. We design and build the AI workflows your licensed team should not still be doing by hand.",
       "",
-      "For healthcare and life sciences companies above about $30M in revenue: patient recruitment firms, agencies and medical communications, CROs and site networks, pharmacies, provider groups, and emerging biotech.",
+      "For healthcare and life sciences companies of about $50M revenue and up: pharma and biotech sponsors, payers, PBMs, health systems, digital health, CROs, and healthcare government contractors. The typical buyer is a VP or SVP of Strategy, Transformation, Digital, AI, or Innovation who owns a stuck, labor-heavy workflow. Smaller teams are welcome too, for example by starting with a single Build Sprint.",
       "",
       "## The belief",
       "",
@@ -28,11 +27,11 @@ const STATIC_MARKDOWN: Record<string, () => string> = {
       "",
       "## Service lines",
       "",
-      "- Embedded Product and AI Leadership",
-      "- Services-to-Product Builds",
-      "- Clinical Trial Operations",
-      "- Regulated Content Operations",
-      "- Pharmacy and Care Operations",
+      "- AI strategy and roadmap",
+      "- AI architecture",
+      "- Healthcare agents (including trial start-up)",
+      "- Trial safety operations (SAE intake, case narratives, EDC and safety database reconciliation, site queries)",
+      "- Custom software",
       "",
       "## How we work",
       "",
@@ -46,7 +45,6 @@ const STATIC_MARKDOWN: Record<string, () => string> = {
       `- About: ${base}/about`,
       `- Contact: ${base}/contact`,
       `- [Blog](${base}/blog)`,
-      `- [Scorecard](${base}/scorecard)`,
       `- Sitemap: ${base}/sitemap.xml`,
       `- Agent summary: ${base}/llms.txt`,
       "",
@@ -56,15 +54,10 @@ const STATIC_MARKDOWN: Record<string, () => string> = {
   },
   "/about": () => pageStub("/about", "About CappaWork"),
   "/blog": () => pageStub("/blog", "CappaWork blog index"),
-  "/calculator": () => pageStub("/calculator", "Profit calculator"),
   "/contact": () => pageStub("/contact", "Contact CappaWork"),
   "/fulfillment-policy": () => pageStub("/fulfillment-policy", "Fulfillment policy"),
-  "/linkedin-carousel": () => pageStub("/linkedin-carousel", "LinkedIn carousel"),
   "/privacy": () => pageStub("/privacy", "Privacy policy"),
-  "/scorecard": () => pageStub("/scorecard", "Operational scorecard"),
-  "/scorecard/thank-you": () => pageStub("/scorecard/thank-you", "Scorecard thank you"),
   "/terms": () => pageStub("/terms", "Terms of service"),
-  "/transformation": () => pageStub("/transformation", "Transformation"),
 }
 
 function pageStub(path: string, title: string): string {
@@ -76,22 +69,6 @@ export async function getMarkdownForPath(pathname: string): Promise<string | nul
   const base = getSiteUrl()
   const staticFn = STATIC_MARKDOWN[pathname]
   if (staticFn) return staticFn()
-
-  if (pathname.startsWith("/services/")) {
-    const slug = pathname.slice("/services/".length)
-    const svc = SERVICES.find((s) => s.slug === slug)
-    if (!svc) return null
-    return [
-      `# ${svc.title}`,
-      "",
-      svc.subtitle,
-      "",
-      svc.cardDescription,
-      "",
-      `Full detail: ${base}/services/${slug}`,
-      "",
-    ].join("\n")
-  }
 
   if (pathname.startsWith("/blog/")) {
     const slug = pathname.slice("/blog/".length)

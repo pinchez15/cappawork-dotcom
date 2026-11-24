@@ -8,7 +8,7 @@ import { Reveal } from "./reveal"
 const faqs = [
   {
     q: "Who do you work with?",
-    a: "Healthcare and life sciences companies above about $30M in revenue: patient recruitment firms, agencies and medical communications, CROs and site networks, pharmacies, provider groups, and emerging biotech. Usually one initiative is stuck and an executive owns it.",
+    a: "Healthcare and life sciences companies of about $50M revenue and up: pharma and biotech sponsors, payers, PBMs, health systems, digital health, CROs, and healthcare government contractors. The typical buyer is a VP or SVP of Strategy, Transformation, Digital, AI, or Innovation who owns a stuck, labor-heavy workflow and has budget. Smaller teams are welcome too, for example by starting with a single Build Sprint.",
   },
   {
     q: "Where do most clients start?",

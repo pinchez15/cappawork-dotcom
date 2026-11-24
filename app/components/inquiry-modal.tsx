@@ -16,7 +16,6 @@ function reasonFor(preselect?: string): InquiryReason | "" {
     key.includes("sprint") ||
     key.includes("discover") ||
     key.includes("roadmap") ||
-    key.includes("audit") ||
     key.includes("build")
   )
     return "Strategy Sprint"
@@ -69,6 +68,9 @@ export function DiscoveryForm({
   const [role, setRole] = useState("")
   const [company, setCompany] = useState("")
   const [revenue, setRevenue] = useState("")
+  const [stuck, setStuck] = useState("")
+  // Honeypot: leave empty. Bots that fill it are rejected server-side.
+  const [website, setWebsite] = useState("")
   const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [error, setError] = useState("")
@@ -83,6 +85,10 @@ export function DiscoveryForm({
       setError("Choose what you would like to talk about.")
       return
     }
+    if (!stuck.trim()) {
+      setError("Tell us what is stuck.")
+      return
+    }
     setSubmitting(true)
 
     try {
@@ -95,6 +101,8 @@ export function DiscoveryForm({
           role: role.trim(),
           company: company.trim(),
           revenue,
+          stuck: stuck.trim(),
+          website,
           service: reason,
         }),
       })
@@ -127,7 +135,7 @@ export function DiscoveryForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="relative space-y-4">
       <fieldset>
         <legend className="mb-1.5 block text-sm font-medium text-stone-700">
           What would you like to talk about?
@@ -220,6 +228,31 @@ export function DiscoveryForm({
           ))}
         </select>
       </Field>
+      <Field id={`${idPrefix}-stuck`} label="What is stuck?">
+        <textarea
+          id={`${idPrefix}-stuck`}
+          required
+          rows={4}
+          value={stuck}
+          onChange={(e) => setStuck(e.target.value)}
+          placeholder="The workflow, initiative, or team capacity problem you need unstuck."
+          className={fieldClass}
+        />
+      </Field>
+      {/* Honeypot: hidden from people; bots that fill it are rejected. */}
+      <div className="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
+        <label htmlFor={`${idPrefix}-website`}>Website</label>
+        <input
+          id={`${idPrefix}-website`}
+          type="text"
+          name="website"
+          tabIndex={-1}
+          autoComplete="off"
+          value={website}
+          onChange={(e) => setWebsite(e.target.value)}
+        />
+      </div>
+      {/* TODO: Cloudflare Turnstile when TURNSTILE_SITE_KEY / TURNSTILE_SECRET_KEY are available in deploy env. */}
 
       {error && <p className="text-sm text-red-600">{error}</p>}
 

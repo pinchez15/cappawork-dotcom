@@ -8,7 +8,7 @@ const kinds = [
     examples: [
       "Eligibility checks and prior auth packets",
       "Regulatory binders and start-up documents kept current",
-      "Enrollment, referral, and refill data reconciled overnight",
+      "EDC and safety database records reconciled overnight",
     ],
   },
   {
@@ -16,9 +16,9 @@ const kinds = [
     label: "AI drafts, a person decides",
     line: "AI drafts and checks. A qualified person decides and signs.",
     examples: [
-      "Draft 0 protocols, reports, and medical content",
-      "Pre-MLR checks against approved claims",
-      "Site feasibility and enrollment forecasts",
+      "SAE case narratives drafted for medical review",
+      "Site queries prepared for sponsor sign-off",
+      "Site feasibility packets and start-up tracking",
     ],
   },
   {
@@ -28,7 +28,7 @@ const kinds = [
     examples: [
       "The consent conversation and the hard news",
       "A clinician’s judgment at the bedside",
-      "The sponsor and investigator relationships that win the next study",
+      "Reportability decisions and the sponsor relationships that win the next study",
     ],
   },
 ]

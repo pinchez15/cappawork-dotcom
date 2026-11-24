@@ -1,10 +1,9 @@
 export const REVENUE_BANDS = [
-  "Under $25M",
-  "$25M – $50M",
-  "$50M – $100M",
-  "$100M – $250M",
-  "$250M – $1B",
-  "$1B+",
+  "Under $10M",
+  "$10M to $50M",
+  "$50M to $250M",
+  "$250M to $1B",
+  "Over $1B",
 ] as const
 
 export type RevenueBand = (typeof REVENUE_BANDS)[number]

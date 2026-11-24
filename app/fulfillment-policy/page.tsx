@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Fulfillment Policy — CappaWork",
-  description: "Fulfillment and refund policy for CappaWork services.",
+  title: "Fulfillment Policy | CappaWork",
+  description: "Fulfillment and refund policy for CappaWork sprints and retainers.",
 };
 
 export default function FulfillmentPolicyPage() {
@@ -28,21 +28,20 @@ export default function FulfillmentPolicyPage() {
           Fulfillment Policy
         </h1>
         <p className="text-lg text-stone-500 mb-12">
-          Last updated: March 27, 2026
+          Last updated: November 24, 2026
         </p>
 
         <div className="space-y-12">
-          {/* General */}
           <div>
             <span className="text-xs font-bold tracking-widest uppercase text-gold block mb-5">
               General Policy
             </span>
             <div className="space-y-4 text-base leading-relaxed text-stone-700">
               <p>
-                All CappaWork services are sold as-is and are{" "}
-                <strong className="text-navy">non-refundable</strong> for any
-                reason. By completing your payment via Stripe, you agree to the
-                terms outlined below.
+                CappaWork sells professional services under a statement of work
+                or service agreement. Fees that reserve dedicated capacity are{" "}
+                <strong className="text-navy">non-refundable</strong> once that
+                capacity is held, unless the SOW says otherwise.
               </p>
               <p>
                 You can reach Nate Pinches at{" "}
@@ -57,112 +56,72 @@ export default function FulfillmentPolicyPage() {
             </div>
           </div>
 
-          {/* Cohorts & Group Trainings */}
           <div>
             <span className="text-xs font-bold tracking-widest uppercase text-gold block mb-5">
-              Cohorts &amp; Group Trainings
+              Strategy and Build Sprints
             </span>
             <div className="py-4 border-t border-b border-card-border text-base leading-relaxed text-stone-700 space-y-4">
               <p>
-                Applies to: AI Re-skilling Cohort, Organizational AI Training.
+                Applies to Strategy Sprints ($7,500) and Build Sprints
+                ($15,000): product, UX, UI, or build weeks.
               </p>
               <p>
-                Your payment is non-refundable as it reserves a spot in the
-                program. Payment is not refunded due to your lack of
-                participation. Once your payment processes, you will be added to
-                your specific group and sent calendar invites prior to launch
-                day.
-              </p>
-              <p>
-                We do not guarantee a specific outcome from our programs. By
-                submitting your payment, you agree to indemnify CappaWork and
-                Nate Pinches from any claims arising from your actions or
-                inactions during and after your participation in the program.
+                Payment holds a dedicated week of capacity. Once the week is
+                scheduled and payment is received, the fee is non-refundable.
+                Scope and deliverables are confirmed before work begins.
               </p>
             </div>
           </div>
 
-          {/* 1:1 Advisory & Workshops */}
           <div>
             <span className="text-xs font-bold tracking-widest uppercase text-gold block mb-5">
-              Advisory Sessions &amp; Workshops
+              Embedded Team Retainers
             </span>
             <div className="py-4 border-t border-b border-card-border text-base leading-relaxed text-stone-700 space-y-4">
               <p>
-                Applies to: AI Strategy Advisory, Dev Team Workshop.
+                Applies to embedded product and AI team retainers (from
+                $20,000 a month).
               </p>
               <p>
-                Your payment is non-refundable and non-reschedulable. When you
-                book, you are holding a dedicated time slot that another client
-                could fill.
-              </p>
-              <p>
-                Decisions you make based on the insights and recommendations
-                shared during the session are your responsibility to implement.
-                You agree to indemnify CappaWork and Nate Pinches and take
-                responsibility for any impact to yourself or your business.
+                Retainer terms, notice periods, and cancellation are set in the
+                SOW or MSA. Sprints added on top of a retainer follow the sprint
+                terms above.
               </p>
             </div>
           </div>
 
-          {/* Full Builds */}
           <div>
             <span className="text-xs font-bold tracking-widest uppercase text-gold block mb-5">
-              Full Builds
+              Custom Builds
             </span>
             <div className="py-4 border-t border-b border-card-border text-base leading-relaxed text-stone-700 space-y-4">
               <p>
-                Applies to full build engagements.
+                Payment is non-refundable once the engagement begins, unless the
+                SOW provides otherwise. When you commit to a build, you are
+                reserving dedicated capacity. Scope, milestones, and
+                deliverables are agreed before work starts.
               </p>
               <p>
-                Payment is non-refundable once the engagement begins. When you
-                commit to a build, you are reserving dedicated capacity for
-                12&ndash;16 weeks. Scope, milestones, and deliverables are
-                agreed upon during the scoping phase before any payment is
-                collected.
-              </p>
-              <p>
-                You own all intellectual property produced during the engagement.
-                CappaWork retains the right to reference the engagement type
-                (not proprietary details) in marketing materials unless
-                otherwise agreed in writing.
+                You own all intellectual property produced during the engagement
+                upon full payment, unless the SOW says otherwise. CappaWork may
+                reference the engagement type (not proprietary details) in
+                marketing materials unless otherwise agreed in writing.
               </p>
             </div>
           </div>
 
-          {/* Digital Products */}
-          <div>
-            <span className="text-xs font-bold tracking-widest uppercase text-gold block mb-5">
-              Digital Products
-            </span>
-            <div className="py-4 border-t border-b border-card-border text-base leading-relaxed text-stone-700 space-y-4">
-              <p>
-                Applies to: The Profit Formula and any other digital downloads.
-              </p>
-              <p>
-                All digital product sales are final. Due to the nature of
-                digital goods, refunds are not available once the product has
-                been delivered.
-              </p>
-            </div>
-          </div>
-
-          {/* Agreement */}
           <div className="bg-navy text-warm-white p-10 -mx-6 md:mx-0 md:rounded">
             <span className="text-xs font-bold tracking-widest uppercase text-gold block mb-5">
               Agreement
             </span>
             <p className="text-base leading-relaxed opacity-90">
-              By executing a Stripe payment for any CappaWork service, you
+              By signing an SOW or paying for a CappaWork engagement, you
               acknowledge that you have read and agree to this fulfillment
-              policy. This policy applies to all services offered by CappaWork
-              and Nate Pinches, regardless of how the service was discovered or
-              purchased.
+              policy, together with the governing SOW or MSA.
             </p>
           </div>
         </div>
 
-        {/* Footer */}
         <div className="mt-20 pt-6 border-t border-card-border flex justify-between items-center">
           <span className="font-bold text-sm tracking-wider">CAPPAWORK</span>
           <a

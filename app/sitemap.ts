@@ -1,7 +1,6 @@
 import type { MetadataRoute } from "next"
 import { getSiteUrl } from "@/lib/site"
 import { getAllBlogPosts } from "@/server/repos/blog"
-import { OFFERINGS } from "@/lib/offerings/data"
 
 export const runtime = "nodejs"
 
@@ -10,19 +9,10 @@ const STATIC_PATHS = [
   "/llms.txt",
   "/about",
   "/blog",
-  "/calculator",
   "/contact",
-  "/build",
-  "/modernize",
-  "/first-100-days",
   "/fulfillment-policy",
-  "/linkedin-carousel",
   "/privacy",
-  "/roadmap",
-  "/scorecard",
-  "/scorecard/thank-you",
   "/terms",
-  "/transformation",
 ] as const
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -34,13 +24,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: now,
     changeFrequency: path === "/" ? "weekly" : "monthly",
     priority: path === "/" ? 1 : 0.7,
-  }))
-
-  const serviceEntries: MetadataRoute.Sitemap = OFFERINGS.filter((o) => o.slug !== "discover").map((o) => ({
-    url: `${base}/${o.slug}`,
-    lastModified: now,
-    changeFrequency: "monthly",
-    priority: 0.8,
   }))
 
   let blogEntries: MetadataRoute.Sitemap = []
@@ -56,5 +39,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     /* Supabase may be unavailable during local builds */
   }
 
-  return [...staticEntries, ...serviceEntries, ...blogEntries]
+  return [...staticEntries, ...blogEntries]
 }
