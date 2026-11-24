@@ -86,8 +86,8 @@ export default function AboutPage() {
                   Teamwork: AI drafts, a qualified person decides
                 </dt>
                 <dd className="mt-1 pl-7 text-stone-600 leading-relaxed">
-                  Draft 0 protocols and medical content, pre-MLR checks, enrollment forecasts. AI drafts and
-                  checks. A qualified person decides and signs.
+                  SAE case narratives, site queries, and start-up packets drafted for qualified review. AI
+                  drafts and checks. A qualified person decides and signs.
                 </dd>
               </div>
               <div>

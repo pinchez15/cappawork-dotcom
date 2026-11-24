@@ -10,15 +10,15 @@ import HomeSprints from "./components/home/home-sprints"
 import HomeProof from "./components/home/home-proof"
 import HomeBook from "./components/home/home-book"
 
-const title = "CappaWork | AI for Healthcare, from strategy to production"
+const title = "CappaWork | AI workflows for healthcare and life sciences"
 const description =
-  "AI strategy, architecture, and agents for healthcare and life sciences. We find where AI pays back, design how it fits your systems, then build the agents and keep them running."
+  "We design and build the AI workflows your licensed team should not still be doing by hand. Strategy, architecture, agents, and trial safety operations for healthcare and life sciences companies of about $50M and up."
 
 export const metadata: Metadata = {
   title,
   description,
   keywords:
-    "healthcare product team, life sciences software, clinical trial operations, patient recruitment technology, pharmacy operations, regulated content, MLR review, embedded product team, AI agents",
+    "healthcare product team, life sciences software, clinical trial operations, trial safety, SAE intake, pharmacy operations, prior auth, embedded product team, AI agents, HIPAA",
   openGraph: {
     title,
     description,

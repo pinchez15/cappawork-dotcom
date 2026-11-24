@@ -18,12 +18,14 @@ export default function HomeHero() {
   return (
     <section id="hero" className="bg-warm-white pt-16">
       <div className="mx-auto max-w-7xl px-4 pb-16 pt-20 sm:px-6 sm:pb-24 sm:pt-28 lg:px-8 lg:pb-28 lg:pt-36">
-        <h1 className="font-display text-[3.4rem] leading-[0.94] tracking-[-0.025em] text-navy sm:text-[5.5rem] lg:text-[7.5rem]">
+        <h1 className="font-display text-[2.75rem] leading-[0.98] tracking-[-0.025em] text-navy sm:text-[4.25rem] lg:text-[5.5rem]">
           <span className="cw-line">
-            <span style={stagger(0)}>AI for Healthcare.</span>
+            <span style={stagger(0)}>We design and build the AI workflows</span>
           </span>
           <span className="cw-line">
-            <span style={stagger(1)} className="text-stone-500">From strategy to production.</span>
+            <span style={stagger(1)} className="text-stone-500">
+              your licensed team should not still be doing by hand.
+            </span>
           </span>
         </h1>
 
@@ -32,8 +34,8 @@ export default function HomeHero() {
             className="cw-rise max-w-xl text-xl leading-[1.45] text-stone-600 sm:text-[1.375rem] lg:col-span-6"
             style={stagger(3)}
           >
-            For healthcare and life sciences companies ready to put AI to work. We find where it pays
-            back, design how it fits your systems, then build the agents and keep them running.
+            We map where the hours go, design the workflow, and build agents inside the systems you
+            already run. A qualified person still decides anything that matters.
           </p>
 
           <div

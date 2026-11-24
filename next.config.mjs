@@ -15,9 +15,27 @@ const nextConfig = {
     unoptimized: true,
   },
   async redirects() {
-    return [
-      { source: '/discover', destination: '/roadmap', permanent: true },
+    // Legacy SMB / owner-led funnels. Prefer redirects over deleting pages so
+    // old links and bookmarks land on the current sprint positioning.
+    const toHome = [
+      '/discover',
+      '/roadmap',
+      '/build',
+      '/modernize',
+      '/transformation',
+      '/first-100-days',
+      '/scorecard',
+      '/scorecard/thank-you',
+      '/linkedin-carousel',
+      '/calculator',
+      '/services',
+      '/services/:slug',
     ]
+    return toHome.map((source) => ({
+      source,
+      destination: '/',
+      permanent: true,
+    }))
   },
   async headers() {
     return [

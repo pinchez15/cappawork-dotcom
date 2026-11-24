@@ -17,7 +17,7 @@ const commitments = [
   },
   {
     title: "Every agent action logged",
-    body: "Each action an agent takes is recorded in an audit trail your compliance team can read.",
+    body: "Each action an agent takes is recorded in a compliance log your compliance team can read.",
   },
   {
     title: "No PHI in development",
@@ -56,6 +56,16 @@ export default function HomeCompliance() {
             </Reveal>
           ))}
         </ul>
+
+        <Reveal className="border-t border-card-border pt-10 lg:col-span-7 lg:col-start-6">
+          <h3 className="font-display text-[1.75rem] leading-tight text-navy">For procurement and security</h3>
+          <p className="mt-4 max-w-2xl leading-relaxed text-stone-600">
+            We sign a BAA before any PHI. We will complete your security questionnaire and work under
+            your MSA. Agents run in your cloud under your identity. When your environment needs SOC 2,
+            21 CFR Part 11, or GxP controls, we document requirements against that environment. We do
+            not claim certifications we do not hold.
+          </p>
+        </Reveal>
       </div>
     </section>
   )

@@ -15,8 +15,8 @@ const services = [
     name: "AI architecture",
     outcome: "Design how AI fits the systems you already run.",
     work: [
-      "Data, models, and access mapped to your EHR, CTMS, and cloud",
-      "PHI boundaries, BAA, and an audit log for every agent action",
+      "Data, models, and access mapped to your EHR, CTMS, EDC, safety database, and cloud",
+      "PHI boundaries, BAA, and a compliance log for every agent action",
       "Build, buy, or wait, decided per workflow",
     ],
   },
@@ -24,9 +24,18 @@ const services = [
     name: "Healthcare agents",
     outcome: "Agents that do the work, deployed in your systems and kept running.",
     work: [
-      "Prior auth, eligibility, intake, trial start-up, pre-MLR review",
+      "Prior auth, eligibility, intake, and trial start-up (feasibility, CDAs, budgets, contracts)",
       "Shadow mode beside your team before anything goes live",
       "Maintained as payer rules, SOPs, and systems change, measured every month",
+    ],
+  },
+  {
+    name: "Trial safety operations",
+    outcome: "Sponsor-side safety workflows that return labor hours, with a medical reviewer still deciding reportability.",
+    work: [
+      "SAE intake and case narratives drafted for qualified review",
+      "Reconciliation between EDC and the safety database",
+      "Site query drafting measured in sponsor hours returned",
     ],
   },
   {

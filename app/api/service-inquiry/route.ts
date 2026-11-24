@@ -6,11 +6,19 @@ import { isRevenueBand } from "@/lib/discovery";
 export const runtime = "nodejs";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const STUCK_MAX = 4000;
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email, linkedin, service, company, role, revenue } = body;
+    const { name, email, linkedin, service, company, role, revenue, stuck, website } = body;
+
+    // Honeypot: real users leave this empty.
+    if (typeof website === "string" && website.trim().length > 0) {
+      return NextResponse.json({ success: true });
+    }
+
+    // TODO: Cloudflare Turnstile verification when TURNSTILE_SECRET_KEY is set in deploy env.
 
     if (!name || typeof name !== "string" || name.trim().length === 0) {
       return NextResponse.json(
@@ -47,6 +55,15 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    if (!stuck || typeof stuck !== "string" || stuck.trim().length === 0) {
+      return NextResponse.json(
+        { error: "What is stuck is required" },
+        { status: 400 }
+      );
+    }
+
+    const stuckText = stuck.trim().slice(0, STUCK_MAX);
+
     const serviceName =
       typeof service === "string" && service.trim().length > 0
         ? service.trim()
@@ -59,10 +76,10 @@ export async function POST(request: NextRequest) {
           : `https://linkedin.com/in/${linkedin.trim().replace(/^@/, "")}`
         : null;
 
-    // Create deal in pipeline
+    // Create deal in pipeline (notes field carries stuck; no schema migration required)
     try {
       await createDeal({
-        name: `${name.trim()} — ${company.trim()}`,
+        name: `${name.trim()} - ${company.trim()}`,
         company: company.trim(),
         contact_name: name.trim(),
         contact_title: role.trim(),
@@ -76,7 +93,7 @@ export async function POST(request: NextRequest) {
         expected_close_date: null,
         follow_up_date: null,
         next_action: `Follow up re: ${serviceName}`,
-        notes: `Inbound discovery from cappawork.com. Role: ${role.trim()}. Annual revenue: ${revenue}. Interested in: ${serviceName}.`,
+        notes: `Inbound discovery from cappawork.com. Role: ${role.trim()}. Annual revenue: ${revenue}. Interested in: ${serviceName}. Stuck: ${stuckText}`,
       });
     } catch (dealError) {
       console.error("Failed to create deal:", dealError);
@@ -94,7 +111,12 @@ export async function POST(request: NextRequest) {
             contact_title: role.trim(),
             linkedin_url: linkedinUrl ?? undefined,
             created_by: "system",
-            metadata: { service: serviceName, role: role.trim(), revenue },
+            metadata: {
+              service: serviceName,
+              role: role.trim(),
+              revenue,
+              stuck: stuckText,
+            },
           })
         )
         .catch((err) => console.error("List Builder inbound bridge failed:", err));
@@ -117,6 +139,9 @@ export async function POST(request: NextRequest) {
         `Interested in: ${serviceName}`,
         `Email: ${email.trim()}`,
         linkedinUrl ? `LinkedIn: ${linkedinUrl}` : null,
+        ``,
+        `What is stuck:`,
+        stuckText,
         ``,
         `Added to pipeline as a lead.`,
       ]

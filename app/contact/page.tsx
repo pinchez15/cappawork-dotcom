@@ -22,10 +22,10 @@ export default function ContactPage() {
               </p>
             </div>
             <h1 className="font-display text-3xl sm:text-4xl tracking-tight text-navy leading-tight">
-              Book a discovery call
+              Book a Strategy Sprint
             </h1>
             <p className="mt-3 text-sm sm:text-base text-stone-600 leading-relaxed">
-              Tell us where the operation is slow. We will tell you whether the work should change, and whether an agent belongs in it.
+              Tell us what is stuck. We will come back with how the first week would run and what it would produce.
             </p>
             <div className="mt-8">
               <div className="mb-4">

@@ -25,33 +25,31 @@ export default function TermsPage() {
             <section className="mb-8">
               <h2 className="text-2xl font-semibold text-stone-900 mt-8 mb-4">Agreement to Terms</h2>
               <p className="text-stone-700 leading-relaxed mb-4">
-                By accessing or using CappaWork's services, you agree to be bound by these Terms of Service. If you disagree with any part of these terms, you may not access our services.
+                By accessing or using CappaWork&rsquo;s services, you agree to be bound by these Terms of Service. If you disagree with any part of these terms, you may not access our services.
               </p>
             </section>
 
             <section className="mb-8">
               <h2 className="text-2xl font-semibold text-stone-900 mt-8 mb-4">Services</h2>
               <p className="text-stone-700 leading-relaxed mb-4">
-                CappaWork provides software development services, including but not limited to:
+                CappaWork provides product and AI services for healthcare and life sciences, including:
               </p>
               <ul className="list-disc list-inside text-stone-700 space-y-2 mb-4">
-                <li>Custom software development</li>
-                <li>Internal tool development</li>
-                <li>MVP and early-stage product development</li>
-                <li>Cohort-based educational programs</li>
+                <li>Strategy, product, UX, UI, and build sprints</li>
+                <li>Embedded product and AI team retainers</li>
+                <li>Custom software and agent development inside client environments</li>
               </ul>
             </section>
 
             <section className="mb-8">
               <h2 className="text-2xl font-semibold text-stone-900 mt-8 mb-4">Payment Terms</h2>
               <p className="text-stone-700 leading-relaxed mb-4">
-                Payment terms are specified in individual service agreements. For cohort programs:
+                Payment terms are specified in individual statements of work or service agreements. Unless otherwise agreed in writing:
               </p>
               <ul className="list-disc list-inside text-stone-700 space-y-2 mb-4">
-                <li>Payments are processed through Stripe</li>
-                <li>Cohort registrations are non-refundable because you are holding a spot</li>
-                <li>If you need to cancel, you can join any other cohort for no additional charge</li>
+                <li>Sprint and retainer fees are due as stated in the SOW</li>
                 <li>All prices are in USD unless otherwise specified</li>
+                <li>Work that reserves dedicated capacity may be non-refundable once that capacity is held</li>
               </ul>
             </section>
 
@@ -64,7 +62,6 @@ export default function TermsPage() {
                 <li>You retain ownership of your business data and proprietary information</li>
                 <li>We retain ownership of our methodologies, tools, and general knowledge</li>
                 <li>Custom code developed for you is owned by you upon full payment</li>
-                <li>Cohort materials are provided for personal use and may not be redistributed</li>
               </ul>
             </section>
 
@@ -78,7 +75,7 @@ export default function TermsPage() {
             <section className="mb-8">
               <h2 className="text-2xl font-semibold text-stone-900 mt-8 mb-4">Modifications</h2>
               <p className="text-stone-700 leading-relaxed mb-4">
-                We reserve the right to modify these terms at any time. We will notify users of any material changes by updating the "Last updated" date at the top of this page.
+                We reserve the right to modify these terms at any time. We will notify users of any material changes by updating the &ldquo;Last updated&rdquo; date at the top of this page.
               </p>
             </section>
 
@@ -96,6 +93,3 @@ export default function TermsPage() {
     </main>
   )
 }
-
-
-
