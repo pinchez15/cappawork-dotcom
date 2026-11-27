@@ -19,7 +19,7 @@ const instrumentSerif = Instrument_Serif({
   display: "swap",
 })
 
-const SITE_TITLE = "CappaWork | The embedded product team for healthcare and life sciences"
+const SITE_TITLE = "CappaWork | AI for Healthcare"
 const SITE_DESCRIPTION =
   "We turn stuck initiatives into shipped products for healthcare and life sciences companies, in one-week sprints. AI for speed, scale, and capability. Never for truth, joy, or relationships."
 

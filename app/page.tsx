@@ -10,7 +10,7 @@ import HomeSprints from "./components/home/home-sprints"
 import HomeProof from "./components/home/home-proof"
 import HomeBook from "./components/home/home-book"
 
-const title = "CappaWork | AI workflows for healthcare and life sciences"
+const title = "CappaWork | AI for Healthcare"
 const description =
   "We design and build the AI workflows your licensed team should not still be doing by hand. Strategy, architecture, agents, and trial safety operations for healthcare and life sciences companies of about $50M and up."
 

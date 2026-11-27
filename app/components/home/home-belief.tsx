@@ -38,7 +38,7 @@ export default function HomeBelief() {
     <section id="philosophy" className="bg-navy py-24 sm:py-32 lg:py-40">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal as="h2" className="max-w-5xl font-display text-[2.25rem] leading-[1.1] tracking-[-0.015em] text-white sm:text-5xl lg:text-[3.5rem]">
-          We make work more human.
+          Making work more human.
         </Reveal>
 
         <Reveal index={1} className="mt-8 max-w-2xl">

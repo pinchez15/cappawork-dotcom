@@ -6,9 +6,12 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
           <div className="md:col-span-2">
-            <Link href="/" className="text-xl font-display tracking-tight text-white mb-4 inline-block">
+            <Link href="/" className="text-xl font-display tracking-tight text-white mb-2 block w-fit">
               CappaWork
             </Link>
+            <p className="font-display text-lg tracking-tight text-white/90 mb-3">
+              Making work more human.
+            </p>
             <p className="text-white/55 text-sm max-w-sm leading-relaxed">
               The embedded product team for healthcare and life sciences. AI for speed, scale, and
               capability. Never for truth, joy, or relationships.
